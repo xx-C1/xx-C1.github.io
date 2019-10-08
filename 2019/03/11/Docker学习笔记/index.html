@@ -28,8 +28,8 @@
     scheme: 'Gemini',
     version: '7.4.1',
     exturl: false,
-    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
-    copycode: {"enable":false,"show_result":false,"style":null},
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    copycode: {"enable":true,"show_result":true,"style":null},
     back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
     bookmark: {"enable":false,"color":"#222","save":"auto"},
     fancybox: false,
@@ -121,6 +121,8 @@
   <div class="container use-motion">
     <div class="headband"></div>
 
+    <a href="https://github.com/xx-C1" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-meta">
@@ -158,6 +160,39 @@
     
 
     <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
 
   </li>
       
@@ -202,7 +237,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="xx_C1">
       <meta itemprop="description" content="Cyberspace Security">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/dxx.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -254,6 +289,27 @@
             </span>
           
 
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>9.9k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>17 分钟</span>
+            </span>
           
 
         </div>
@@ -1073,6 +1129,39 @@
     
         
       
+        <div id="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.png" alt="xx_C1 微信支付">
+        <p>微信支付</p>
+      </div>
+
+  </div>
+</div>
+
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>xx_C1</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="/15.html" title="Docker学习笔记">15.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+</div>
+
+      
 
       <footer class="post-footer">
           
@@ -1148,13 +1237,16 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker学习笔记整理"><span class="nav-number">1.</span> <span class="nav-text">Docker学习笔记整理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、基本概念"><span class="nav-number">1.1.</span> <span class="nav-text">一、基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、安装Docker"><span class="nav-number">1.2.</span> <span class="nav-text">二、安装Docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、使用镜像"><span class="nav-number">1.3.</span> <span class="nav-text">三、使用镜像</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#（一）获取镜像："><span class="nav-number">1.3.1.</span> <span class="nav-text">（一）获取镜像：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（二）列出镜像："><span class="nav-number">1.3.2.</span> <span class="nav-text">（二）列出镜像：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（三）删除镜像"><span class="nav-number">1.3.3.</span> <span class="nav-text">（三）删除镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（四）镜像构成"><span class="nav-number">1.3.4.</span> <span class="nav-text">（四）镜像构成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（五）镜像定制"><span class="nav-number">1.3.5.</span> <span class="nav-text">（五）镜像定制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（六）Dockerfile命令详解"><span class="nav-number">1.3.6.</span> <span class="nav-text">（六）Dockerfile命令详解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（七）其他制作镜像的方式"><span class="nav-number">1.3.7.</span> <span class="nav-text">（七）其他制作镜像的方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（八）镜像实现原理"><span class="nav-number">1.3.8.</span> <span class="nav-text">（八）镜像实现原理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、操作容器"><span class="nav-number">1.4.</span> <span class="nav-text">四、操作容器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#（一）启动"><span class="nav-number">1.4.1.</span> <span class="nav-text">（一）启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（二）守护态运行"><span class="nav-number">1.4.2.</span> <span class="nav-text">（二）守护态运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（三）终止容器"><span class="nav-number">1.4.3.</span> <span class="nav-text">（三）终止容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（四）进入容器"><span class="nav-number">1.4.4.</span> <span class="nav-text">（四）进入容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（五）导出和导入容器"><span class="nav-number">1.4.5.</span> <span class="nav-text">（五）导出和导入容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（六）删除容器"><span class="nav-number">1.4.6.</span> <span class="nav-text">（六）删除容器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、访问仓库"><span class="nav-number">1.5.</span> <span class="nav-text">五、访问仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#（一）Docker-Hub"><span class="nav-number">1.5.1.</span> <span class="nav-text">（一）Docker Hub</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（二）私有仓库"><span class="nav-number">1.5.2.</span> <span class="nav-text">（二）私有仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（三）高级私有仓库"><span class="nav-number">1.5.3.</span> <span class="nav-text">（三）高级私有仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（四）Nexus3-x的私有仓库"><span class="nav-number">1.5.4.</span> <span class="nav-text">（四）Nexus3.x的私有仓库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、数据管理"><span class="nav-number">1.6.</span> <span class="nav-text">六、数据管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#（一）数据卷（类似于linux下队目录或文件进行mount）"><span class="nav-number">1.6.1.</span> <span class="nav-text">（一）数据卷（类似于linux下队目录或文件进行mount）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（二）挂载主机目录"><span class="nav-number">1.6.2.</span> <span class="nav-text">（二）挂载主机目录</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#七、使用网络"><span class="nav-number">1.7.</span> <span class="nav-text">七、使用网络</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#（一）外部访问容器"><span class="nav-number">1.7.1.</span> <span class="nav-text">（一）外部访问容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（二）容器互联"><span class="nav-number">1.7.2.</span> <span class="nav-text">（二）容器互联</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（三）配置DNS"><span class="nav-number">1.7.3.</span> <span class="nav-text">（三）配置DNS</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#八、高级网络配置"><span class="nav-number">1.8.</span> <span class="nav-text">八、高级网络配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#九、Docker三剑客之Compose项目"><span class="nav-number">1.9.</span> <span class="nav-text">九、Docker三剑客之Compose项目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#（一）简介"><span class="nav-number">1.9.1.</span> <span class="nav-text">（一）简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（二）安装卸载"><span class="nav-number">1.9.2.</span> <span class="nav-text">（二）安装卸载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（三）使用"><span class="nav-number">1.9.3.</span> <span class="nav-text">（三）使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（四）命令说明"><span class="nav-number">1.9.4.</span> <span class="nav-text">（四）命令说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（五）yml模版文件"><span class="nav-number">1.9.5.</span> <span class="nav-text">（五）yml模版文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十、Docker三剑客之Machine项目"><span class="nav-number">1.10.</span> <span class="nav-text">十、Docker三剑客之Machine项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十一、Docker三剑客之Docker-Swarm项目"><span class="nav-number">1.11.</span> <span class="nav-text">十一、Docker三剑客之Docker Swarm项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十二、安全"><span class="nav-number">1.12.</span> <span class="nav-text">十二、安全</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十三、底层实现"><span class="nav-number">1.13.</span> <span class="nav-text">十三、底层实现</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker学习笔记整理"><span class="nav-text">Docker学习笔记整理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、基本概念"><span class="nav-text">一、基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、安装Docker"><span class="nav-text">二、安装Docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、使用镜像"><span class="nav-text">三、使用镜像</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#（一）获取镜像："><span class="nav-text">（一）获取镜像：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（二）列出镜像："><span class="nav-text">（二）列出镜像：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（三）删除镜像"><span class="nav-text">（三）删除镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（四）镜像构成"><span class="nav-text">（四）镜像构成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（五）镜像定制"><span class="nav-text">（五）镜像定制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（六）Dockerfile命令详解"><span class="nav-text">（六）Dockerfile命令详解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（七）其他制作镜像的方式"><span class="nav-text">（七）其他制作镜像的方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（八）镜像实现原理"><span class="nav-text">（八）镜像实现原理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、操作容器"><span class="nav-text">四、操作容器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#（一）启动"><span class="nav-text">（一）启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（二）守护态运行"><span class="nav-text">（二）守护态运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（三）终止容器"><span class="nav-text">（三）终止容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（四）进入容器"><span class="nav-text">（四）进入容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（五）导出和导入容器"><span class="nav-text">（五）导出和导入容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（六）删除容器"><span class="nav-text">（六）删除容器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、访问仓库"><span class="nav-text">五、访问仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#（一）Docker-Hub"><span class="nav-text">（一）Docker Hub</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（二）私有仓库"><span class="nav-text">（二）私有仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（三）高级私有仓库"><span class="nav-text">（三）高级私有仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（四）Nexus3-x的私有仓库"><span class="nav-text">（四）Nexus3.x的私有仓库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、数据管理"><span class="nav-text">六、数据管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#（一）数据卷（类似于linux下队目录或文件进行mount）"><span class="nav-text">（一）数据卷（类似于linux下队目录或文件进行mount）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（二）挂载主机目录"><span class="nav-text">（二）挂载主机目录</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#七、使用网络"><span class="nav-text">七、使用网络</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#（一）外部访问容器"><span class="nav-text">（一）外部访问容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（二）容器互联"><span class="nav-text">（二）容器互联</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（三）配置DNS"><span class="nav-text">（三）配置DNS</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#八、高级网络配置"><span class="nav-text">八、高级网络配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#九、Docker三剑客之Compose项目"><span class="nav-text">九、Docker三剑客之Compose项目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#（一）简介"><span class="nav-text">（一）简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（二）安装卸载"><span class="nav-text">（二）安装卸载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（三）使用"><span class="nav-text">（三）使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（四）命令说明"><span class="nav-text">（四）命令说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（五）yml模版文件"><span class="nav-text">（五）yml模版文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十、Docker三剑客之Machine项目"><span class="nav-text">十、Docker三剑客之Machine项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十一、Docker三剑客之Docker-Swarm项目"><span class="nav-text">十一、Docker三剑客之Docker Swarm项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十二、安全"><span class="nav-text">十二、安全</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十三、底层实现"><span class="nav-text">十三、底层实现</span></a></li></ol></li></ol></div>
         
       </div>
       <!--/noindex-->
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/dxx.gif"
+      alt="xx_C1">
   <p class="site-author-name" itemprop="name">xx_C1</p>
   <div class="site-description" itemprop="description">Cyberspace Security</div>
 </div>
@@ -1189,8 +1281,84 @@
     
   </nav>
 </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/xx-C1" title="GitHub &rarr; https://github.com/xx-C1"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:iduxinxing@gmail.com" title="E-Mail &rarr; mailto:iduxinxing@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
 
 
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://p0sec.net/" title="https://p0sec.net/" rel="noopener" target="_blank">p0</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://seaii-blog.com/" title="https://seaii-blog.com/" rel="noopener" target="_blank">seaii</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="http://syf.ac.cn/" title="http://syf.ac.cn/" rel="noopener" target="_blank">7N1ght</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://www.windylh.com/" title="https://www.windylh.com/" rel="noopener" target="_blank">windylh</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="http://zhengbao.wang" title="http://zhengbao.wang" rel="noopener" target="_blank">Boogle</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://v0w.top" title="https://v0w.top" rel="noopener" target="_blank">vOw</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://ttonys.github.io/" title="https://ttonys.github.io/" rel="noopener" target="_blank">tongs</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://daolgts.github.io" title="https://daolgts.github.io" rel="noopener" target="_blank">daolgts</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="http://j0k3r.top/" title="http://j0k3r.top/" rel="noopener" target="_blank">joker</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://wzt.ac.cn/" title="https://wzt.ac.cn/" rel="noopener" target="_blank">CataLpa</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="http://asa9ao.xyz/" title="http://asa9ao.xyz/" rel="noopener" target="_blank">Asa9ao</a>
+        </li>
+      
+    </ul>
+  </div>
 
       </div>
 
@@ -1209,6 +1377,16 @@
     <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">xx_C1</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">84k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:20</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>
