@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.1">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="0x01.前言  水文一篇。 ​ 大表哥们都用Mac，小老弟还在用Win10。 自己不算忠实果粉也算半个了吧，深知苹果系统的强大、流畅、好用，着实眼红，但是又没钱买。。。所以，经先进表哥指导，搞了个黑苹果。 ​ 开学第一周，每晚在床上都是看关于黑苹果的东西，从一无所知到浅浅明白。 ​ 由于先进表哥经验丰富，过程还算顺利，一天多就搞定了。当然，中间也遇到了很多麻烦。 ​ 安装成功只是成功吃到黑苹果的">
+<meta name="keywords" content="环境搭建">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CTFer的黑苹果安装与配置心得">
+<meta property="og:url" content="https://github.com/xx-C1/xx-C1.github.io/2019/03/10/CTFer的黑苹果安装与配置心得/index.html">
+<meta property="og:site_name" content="xxC1&#39;s blog">
+<meta property="og:description" content="0x01.前言  水文一篇。 ​ 大表哥们都用Mac，小老弟还在用Win10。 自己不算忠实果粉也算半个了吧，深知苹果系统的强大、流畅、好用，着实眼红，但是又没钱买。。。所以，经先进表哥指导，搞了个黑苹果。 ​ 开学第一周，每晚在床上都是看关于黑苹果的东西，从一无所知到浅浅明白。 ​ 由于先进表哥经验丰富，过程还算顺利，一天多就搞定了。当然，中间也遇到了很多麻烦。 ​ 安装成功只是成功吃到黑苹果的">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/xx-C1/MDphoto/master/001.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xx-C1/MDphoto/master/002.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xx-C1/MDphoto/master/003.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xx-C1/MDphoto/master/004.png">
+<meta property="og:updated_time" content="2019-10-08T11:13:25.323Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CTFer的黑苹果安装与配置心得">
+<meta name="twitter:description" content="0x01.前言  水文一篇。 ​ 大表哥们都用Mac，小老弟还在用Win10。 自己不算忠实果粉也算半个了吧，深知苹果系统的强大、流畅、好用，着实眼红，但是又没钱买。。。所以，经先进表哥指导，搞了个黑苹果。 ​ 开学第一周，每晚在床上都是看关于黑苹果的东西，从一无所知到浅浅明白。 ​ 由于先进表哥经验丰富，过程还算顺利，一天多就搞定了。当然，中间也遇到了很多麻烦。 ​ 安装成功只是成功吃到黑苹果的">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/xx-C1/MDphoto/master/001.png">
+  <link rel="canonical" href="https://github.com/xx-C1/xx-C1.github.io/2019/03/10/CTFer的黑苹果安装与配置心得/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>CTFer的黑苹果安装与配置心得 | xxC1's blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">xxC1's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">想学的太多，懂得的太少。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xx-C1/xx-C1.github.io/2019/03/10/CTFer的黑苹果安装与配置心得/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xx_C1">
+      <meta itemprop="description" content="Cyberspace Security">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="xxC1's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">CTFer的黑苹果安装与配置心得
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-10 19:52:06" itemprop="dateCreated datePublished" datetime="2019-03-10T19:52:06+08:00">2019-03-10</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-10-08 19:13:25" itemprop="dateModified" datetime="2019-10-08T19:13:25+08:00">2019-10-08</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/操作系统/" itemprop="url" rel="index"><span itemprop="name">操作系统</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h5 id="0x01-前言"><a href="#0x01-前言" class="headerlink" title="0x01.前言"></a><strong>0x01.前言</strong></h5><hr>
+<p> 水文一篇。 ​ 大表哥们都用Mac，小老弟还在用Win10。 自己不算忠实果粉也算半个了吧，深知苹果系统的强大、流畅、好用，着实眼红，但是又没钱买。。。所以，经先进表哥指导，搞了个黑苹果。 ​ 开学第一周，每晚在床上都是看关于黑苹果的东西，从一无所知到浅浅明白。 ​ 由于先进表哥经验丰富，过程还算顺利，一天多就搞定了。当然，中间也遇到了很多麻烦。 ​ 安装成功只是成功吃到黑苹果的一半。由Win切换到Mac，软件破解、环境配置等等更麻烦。 ​ 收获也很多。记录下来，自己加深记忆的同时也供大家参考吧。</p>
+<h5 id="0x02-黑苹果安装历程"><a href="#0x02-黑苹果安装历程" class="headerlink" title="0x02.黑苹果安装历程"></a><strong>0x02.黑苹果安装历程</strong></h5><hr>
+<p> 后续记忆写的，没有截图。凑合读吧。 ​ <strong>1.爬帖子爬帖子爬帖子</strong></p>
+<hr>
+<p> 推荐几个个不错的： ​ - 微信公众号：悦享软件（包含镜像、工具、EFI文件） ​ - 远景论坛：<code>http://bbs.pcbeta.com/</code>（主要是搜集信息，下载附件需要注册，但已经无法注册，可以淘宝买） ​ - 黑果小兵：<code>https://blog.daliansky.net/</code>（colcer工具使用及其他问题解决办法） ​ - 国光博客：<code>https://www.sqlsec.com/</code>（一名ctfer，主要是教程及安装流程） ​ 所有关于黑苹果的文章都看完之后加上观看教程视频等，基本知道大体流程及注意事项了。 ​ <strong>2.下载镜像，制启动盘</strong></p>
+<hr>
+<p> 使用了悦享软件分享的网盘，包含了镜像、工具、EFI大全。 ​ 链接：<code>http://mp.weixin.qq.com/s?__biz=MzIzNjAxMDMzNQ==&amp;mid=100000706&amp;idx=1&amp;sn=5bf4693ac762eae5ca63372bf7fe4c02&amp;chksm=68df2df25fa8a4e4c86fada980c07a8e2c93236e06fc0a710ce3b6049ff04b2260650287731d&amp;mpshare=1&amp;scene=23&amp;srcid=#rd</code> ​ 一开始下载的Majove（10.14），没找到10.14的光影EFI，尝试后发现用光影10.13的EFI不行。只能用High Sierra了,不过真想体验一把10.14的暗黑模式。 ​ - 格式化u盘（u盘必须要大于8G）使用工具<code>TransMac：Formar Disk for Mac</code>把u盘转换成Mac格式，一路默认就行。 ​ - 然后使用<code>Restore with Disk Image</code>把镜像写入u盘。根据u盘的存储速度来看要写入多久。（我用舍友u盘写了一个多小时….然后还不能用….坑…） ​ - 写入完成后，Win系统由于不识别Mac系统文件格式提示把u盘格式化，一定不要确定！否则前面就白费了。 ​ - 然后，根据自己电脑配置或爬帖子找到的成功案例来下载EFI文件。（EFI文件是用来引导系统开机的，下载的黑果EFI包含mac系统的引导工具CLOVER） ​ - 由于目前win无法识别mac文件格式，使用工具：<code>DiskGenius 磁盘管理软件</code>来删除u盘启动盘的/EFI/CLOVER文件夹，然后把我们下载好的EFI里的/CLOVER文件复制进去。（直接ctrl+c、ctrl+v就行） ​ 这样就完成了最重要的一步。 ​ <strong>3.开始安装</strong></p>
+<hr>
+<p> - 首先，开机进入BIOS把安全模式关闭（否则CLOVER无法引导开机）。然后打开usb引导开机。保存重启。 ​ - 然后选择macos install。进入，选择中文，临时开启一个macos系统。选择磁盘管理工具，选择要安装的磁盘，然后抹盘（有重要文件要备份！由于之前我win10在128G的ssd上，又不想把mac装在机械上，同时还也不想花钱换ssd..所以，我先把win10移到了机械硬盘然后抹了ssd。。。如果自己是256G的ssd在安装前，先直接分100多G就够用了） ​ - 然后再选择安装。第一次安装重启后在要安装一次。第一次安装设置macos进入系统后，基本完成了80%了。由于自己找的EFI已经可以驱动大部分，就没必要弄了。 ​ <strong>4.后续调整</strong></p>
+<hr>
+<p> 由于目前是用u盘来引导启动，不能每次都带个u盘来引导开启mac吧。 ​ - 然后，同样用<code>DiskGenius 磁盘管理软件</code>把u盘下的CLOVER文件复制到mac系统下ESP分区的EFI里面。 ​ - 然后，使用工具：<code>EasyUEFI</code>来新建一个开机引导，调整顺序为第一。为保障确实是第一，开机的时候可以进入BIOS看看，再设置一下。 ​ 到此，已经ok了。 ​ 然后本人有强迫症，开机引导多了很多选择，想隐藏没用的。可以在mac下挂载ESP分区，打开clover.efi文件用<code>clover configurator</code>来设置。 ​ 屏幕亮度使用键盘快捷键没法调节，但是可以用鼠标调节，暂时没管（也挺麻烦的，懒得花时间研究了，毕竟无伤大雅）。 ​ 最后，全球问题：网卡无法驱动。淘宝19.9包邮usb无线网卡解决！（苹果原装的内置网卡价格虚高，都100多。不过可以连接蓝牙。我的光影可以驱动蓝牙所以也没必要换内置网卡。） ​ <strong>5.总结一下</strong></p>
+<hr>
+<p> 虽然总体流程描述起来看似很简单，其实很多步骤都是看了大大大部分资料才明白的。（淘宝安装价格150一台） ​ 目前我的电脑基本90%以上完成度吧。 ​ - 无法解问题：蓝牙不能关闭、独显无法驱动、亮度无法键盘快捷键调节、触摸板部分手势不能用 ​ - 待解决问题：更换内置网卡、改显卡内存、调整字体大小（太小了累眼，改分辨率使字体变大但是模糊..） ​ - 优点：性价比极高、流畅、好用、爽、装x…… ​ - 缺点：不能100%完美、独显废了、不一定稳定、折腾…… ​ - 从win换到mac开始有点不适应…特别是快捷键。（默默掏出快捷键大全背了起来….） ​ <strong>0x03.黑苹果环境配置</strong></p>
+<hr>
+<p> <strong>1.xcode</strong></p>
+<hr>
+<p> 直接在appstore下载。 ​ 命令：<code>xcode-select --install</code>安装Xcode Command Line Tools ​ 虽然不开发苹果软件，但其内置了一些基于linux的必要工具。 ​ <strong>2..Homebrew+iTerm2+zsh</strong></p>
+<hr>
+<pre><code># 使用系统自带的 ruby 安装 Homebrew
+/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</code></pre><p> 不过下载速度10几k，每次都失败。网上找了一堆文章尝试后，终于解决！某国家级大型网络设备真坑！ ​ 链接：<a href="https://blog.csdn.net/qq_35624642/article/details/79682979（有两处替换，但是下载的文件只能搜到一处，所以我把第二处替换直接加上尝试竟然成功了…!）" target="_blank" rel="noopener">https://blog.csdn.net/qq_35624642/article/details/79682979（有两处替换，但是下载的文件只能搜到一处，所以我把第二处替换直接加上尝试竟然成功了…!）</a> ​ 上面文章也包括了更换国内的源，使brew更快。 ​ brew安装上后直接安装一些linux必要的工具或软件： ​ vim、git、node、python3、wget等等有的ios自带了。 ​ 都说iTerm2+zsh牛x，那给我也整一个吧。 ​ 附链接：<a href="https://www.cnblogs.com/xishuai/p/mac-iterm2.html" target="_blank" rel="noopener">https://www.cnblogs.com/xishuai/p/mac-iterm2.html</a> ​ <strong>3.IDE安装与破解</strong></p>
+<hr>
+<p> 我选择JetBrains全套：CLion、Pycharm、PhpStorm、Intellij IDEA、Goland ​ 下载后破解即可。在<a href="http://idea.lanyus.com/可获取破解教程（有的方法不行）" target="_blank" rel="noopener">http://idea.lanyus.com/可获取破解教程（有的方法不行）</a> ​ 尝试一番后，选择了本地破解。本地破解也不算难。由于JetBrains全家桶本地破解流程一样，索性直接把可能会用到的语言IDE全部安装了，省的以后用到再麻烦。（装这么多IDE放桌面，也zhuangb） ​ <strong>本地破解流程：</strong> ​ - 1.官网下载，打开dmg文件正常安装，在访达里面找到应用程序，显示包内容 ​ <img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/001.png" alt="001"> ​ - 2.安装完成后把破解包复制到/Contents/bin文件夹下 ​ <img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/002.png" alt="002"> ​ - 3.JetBrains全套基于Java开发，打开虚拟机设置文件xxxx.vmoptions，在最后添加一条命令： <code>-javaagent:../bin/JetbrainsIdesCrack-4.2-release.jar</code> ​ - 注：xxx是IDE的名字，添加代码的命令要和自己破解包的名字一样。 ​ <img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/003.png" alt="003"> ​ - 4.打开IDE，选择Activation code填写上面链接获取的注册码，选择ok破解完成。 ​ <img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/004.png" alt="004"> ​ <strong>4.开发环境</strong></p>
+<hr>
+<p> 网上有多种选择： ​ - 1.有IDE，可以直接新建build-in Web Server，即使没有Apache、Nginx就可以本地解析运行。 ​ - 2.mac自带php和apache，只需本地安装数据库（如mysql） ​ 在PhpStorm新建PhpWebPage打开Apache（提前修改配置文件把目录改成自己项目目录），然后在PhpStorm配置好默认路径即可。（也可以用其他文本编辑器） ​ mysql用<code>brew install mysql</code>即可（如果用官方dmg安装还得配置环境（和win配置环境变量一个道理），把文件地址导入到文件即可，bash是<code>~./bash_profile</code>，zsh是<code>~./zshrc</code>） ​ ​ 然后安装Nacicat可视化数据库管理软件来管理数据库。 ​ Nacicat安装与破解链接：<a href="https://blog.csdn.net/marswill/article/details/79808416" target="_blank" rel="noopener">https://blog.csdn.net/marswill/article/details/79808416</a> ​ ​ - 3.docker搭建环境，把本地代码文件映射到docker ​ docker相比来说更加灵活、省空间。但是需要熟悉docker。 ​ docker官网下载免费安装即可。 ​ ​ 总的流程分为三部： ​ - a.编写好各个软件的dockerfile ​ - b.编写好配置文件 ​ - c.通过docker-compose处理所有的dockerfile（包括将配置文件扔进dockerfile文件构建的镜像中） ​ ​ ​ <strong>5.渗透环境</strong></p>
+<hr>
+<p> - kali足矣 ​ <strong>6.CTF环境</strong></p>
+<hr>
+<p> - kali+mac+win（部分misc工具可能需要）三者切换吧 ​ <strong>7.re或pwn环境</strong></p>
+<hr>
+<p> 等学了用到再说吧 ​ <strong>8.其他软件</strong></p>
+<hr>
+<p> 免费，直接AppStore或者官网下载： ​ - 谷歌浏览器（数据同步真好） ​ - Shadowsocks（fq必备） ​ - 有道云笔记（感觉比印象笔记好用） ​ - 有道翻译（好用） ​ - Typora（写md） ​ - FDM（防断点下载，大文件下载断点就GG了） ​ - 百度网盘（限速太恶心了，网上说的Aria2GUI也不行，目前没找到防限速方法） ​ - wps（有时候还是得弄点文件、ppt啥的） ​ - Dr.Cleaner（免费清理工具，时间长了偶尔清理一下） ​ - QQ、微信 ​ ​ 需要破解： ​ - Parallels Desktop（虚拟机软件，kali很流畅！比win用vm爽多了！最牛x的是bootcamp直接可以把我机械硬盘里面的win10开启，注意：在BIOS里面开启虚拟设置） ​ - Sublime text3（主要还是写python或php的脚本和编辑用比较灵活方便） ​ - XMind（画思维导图） ​ - Dash（集成了各个语言和框架的文档手册！程序猿搬砖必备！不过全是英文…）、 ​ - 01Editor（二进制分析工具，打ctf可能会用到） ​ - PS（可能会用到，先安装破解再说） ​ 附mac精选软件链接：<a href="https://ihtcboy.com/2018/07/15/2018-07-15_%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84macOS%E7%B3%BB%E5%88%97%EF%BC%9A%E7%B2%BE%E9%80%89MacApp/" target="_blank" rel="noopener">https://ihtcboy.com/2018/07/15/2018-07-15_%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84macOS%E7%B3%BB%E5%88%97%EF%BC%9A%E7%B2%BE%E9%80%89MacApp/</a></p>
+<h5 id="0x04-总结"><a href="#0x04-总结" class="headerlink" title="0x04.总结"></a><strong>0x04.总结</strong></h5><hr>
+<p> 一天准备一天半安装三天配置，基本一周就过去了。。。以后好好学习，天天向上。</p>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/环境搭建/" rel="tag"># 环境搭建</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/03/07/2018ddctf-mini-blockchain-分析/" rel="next" title="2018DDCTF-mini-blockchain分析">
+                  <i class="fa fa-chevron-left"></i> 2018DDCTF-mini-blockchain分析
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/03/11/Docker学习笔记/" rel="prev" title="Docker学习笔记">
+                  Docker学习笔记 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#0x01-前言"><span class="nav-number">1.</span> <span class="nav-text">0x01.前言</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#0x02-黑苹果安装历程"><span class="nav-number">2.</span> <span class="nav-text">0x02.黑苹果安装历程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#0x04-总结"><span class="nav-number">3.</span> <span class="nav-text">0x04.总结</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">xx_C1</p>
+  <div class="site-description" itemprop="description">Cyberspace Security</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span>
+        
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">标签</span>
+        
+      </div>
+    
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xx_C1</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.1</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
+<script src="/js/schemes/pisces.js?v=7.4.1"></script>
+
+<script src="/js/next-boot.js?v=7.4.1"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

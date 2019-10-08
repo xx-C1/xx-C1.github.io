@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.1">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="WEB? 这个题目一看一脸懵逼。注入扫目录都没结果。查看源码发现有俩连接很诡异。既然题目提示web？可能就在此下手了。   打开后一看是这么一堆：  先找个js代码格式工具格式一下。既然是js代码就根据前端有什么就搜什么吧。    搜索Wrong Password。发现一个checkpass函数。  搜索chekpass发现这么一堆：  我也不是很懂。。。谷歌后发现是一个25元方程组，利用pyth">
+<meta name="keywords" content="WriteUp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jarvisoj-web-WP">
+<meta property="og:url" content="https://github.com/xx-C1/xx-C1.github.io/2018/10/18/jarvisoj-webwp-3/index.html">
+<meta property="og:site_name" content="xxC1&#39;s blog">
+<meta property="og:description" content="WEB? 这个题目一看一脸懵逼。注入扫目录都没结果。查看源码发现有俩连接很诡异。既然题目提示web？可能就在此下手了。   打开后一看是这么一堆：  先找个js代码格式工具格式一下。既然是js代码就根据前端有什么就搜什么吧。    搜索Wrong Password。发现一个checkpass函数。  搜索chekpass发现这么一堆：  我也不是很懂。。。谷歌后发现是一个25元方程组，利用pyth">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://dxxblog.top/wp-content/uploads/2018/10/1539871486986-300x63.png">
+<meta property="og:image" content="http://dxxblog.top/wp-content/uploads/2018/10/1539871501080-300x63.png">
+<meta property="og:image" content="http://dxxblog.top/wp-content/uploads/2018/10/1539871544383-300x160.png">
+<meta property="og:image" content="http://dxxblog.top/wp-content/uploads/2018/10/1539871853951-300x158.png">
+<meta property="og:image" content="http://dxxblog.top/wp-content/uploads/2018/10/1539872024529-300x169.png">
+<meta property="og:image" content="http://dxxblog.top/wp-content/uploads/2018/10/1539871983502-300x55.png">
+<meta property="og:image" content="http://dxxblog.top/wp-content/uploads/2018/10/1539872134577-300x86.png">
+<meta property="og:image" content="http://dxxblog.top/wp-content/uploads/2018/10/1539872325014-300x228.png">
+<meta property="og:image" content="http://dxxblog.top/wp-content/uploads/2018/10/1539872403593-300x59.png">
+<meta property="og:image" content="http://dxxblog.top/wp-content/uploads/2018/10/1539872489815-300x280.png">
+<meta property="og:image" content="http://dxxblog.top/wp-content/uploads/2018/10/1539872639882-300x166.png">
+<meta property="og:image" content="http://dxxblog.top/wp-content/uploads/2018/10/1539872719460-300x166.png">
+<meta property="og:image" content="http://dxxblog.top/wp-content/uploads/2018/10/1539872893149-300x90.png">
+<meta property="og:image" content="http://dxxblog.top/wp-content/uploads/2018/10/1539873050018-300x33.png">
+<meta property="og:image" content="http://dxxblog.top/wp-content/uploads/2018/10/1539873206862-300x184.png">
+<meta property="og:image" content="http://dxxblog.top/wp-content/uploads/2018/10/1539873357851-300x119.png">
+<meta property="og:image" content="http://dxxblog.top/wp-content/uploads/2018/10/1539873418829-300x208.png">
+<meta property="og:image" content="http://dxxblog.top/wp-content/uploads/2018/10/1539873476151-300x130.png">
+<meta property="og:image" content="http://dxxblog.top/wp-content/uploads/2018/10/1539873504656-300x187.png">
+<meta property="og:image" content="http://dxxblog.top/wp-content/uploads/2018/10/1539873520477-300x67.png">
+<meta property="og:image" content="http://dxxblog.top/wp-content/uploads/2018/10/1539874593949-300x101.png">
+<meta property="og:image" content="http://dxxblog.top/wp-content/uploads/2018/10/1539874650025-300x82.png">
+<meta property="og:updated_time" content="2019-10-08T11:14:34.816Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="jarvisoj-web-WP">
+<meta name="twitter:description" content="WEB? 这个题目一看一脸懵逼。注入扫目录都没结果。查看源码发现有俩连接很诡异。既然题目提示web？可能就在此下手了。   打开后一看是这么一堆：  先找个js代码格式工具格式一下。既然是js代码就根据前端有什么就搜什么吧。    搜索Wrong Password。发现一个checkpass函数。  搜索chekpass发现这么一堆：  我也不是很懂。。。谷歌后发现是一个25元方程组，利用pyth">
+<meta name="twitter:image" content="http://dxxblog.top/wp-content/uploads/2018/10/1539871486986-300x63.png">
+  <link rel="canonical" href="https://github.com/xx-C1/xx-C1.github.io/2018/10/18/jarvisoj-webwp-3/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>jarvisoj-web-WP | xxC1's blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">xxC1's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">想学的太多，懂得的太少。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xx-C1/xx-C1.github.io/2018/10/18/jarvisoj-webwp-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xx_C1">
+      <meta itemprop="description" content="Cyberspace Security">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="xxC1's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">jarvisoj-web-WP
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2018-10-18 23:14:07" itemprop="dateCreated datePublished" datetime="2018-10-18T23:14:07+08:00">2018-10-18</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-10-08 19:14:34" itemprop="dateModified" datetime="2019-10-08T19:14:34+08:00">2019-10-08</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/CTF/" itemprop="url" rel="index"><span itemprop="name">CTF</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><strong>WEB?</strong></p>
+<p>这个题目一看一脸懵逼。注入扫目录都没结果。查看源码发现有俩连接很诡异。既然题目提示web？可能就在此下手了。</p>
+<p><img src="http://dxxblog.top/wp-content/uploads/2018/10/1539871486986-300x63.png" alt> <img src="http://dxxblog.top/wp-content/uploads/2018/10/1539871501080-300x63.png" alt></p>
+<p>打开后一看是这么一堆：</p>
+<p><img src="http://dxxblog.top/wp-content/uploads/2018/10/1539871544383-300x160.png" alt></p>
+<p>先找个js代码格式工具格式一下。既然是js代码就根据前端有什么就搜什么吧。 <img src="http://dxxblog.top/wp-content/uploads/2018/10/1539871853951-300x158.png" alt> <img src="http://dxxblog.top/wp-content/uploads/2018/10/1539872024529-300x169.png" alt> <img src="http://dxxblog.top/wp-content/uploads/2018/10/1539871983502-300x55.png" alt></p>
+<p>搜索Wrong Password。发现一个checkpass函数。</p>
+<p><img src="http://dxxblog.top/wp-content/uploads/2018/10/1539872134577-300x86.png" alt></p>
+<p>搜索chekpass发现这么一堆：</p>
+<p><img src="http://dxxblog.top/wp-content/uploads/2018/10/1539872325014-300x228.png" alt></p>
+<p>我也不是很懂。。。谷歌后发现是一个25元方程组，利用python里面pumpy模块可以直接求解。猜测应该解出来就是password了。</p>
+<p><img src="http://dxxblog.top/wp-content/uploads/2018/10/1539872403593-300x59.png" alt></p>
+<p>得到flag。果然不是web题目。。。。</p>
+<p><img src="http://dxxblog.top/wp-content/uploads/2018/10/1539872489815-300x280.png" alt></p>
+<p>关于这个numpy模块查了一下貌似很强大，可以解很多矩阵。很多密码题目可能用到。</p>
+<p><strong>PHPINFO</strong></p>
+<p><img src="http://dxxblog.top/wp-content/uploads/2018/10/1539872639882-300x166.png" alt></p>
+<p>其实一上来我以为很简单。一看这就是反序列化。之前总结过然而貌似是另外一种反序列化类型：Session序列化及反序列化处理器的安全问题。下篇文章总结一下。</p>
+<p>根据源码理解，直接get传入phpinfo会直接能看到php设置。可能存在很多有用的信息。</p>
+<p><img src="http://dxxblog.top/wp-content/uploads/2018/10/1539872719460-300x166.png" alt></p>
+<p>然后就貌似不会了。。谷歌后发现这是：Session序列化及反序列化处理器的安全问题。其实重点在于这段代码：</p>
+<p><code>ini_set(&#39;session.serialize_handler&#39;, &#39;php&#39;);</code></p>
+<p>其意思是设置php序列化及反序列化时使用的处理器为php。</p>
+<p>关于php处理器：</p>
+<p>PHP 内置了多种处理器用于存取 $_SESSION 数据时会对数据进行序列化和反序列化：</p>
+<p><img src="http://dxxblog.top/wp-content/uploads/2018/10/1539872893149-300x90.png" alt></p>
+<p>而php.ini中默认session.serialize_handler为php_serialize。这就会带来安全问题。</p>
+<p>简单来说就是：</p>
+<p>$_SESSION 数据，在存储时使用的序列化处理器为 php_serialize</p>
+<p>读取数据时如果用的反序列化处理器不是 php_serialize，而是 php</p>
+<p><img src="http://dxxblog.top/wp-content/uploads/2018/10/1539873050018-300x33.png" alt></p>
+<p>发现可以利用反序列化带入可执行数据到session中。</p>
+<p>构造序列化值，本地搭建环境构造表单上传文件,再查询文件目录。代码如下：</p>
+<p><img src="http://dxxblog.top/wp-content/uploads/2018/10/1539873206862-300x184.png" alt> 在本地搭建环境访问构造的页面抓包上传我们的序列化payload。 <img src="http://dxxblog.top/wp-content/uploads/2018/10/1539873357851-300x119.png" alt></p>
+<p><img src="http://dxxblog.top/wp-content/uploads/2018/10/1539873418829-300x208.png" alt></p>
+<p>注意要在前面加| 并且要用转译”符号。</p>
+<p>得到了一个文件： <img src="http://dxxblog.top/wp-content/uploads/2018/10/1539873476151-300x130.png" alt></p>
+<p>然后仿照上面操作访问这个文件。</p>
+<p> <img src="http://dxxblog.top/wp-content/uploads/2018/10/1539873504656-300x187.png" alt></p>
+<p><img src="http://dxxblog.top/wp-content/uploads/2018/10/1539873520477-300x67.png" alt></p>
+<p>得到flag。具体关于反序列化第二种情况上篇文章详细说明了。</p>
+<p><strong>Easy Gallery</strong></p>
+<p>发现有个上传页面，直接上传小马。这个马经过验证需要绕过马（这个php7.0后就不可以用了）：</p>
+<script language="php">@eval\_r($\_POST\[sb\])</script> 
+
+<p>通过在<code>view</code>里面输入图片ID和图片类型发现图片链接为：</p>
+<p><code>http://web.jarvisoj.com:32785/uploads/show.php?id=xxx&amp;type=jpg</code></p>
+<p>查看源码得到绝对地址</p>
+<p><a href="http://web.jarvisoj.com:32785/uploads/图片ID.jpg" target="_blank" rel="noopener">http://web.jarvisoj.com:32785/uploads/图片ID.jpg</a></p>
+<p>得到图片地址：uploads/1539874317.jpg通过url访问：</p>
+<p><code>http://web.jarvisoj.com:32785/index.php?page=uploads/1539874317.jpg</code></p>
+<p>回显错误：</p>
+<p><img src="http://dxxblog.top/wp-content/uploads/2018/10/1539874593949-300x101.png" alt></p>
+<p>查看他给自动加上了.php。直接%00截断访问：</p>
+<p><code>http://web.jarvisoj.com:32785/index.php?page=uploads/1539874317.jpg%00</code></p>
+<p>得到flag：</p>
+<p>  <img src="http://dxxblog.top/wp-content/uploads/2018/10/1539874650025-300x82.png" alt></p>
+<p>一般来讲ctf不用菜刀连接直接post命令ls可以获得flag。当然连接也可以。</p>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/WriteUp/" rel="tag"># WriteUp</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2018/10/18/Session序列化及反序列化处理器的安全问题/" rel="next" title="Session序列化及反序列化处理器的安全问题">
+                  <i class="fa fa-chevron-left"></i> Session序列化及反序列化处理器的安全问题
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2018/11/09/第七届山东省网络安全技能大赛-决赛Write-Up/" rel="prev" title="第七届山东省网络安全技能大赛-决赛Write-Up">
+                  第七届山东省网络安全技能大赛-决赛Write-Up <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">xx_C1</p>
+  <div class="site-description" itemprop="description">Cyberspace Security</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span>
+        
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">标签</span>
+        
+      </div>
+    
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xx_C1</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.1</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
+<script src="/js/schemes/pisces.js?v=7.4.1"></script>
+
+<script src="/js/next-boot.js?v=7.4.1"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

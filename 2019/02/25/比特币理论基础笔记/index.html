@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.1">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="一、概念2008年中本聪发明比特币 1.微观：数字货币，其价值来源于人对其的信任和共识。 2.宏观：去中心化的记账系统  二、比特币特点1.财产只受自己控制（银行可以认为你的钱不合法而收缴，而比特币只有自己的私钥控制） 2.无通货膨胀（比特币总量2100万个不变，不会贬值） 3.无假钞（共识机制） 4.流通性好（点对点） 5.不可篡改（去中心化） 6.隐私性（无个人信息）  三、比特币原理1.账本">
+<meta name="keywords" content="区块链">
+<meta property="og:type" content="article">
+<meta property="og:title" content="比特币理论基础笔记">
+<meta property="og:url" content="https://github.com/xx-C1/xx-C1.github.io/2019/02/25/比特币理论基础笔记/index.html">
+<meta property="og:site_name" content="xxC1&#39;s blog">
+<meta property="og:description" content="一、概念2008年中本聪发明比特币 1.微观：数字货币，其价值来源于人对其的信任和共识。 2.宏观：去中心化的记账系统  二、比特币特点1.财产只受自己控制（银行可以认为你的钱不合法而收缴，而比特币只有自己的私钥控制） 2.无通货膨胀（比特币总量2100万个不变，不会贬值） 3.无假钞（共识机制） 4.流通性好（点对点） 5.不可篡改（去中心化） 6.隐私性（无个人信息）  三、比特币原理1.账本">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1551084140086.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1551084305692.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1551084176333.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1551084191076.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1551084202365.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1551084216791.png">
+<meta property="og:updated_time" content="2019-10-08T11:11:27.146Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="比特币理论基础笔记">
+<meta name="twitter:description" content="一、概念2008年中本聪发明比特币 1.微观：数字货币，其价值来源于人对其的信任和共识。 2.宏观：去中心化的记账系统  二、比特币特点1.财产只受自己控制（银行可以认为你的钱不合法而收缴，而比特币只有自己的私钥控制） 2.无通货膨胀（比特币总量2100万个不变，不会贬值） 3.无假钞（共识机制） 4.流通性好（点对点） 5.不可篡改（去中心化） 6.隐私性（无个人信息）  三、比特币原理1.账本">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1551084140086.png">
+  <link rel="canonical" href="https://github.com/xx-C1/xx-C1.github.io/2019/02/25/比特币理论基础笔记/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>比特币理论基础笔记 | xxC1's blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">xxC1's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">想学的太多，懂得的太少。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xx-C1/xx-C1.github.io/2019/02/25/比特币理论基础笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xx_C1">
+      <meta itemprop="description" content="Cyberspace Security">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="xxC1's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">比特币理论基础笔记
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-02-25 16:54:40" itemprop="dateCreated datePublished" datetime="2019-02-25T16:54:40+08:00">2019-02-25</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-10-08 19:11:27" itemprop="dateModified" datetime="2019-10-08T19:11:27+08:00">2019-10-08</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/区块链/" itemprop="url" rel="index"><span itemprop="name">区块链</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h5 id="一、概念"><a href="#一、概念" class="headerlink" title="一、概念"></a>一、概念</h5><p>2008年中本聪发明比特币 1.微观：数字货币，其价值来源于人对其的信任和共识。 2.宏观：去中心化的记账系统</p>
+<hr>
+<h5 id="二、比特币特点"><a href="#二、比特币特点" class="headerlink" title="二、比特币特点"></a>二、比特币特点</h5><p>1.财产只受自己控制（银行可以认为你的钱不合法而收缴，而比特币只有自己的私钥控制） 2.无通货膨胀（比特币总量2100万个不变，不会贬值） 3.无假钞（共识机制） 4.流通性好（点对点） 5.不可篡改（去中心化） 6.隐私性（无个人信息）</p>
+<hr>
+<h5 id="三、比特币原理"><a href="#三、比特币原理" class="headerlink" title="三、比特币原理"></a>三、比特币原理</h5><p><strong>1.账本如何验证？</strong> ①与所有人的账本一一核对（效率低，方案不通） ②Hash（上一个区块的Hash+本区块信息），则只需要核对最后一个区块的hash值就可以验证账本 <strong>哈希函数：</strong>MD5、SHA1、SHA256 <strong>哈希函数特点：</strong> ①同样原始信息用同一个哈希函数总能得到相同的摘要信息 ②原始信息任何微小的变化都会哈希出面目全非的摘要信息 ③从摘要信息无法逆向推算出原始信息，即单向函数 哈希函数主要用途：验证文件是否被修改 <strong>2.账户的所有权问题？</strong> <strong>比特币地址</strong> <strong>私钥：谁拥有私钥谁就拥有比特币地址，即拥有支付权</strong> 比特币地址和私钥是一个非对称关系，私钥通过hash运算可以得到比特币地址，但是不能通过比特币地址逆向推算私钥。 <img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1551084140086.png" alt="1551084140086"> <strong>账户的所有权问题变为：不泄漏私钥的情况下证明拥有某个比特币地址的私钥？答：非对称加密技术</strong> <strong>交易签名：</strong> ①交易进行hash得到摘要信息 <img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1551084305692.png" alt="1551084305692"> ②用摘要信息和私钥进行签名运算得到签名信息 <img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1551084176333.png" alt="1551084176333"> <strong>签名（加密）信息后，再广播签名信息和原始交易记录，再通过非对称密码技术验证（解密），验证通过后添加该区块。</strong> <img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1551084191076.png" alt="1551084191076"> <strong>签名就是加密，验证就是解密。</strong> <img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1551084202365.png" alt="1551084202365"> <strong>3.为什么记账？（同时也是比特币发行的过程）</strong> <strong>记账规则：</strong> ①一段时间内只有一个人可以记帐成功 ②通过解决密码学难题（即工作量证明，即挖矿）竞争获得唯一记账权（直接验证hash值谁都可以记账，所以引入工作量证明机制） ③其他节点复制记账结果 <strong>工作量证明：</strong>通过爆破随机数，找到满足规则随机数后则得到唯一记账权 <img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1551084216791.png" alt="1551084216791"> 过程计算量很大，目前已经没有单独矿工挖矿。一般都是矿工组合成矿池，通过算力比来分成收益。过程非常耗电，所以从经济学角度只要有收益就会有矿工加入挖矿，最终会达到挖矿成本接近收益。 <strong>交易记录集：</strong> ①收集广播中还没有被记录账本的交易 ②交易的有效性验证 ③添加一笔给自己转账的交易（挖矿奖励） <strong>4.两个节点同时完成工作量证明（分叉），使用谁的区块？共识机制（选择累计工作量最大的区块，最长的链为主链）</strong> 由于网络不确定性会产生孤块</p>
+<hr>
+<h5 id="四、比特币工作流程"><a href="#四、比特币工作流程" class="headerlink" title="四、比特币工作流程"></a>四、比特币工作流程</h5><p><strong>1.</strong>节点分为：①发送节点②接收节点 发送节点在比特币体系里就是用于提交交易信息的用户。接收节点在比特币体系里面就是通常指矿工。 如果有新的交易要提交，那么发送节点就会在比特币网络进行交易信息的广播。矿工则要一直监听比特币网络里是否有交易广播。 <strong>2.</strong>矿工收到广播的交易信息后，需要校验这个信息的签名等内容是否合法。如果校验通过后，就需要将收到的所有交易信息按照一定的规则组装成一个数据块，也就是区块。 <strong>3.</strong>刚刚组装的区块还只是在自己这里，还未被纳入比特币网络中正式的区块链中。 如何才能被正式纳入呢？这里就涉及到共识算法了。 因为每个矿工都可能组装了自己的区块，在每10分钟之内，只可能有一个区块被纳入正式区块链，那么所有的矿工就要根据规则在最短的时间内使自己的区块被其它矿工认可，谁最先做到，那么谁的区块就会被正式纳入。 <strong>4.</strong>能纳入区块链的规则就是共识算法，比特币中使用的共识算法是工作量证明法。即让所有的矿工都去寻找一个随机数，这个随机数是通过Hash算法算出来的，并且算出来的随机数需要满足一定的条件才是大家认可的随机数（需要满足该随机数能使整个区块的哈希值小于目标值），谁先计算/猜到这个随机数，它的区块就能被全网接受。 <strong>5.</strong>然后这个区块就可以纳入正式区块链，放到链条的最后面，然后各个节点再开始挖下一个区块，就这么一直接连接下去。 <strong>6.</strong>挖到有效区块的节点可以获得奖励，这个奖励主要有2部分组成： ①比特币体系约定每挖到一个有效区块奖励25比特币。 ②交易手续费。（交易信息的提交节点需要以比特币形式付这一笔交易手续费）</p>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/区块链/" rel="tag"># 区块链</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/02/24/区块链理论基础整理/" rel="next" title="区块链理论基础整理">
+                  <i class="fa fa-chevron-left"></i> 区块链理论基础整理
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/03/07/2018ddctf-mini-blockchain-分析/" rel="prev" title="2018DDCTF-mini-blockchain分析">
+                  2018DDCTF-mini-blockchain分析 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#一、概念"><span class="nav-number">1.</span> <span class="nav-text">一、概念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二、比特币特点"><span class="nav-number">2.</span> <span class="nav-text">二、比特币特点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#三、比特币原理"><span class="nav-number">3.</span> <span class="nav-text">三、比特币原理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#四、比特币工作流程"><span class="nav-number">4.</span> <span class="nav-text">四、比特币工作流程</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">xx_C1</p>
+  <div class="site-description" itemprop="description">Cyberspace Security</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span>
+        
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">标签</span>
+        
+      </div>
+    
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xx_C1</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.1</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
+<script src="/js/schemes/pisces.js?v=7.4.1"></script>
+
+<script src="/js/next-boot.js?v=7.4.1"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

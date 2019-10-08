@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.1">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="以太坊-智能合约审计——权限隐患 一、智能合约中的权限 合约拥有者(owner)：执行合约中所有函数 普通用户：只能调用约定范围内的函数   二、Solidity中函数权限 Public：函数可以被合约内部函数、继承合约、外部合约调用  Private：只能被合约内部函数调用  Internal：可以被合约内部函数以及继承合约调用  External：只能外部合约调用 注意：函数如果不限定，Sol">
+<meta name="keywords" content="合约审计">
+<meta property="og:type" content="article">
+<meta property="og:title" content="以太坊-智能合约审计——权限隐患">
+<meta property="og:url" content="https://github.com/xx-C1/xx-C1.github.io/2019/03/25/以太坊-智能合约审计——权限隐患/index.html">
+<meta property="og:site_name" content="xxC1&#39;s blog">
+<meta property="og:description" content="以太坊-智能合约审计——权限隐患 一、智能合约中的权限 合约拥有者(owner)：执行合约中所有函数 普通用户：只能调用约定范围内的函数   二、Solidity中函数权限 Public：函数可以被合约内部函数、继承合约、外部合约调用  Private：只能被合约内部函数调用  Internal：可以被合约内部函数以及继承合约调用  External：只能外部合约调用 注意：函数如果不限定，Sol">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-10-08T11:13:09.146Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="以太坊-智能合约审计——权限隐患">
+<meta name="twitter:description" content="以太坊-智能合约审计——权限隐患 一、智能合约中的权限 合约拥有者(owner)：执行合约中所有函数 普通用户：只能调用约定范围内的函数   二、Solidity中函数权限 Public：函数可以被合约内部函数、继承合约、外部合约调用  Private：只能被合约内部函数调用  Internal：可以被合约内部函数以及继承合约调用  External：只能外部合约调用 注意：函数如果不限定，Sol">
+  <link rel="canonical" href="https://github.com/xx-C1/xx-C1.github.io/2019/03/25/以太坊-智能合约审计——权限隐患/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>以太坊-智能合约审计——权限隐患 | xxC1's blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">xxC1's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">想学的太多，懂得的太少。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xx-C1/xx-C1.github.io/2019/03/25/以太坊-智能合约审计——权限隐患/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xx_C1">
+      <meta itemprop="description" content="Cyberspace Security">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="xxC1's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">以太坊-智能合约审计——权限隐患
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-25 09:17:25" itemprop="dateCreated datePublished" datetime="2019-03-25T09:17:25+08:00">2019-03-25</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-10-08 19:13:09" itemprop="dateModified" datetime="2019-10-08T19:13:09+08:00">2019-10-08</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/区块链/" itemprop="url" rel="index"><span itemprop="name">区块链</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="以太坊-智能合约审计——权限隐患"><a href="#以太坊-智能合约审计——权限隐患" class="headerlink" title="以太坊-智能合约审计——权限隐患"></a>以太坊-智能合约审计——权限隐患</h3><hr>
+<h4 id="一、智能合约中的权限"><a href="#一、智能合约中的权限" class="headerlink" title="一、智能合约中的权限"></a>一、智能合约中的权限</h4><ul>
+<li>合约拥有者(owner)：执行合约中所有函数</li>
+<li>普通用户：只能调用约定范围内的函数</li>
+</ul>
+<hr>
+<h4 id="二、Solidity中函数权限"><a href="#二、Solidity中函数权限" class="headerlink" title="二、Solidity中函数权限"></a><strong>二、Solidity中函数权限</strong></h4><ul>
+<li><p>Public：函数可以被合约内部函数、继承合约、外部合约调用</p>
+</li>
+<li><p>Private：只能被合约内部函数调用</p>
+</li>
+<li><p>Internal：可以被合约内部函数以及继承合约调用</p>
+</li>
+<li><p>External：只能外部合约调用 <strong>注意：函数如果不限定，Solidity语言会默认设置函数为Public权限，也就是任何合约可以调用！</strong> HCTF的ez2win题目就是利用这个点来破解得到flag</p>
+</li>
+</ul>
+<hr>
+<h4 id="三、构造函数权限问题"><a href="#三、构造函数权限问题" class="headerlink" title="三、构造函数权限问题"></a><strong>三、构造函数权限问题</strong></h4><ul>
+<li><p>Solidity编写合约和面向对象编程语言非常相似，可以用构造函数（constructor）来初始化合约对象</p>
+</li>
+<li><p>类似C++等语言，Solidity中构造函数是方法名和合约名字相同的函数，创建合约时会调用构造函数对状态变量进行数据初始化操作</p>
+</li>
+<li><p>构造函数可用的函数类型为public或internal</p>
+</li>
+<li><p>如果构造函数带参数，必须要放在合约下的第一个函数</p>
+<p>pragma solidity ^0.4.16</p>
+<p>contract Function{</p>
+<pre><code>Function Function() public{
+    //构造函数内容`
+}</code></pre><p>}</p>
+</li>
+</ul>
+<p> 0.4.22版本后，solidity编译器引入了constructor关键字。以替代低版本的将合约名作为构造函数名的语法，避免程序员容易出现的编码错误。使用旧写法会出现 warning 信息。</p>
+<pre><code>pragma solidity ^0.4.22
+
+contract Function{
+    constructor() public{</code></pre><p>​<br>​        //初始化操作<br>​    }<br>​    Function test(){<br>​<br>​        //其他函数功能性代码<br>​    }<br>​    }</p>
+<h5 id="安全问题"><a href="#安全问题" class="headerlink" title="安全问题"></a><strong>安全问题</strong></h5><p> 构造函数之所以区别于普通函数，是因为构造函数它主要用户初始化整个合约对象，而且不能被任意用户所调用，所以一旦构造函数可以被任意用户调用时，调用者就可以获得初始化合约的权限，带来安全隐患。 ​ <strong>1.构造名与合约名不相同</strong> ​ 编译器0.4.22之前： ​ 构造函数的函数名默认是和合约名一致的，如果智能合约的开发者在开发过程中出现”构造函数名与合约名不一致”的现象（大小写、多加了一个s等情况），那么构造函数将不再是“构造函数”，而变为一个任意用户可以调用的普通函数，任意用户可以通过调用该函数实现对合约的初始化操作。 ​ <strong>2.constructor函数不规范</strong> ​ 在编译器0.4.22之后： ​ 使用了constructor来替代原先的“构造函数名与合约名必须一致”的代码编写规范，但是一些合约开发者在开发工程中往往还是会出现各种错误，例如：在constructor前面加function，或者加了function然后开头的C写成了大写，即“function Constructor(){}”,这样便使得构造函数变成了公有函数，可被人任意调用。</p>
+<hr>
+<h4 id="四、普通函数权限问题"><a href="#四、普通函数权限问题" class="headerlink" title="四、普通函数权限问题"></a>四、普通函数权限问题</h4><p> 对于一些普通函数，我们一般会使用一些修饰器来进行修饰，同时有时候也会使用public、private、internal、external来进行修饰。一些合约开发者留下“后门”，owner可以销毁任意用户的任意代币。那么如果owner被他人控制呢？</p>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/合约审计/" rel="tag"># 合约审计</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/03/18/Docker-练习-搭建Wordpress/" rel="next" title="Docker-练习-搭建Wordpress">
+                  <i class="fa fa-chevron-left"></i> Docker-练习-搭建Wordpress
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/04/16/区块链-工作量证明Python实现/" rel="prev" title="区块链-工作量证明Python实现">
+                  区块链-工作量证明Python实现 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#以太坊-智能合约审计——权限隐患"><span class="nav-number">1.</span> <span class="nav-text">以太坊-智能合约审计——权限隐患</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、智能合约中的权限"><span class="nav-number">1.1.</span> <span class="nav-text">一、智能合约中的权限</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二、Solidity中函数权限"><span class="nav-number">1.2.</span> <span class="nav-text">二、Solidity中函数权限</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三、构造函数权限问题"><span class="nav-number">1.3.</span> <span class="nav-text">三、构造函数权限问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#安全问题"><span class="nav-number">1.3.1.</span> <span class="nav-text">安全问题</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四、普通函数权限问题"><span class="nav-number">1.4.</span> <span class="nav-text">四、普通函数权限问题</span></a></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">xx_C1</p>
+  <div class="site-description" itemprop="description">Cyberspace Security</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span>
+        
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">标签</span>
+        
+      </div>
+    
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xx_C1</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.1</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
+<script src="/js/schemes/pisces.js?v=7.4.1"></script>
+
+<script src="/js/next-boot.js?v=7.4.1"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
