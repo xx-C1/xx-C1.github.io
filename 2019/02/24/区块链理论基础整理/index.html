@@ -11,8 +11,8 @@
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 3.9.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.jco?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.jco?v=7.4.1">
   <link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222">
 
 <link rel="stylesheet" href="/css/main.css?v=7.4.1">
@@ -370,6 +370,15 @@
 <h5 id="3-双花问题"><a href="#3-双花问题" class="headerlink" title="3.双花问题"></a>3.双花问题</h5><p> 何为双花问题？从表意上来说，就是一个人在同一时间进行了两笔交易。这个问题，一直是支付系统的难点。无论是中心化的支付系统，还是去中心化的交易系统，都得面对这个问题。 ​ 举个例子： ​ 某人手里有20块钱。他同时与两个人进行了一笔20块钱的交易。现实生活中，你可以明确地发现问题。但是，相对于支付系统而言，并发的情况经常发生。一旦一个不完善的支付系统，双花问题是很容易发生的。当然，后端处理过程中，可以通过队列的形式来解决问题。但是，对于去中心化的交易系统而言，这个问题也需要解决。 每一笔交易的产生，都会产生一个区块，那么，往往会发现这么一种情况，如图： <img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1551015183439.png" alt="1551015183439"> 我们可以看到，Block A和Block B就会同时去连接上一个区块。那么，相对于这个问题，比特币系统采用的规则就是选最长的那条链。通常，比特币采用的是6次确认规则。在1小时内，根据10分钟产生一个区块的原则，往往会生成一条6个长的区块。那么，只要确认下这条区块，就可以避免去连接其他区块了。 ​ 理论上是，区块链越长，准确性越高。</p>
 
     </div>
+    <div>
+    
+       <div>
+      
+          <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+      
+  </div>
+    
+    </div>
 
     
     
@@ -621,7 +630,7 @@
       <div class="footer-inner">
         <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love" id="animate">
-    <i class="fa fa-user"></i>
+    <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">xx_C1</span>
     <span class="post-meta-divider">|</span>
@@ -635,9 +644,12 @@
     </span>
     <span title="站点阅读时长">2:20</span>
 </div>
+
+<!--
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.1</div>
+-->
 
         
 

@@ -11,8 +11,8 @@
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 3.9.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.jco?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.jco?v=7.4.1">
   <link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222">
 
 <link rel="stylesheet" href="/css/main.css?v=7.4.1">
@@ -337,6 +337,15 @@
 <h5 id="四、比特币工作流程"><a href="#四、比特币工作流程" class="headerlink" title="四、比特币工作流程"></a>四、比特币工作流程</h5><p><strong>1.</strong>节点分为：①发送节点②接收节点 发送节点在比特币体系里就是用于提交交易信息的用户。接收节点在比特币体系里面就是通常指矿工。 如果有新的交易要提交，那么发送节点就会在比特币网络进行交易信息的广播。矿工则要一直监听比特币网络里是否有交易广播。 <strong>2.</strong>矿工收到广播的交易信息后，需要校验这个信息的签名等内容是否合法。如果校验通过后，就需要将收到的所有交易信息按照一定的规则组装成一个数据块，也就是区块。 <strong>3.</strong>刚刚组装的区块还只是在自己这里，还未被纳入比特币网络中正式的区块链中。 如何才能被正式纳入呢？这里就涉及到共识算法了。 因为每个矿工都可能组装了自己的区块，在每10分钟之内，只可能有一个区块被纳入正式区块链，那么所有的矿工就要根据规则在最短的时间内使自己的区块被其它矿工认可，谁最先做到，那么谁的区块就会被正式纳入。 <strong>4.</strong>能纳入区块链的规则就是共识算法，比特币中使用的共识算法是工作量证明法。即让所有的矿工都去寻找一个随机数，这个随机数是通过Hash算法算出来的，并且算出来的随机数需要满足一定的条件才是大家认可的随机数（需要满足该随机数能使整个区块的哈希值小于目标值），谁先计算/猜到这个随机数，它的区块就能被全网接受。 <strong>5.</strong>然后这个区块就可以纳入正式区块链，放到链条的最后面，然后各个节点再开始挖下一个区块，就这么一直接连接下去。 <strong>6.</strong>挖到有效区块的节点可以获得奖励，这个奖励主要有2部分组成： ①比特币体系约定每挖到一个有效区块奖励25比特币。 ②交易手续费。（交易信息的提交节点需要以比特币形式付这一笔交易手续费）</p>
 
     </div>
+    <div>
+    
+       <div>
+      
+          <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+      
+  </div>
+    
+    </div>
 
     
     
@@ -588,7 +597,7 @@
       <div class="footer-inner">
         <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love" id="animate">
-    <i class="fa fa-user"></i>
+    <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">xx_C1</span>
     <span class="post-meta-divider">|</span>
@@ -602,9 +611,12 @@
     </span>
     <span title="站点阅读时长">2:20</span>
 </div>
+
+<!--
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.1</div>
+-->
 
         
 
