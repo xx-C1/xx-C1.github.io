@@ -378,7 +378,7 @@
 &apos;&apos;&apos;
 import hashlib
 import json
-import time</code></pre><p>​<br>​    class BlockChain:<br>​<br>​        #初始化区块链方法<br>​        def <strong>init</strong>(self):<br>​            self.chain = []                             #区块链<br>​            self.current_transactions = []              #交易<br>​<br>​            self.new_block(proof = 100, pre_hash= 1)    #产生创世区块<br>​<br>        #创建区块方法，默认前一块hash为None（创世区块）<br>        def new_block(self, proof, pre_hash = None):</p>
+import time</code></pre><a id="more"></a><p>​<br>​    class BlockChain:<br>​<br>​        #初始化区块链方法<br>​        def <strong>init</strong>(self):<br>​            self.chain = []                             #区块链<br>​            self.current_transactions = []              #交易<br>​<br>​            self.new_block(proof = 100, pre_hash= 1)    #产生创世区块<br>​<br>        #创建区块方法，默认前一块hash为None（创世区块）<br>        def new_block(self, proof, pre_hash = None):</p>
 <pre><code>        block = {
             &apos;index&apos;:len(self.chain) + 1,                        #所创建区块的索引为当前区块链长度+1
             &apos;timestamp&apos;: time.time(),                           #产生时间戳

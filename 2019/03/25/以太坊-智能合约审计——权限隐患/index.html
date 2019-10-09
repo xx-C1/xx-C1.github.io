@@ -55,18 +55,18 @@
   };
 </script>
 
-  <meta name="description" content="以太坊-智能合约审计——权限隐患 一、智能合约中的权限 合约拥有者(owner)：执行合约中所有函数 普通用户：只能调用约定范围内的函数   二、Solidity中函数权限 Public：函数可以被合约内部函数、继承合约、外部合约调用  Private：只能被合约内部函数调用  Internal：可以被合约内部函数以及继承合约调用  External：只能外部合约调用 注意：函数如果不限定，Sol">
+  <meta name="description" content="以太坊-智能合约审计——权限隐患一、智能合约中的权限 合约拥有者(owner)：执行合约中所有函数 普通用户：只能调用约定范围内的函数 二、Solidity中函数权限 Public：函数可以被合约内部函数、继承合约、外部合约调用  Private：只能被合约内部函数调用  Internal：可以被合约内部函数以及继承合约调用  External：只能外部合约调用 注意：函数如果不限定，Solidi">
 <meta name="keywords" content="合约审计">
 <meta property="og:type" content="article">
 <meta property="og:title" content="以太坊-智能合约审计——权限隐患">
 <meta property="og:url" content="https://github.com/xx-C1/xx-C1.github.io/2019/03/25/以太坊-智能合约审计——权限隐患/index.html">
 <meta property="og:site_name" content="xxC1&#39;s blog">
-<meta property="og:description" content="以太坊-智能合约审计——权限隐患 一、智能合约中的权限 合约拥有者(owner)：执行合约中所有函数 普通用户：只能调用约定范围内的函数   二、Solidity中函数权限 Public：函数可以被合约内部函数、继承合约、外部合约调用  Private：只能被合约内部函数调用  Internal：可以被合约内部函数以及继承合约调用  External：只能外部合约调用 注意：函数如果不限定，Sol">
+<meta property="og:description" content="以太坊-智能合约审计——权限隐患一、智能合约中的权限 合约拥有者(owner)：执行合约中所有函数 普通用户：只能调用约定范围内的函数 二、Solidity中函数权限 Public：函数可以被合约内部函数、继承合约、外部合约调用  Private：只能被合约内部函数调用  Internal：可以被合约内部函数以及继承合约调用  External：只能外部合约调用 注意：函数如果不限定，Solidi">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-10-08T11:13:09.146Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="以太坊-智能合约审计——权限隐患">
-<meta name="twitter:description" content="以太坊-智能合约审计——权限隐患 一、智能合约中的权限 合约拥有者(owner)：执行合约中所有函数 普通用户：只能调用约定范围内的函数   二、Solidity中函数权限 Public：函数可以被合约内部函数、继承合约、外部合约调用  Private：只能被合约内部函数调用  Internal：可以被合约内部函数以及继承合约调用  External：只能外部合约调用 注意：函数如果不限定，Sol">
+<meta name="twitter:description" content="以太坊-智能合约审计——权限隐患一、智能合约中的权限 合约拥有者(owner)：执行合约中所有函数 普通用户：只能调用约定范围内的函数 二、Solidity中函数权限 Public：函数可以被合约内部函数、继承合约、外部合约调用  Private：只能被合约内部函数调用  Internal：可以被合约内部函数以及继承合约调用  External：只能外部合约调用 注意：函数如果不限定，Solidi">
   <link rel="canonical" href="https://github.com/xx-C1/xx-C1.github.io/2019/03/25/以太坊-智能合约审计——权限隐患/">
 
 
@@ -359,13 +359,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="以太坊-智能合约审计——权限隐患"><a href="#以太坊-智能合约审计——权限隐患" class="headerlink" title="以太坊-智能合约审计——权限隐患"></a>以太坊-智能合约审计——权限隐患</h3><hr>
-<h4 id="一、智能合约中的权限"><a href="#一、智能合约中的权限" class="headerlink" title="一、智能合约中的权限"></a>一、智能合约中的权限</h4><ul>
+        <h3 id="以太坊-智能合约审计——权限隐患"><a href="#以太坊-智能合约审计——权限隐患" class="headerlink" title="以太坊-智能合约审计——权限隐患"></a>以太坊-智能合约审计——权限隐患</h3><hr><h4 id="一、智能合约中的权限"><a href="#一、智能合约中的权限" class="headerlink" title="一、智能合约中的权限"></a>一、智能合约中的权限</h4><ul>
 <li>合约拥有者(owner)：执行合约中所有函数</li>
 <li>普通用户：只能调用约定范围内的函数</li>
-</ul>
-<hr>
-<h4 id="二、Solidity中函数权限"><a href="#二、Solidity中函数权限" class="headerlink" title="二、Solidity中函数权限"></a><strong>二、Solidity中函数权限</strong></h4><ul>
+</ul><hr><h4 id="二、Solidity中函数权限"><a href="#二、Solidity中函数权限" class="headerlink" title="二、Solidity中函数权限"></a><strong>二、Solidity中函数权限</strong></h4><ul>
 <li><p>Public：函数可以被合约内部函数、继承合约、外部合约调用</p>
 </li>
 <li><p>Private：只能被合约内部函数调用</p>
@@ -374,7 +371,10 @@
 </li>
 <li><p>External：只能外部合约调用 <strong>注意：函数如果不限定，Solidity语言会默认设置函数为Public权限，也就是任何合约可以调用！</strong> HCTF的ez2win题目就是利用这个点来破解得到flag</p>
 </li>
-</ul>
+</ul><a id="more"></a>
+
+
+
 <hr>
 <h4 id="三、构造函数权限问题"><a href="#三、构造函数权限问题" class="headerlink" title="三、构造函数权限问题"></a><strong>三、构造函数权限问题</strong></h4><ul>
 <li><p>Solidity编写合约和面向对象编程语言非常相似，可以用构造函数（constructor）来初始化合约对象</p>

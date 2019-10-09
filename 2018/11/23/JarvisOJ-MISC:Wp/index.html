@@ -55,13 +55,13 @@
   };
 </script>
 
-  <meta name="description" content="流量分析远程登录协议 解法一： 过滤分组字节流搜索flag追踪到数据包  解法二： 题目是：远程登录协议。所以过滤talnet协议定位，追踪流找到flag 简单网管协议 直接过滤分组字节流，找到flag。也可以过滤网管协议(SNMP)定位在追踪流找到。  struts2漏洞 直接分组字节流过滤flag得俩：   根据题目提示是大写MD5，得flag。 但是感觉这个题目也太简单了吧。。。搜了下str">
+  <meta name="description" content="流量分析远程登录协议解法一：过滤分组字节流搜索flag追踪到数据包解法二：题目是：远程登录协议。所以过滤talnet协议定位，追踪流找到flag简单网管协议直接过滤分组字节流，找到flag。也可以过滤网管协议(SNMP)定位在追踪流找到。struts2漏洞直接分组字节流过滤flag得俩：根据题目提示是大写MD5，得flag。">
 <meta name="keywords" content="WriteUp">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JarvisOJ-MISC-WP">
 <meta property="og:url" content="https://github.com/xx-C1/xx-C1.github.io/2018/11/23/JarvisOJ-MISC:Wp/index.html">
 <meta property="og:site_name" content="xxC1&#39;s blog">
-<meta property="og:description" content="流量分析远程登录协议 解法一： 过滤分组字节流搜索flag追踪到数据包  解法二： 题目是：远程登录协议。所以过滤talnet协议定位，追踪流找到flag 简单网管协议 直接过滤分组字节流，找到flag。也可以过滤网管协议(SNMP)定位在追踪流找到。  struts2漏洞 直接分组字节流过滤flag得俩：   根据题目提示是大写MD5，得flag。 但是感觉这个题目也太简单了吧。。。搜了下str">
+<meta property="og:description" content="流量分析远程登录协议解法一：过滤分组字节流搜索flag追踪到数据包解法二：题目是：远程登录协议。所以过滤talnet协议定位，追踪流找到flag简单网管协议直接过滤分组字节流，找到flag。也可以过滤网管协议(SNMP)定位在追踪流找到。struts2漏洞直接分组字节流过滤flag得俩：根据题目提示是大写MD5，得flag。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542970759540.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542970811954.png">
@@ -115,7 +115,7 @@
 <meta property="og:updated_time" content="2019-10-08T11:14:25.813Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JarvisOJ-MISC-WP">
-<meta name="twitter:description" content="流量分析远程登录协议 解法一： 过滤分组字节流搜索flag追踪到数据包  解法二： 题目是：远程登录协议。所以过滤talnet协议定位，追踪流找到flag 简单网管协议 直接过滤分组字节流，找到flag。也可以过滤网管协议(SNMP)定位在追踪流找到。  struts2漏洞 直接分组字节流过滤flag得俩：   根据题目提示是大写MD5，得flag。 但是感觉这个题目也太简单了吧。。。搜了下str">
+<meta name="twitter:description" content="流量分析远程登录协议解法一：过滤分组字节流搜索flag追踪到数据包解法二：题目是：远程登录协议。所以过滤talnet协议定位，追踪流找到flag简单网管协议直接过滤分组字节流，找到flag。也可以过滤网管协议(SNMP)定位在追踪流找到。struts2漏洞直接分组字节流过滤flag得俩：根据题目提示是大写MD5，得flag。">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542970759540.png">
   <link rel="canonical" href="https://github.com/xx-C1/xx-C1.github.io/2018/11/23/JarvisOJ-MISC:Wp/">
 
@@ -409,20 +409,20 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="流量分析"><a href="#流量分析" class="headerlink" title="流量分析"></a><strong>流量分析</strong></h3><p><strong>远程登录协议</strong></p>
-<p>解法一：</p>
-<p>过滤分组字节流搜索flag追踪到数据包</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542970759540.png" alt></p>
-<p>解法二：</p>
-<p>题目是：远程登录协议。所以过滤talnet协议定位，追踪流找到flag</p>
-<p><strong>简单网管协议</strong></p>
-<p>直接过滤分组字节流，找到flag。也可以过滤网管协议(SNMP)定位在追踪流找到。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542970811954.png" alt></p>
-<p><strong>struts2漏洞</strong></p>
-<p>直接分组字节流过滤flag得俩：</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542852889256.png" alt></p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542852969079.png" alt></p>
-<p>根据题目提示是大写MD5，得flag。</p>
+        <h3 id="流量分析"><a href="#流量分析" class="headerlink" title="流量分析"></a><strong>流量分析</strong></h3><p><strong>远程登录协议</strong></p><p>解法一：</p><p>过滤分组字节流搜索flag追踪到数据包</p><p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542970759540.png" alt></p><p>解法二：</p><p>题目是：远程登录协议。所以过滤talnet协议定位，追踪流找到flag</p><p><strong>简单网管协议</strong></p><p>直接过滤分组字节流，找到flag。也可以过滤网管协议(SNMP)定位在追踪流找到。</p><p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542970811954.png" alt></p><p><strong>struts2漏洞</strong></p><p>直接分组字节流过滤flag得俩：</p><p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542852889256.png" alt></p><p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542852969079.png" alt></p><p>根据题目提示是大写MD5，得flag。</p><a id="more"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
 <p>但是感觉这个题目也太简单了吧。。。搜了下struts2，原来是一个apache框架。而且存在不少高危漏洞。(CVE-2012-0838、CVE-2013-2251，2248、CVE-2016-3081)大多数是属于远程命令、代码执行漏洞。</p>
 <p><strong>shell流量分析</strong></p>
 <p>发现主要是57370端口（控制端）和2333端口（被控端）间的通信。通过<strong>“$”</strong>不难猜到是shell交互。</p>

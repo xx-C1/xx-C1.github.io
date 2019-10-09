@@ -55,18 +55,18 @@
   };
 </script>
 
-  <meta name="description" content="一、漏洞原理 PHP 内置了多种处理器用于存取 $_SESSION 数据时会对数据进行序列化和反序列化。 处理器 对应的存储格式 php 键名 ＋ 竖线 ＋ 经过 serialize() 函数反序列处理的值 php_binary 键名的长度对应的 ASCII 字符 ＋ 键名 ＋ 经过 serialize() 函数反序列处理的值 php_serialize (php&amp;gt;=5.5.4) 经过 se">
+  <meta name="description" content="一、漏洞原理PHP 内置了多种处理器用于存取 $_SESSION 数据时会对数据进行序列化和反序列化。处理器对应的存储格式php键名 ＋ 竖线 ＋ 经过 serialize() 函数反序列处理的值php_binary键名的长度对应的 ASCII 字符 ＋ 键名 ＋ 经过 serialize() 函数反序列处理的值">
 <meta name="keywords" content="反序列化">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Session序列化及反序列化处理器的安全问题">
 <meta property="og:url" content="https://github.com/xx-C1/xx-C1.github.io/2018/10/18/Session序列化及反序列化处理器的安全问题/index.html">
 <meta property="og:site_name" content="xxC1&#39;s blog">
-<meta property="og:description" content="一、漏洞原理 PHP 内置了多种处理器用于存取 $_SESSION 数据时会对数据进行序列化和反序列化。 处理器 对应的存储格式 php 键名 ＋ 竖线 ＋ 经过 serialize() 函数反序列处理的值 php_binary 键名的长度对应的 ASCII 字符 ＋ 键名 ＋ 经过 serialize() 函数反序列处理的值 php_serialize (php&amp;gt;=5.5.4) 经过 se">
+<meta property="og:description" content="一、漏洞原理PHP 内置了多种处理器用于存取 $_SESSION 数据时会对数据进行序列化和反序列化。处理器对应的存储格式php键名 ＋ 竖线 ＋ 经过 serialize() 函数反序列处理的值php_binary键名的长度对应的 ASCII 字符 ＋ 键名 ＋ 经过 serialize() 函数反序列处理的值">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-10-08T11:14:48.046Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Session序列化及反序列化处理器的安全问题">
-<meta name="twitter:description" content="一、漏洞原理 PHP 内置了多种处理器用于存取 $_SESSION 数据时会对数据进行序列化和反序列化。 处理器 对应的存储格式 php 键名 ＋ 竖线 ＋ 经过 serialize() 函数反序列处理的值 php_binary 键名的长度对应的 ASCII 字符 ＋ 键名 ＋ 经过 serialize() 函数反序列处理的值 php_serialize (php&amp;gt;=5.5.4) 经过 se">
+<meta name="twitter:description" content="一、漏洞原理PHP 内置了多种处理器用于存取 $_SESSION 数据时会对数据进行序列化和反序列化。处理器对应的存储格式php键名 ＋ 竖线 ＋ 经过 serialize() 函数反序列处理的值php_binary键名的长度对应的 ASCII 字符 ＋ 键名 ＋ 经过 serialize() 函数反序列处理的值">
   <link rel="canonical" href="https://github.com/xx-C1/xx-C1.github.io/2018/10/18/Session序列化及反序列化处理器的安全问题/">
 
 
@@ -359,14 +359,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p><strong>一、漏洞原理</strong></p>
-<p>PHP 内置了多种处理器用于存取 $_SESSION 数据时会对数据进行序列化和反序列化。</p>
-<p>处理器</p>
-<p>对应的存储格式</p>
-<p>php</p>
-<p>键名 ＋ 竖线 ＋ 经过 serialize() 函数反序列处理的值</p>
-<p>php_binary</p>
-<p>键名的长度对应的 ASCII 字符 ＋ 键名 ＋ 经过 serialize() 函数反序列处理的值</p>
+        <p><strong>一、漏洞原理</strong></p><p>PHP 内置了多种处理器用于存取 $_SESSION 数据时会对数据进行序列化和反序列化。</p><p>处理器</p><p>对应的存储格式</p><p>php</p><p>键名 ＋ 竖线 ＋ 经过 serialize() 函数反序列处理的值</p><p>php_binary</p><p>键名的长度对应的 ASCII 字符 ＋ 键名 ＋ 经过 serialize() 函数反序列处理的值</p><a id="more"></a>
+
+
+
+
+
+
+
 <p>php_serialize</p>
 <p>(php&gt;=5.5.4)</p>
 <p>经过 serialize() 函数反序列处理的数组</p>

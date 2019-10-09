@@ -55,18 +55,18 @@
   };
 </script>
 
-  <meta name="description" content="PORT51一上来看有点懵逼，以为是Burp抓包。最后google后发现应该在vps上（不用vps的话经过路由器可能端口就变了）用以下命令就可以。 1curl --ocal-port http://xxx.com  之前没有接触过curl，只是在docker里面用过一次。 1curl就是：在linux中一个利用URL规则在命令行下工作的文件传输工具，可以说是一款很强大的http命令行工具。它支持文">
+  <meta name="description" content="PORT51一上来看有点懵逼，以为是Burp抓包。最后google后发现应该在vps上（不用vps的话经过路由器可能端口就变了）用以下命令就可以。1curl --ocal-port http://xxx.com之前没有接触过curl，只是在docker里面用过一次。1curl就是：在linux中一个利用URL规则在命令行下工作的文件传输工具，可以说是一款很强大的http命令行工具。它支持文件的上传">
 <meta name="keywords" content="WriteUp">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Jarvis OJ Web WriteUp(1)">
 <meta property="og:url" content="https://github.com/xx-C1/xx-C1.github.io/2018/09/26/Jarvis OJ Web WriteUp(1)/index.html">
 <meta property="og:site_name" content="xxC1&#39;s blog">
-<meta property="og:description" content="PORT51一上来看有点懵逼，以为是Burp抓包。最后google后发现应该在vps上（不用vps的话经过路由器可能端口就变了）用以下命令就可以。 1curl --ocal-port http://xxx.com  之前没有接触过curl，只是在docker里面用过一次。 1curl就是：在linux中一个利用URL规则在命令行下工作的文件传输工具，可以说是一款很强大的http命令行工具。它支持文">
+<meta property="og:description" content="PORT51一上来看有点懵逼，以为是Burp抓包。最后google后发现应该在vps上（不用vps的话经过路由器可能端口就变了）用以下命令就可以。1curl --ocal-port http://xxx.com之前没有接触过curl，只是在docker里面用过一次。1curl就是：在linux中一个利用URL规则在命令行下工作的文件传输工具，可以说是一款很强大的http命令行工具。它支持文件的上传">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-10-08T13:20:04.592Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Jarvis OJ Web WriteUp(1)">
-<meta name="twitter:description" content="PORT51一上来看有点懵逼，以为是Burp抓包。最后google后发现应该在vps上（不用vps的话经过路由器可能端口就变了）用以下命令就可以。 1curl --ocal-port http://xxx.com  之前没有接触过curl，只是在docker里面用过一次。 1curl就是：在linux中一个利用URL规则在命令行下工作的文件传输工具，可以说是一款很强大的http命令行工具。它支持文">
+<meta name="twitter:description" content="PORT51一上来看有点懵逼，以为是Burp抓包。最后google后发现应该在vps上（不用vps的话经过路由器可能端口就变了）用以下命令就可以。1curl --ocal-port http://xxx.com之前没有接触过curl，只是在docker里面用过一次。1curl就是：在linux中一个利用URL规则在命令行下工作的文件传输工具，可以说是一款很强大的http命令行工具。它支持文件的上传">
   <link rel="canonical" href="https://github.com/xx-C1/xx-C1.github.io/2018/09/26/Jarvis OJ Web WriteUp(1)/">
 
 
@@ -359,11 +359,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="PORT51"><a href="#PORT51" class="headerlink" title="PORT51"></a>PORT51</h2><p>一上来看有点懵逼，以为是Burp抓包。最后google后发现应该在vps上（不用vps的话经过路由器可能端口就变了）用以下命令就可以。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl --ocal-port http://xxx.com</span><br></pre></td></tr></table></figure>
+        <h2 id="PORT51"><a href="#PORT51" class="headerlink" title="PORT51"></a>PORT51</h2><p>一上来看有点懵逼，以为是Burp抓包。最后google后发现应该在vps上（不用vps的话经过路由器可能端口就变了）用以下命令就可以。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl --ocal-port http://xxx.com</span><br></pre></td></tr></table></figure><p>之前没有接触过curl，只是在docker里面用过一次。</p><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl就是：在linux中一个利用<span class="built_in">URL</span>规则在命令行下工作的文件传输工具，可以说是一款很强大的<span class="keyword">http</span>命令行工具。它支持文件的上传和下载，是综合传输工具，但按传统，习惯称url为下载工具。 由于安装linux的时候很多时候是没有安装桌面的，也意味着没有浏览器，因此这个方法也经常用于测试一台服务器是否可以到达一个网站。 当然也可以进行ip伪造等等测试操作。</span><br></pre></td></tr></table></figure><a id="more"></a>
 
-<p>之前没有接触过curl，只是在docker里面用过一次。</p>
-<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl就是：在linux中一个利用<span class="built_in">URL</span>规则在命令行下工作的文件传输工具，可以说是一款很强大的<span class="keyword">http</span>命令行工具。它支持文件的上传和下载，是综合传输工具，但按传统，习惯称url为下载工具。 由于安装linux的时候很多时候是没有安装桌面的，也意味着没有浏览器，因此这个方法也经常用于测试一台服务器是否可以到达一个网站。 当然也可以进行ip伪造等等测试操作。</span><br></pre></td></tr></table></figure>
+
+
+
 
 <h2 id="LOCALHOST"><a href="#LOCALHOST" class="headerlink" title="LOCALHOST"></a>LOCALHOST</h2><p>burp抓包添加头</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">X-Forwarded-For</span>: 127<span class="selector-class">.0</span><span class="selector-class">.0</span><span class="selector-class">.1</span></span><br></pre></td></tr></table></figure>

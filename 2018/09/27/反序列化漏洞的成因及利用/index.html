@@ -55,18 +55,18 @@
   };
 </script>
 
-  <meta name="description" content="接着上篇继续讲：反序列化漏洞0x01.本质无害 反序列化的数据本质上来说是没有危害的  用户可控数据进行反序列化是存在危害的   0x02.漏洞根源 根本原因:程序没有对用户输入的反序列化字符串进行检测，导致反序列化过程可以被恶意控制，进而造成代码执行、getshell等一系列不可控的后果。   这个漏洞的形成是由于跟serialize和unserialize相关的magic函数违背正确利用的缘故">
+  <meta name="description" content="接着上篇继续讲：反序列化漏洞0x01.本质无害 反序列化的数据本质上来说是没有危害的  用户可控数据进行反序列化是存在危害的  0x02.漏洞根源 根本原因:程序没有对用户输入的反序列化字符串进行检测，导致反序列化过程可以被恶意控制，进而造成代码执行、getshell等一系列不可控的后果。   这个漏洞的形成是由于跟serialize和unserialize相关的magic函数违背正确利用的缘故。">
 <meta name="keywords" content="反序列化">
 <meta property="og:type" content="article">
 <meta property="og:title" content="反序列化漏洞的成因及利用">
 <meta property="og:url" content="https://github.com/xx-C1/xx-C1.github.io/2018/09/27/反序列化漏洞的成因及利用/index.html">
 <meta property="og:site_name" content="xxC1&#39;s blog">
-<meta property="og:description" content="接着上篇继续讲：反序列化漏洞0x01.本质无害 反序列化的数据本质上来说是没有危害的  用户可控数据进行反序列化是存在危害的   0x02.漏洞根源 根本原因:程序没有对用户输入的反序列化字符串进行检测，导致反序列化过程可以被恶意控制，进而造成代码执行、getshell等一系列不可控的后果。   这个漏洞的形成是由于跟serialize和unserialize相关的magic函数违背正确利用的缘故">
+<meta property="og:description" content="接着上篇继续讲：反序列化漏洞0x01.本质无害 反序列化的数据本质上来说是没有危害的  用户可控数据进行反序列化是存在危害的  0x02.漏洞根源 根本原因:程序没有对用户输入的反序列化字符串进行检测，导致反序列化过程可以被恶意控制，进而造成代码执行、getshell等一系列不可控的后果。   这个漏洞的形成是由于跟serialize和unserialize相关的magic函数违背正确利用的缘故。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-10-08T13:27:35.583Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="反序列化漏洞的成因及利用">
-<meta name="twitter:description" content="接着上篇继续讲：反序列化漏洞0x01.本质无害 反序列化的数据本质上来说是没有危害的  用户可控数据进行反序列化是存在危害的   0x02.漏洞根源 根本原因:程序没有对用户输入的反序列化字符串进行检测，导致反序列化过程可以被恶意控制，进而造成代码执行、getshell等一系列不可控的后果。   这个漏洞的形成是由于跟serialize和unserialize相关的magic函数违背正确利用的缘故">
+<meta name="twitter:description" content="接着上篇继续讲：反序列化漏洞0x01.本质无害 反序列化的数据本质上来说是没有危害的  用户可控数据进行反序列化是存在危害的  0x02.漏洞根源 根本原因:程序没有对用户输入的反序列化字符串进行检测，导致反序列化过程可以被恶意控制，进而造成代码执行、getshell等一系列不可控的后果。   这个漏洞的形成是由于跟serialize和unserialize相关的magic函数违背正确利用的缘故。">
   <link rel="canonical" href="https://github.com/xx-C1/xx-C1.github.io/2018/09/27/反序列化漏洞的成因及利用/">
 
 
@@ -364,13 +364,13 @@
 </li>
 <li><p>用户可控数据进行反序列化是存在危害的</p>
 </li>
-</ul>
-<h3 id="0x02-漏洞根源"><a href="#0x02-漏洞根源" class="headerlink" title="0x02.漏洞根源"></a>0x02.漏洞根源</h3><ul>
+</ul><h3 id="0x02-漏洞根源"><a href="#0x02-漏洞根源" class="headerlink" title="0x02.漏洞根源"></a>0x02.漏洞根源</h3><ul>
 <li><p>根本原因:程序没有对用户输入的反序列化字符串进行检测，导致反序列化过程可以被恶意控制，进而造成代码执行、getshell等一系列不可控的后果。 </p>
 </li>
 <li><p>这个漏洞的形成是由于跟serialize和unserialize相关的magic函数违背正确利用的缘故。 在反序列化时，如果反序列化对象中存在魔法函数，使用unserialize()函数同时也会触发。这样，一旦我们能够控制unserialize()入口，那么就可能引发对象注入漏洞。</p>
 </li>
-</ul>
+</ul><a id="more"></a>
+
 <h3 id="0x03-POP链及漏洞发现技巧"><a href="#0x03-POP链及漏洞发现技巧" class="headerlink" title="0x03.POP链及漏洞发现技巧"></a>0x03.POP链及漏洞发现技巧</h3><p>由于反序列化漏洞需要很多类甚至需要跨越不同的文件，所有一般只可能白盒审计才可能发现反序列化漏洞。黑盒一般发现不了，因为根本不知道内部具体的代码函数情况，不过可以想办法把源码弄到手。</p>
 <p> 默认情况下 Composer 会从 Packagist下载包,那么我们可以通过审计这些包来找到可利用的 POP链。</p>
 <p> 找PHP链的基本思路: </p>

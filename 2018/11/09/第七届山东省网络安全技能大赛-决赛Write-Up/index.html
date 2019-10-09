@@ -55,13 +55,13 @@
   };
 </script>
 
-  <meta name="description" content="第七届山东省网络安全技能大赛-决赛Write-Up ——xx_C1 前言 第一次真正意义打线下赛，学到不少东西。差点三等奖，继续努力吧。 Reverse不会跳过 Pwn不会跳过 Webweb1 打开页面：  猜测抓包伪造地址。同时把admin=0改为admin=1。只说IP不在范围这个和127.0.0.1貌似没什么关系…有点坑，卡了一小会儿。  Web2 简答的审计源码  危险函数：parse_s">
+  <meta name="description" content="第七届山东省网络安全技能大赛-决赛Write-Up ——xx_C1 前言 第一次真正意义打线下赛，学到不少东西。差点三等奖，继续努力吧。Reverse不会跳过Pwn不会跳过Webweb1打开页面：猜测抓包伪造地址。同时把admin=0改为admin=1。只说IP不在范围这个和127.0.0.1貌似没什么关系…有点坑，卡了一小会儿。">
 <meta name="keywords" content="WriteUp">
 <meta property="og:type" content="article">
 <meta property="og:title" content="第七届山东省网络安全技能大赛-决赛Write-Up">
 <meta property="og:url" content="https://github.com/xx-C1/xx-C1.github.io/2018/11/09/第七届山东省网络安全技能大赛-决赛Write-Up/index.html">
 <meta property="og:site_name" content="xxC1&#39;s blog">
-<meta property="og:description" content="第七届山东省网络安全技能大赛-决赛Write-Up ——xx_C1 前言 第一次真正意义打线下赛，学到不少东西。差点三等奖，继续努力吧。 Reverse不会跳过 Pwn不会跳过 Webweb1 打开页面：  猜测抓包伪造地址。同时把admin=0改为admin=1。只说IP不在范围这个和127.0.0.1貌似没什么关系…有点坑，卡了一小会儿。  Web2 简答的审计源码  危险函数：parse_s">
+<meta property="og:description" content="第七届山东省网络安全技能大赛-决赛Write-Up ——xx_C1 前言 第一次真正意义打线下赛，学到不少东西。差点三等奖，继续努力吧。Reverse不会跳过Pwn不会跳过Webweb1打开页面：猜测抓包伪造地址。同时把admin=0改为admin=1。只说IP不在范围这个和127.0.0.1貌似没什么关系…有点坑，卡了一小会儿。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1541500985254.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1541501098319.png">
@@ -95,7 +95,7 @@
 <meta property="og:updated_time" content="2019-10-08T11:12:12.100Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第七届山东省网络安全技能大赛-决赛Write-Up">
-<meta name="twitter:description" content="第七届山东省网络安全技能大赛-决赛Write-Up ——xx_C1 前言 第一次真正意义打线下赛，学到不少东西。差点三等奖，继续努力吧。 Reverse不会跳过 Pwn不会跳过 Webweb1 打开页面：  猜测抓包伪造地址。同时把admin=0改为admin=1。只说IP不在范围这个和127.0.0.1貌似没什么关系…有点坑，卡了一小会儿。  Web2 简答的审计源码  危险函数：parse_s">
+<meta name="twitter:description" content="第七届山东省网络安全技能大赛-决赛Write-Up ——xx_C1 前言 第一次真正意义打线下赛，学到不少东西。差点三等奖，继续努力吧。Reverse不会跳过Pwn不会跳过Webweb1打开页面：猜测抓包伪造地址。同时把admin=0改为admin=1。只说IP不在范围这个和127.0.0.1貌似没什么关系…有点坑，卡了一小会儿。">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1541500985254.png">
   <link rel="canonical" href="https://github.com/xx-C1/xx-C1.github.io/2018/11/09/第七届山东省网络安全技能大赛-决赛Write-Up/">
 
@@ -389,13 +389,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>第七届山东省网络安全技能大赛-决赛Write-Up ——xx_C1 <strong>前言</strong> 第一次真正意义打线下赛，学到不少东西。差点三等奖，继续努力吧。</p>
-<h3 id="Reverse"><a href="#Reverse" class="headerlink" title="Reverse"></a><strong>Reverse</strong></h3><p>不会跳过</p>
-<h3 id="Pwn"><a href="#Pwn" class="headerlink" title="Pwn"></a><strong>Pwn</strong></h3><p>不会跳过</p>
-<h3 id="Web"><a href="#Web" class="headerlink" title="Web"></a><strong>Web</strong></h3><p><strong>web1</strong></p>
-<p>打开页面：</p>
-<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1541500985254.png" alt></p>
-<p>猜测抓包伪造地址。同时把admin=0改为admin=1。只说IP不在范围这个和127.0.0.1貌似没什么关系…有点坑，卡了一小会儿。</p>
+        <p>第七届山东省网络安全技能大赛-决赛Write-Up ——xx_C1 <strong>前言</strong> 第一次真正意义打线下赛，学到不少东西。差点三等奖，继续努力吧。</p><h3 id="Reverse"><a href="#Reverse" class="headerlink" title="Reverse"></a><strong>Reverse</strong></h3><p>不会跳过</p><h3 id="Pwn"><a href="#Pwn" class="headerlink" title="Pwn"></a><strong>Pwn</strong></h3><p>不会跳过</p><h3 id="Web"><a href="#Web" class="headerlink" title="Web"></a><strong>Web</strong></h3><p><strong>web1</strong></p><p>打开页面：</p><p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1541500985254.png" alt></p><p>猜测抓包伪造地址。同时把admin=0改为admin=1。只说IP不在范围这个和127.0.0.1貌似没什么关系…有点坑，卡了一小会儿。</p><a id="more"></a>
+
+
+
+
+
+
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1541501098319.png" alt></p>
 <p><strong>Web2</strong></p>
 <p>简答的审计源码</p>

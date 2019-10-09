@@ -55,18 +55,18 @@
   };
 </script>
 
-  <meta name="description" content="babyphp描述里面发现使用了Git，直接御剑爆破出.git目录。利用工具扒下源码，审计一波。 源码： &amp;lt;?php if (isset($_GET[&amp;apos;page&amp;apos;])) {     $page = $_GET[&amp;apos;page&amp;apos;]; } else {     $page = &amp;quot;home&amp;quot;; } $file = &amp;quot;template">
+  <meta name="description" content="babyphp描述里面发现使用了Git，直接御剑爆破出.git目录。利用工具扒下源码，审计一波。 源码：&amp;lt;?php if (isset($_GET[&amp;apos;page&amp;apos;])) {     $page = $_GET[&amp;apos;page&amp;apos;]; } else {     $page = &amp;quot;home&amp;quot;; } $file = &amp;quot;templates">
 <meta name="keywords" content="WriteUp">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Jarvis OJ Web WriteUp(2)">
 <meta property="og:url" content="https://github.com/xx-C1/xx-C1.github.io/2018/09/27/Jarvis OJ Web WriteUp(2)/index.html">
 <meta property="og:site_name" content="xxC1&#39;s blog">
-<meta property="og:description" content="babyphp描述里面发现使用了Git，直接御剑爆破出.git目录。利用工具扒下源码，审计一波。 源码： &amp;lt;?php if (isset($_GET[&amp;apos;page&amp;apos;])) {     $page = $_GET[&amp;apos;page&amp;apos;]; } else {     $page = &amp;quot;home&amp;quot;; } $file = &amp;quot;template">
+<meta property="og:description" content="babyphp描述里面发现使用了Git，直接御剑爆破出.git目录。利用工具扒下源码，审计一波。 源码：&amp;lt;?php if (isset($_GET[&amp;apos;page&amp;apos;])) {     $page = $_GET[&amp;apos;page&amp;apos;]; } else {     $page = &amp;quot;home&amp;quot;; } $file = &amp;quot;templates">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-10-08T11:14:09.869Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Jarvis OJ Web WriteUp(2)">
-<meta name="twitter:description" content="babyphp描述里面发现使用了Git，直接御剑爆破出.git目录。利用工具扒下源码，审计一波。 源码： &amp;lt;?php if (isset($_GET[&amp;apos;page&amp;apos;])) {     $page = $_GET[&amp;apos;page&amp;apos;]; } else {     $page = &amp;quot;home&amp;quot;; } $file = &amp;quot;template">
+<meta name="twitter:description" content="babyphp描述里面发现使用了Git，直接御剑爆破出.git目录。利用工具扒下源码，审计一波。 源码：&amp;lt;?php if (isset($_GET[&amp;apos;page&amp;apos;])) {     $page = $_GET[&amp;apos;page&amp;apos;]; } else {     $page = &amp;quot;home&amp;quot;; } $file = &amp;quot;templates">
   <link rel="canonical" href="https://github.com/xx-C1/xx-C1.github.io/2018/09/27/Jarvis OJ Web WriteUp(2)/">
 
 
@@ -359,8 +359,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h5 id="babyphp"><a href="#babyphp" class="headerlink" title="babyphp"></a>babyphp</h5><p>描述里面发现使用了Git，直接御剑爆破出.git目录。利用工具扒下源码，审计一波。 源码：</p>
-<pre><code>&lt;?php
+        <h5 id="babyphp"><a href="#babyphp" class="headerlink" title="babyphp"></a>babyphp</h5><p>描述里面发现使用了Git，直接御剑爆破出.git目录。利用工具扒下源码，审计一波。 源码：</p><pre><code>&lt;?php
 if (isset($_GET[&apos;page&apos;])) {
     $page = $_GET[&apos;page&apos;];
 } else {
@@ -371,7 +370,8 @@ $file = &quot;templates/&quot; . $page . &quot;.php&quot;;
 assert(&quot;strpos(&apos;$file&apos;, &apos;..&apos;) === false&quot;) or die(&quot;Detected hacking attempt!&quot;);
 // TODO: Make this look nice
 assert(&quot;file_exists(&apos;$file&apos;)&quot;) or die(&quot;That file doesn&apos;t exist!&quot;);
-?&gt;</code></pre><p>assert函数果断是常见的危险函数。如果第一个参数是字符串会当作为代码执行。构造payload： <code>http://web.jarvisoj.com:32798/?page=flag&#39;.system(&quot;ls templates/;&quot;).&#39;</code> <code>http://web.jarvisoj.com:32798/?page=flag&#39;.system(&quot;cat templates/flag.php;&quot;).&#39;</code> 也可以利用注释掉后面的语句构造payload。</p>
+?&gt;</code></pre><a id="more"></a>
+<p>assert函数果断是常见的危险函数。如果第一个参数是字符串会当作为代码执行。构造payload： <code>http://web.jarvisoj.com:32798/?page=flag&#39;.system(&quot;ls templates/;&quot;).&#39;</code> <code>http://web.jarvisoj.com:32798/?page=flag&#39;.system(&quot;cat templates/flag.php;&quot;).&#39;</code> 也可以利用注释掉后面的语句构造payload。</p>
 <h5 id="simple-injection"><a href="#simple-injection" class="headerlink" title="simple injection"></a>simple injection</h5><p>上来一脸懵逼，post注入直接上sqlmap，发现有waf。然后sqlmap绕过waf还不会。。。只能手动了。。。 常规测试: 1.先常规测试一下： <code>username=admin&#39;#</code> 密码随便填，发现报错密码错误。验证了没有过滤’#，而且存在报错注入。 2.然后尝试: <code>admin&#39; order by 1#</code> 发现说用户不存在，那么就说明有waf过滤了空格或order或by中至少一个。 3.先猜测空格吧： 把空格换成/<strong>/，提示密码错误。ok绕过过滤空格。 4.测试一下万能密码： `admin’/</strong>/or/**/1=1#`提示密码错误，没有过滤or。但是存在密码验证，万能密码不能用。 常见的登陆漏洞类型： ①同时验证用户名和密码：</p>
 <pre><code>$sql = select * from users where    username=$usernmae and password=$password
 $result = mysql_query($sql);

@@ -55,18 +55,18 @@
   };
 </script>
 
-  <meta name="description" content="Docker学习笔记整理记录Docker学习。重点学习Docker基础和Compose，实践了几个小型项目，下一步运用熟练。  一、基本概念  镜像（Image）：root文件系统（分层存储，体积小）  容器（Container）：实质是基于镜像的进程，相当于镜像的实例（在镜像基础上加一层容器运行时的存储层）  仓库（Registry）：集中存储、分发镜像的服务（包含多个仓库，每个仓库可包含多个标">
+  <meta name="description" content="Docker学习笔记整理记录Docker学习。重点学习Docker基础和Compose，实践了几个小型项目，下一步运用熟练。 一、基本概念 镜像（Image）：root文件系统（分层存储，体积小）  容器（Container）：实质是基于镜像的进程，相当于镜像的实例（在镜像基础上加一层容器运行时的存储层）  仓库（Registry）：集中存储、分发镜像的服务（包含多个仓库，每个仓库可包含多个标签）">
 <meta name="keywords" content="Docker">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Docker学习笔记">
 <meta property="og:url" content="https://github.com/xx-C1/xx-C1.github.io/2019/03/11/Docker学习笔记/index.html">
 <meta property="og:site_name" content="xxC1&#39;s blog">
-<meta property="og:description" content="Docker学习笔记整理记录Docker学习。重点学习Docker基础和Compose，实践了几个小型项目，下一步运用熟练。  一、基本概念  镜像（Image）：root文件系统（分层存储，体积小）  容器（Container）：实质是基于镜像的进程，相当于镜像的实例（在镜像基础上加一层容器运行时的存储层）  仓库（Registry）：集中存储、分发镜像的服务（包含多个仓库，每个仓库可包含多个标">
+<meta property="og:description" content="Docker学习笔记整理记录Docker学习。重点学习Docker基础和Compose，实践了几个小型项目，下一步运用熟练。 一、基本概念 镜像（Image）：root文件系统（分层存储，体积小）  容器（Container）：实质是基于镜像的进程，相当于镜像的实例（在镜像基础上加一层容器运行时的存储层）  仓库（Registry）：集中存储、分发镜像的服务（包含多个仓库，每个仓库可包含多个标签）">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-10-08T11:13:41.630Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker学习笔记">
-<meta name="twitter:description" content="Docker学习笔记整理记录Docker学习。重点学习Docker基础和Compose，实践了几个小型项目，下一步运用熟练。  一、基本概念  镜像（Image）：root文件系统（分层存储，体积小）  容器（Container）：实质是基于镜像的进程，相当于镜像的实例（在镜像基础上加一层容器运行时的存储层）  仓库（Registry）：集中存储、分发镜像的服务（包含多个仓库，每个仓库可包含多个标">
+<meta name="twitter:description" content="Docker学习笔记整理记录Docker学习。重点学习Docker基础和Compose，实践了几个小型项目，下一步运用熟练。 一、基本概念 镜像（Image）：root文件系统（分层存储，体积小）  容器（Container）：实质是基于镜像的进程，相当于镜像的实例（在镜像基础上加一层容器运行时的存储层）  仓库（Registry）：集中存储、分发镜像的服务（包含多个仓库，每个仓库可包含多个标签）">
   <link rel="canonical" href="https://github.com/xx-C1/xx-C1.github.io/2019/03/11/Docker学习笔记/">
 
 
@@ -359,9 +359,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="Docker学习笔记整理"><a href="#Docker学习笔记整理" class="headerlink" title="Docker学习笔记整理"></a>Docker学习笔记整理</h1><p><strong>记录Docker学习。重点学习Docker基础和Compose，实践了几个小型项目，下一步运用熟练。</strong> <a name="96ad50d0"></a></p>
-<h2 id="一、基本概念"><a href="#一、基本概念" class="headerlink" title="一、基本概念"></a>一、基本概念</h2><hr>
-<ul>
+        <h1 id="Docker学习笔记整理"><a href="#Docker学习笔记整理" class="headerlink" title="Docker学习笔记整理"></a>Docker学习笔记整理</h1><p><strong>记录Docker学习。重点学习Docker基础和Compose，实践了几个小型项目，下一步运用熟练。</strong> <a name="96ad50d0"></a></p><h2 id="一、基本概念"><a href="#一、基本概念" class="headerlink" title="一、基本概念"></a>一、基本概念</h2><hr><ul>
 <li><p><strong>镜像（Image）：</strong>root文件系统（分层存储，体积小）</p>
 </li>
 <li><p><strong>容器（Container）：</strong>实质是基于镜像的进程，相当于镜像的实例（在镜像基础上加一层容器运行时的存储层）</p>
@@ -370,7 +368,9 @@
 </li>
 <li><p><strong>国内加速</strong></p>
 </li>
-</ul>
+</ul><a id="more"></a>
+
+
 <h2 id="二、安装Docker"><a href="#二、安装Docker" class="headerlink" title="二、安装Docker"></a>二、安装Docker</h2><hr>
 <h2 id="三、使用镜像"><a href="#三、使用镜像" class="headerlink" title="三、使用镜像"></a>三、使用镜像</h2><hr>
 <h3 id="（一）获取镜像："><a href="#（一）获取镜像：" class="headerlink" title="（一）获取镜像："></a>（一）获取镜像：</h3><ul>
