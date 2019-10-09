@@ -64,7 +64,7 @@
 <meta property="og:description" content="# -*- coding: utf-8 -*- &amp;apos;&amp;apos;&amp;apos; 一个区块的结构 {     &amp;quot;index&amp;quot;:0,          //索引     &amp;quot;timestamp&amp;quot;:&amp;quot;&amp;quot;,     //时间戳     &amp;quot;proof&amp;quot;:&amp;quot;&amp;quot;,         //工作量证明     &amp;q">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/xx-C1/MDphoto/master/qklgongzuoliangzhengm.png">
-<meta property="og:updated_time" content="2019-10-08T11:12:44.028Z">
+<meta property="og:updated_time" content="2019-10-09T10:52:50.599Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="区块链-工作量证明Python实现">
 <meta name="twitter:description" content="# -*- coding: utf-8 -*- &amp;apos;&amp;apos;&amp;apos; 一个区块的结构 {     &amp;quot;index&amp;quot;:0,          //索引     &amp;quot;timestamp&amp;quot;:&amp;quot;&amp;quot;,     //时间戳     &amp;quot;proof&amp;quot;:&amp;quot;&amp;quot;,         //工作量证明     &amp;q">
@@ -296,7 +296,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-08 19:12:44" itemprop="dateModified" datetime="2019-10-08T19:12:44+08:00">2019-10-08</time>
+                <time title="修改时间：2019-10-09 18:52:50" itemprop="dateModified" datetime="2019-10-09T18:52:50+08:00">2019-10-09</time>
               </span>
             
           
@@ -338,7 +338,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>3.3k</span>
+              <span>3.2k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -378,16 +378,8 @@
 &apos;&apos;&apos;
 import hashlib
 import json
-import time</code></pre><a id="more"></a><p>​<br>​    class BlockChain:<br>​<br>​        #初始化区块链方法<br>​        def <strong>init</strong>(self):<br>​            self.chain = []                             #区块链<br>​            self.current_transactions = []              #交易<br>​<br>​            self.new_block(proof = 100, pre_hash= 1)    #产生创世区块<br>​<br>        #创建区块方法，默认前一块hash为None（创世区块）<br>        def new_block(self, proof, pre_hash = None):</p>
-<pre><code>        block = {
-            &apos;index&apos;:len(self.chain) + 1,                        #所创建区块的索引为当前区块链长度+1
-            &apos;timestamp&apos;: time.time(),                           #产生时间戳
-            &apos;transactions&apos;:self.current_transactions,           #交易信息为当前保存的交易信息列表
-            &apos;proof&apos;:proof,                                      #工作量证明
-            &apos;pre_hash&apos;:pre_hash or self.hash(self.chain[-1])    #前一块哈希值，[-1]代表数组最后一个元素
-        }
-
-        self.current_transactions = []                          #交易已经打包成区块，当前交易赋空
+import time</code></pre><a id="more"></a><p>​<br>​    class BlockChain:<br>​<br>​        #初始化区块链方法<br>​        def <strong>init</strong>(self):<br>​            self.chain = []                             #区块链<br>​            self.current_transactions = []              #交易<br>​<br>​            self.new_block(proof = 100, pre_hash= 1)    #产生创世区块<br>​<br>​        #创建区块方法，默认前一块hash为None（创世区块）<br>​        def new_block(self, proof, pre_hash = None):<br>​<br>            block = {<br>                ‘index’:len(self.chain) + 1,                        #所创建区块的索引为当前区块链长度+1<br>                ‘timestamp’: time.time(),                           #产生时间戳<br>                ‘transactions’:self.current_transactions,           #交易信息为当前保存的交易信息列表<br>                ‘proof’:proof,                                      #工作量证明<br>                ‘pre_hash’:pre_hash or self.hash(self.chain[-1])    #前一块哈希值，[-1]代表数组最后一个元素<br>            }</p>
+<pre><code>        self.current_transactions = []                          #交易已经打包成区块，当前交易赋空
         self.chain.append(block)                                #在区块链后面添加区块
 
         return block
@@ -483,7 +475,7 @@ if __name__ == &quot;__main__&quot;:
     <strong>本文作者： </strong>xx_C1</li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="/18.html" title="区块链-工作量证明Python实现">18.html</a>
+    <a href="https://github.com/xx-C1/xx-C1.github.io/2019/04/16/区块链-工作量证明Python实现/" title="区块链-工作量证明Python实现">https://github.com/xx-C1/xx-C1.github.io/2019/04/16/区块链-工作量证明Python实现/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
