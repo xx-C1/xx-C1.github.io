@@ -55,18 +55,18 @@
   };
 </script>
 
-  <meta name="description" content="一、漏洞原理PHP 内置了多种处理器用于存取 $_SESSION 数据时会对数据进行序列化和反序列化。处理器对应的存储格式php键名 ＋ 竖线 ＋ 经过 serialize() 函数反序列处理的值php_binary键名的长度对应的 ASCII 字符 ＋ 键名 ＋ 经过 serialize() 函数反序列处理的值">
+  <meta name="description" content="一、漏洞原理PHP 内置了多种处理器用于存取 $_SESSION 数据时会对数据进行序列化和反序列化。处理器对应的存储格式: php 1键名 ＋ 竖线 ＋ 经过 serialize() 函数反序列处理的值 php_binary 1键名的长度对应的 ASCII 字符 ＋ 键名 ＋ 经过 serialize() 函数反序列处理的值">
 <meta name="keywords" content="反序列化">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Session序列化及反序列化处理器的安全问题">
 <meta property="og:url" content="https://github.com/xx-C1/xx-C1.github.io/2018/10/18/Session序列化及反序列化处理器的安全问题/index.html">
 <meta property="og:site_name" content="xxC1&#39;s blog">
-<meta property="og:description" content="一、漏洞原理PHP 内置了多种处理器用于存取 $_SESSION 数据时会对数据进行序列化和反序列化。处理器对应的存储格式php键名 ＋ 竖线 ＋ 经过 serialize() 函数反序列处理的值php_binary键名的长度对应的 ASCII 字符 ＋ 键名 ＋ 经过 serialize() 函数反序列处理的值">
+<meta property="og:description" content="一、漏洞原理PHP 内置了多种处理器用于存取 $_SESSION 数据时会对数据进行序列化和反序列化。处理器对应的存储格式: php 1键名 ＋ 竖线 ＋ 经过 serialize() 函数反序列处理的值 php_binary 1键名的长度对应的 ASCII 字符 ＋ 键名 ＋ 经过 serialize() 函数反序列处理的值">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-09T10:55:25.670Z">
+<meta property="og:updated_time" content="2019-10-09T11:19:34.612Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Session序列化及反序列化处理器的安全问题">
-<meta name="twitter:description" content="一、漏洞原理PHP 内置了多种处理器用于存取 $_SESSION 数据时会对数据进行序列化和反序列化。处理器对应的存储格式php键名 ＋ 竖线 ＋ 经过 serialize() 函数反序列处理的值php_binary键名的长度对应的 ASCII 字符 ＋ 键名 ＋ 经过 serialize() 函数反序列处理的值">
+<meta name="twitter:description" content="一、漏洞原理PHP 内置了多种处理器用于存取 $_SESSION 数据时会对数据进行序列化和反序列化。处理器对应的存储格式: php 1键名 ＋ 竖线 ＋ 经过 serialize() 函数反序列处理的值 php_binary 1键名的长度对应的 ASCII 字符 ＋ 键名 ＋ 经过 serialize() 函数反序列处理的值">
   <link rel="canonical" href="https://github.com/xx-C1/xx-C1.github.io/2018/10/18/Session序列化及反序列化处理器的安全问题/">
 
 
@@ -294,7 +294,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-09 18:55:25" itemprop="dateModified" datetime="2019-10-09T18:55:25+08:00">2019-10-09</time>
+                <time title="修改时间：2019-10-09 19:19:34" itemprop="dateModified" datetime="2019-10-09T19:19:34+08:00">2019-10-09</time>
               </span>
             
           
@@ -336,7 +336,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>3k</span>
+              <span>3.5k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -346,7 +346,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span>5 分钟</span>
+              <span>6 分钟</span>
             </span>
           
 
@@ -359,7 +359,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p><strong>一、漏洞原理</strong></p><p>PHP 内置了多种处理器用于存取 $_SESSION 数据时会对数据进行序列化和反序列化。</p><p>处理器</p><p>对应的存储格式</p><p>php</p><p>键名 ＋ 竖线 ＋ 经过 serialize() 函数反序列处理的值</p><p>php_binary</p><p>键名的长度对应的 ASCII 字符 ＋ 键名 ＋ 经过 serialize() 函数反序列处理的值</p><a id="more"></a>
+        <h2 id="一、漏洞原理"><a href="#一、漏洞原理" class="headerlink" title="一、漏洞原理"></a><strong>一、漏洞原理</strong></h2><p>PHP 内置了多种处理器用于存取 $_SESSION 数据时会对数据进行序列化和反序列化。</p><h3 id="处理器"><a href="#处理器" class="headerlink" title="处理器"></a>处理器</h3><p>对应的存储格式:</p><ul>
+<li>php</li>
+</ul><figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">键名 ＋ 竖线 ＋ 经过 serialize<span class="comment">()</span> 函数反序列处理的值</span><br></pre></td></tr></table></figure><ul>
+<li>php_binary</li>
+</ul><figure class="highlight cos"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">键名的长度对应的 <span class="keyword">ASCII</span> 字符 ＋ 键名 ＋ 经过 serialize() 函数反序列处理的值</span><br></pre></td></tr></table></figure><a id="more"></a>
 
 
 
@@ -367,42 +371,51 @@
 
 
 
-<p>php_serialize</p>
-<p>(php&gt;=5.5.4)</p>
-<p>经过 serialize() 函数反序列处理的数组</p>
+<ul>
+<li>php_serialize(php&gt;=5.5.4)</li>
+</ul>
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">经过 serialize<span class="comment">()</span> 函数反序列处理的数组</span><br></pre></td></tr></table></figure>
+
 <p>php.ini中默认session.serialize_handler为php_serialize。</p>
 <p>而PHP 提供了 session.serialize_handler 配置选项，通过该选项可以设置序列化及反序列化时使用的处理器：</p>
-<p>session.serialize_handler “php” PHP_INI_ALL</p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">session.serialize<span class="string">\_handler</span> <span class="string">"php"</span> PHP<span class="string">\_INI_ALL</span></span><br></pre></td></tr></table></figure>
+
 <p>通过上面对存储格式的分析，如果 PHP 在反序列化存储的 $_SESSION 数据时的使用的处理器和序列化时使用的处理器不同，会导致数据无法正确反序列化，通过特殊的构造，甚至可以伪造任意数据：</p>
-<p>$_SESSION[‘ryat’] = ‘|O:8:”stdClass”:0:{}’;</p>
+<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$_SESSION\[<span class="string">'ryat'</span>\] = <span class="string">'|O:8:"stdClass":0:&#123;&#125;'</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
+
 <p>例如上面的 $_SESSION 数据，在存储时使用的序列化处理器为 php_serialize，存储的格式如下：</p>
-<p>a:1:{s:4:”ryat”;s:20:”|O:8:”stdClass”:0:{}”;}</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:1</span>:&#123;<span class="attribute">s</span>:<span class="number">4</span>:<span class="string">"ryat"</span>;<span class="attribute">s</span>:<span class="number">20</span>:<span class="string">"|O:8:"</span>stdClass<span class="string">":0:&#123;&#125;"</span>;&#125;</span><br></pre></td></tr></table></figure>
+
 <p>在读取数据时如果用的反序列化处理器不是 php_serialize，而是 php 的话，那么反序列化后的数据将会变成：</p>
-<p>// var_dump($_SESSION); array(1) { [“a:1:{s:4:”ryat”;s:20:””]=&gt; object(stdClass)#1 (0) { } }</p>
+<figure class="highlight golo"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">// <span class="keyword">var</span>\_dump($\_SESSION); <span class="keyword">array</span>(<span class="number">1</span>) &#123; \[<span class="string">"a:1:&#123;s:4:"</span>ryat<span class="string">";s:20:"</span><span class="string">"\]=&gt; object(stdClass)#1 (0) &#123; &#125; &#125;</span></span><br></pre></td></tr></table></figure>
+
 <p>可以看到，通过注入 | 字符伪造了对象的序列化数据，成功实例化了 stdClass 对象：）</p>
-<p><strong>二、实际利用</strong></p>
-<p>i）当 session.auto_start＝On 时：</p>
-<p>当配置选项 session.auto_start＝On，会自动注册 Session 会话，因为该过程是发生在脚本代码执行前，所以在脚本中设定的包括序列化处理器在内的 session 相关配选项的设置是不起作用的，因此一些需要在脚本中设置序列化处理器配置的程序会在 session.auto_start＝On 时，销毁自动生成的 Session 会话，然后设置需要的序列化处理器，再调用 session_start() 函数注册会话，这时如果脚本中设置的序列化处理器与 php.ini 中设置的不同，就会出现安全问题，如下面的代码：</p>
-<p>//foo.php if (ini_get(‘session.auto_start’)) { session_destroy(); } ini_set(‘session.serialize_handler’, ‘php_serialize’); session_start(); $_SESSION[‘ryat’] = $_GET[‘ryat’];</p>
+<h2 id="二、实际利用"><a href="#二、实际利用" class="headerlink" title="二、实际利用"></a><strong>二、实际利用</strong></h2><h3 id="i）当-session-auto-start＝On-时："><a href="#i）当-session-auto-start＝On-时：" class="headerlink" title="i）当 session.auto_start＝On 时："></a>i）当 session.auto_start＝On 时：</h3><p>当配置选项 session.auto_start＝On，会自动注册 Session 会话，因为该过程是发生在脚本代码执行前，所以在脚本中设定的包括序列化处理器在内的 session 相关配选项的设置是不起作用的，因此一些需要在脚本中设置序列化处理器配置的程序会在 session.auto_start＝On 时，销毁自动生成的 Session 会话，然后设置需要的序列化处理器，再调用 session_start() 函数注册会话，这时如果脚本中设置的序列化处理器与 php.ini 中设置的不同，就会出现安全问题，如下面的代码：</p>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">//foo.php if (ini<span class="symbol">\_</span>get('session.auto<span class="symbol">\_</span>start')) &#123; session<span class="symbol">\_</span>destroy(); &#125; ini<span class="symbol">\_</span>set('session.serialize<span class="symbol">\_</span>handler', 'php<span class="symbol">\_</span>serialize'); session<span class="symbol">\_</span>start(); $<span class="symbol">\_</span>SESSION<span class="symbol">\[</span>'ryat'<span class="symbol">\]</span> = $_GET<span class="symbol">\[</span>'ryat'<span class="symbol">\]</span>;</span><br></pre></td></tr></table></figure>
+
 <p>当第一次访问该脚本，并提交数据如下：</p>
-<p>foo.php?ryat=|O:8:”stdClass”:0:{}</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">foo.php?ryat=<span class="string">|O:8:"</span>stdClass<span class="string">":0:&#123;&#125;</span></span><br></pre></td></tr></table></figure>
+
 <p>脚本会按照 php_serialize 处理器的序列化格式存储数据：</p>
-<p>a:1:{s:4:”ryat”;s:20:”|O:8:”stdClass”:0:{}”;}</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:1</span>:&#123;<span class="attribute">s</span>:<span class="number">4</span>:<span class="string">"ryat"</span>;<span class="attribute">s</span>:<span class="number">20</span>:<span class="string">"|O:8:"</span>stdClass<span class="string">":0:&#123;&#125;"</span>;&#125;</span><br></pre></td></tr></table></figure>
+
 <p>当第二次访问该脚本时，PHP 会按照 php.ini 里设置的序列化处理器反序列化存储的数据，这时如果 php.ini 里设置的是 php 处理器的话，将会反序列化伪造的数据，成功实例化了 stdClass 对象：）</p>
 <p>这里需要注意的是，因为 PHP 自动注册 Session 会话是在脚本执行前，所以通过该方式只能注入 PHP 的内置类。</p>
-<p>ii）当 session.auto_start＝Off 时：</p>
-<p>当配置选项 session.auto_start＝Off，两个脚本注册 Session 会话时使用的序列化处理器不同，就会出现安全问题，如下面的代码：</p>
-<p>//foo1.php ini_set(‘session.serialize_handler’, ‘php_serialize’); session_start(); $_SESSION[‘ryat’] = $_GET[‘ryat’]; //foo2.php ini_set(‘session.serialize_handler’, ‘php’); //or session.serialize_handler set to php in php.ini session_start(); class ryat { var $hi; function __wakeup() { echo ‘hi’; } function __destruct() { echo $this-&gt;hi; } }</p>
+<h3 id="ii）当-session-auto-start＝Off-时："><a href="#ii）当-session-auto-start＝Off-时：" class="headerlink" title="ii）当 session.auto_start＝Off 时："></a>ii）当 session.auto_start＝Off 时：</h3><p>当配置选项 session.auto_start＝Off，两个脚本注册 Session 会话时使用的序列化处理器不同，就会出现安全问题，如下面的代码：</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">//foo1.php ini<span class="tag">\<span class="name">_</span></span>set('session.serialize<span class="tag">\<span class="name">_</span></span>handler', 'php<span class="tag">\<span class="name">_</span></span>serialize'); session<span class="tag">\<span class="name">_</span></span>start(); <span class="formula">$<span class="tag">\<span class="name">_</span></span>SESSION<span class="tag">\<span class="name">[</span></span>'ryat'<span class="tag">\<span class="name">]</span> = </span>$</span><span class="tag">\<span class="name">_</span></span>GET<span class="tag">\<span class="name">[</span></span>'ryat'<span class="tag">\<span class="name">]</span></span>; //foo2.php ini<span class="tag">\<span class="name">_</span></span>set('session.serialize<span class="tag">\<span class="name">_</span></span>handler', 'php'); //or session.serialize<span class="tag">\<span class="name">_</span></span>handler set to php in php.ini session<span class="tag">\<span class="name">_</span></span>start(); class ryat &#123; var <span class="formula">$hi; function <span class="tag">\<span class="name">_</span></span><span class="tag">\<span class="name">_</span></span>wakeup() &#123; echo 'hi'; &#125; function <span class="tag">\<span class="name">_</span></span><span class="tag">\<span class="name">_</span></span>destruct() &#123; echo $</span>this-&gt;hi; &#125; &#125;</span><br></pre></td></tr></table></figure>
+
 <p>当访问 foo1.php 时，提交数据如下：</p>
-<p>foo1.php?ryat=|O:4:”ryat”:1:{s:2:”hi”;s:4:”ryat”;}</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">foo1.php?ryat=|O:<span class="number">4</span>:<span class="string">"ryat"</span>:<span class="number">1</span>:&#123;<span class="string">s:</span><span class="number">2</span>:<span class="string">"hi"</span>;<span class="string">s:</span><span class="number">4</span>:<span class="string">"ryat"</span>;&#125;</span><br></pre></td></tr></table></figure>
+
 <p>脚本会按照 php_serialize 处理器的序列化格式存储数据，访问 foo2.php 时，则会按照 php 处理器的反序列化格式读取数据，这时将会反序列化伪造的数据，成功实例化了 ryat 对象，并将会执行类中的 __wakeup 方法和 __destruct 方法：）</p>
-<p>三、更深理解</p>
-<p>漏洞关键在于：</p>
-<p>1.脚本中设置的序列化处理器与php.ini设置的不同</p>
-<p>2.两个脚本注册session使用的序列化处理器不同</p>
+<h2 id="三、更深理解"><a href="#三、更深理解" class="headerlink" title="三、更深理解"></a>三、更深理解</h2><h3 id="漏洞关键在于："><a href="#漏洞关键在于：" class="headerlink" title="漏洞关键在于："></a>漏洞关键在于：</h3><ul>
+<li><p>1.脚本中设置的序列化处理器与php.ini设置的不同</p>
+</li>
+<li><p>2.两个脚本注册session使用的序列化处理器不同</p>
+</li>
+</ul>
 <p>（存储时序列化的和读取时反序列化的）处理器不同就会产生安全问问题。</p>
-<p>原因：</p>
-<p>未正确处理\\’|\\’。</p>
+<h3 id="原因："><a href="#原因：" class="headerlink" title="原因："></a>原因：</h3><p>未正确处理\\’|\\’。</p>
 <p>比如：以php_serilize方式存入的时候，构造出”|” 伪造的序列化值存入。但之后解析又是用的php处理器的话，那么将会反序列化伪造的数据（\\’|\\’之前当作键名，\\’|\\’之后当作键值）</p>
 <p>（L.N.: php5.6.13版本以前是第一个变量解析错误注销第一个变量，然后解析第二个变量，但是5.6.13以后如果第一个变量错误，直接销毁整个session）。</p>
 <p>通过什么方式将数据注入到session中呢？</p>
@@ -411,37 +424,11 @@
 <p>当session.upload_progress.enabled打开时，php会记录上传文件的进度，在上传时会将其信息保存在$_SESSION中。</p>
 <p>构造表单：</p>
 <p>POST一个名为PHP_SESSION_UPLOAD_PROGRESS的值，便可以将上传的文件名写入session。</p>
-<!DOCTYPE html>
-
-<html>
-
-<head><meta name="generator" content="Hexo 3.9.0">
-
-<title>test XXE</title>
-<meta charset="utf-8">
-
-</head>
-
-<body>
-
-<form action="http://web.jarvisoj.com:32784/index.php" method="POST" enctype="multipart/form-data"><!--
-
-<p>不对字符编码–&gt;</p>
-<input type="hidden" name="PHP\_SESSION\_UPLOAD_PROGRESS" value="123" />
-
-<input type="file" name="file" />
-
-<input type="submit" value="go" />
-
-</form>
-
-</body>
-
-</html>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>test XXE<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"http://web.jarvisoj.com:32784/index.php"</span> <span class="attr">method</span>=<span class="string">"POST"</span> <span class="attr">enctype</span>=<span class="string">"multipart/form-data"</span>&gt;</span><span class="comment">&lt;!--不对字符编码--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"PHP\_SESSION\_UPLOAD_PROGRESS"</span> <span class="attr">value</span>=<span class="string">"123"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"file"</span> <span class="attr">name</span>=<span class="string">"file"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"go"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>后面的难点在于构造出pop链达到自己想要的结果。</p>
 <p>参考：wooyun：ryat一篇文章</p>
---></form><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":80,"height":132},"mobile":{"show":true},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":80,"height":132},"mobile":{"show":true},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>
+
     </div>
     <div>
     
@@ -569,6 +556,8 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、漏洞原理"><span class="nav-text">一、漏洞原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#处理器"><span class="nav-text">处理器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、实际利用"><span class="nav-text">二、实际利用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#i）当-session-auto-start＝On-时："><span class="nav-text">i）当 session.auto_start＝On 时：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ii）当-session-auto-start＝Off-时："><span class="nav-text">ii）当 session.auto_start＝Off 时：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、更深理解"><span class="nav-text">三、更深理解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#漏洞关键在于："><span class="nav-text">漏洞关键在于：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原因："><span class="nav-text">原因：</span></a></li></ol></li></ol></div>
+        
       </div>
       <!--/noindex-->
 
@@ -724,12 +713,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">84k</span>
+    <span title="站点总字数">86k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:20</span>
+    <span title="站点阅读时长">2:23</span>
 </div>
 
 <!--

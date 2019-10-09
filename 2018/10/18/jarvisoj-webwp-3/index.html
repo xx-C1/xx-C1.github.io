@@ -85,7 +85,7 @@
 <meta property="og:image" content="http://dxxblog.top/wp-content/uploads/2018/10/1539873520477-300x67.png">
 <meta property="og:image" content="http://dxxblog.top/wp-content/uploads/2018/10/1539874593949-300x101.png">
 <meta property="og:image" content="http://dxxblog.top/wp-content/uploads/2018/10/1539874650025-300x82.png">
-<meta property="og:updated_time" content="2019-10-09T10:55:16.558Z">
+<meta property="og:updated_time" content="2019-10-09T11:20:58.027Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jarvisoj-web-WP">
 <meta name="twitter:description" content="WEB?这个题目一看一脸懵逼。注入扫目录都没结果。查看源码发现有俩连接很诡异。既然题目提示web？可能就在此下手了。 打开后一看是这么一堆：先找个js代码格式工具格式一下。既然是js代码就根据前端有什么就搜什么吧。   搜索Wrong Password。发现一个checkpass函数。搜索chekpass发现这么一堆：">
@@ -317,7 +317,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-09 18:55:16" itemprop="dateModified" datetime="2019-10-09T18:55:16+08:00">2019-10-09</time>
+                <time title="修改时间：2019-10-09 19:20:58" itemprop="dateModified" datetime="2019-10-09T19:20:58+08:00">2019-10-09</time>
               </span>
             
           
@@ -382,8 +382,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p><strong>WEB?</strong></p><p>这个题目一看一脸懵逼。注入扫目录都没结果。查看源码发现有俩连接很诡异。既然题目提示web？可能就在此下手了。</p><p><img src="http://dxxblog.top/wp-content/uploads/2018/10/1539871486986-300x63.png" alt> <img src="http://dxxblog.top/wp-content/uploads/2018/10/1539871501080-300x63.png" alt></p><p>打开后一看是这么一堆：</p><p><img src="http://dxxblog.top/wp-content/uploads/2018/10/1539871544383-300x160.png" alt></p><p>先找个js代码格式工具格式一下。既然是js代码就根据前端有什么就搜什么吧。 <img src="http://dxxblog.top/wp-content/uploads/2018/10/1539871853951-300x158.png" alt> <img src="http://dxxblog.top/wp-content/uploads/2018/10/1539872024529-300x169.png" alt> <img src="http://dxxblog.top/wp-content/uploads/2018/10/1539871983502-300x55.png" alt></p><p>搜索Wrong Password。发现一个checkpass函数。</p><p><img src="http://dxxblog.top/wp-content/uploads/2018/10/1539872134577-300x86.png" alt></p><p>搜索chekpass发现这么一堆：</p><a id="more"></a>
-
+        <h3 id="WEB"><a href="#WEB" class="headerlink" title="WEB?"></a><strong>WEB?</strong></h3><p>这个题目一看一脸懵逼。注入扫目录都没结果。查看源码发现有俩连接很诡异。既然题目提示web？可能就在此下手了。</p><p><img src="http://dxxblog.top/wp-content/uploads/2018/10/1539871486986-300x63.png" alt> <img src="http://dxxblog.top/wp-content/uploads/2018/10/1539871501080-300x63.png" alt></p><p>打开后一看是这么一堆：</p><p><img src="http://dxxblog.top/wp-content/uploads/2018/10/1539871544383-300x160.png" alt></p><p>先找个js代码格式工具格式一下。既然是js代码就根据前端有什么就搜什么吧。 <img src="http://dxxblog.top/wp-content/uploads/2018/10/1539871853951-300x158.png" alt> <img src="http://dxxblog.top/wp-content/uploads/2018/10/1539872024529-300x169.png" alt> <img src="http://dxxblog.top/wp-content/uploads/2018/10/1539871983502-300x55.png" alt></p><p>搜索Wrong Password。发现一个checkpass函数。</p><p><img src="http://dxxblog.top/wp-content/uploads/2018/10/1539872134577-300x86.png" alt></p><p>搜索chekpass发现这么一堆：</p><a id="more"></a>
 
 
 
@@ -397,8 +396,7 @@
 <p>得到flag。果然不是web题目。。。。</p>
 <p><img src="http://dxxblog.top/wp-content/uploads/2018/10/1539872489815-300x280.png" alt></p>
 <p>关于这个numpy模块查了一下貌似很强大，可以解很多矩阵。很多密码题目可能用到。</p>
-<p><strong>PHPINFO</strong></p>
-<p><img src="http://dxxblog.top/wp-content/uploads/2018/10/1539872639882-300x166.png" alt></p>
+<h3 id="PHPINFO"><a href="#PHPINFO" class="headerlink" title="PHPINFO"></a><strong>PHPINFO</strong></h3><p><img src="http://dxxblog.top/wp-content/uploads/2018/10/1539872639882-300x166.png" alt></p>
 <p>其实一上来我以为很简单。一看这就是反序列化。之前总结过然而貌似是另外一种反序列化类型：Session序列化及反序列化处理器的安全问题。下篇文章总结一下。</p>
 <p>根据源码理解，直接get传入phpinfo会直接能看到php设置。可能存在很多有用的信息。</p>
 <p><img src="http://dxxblog.top/wp-content/uploads/2018/10/1539872719460-300x166.png" alt></p>
@@ -423,8 +421,7 @@
 <p> <img src="http://dxxblog.top/wp-content/uploads/2018/10/1539873504656-300x187.png" alt></p>
 <p><img src="http://dxxblog.top/wp-content/uploads/2018/10/1539873520477-300x67.png" alt></p>
 <p>得到flag。具体关于反序列化第二种情况上篇文章详细说明了。</p>
-<p><strong>Easy Gallery</strong></p>
-<p>发现有个上传页面，直接上传小马。这个马经过验证需要绕过马（这个php7.0后就不可以用了）：</p>
+<h3 id="Easy-Gallery"><a href="#Easy-Gallery" class="headerlink" title="Easy Gallery"></a><strong>Easy Gallery</strong></h3><p>发现有个上传页面，直接上传小马。这个马经过验证需要绕过马（这个php7.0后就不可以用了）：</p>
 <script language="php">@eval\_r($\_POST\[sb\])</script> 
 <p>通过在<code>view</code>里面输入图片ID和图片类型发现图片链接为：</p>
 <p><code>http://web.jarvisoj.com:32785/uploads/show.php?id=xxx&amp;type=jpg</code></p>
@@ -567,6 +564,8 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#WEB"><span class="nav-text">WEB?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHPINFO"><span class="nav-text">PHPINFO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Easy-Gallery"><span class="nav-text">Easy Gallery</span></a></li></ol></div>
+        
       </div>
       <!--/noindex-->
 
@@ -722,12 +721,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">84k</span>
+    <span title="站点总字数">86k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:20</span>
+    <span title="站点阅读时长">2:23</span>
 </div>
 
 <!--
