@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title></title>
-    <url>%2F2021%2F01%2F16%2FWeb%E8%AE%A4%E8%AF%81%E6%8E%88%E6%9D%833%E2%80%94JWT%20Auth%2F</url>
-    <content type="text"></content>
-  </entry>
-  <entry>
     <title><![CDATA[苟若恒，何必三更眠五更起。]]></title>
     <url>%2F2019%2F09%2F03%2F%E8%8B%9F%E8%8B%A5%E6%81%92%EF%BC%8C%E4%BD%95%E5%BF%85%E4%B8%89%E6%9B%B4%E7%9C%A0%E4%BA%94%E6%9B%B4%E8%B5%B7%E3%80%82%2F</url>
     <content type="text"><![CDATA[前言 半年没有更新博客了。半年！你知道我这半年怎么过的吗？月月交着阿里云9.98的vps费用，月月懒得写blog…… 暑假结束，大三开始。真正意义上接触安全1年的时间。回顾一年实验室生活，充实又快乐。我认为，收获不仅仅是技术能力上的提升，更有意义的是自学能力和自我认知。 半年来不是啥也没干。关于Web安全认识理解更深一步。所以想分享记录出来一些总结。当然都是学习了别人的姿势，没有自己真正挖掘出来的漏洞/姿势。至于是否是造轮子，我不敢说。总之，我不是创造者，只是时长一年多的练习生。喜欢唱跳ra….zhouqicaibi！ 一叶飘零大佬的blog个性签名：苟若恒，何必三更眠，五更起。之前看到就感触颇深，事实确实如此。坚持真的太难了！所以还是要坚持写blog，记录分享学习笔记与心得。希望你我都有所收获。 Web安全梳理 以后尽量每周发一个专题或多个专题点的总结，只是把笔记整理整理并不麻烦，同时还能回顾复习一举两得。平时学习内网的利用点。以下是梳理的web安全基础点：（有一些也没有完全搞懂）]]></content>
@@ -237,7 +232,7 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Web认证授权—Token与JWT Auth]]></title>
+    <title><![CDATA[Web认证授权4—OAuth、SSO、OpenID.md]]></title>
     <url>%2F2018%2F07%2F07%2FWeb%E8%AE%A4%E8%AF%81%E6%8E%88%E6%9D%834%E2%80%94OAuth%E3%80%81%20SSO%E3%80%81OpenID%2F</url>
     <content type="text"></content>
       <categories>
@@ -248,8 +243,19 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Web认证授权—Token与JWT Auth]]></title>
-    <url>%2F2018%2F07%2F04%2FWeb%E8%AE%A4%E8%AF%81%E6%8E%88%E6%9D%832%E2%80%94Token%2F</url>
+    <title><![CDATA[Web认证授权3—JWT Auth.md]]></title>
+    <url>%2F2018%2F07%2F06%2FWeb%E8%AE%A4%E8%AF%81%E6%8E%88%E6%9D%833%E2%80%94JWT%20Auth%2F</url>
+    <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>WEB安全</category>
+      </categories>
+      <tags>
+        <tag>认证授权</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Web认证授权2—Token Auth]]></title>
+    <url>%2F2018%2F07%2F04%2FWeb%E8%AE%A4%E8%AF%81%E6%8E%88%E6%9D%832%E2%80%94Token%20Auth%2F</url>
     <content type="text"><![CDATA[一、Token Token=令牌。服务端生成的一串字符串。是客户端进行请求的一个标识，用来作为访问资源的凭据。 类似于临时的证书签名, 并且是一种服务端无状态的认证方式，非常适合于 REST API 的场景。所谓无状态就是服务端并不会保存身份认证相关的数据。 二、Token组成 UID：用户唯一的身份标识 TIME：时间戳 Sign：签名（token的前几位以哈希算法压缩成的一定长度的十六进制字符串） 固定参数(可选): 将一些常用的固定参数加入到 token 中是为了避免重复查库 三、Token分类 refresh token 负责身份认证 access token 负责请求资源 第一次获取Token的流程 1.首先需要向 Google API 注册应用程序，注册完毕之后会拿到认证信息（credentials）包括ID 和 secret。不是所有的程序类型都有 secret。 2.接下来就要向 Google 请求 access token。如果想访问的是用户资源，这里就会提醒用户进行授权。 3.如果用户授权完毕。Google 就会返回 access token。又或者是返回授权代码（authorization code），再通过代码取得 access token (注意：第三步通过code兑换access token的过程中Google 并不会仅仅返回 access token，还会返回额外的信息，这其中和之后更新相关的就是 refresh token。一旦 access token 过期，就可以通过 refresh token 再次请求 access token。) 4.token 获取到之后，就能够带上 token 访问 API 了 ​ （一）Access Token 有效期限，过期就要重新获取，可通过refresh token重新获取 （二）Refresh Token 如果 refesh token 也过期了怎么办？这就需要用户重新登陆授权了 虽然 refresh token 和 access token 都由 IdP 发出，但是 access token 还要和 SP 进行数据交换，如果公用的话这样就会有身份泄露的可能。并且 IdP 和 SP 可能是完全不同的服务提供的。而在第一小节中之所以没有这样的顾虑是因为 IdP 和 SP 都是 Google 四、Token Auth原理 1.客户端使用用户名和密码请求登录 2.服务端收到请求，验证用户名和密码 3.验证成功后，服务端会生成一个Token，然后把Token发送给客户端 4.客户端收到Token后把它保存起来（不需要Session一样存储到服务端），可以放在Cookie或者Local Storage（本地存储） 5.客户端每次想服务端发送请求的时候都需要带上服务端发给的Token 6.服务端收到请求，然后去验证客户端请求里面带着的Token，如果验证成功，就向客户端返回请求的数据。 五、Token Auth的Token选择分类（一）设备的MAC地址作为Token 客户端：客户端在登录时获取设备的MAC地址，将其作为参数传递到服务端 服务端：服务端接收到该参数后，便用一个变量来接收，同时将其作为token保存在数据库，并将该token设置到session中。客户端每次请求的时候都要统一拦截，将客户端传递的token和服务器端session中的token进行对比，相同则登录成功，不同则拒绝 优点： 1.统一了客户端与服务端的唯一标识，并且保证每一个设备拥有唯一的标识。 2.客户端无需重新登录，只要登录一次以后一直可以使用，对于超时的问题由服务端进行处理 缺点： 服务器端需要保存mac地址 （二）Session ID作为Token 客户端：客户端携带用户名和密码登录 服务端：接收到用户名和密码后进行校验，正确就将本地获取的Session ID作为token返回给客户端，客户端以后只需带上请求的数据即可 优点： 方便，不需要存储数据 缺点： 当Session过期时，客户端必须重新登录才能请求数据 （三）MAC和Session ID同时作为Token 用于保密性比较高的应用 六、Token Auth的特点 token是无状态的，用户进行任何操作时，都需要带上一个token token比cookie先进，更能适用于跨平台，移动平台等 token的存在形式有很多种，header/requestbody/url 都可以 token只需要存在客户端，服务器在收到数据后，进行解析 （一）优点 支持跨域访问：Cookie是不允许垮域访问的，这一点对Token机制是不存在的，前提是传输的用户认证信息通过HTTP头传输。 无状态(也称：服务端可扩展行)：Token机制在服务端不需要存储session信息，因为Token 自身包含了所有登录用户的信息，只需要在客户端的cookie或本地介质存储状态信息。 *更适用CDN： *可以通过内容分发网络请求服务端的所有资料（如：javascript，HTML,图片等），而服务端只要提供API即可。 *去耦： *不需要绑定到一个特定的身份验证方案。Token可以在任何地方生成，只要在你的API被调用的时候，你可以进行Token生成调用即可。 *更适用于移动应用： *当客户端是一个原生平台（iOS, Android，Windows 8等）时，Cookie是不被支持的（你需要通过Cookie容器进行处理），这时采用Token认证机制就会简单得多。 防止CSRF：因为不再依赖于Cookie，所以就不需要考虑对CSRF（跨站请求伪造）的防范。 性能： 一次网络往返时间（通过数据库查询session信息）总比做一次HMACSHA256计算 的Token验证和解析要费时得多。 不需要为登录页面做特殊处理： 如果使用Protractor做功能测试的时候，不再需要为登录页面做特殊处理。 基于标准化：API可以采用标准化的 JSON Web Token (JWT)。这个标准已经存在多个后端库（.NET, Ruby, Java,Python,PHP）和多家公司的支持（如:Firebase,Google, Microsoft）。 （二）缺点 七、TokenAuth携带token的方式 HTTP Header URL参数 提供的类库 八、Token的存储 数据库 查询时间长 易丢失，重新认证麻烦 内存 查询速度快 不需太担心内存占用，token就算32位且用户百万千万级也占用不了太多内存 九、Token的加密 对称加密：在存储的时候把token进行对称加密存储，用到的时候再解密 非对称加密/签名算法：签名方式（请求URL、时间戳、Token三者合并）通过签名算法签名 网络层面上Token使用明文传输的话是非常危险的，所以一定要使用HTTPS协议 十、Token Auth应用（一）Web认证（且防止CSRF）（二）APP认证 1.用户在登录APP时，APP端发送加密的用户名和密码到服务器 2.服务器验证用户名和密码，如果验证成功，就会生成相应位数的字符产作为token存储到服务器中，并且将该token返回给APP端。 3.以后APP再次请求时，凡是需要验证的地方都要带上该token，然后服务器端验证token。其中，服务器上会给token设置一个有效期，每次APP请求的时候都验证token和有效期。 成功：返回所需要的结果 失败：返回错误信息，让用户重新登录。]]></content>
       <categories>
         <category>WEB安全</category>
@@ -259,7 +265,7 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Web认证授权—Cookie/Seesion Auth]]></title>
+    <title><![CDATA[Web认证授权1—Cookie/Seesion Auth]]></title>
     <url>%2F2018%2F07%2F01%2FWeb%E8%AE%A4%E8%AF%81%E6%8E%88%E6%9D%831%E2%80%94Cookie%3ASeesion%20Auth%2F</url>
     <content type="text"><![CDATA[HTTP是一种没有状态的协议，它并不知道是谁访问了应用。所以服务器必须记录用户的状态，进行认证、授权，进而控制用户操作。 随着技术的发展出现了很多认证授权机制。目前，比较成熟完善的是Cookie/Session机制。近几年，由于JWT机制更好得释放了服务端的资源，也变得火热起来。不过，还不够成熟容易出现很多问题。 所以，在更高效、更安全的方案出现前，Cookie/Session机制可能仍然是将来Web认证授权的中流砥柱。 一、HTTP Basic Auth HTTP Basic Auth是最原始的认证方式。现在已经被淘汰。 （一）原理 每次请求API时都提供用户的username和password （二）优点 配合RESTful API 使用的最简单的认证方式，只需提供用户名密码即可 （三）缺点 有暴露用户名和密码给第三方客户端的风险。 二、Cookie/Session Cookie/Session Auth是通用解决HTTP无状态进行认证授权的机制。通常把Session机制理解为会话（即：有状态）。 很多人区分不开Cookie与Session。下面加粗部分及结合原理部分可以仔细揣摩进行区分。谁在客户端？谁在服务端？谁携带SeesionID？两者之间什么关系？ （一）Cookie Cookie 属于一种内建于浏览器中实现状态的方式。 Cookie是客户端保存用户信息的一种机制，用来记录用户的一些信息，以达到认证的目的。也是实现Session跟踪的一种方式。 Cookie另一用途：登录过一个网站，下次登录不想再输入账号怎么办？这个信息可以写到Cookie里面。访问网站的时候网站页面的脚本可以读取这个信息，自动把用户名填上。这也是Cookie的由来（Cookie英文意思是饼干，给用户的一点甜头。） （二）Session Session是在服务端保存的一个数据结构。用来跟综标识用户的状态。 三、Cookie/Session机制原理 每次HTTP请求时，客户端都会发送相应携带SeesionID的Cookie信息到服务端。进而，实现了有状态 用户在浏览器登陆之后（正确的密码，第一层认证通过），服务端为用户生成唯一的 Session ID，存储在服务端的存储服务（例如 MySql, Redis）中 该 Session ID也同时返回给浏览器，以 SESSION_ID 为 KEY 存储在浏览器的 Cookie 中 如果用户再次访问该网站，Cookie 里的 SESSION_ID 会随着请求一同发往服务端 服务端通过判断 SESSION_ID 是否已经在 Redis 中判断用户是否处于登陆状态 四、Cookie/Session应用 几乎动态网站都有用应用。 比如：淘宝买东西，下单后由于HTTP无状态所以并不知道哪个用户所操作的。所以服务器要为特定的用户创建特定的Session用于标识这个用户，并且跟踪用户。 五、Cookie/Session机制特点 数据需要客户端和服务器同时存储。（故，消耗了服务器资源） 用户进行操作时，需要带上cookie，在服务器进行验证（可能存在Cookie劫持、盗取） 有状态 六、Cookie/Session机制缺点（一）扩展性不好 如果服务器集群（或者跨域的服务导向架构）要求Session数据共享，每台服务器都能够读取Session 例如：A 网站和 B 网站是同一家公司的关联服务。现在要求，用户只要在其中一个网站登录，再访问另一个网站就会自动登录，怎么实现？ 一种解决方案是 session 数据持久化，写入数据库或别的持久层。各种服务收到请求后，都向持久层请求数据。这种方案的优点是架构清晰，缺点是工程量比较大。另外，持久层万一挂了，就会单点失败。 另一种方案是服务器索性不保存 session 数据了，所有数据都保存在客户端，每次请求都发回服务器。JWT 就是这种方案的一个代表。 （二）希望无状态的API时-不推荐使用 在构建 API 时，开发者会发现认证方式和网页应用有一些不同，除了像 ajax 这种典型的 web 技术外，如果希望 API 是无状态的，不推荐使用 Cookie。]]></content>
       <categories>
