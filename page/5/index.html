@@ -253,7 +253,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xx-C1/xx-C1.github.io/2018/07/09/Web安全—XSS触发、绕过、盗取Cookie/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xx-C1/xx-C1.github.io/2018/07/11/Web安全—CSRF防御及绕过/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="xx_C1">
@@ -267,7 +267,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2018/07/09/Web安全—XSS触发、绕过、盗取Cookie/" class="post-title-link" itemprop="url">Web安全—XSS触发、绕过、盗取Cookie</a>
+            <a href="/2018/07/11/Web安全—CSRF防御及绕过/" class="post-title-link" itemprop="url">Web安全—CSRF防御及绕过</a>
           
         </h1>
 
@@ -282,7 +282,7 @@
                 
               
 
-              <time title="创建时间：2018-07-09 21:00:00" itemprop="dateCreated datePublished" datetime="2018-07-09T21:00:00+08:00">2018-07-09</time>
+              <time title="创建时间：2018-07-11 21:00:00" itemprop="dateCreated datePublished" datetime="2018-07-11T21:00:00+08:00">2018-07-11</time>
             </span>
           
             
@@ -293,7 +293,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-01-16 17:42:44" itemprop="dateModified" datetime="2021-01-16T17:42:44+08:00">2021-01-16</time>
+                <time title="修改时间：2021-01-18 17:44:38" itemprop="dateModified" datetime="2021-01-18T17:44:38+08:00">2021-01-18</time>
               </span>
             
           
@@ -334,7 +334,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>0</span>
+              <span>1.7k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -344,7 +344,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span>1 分钟</span>
+              <span>3 分钟</span>
             </span>
           
 
@@ -357,7 +357,316 @@
     <div class="post-body" itemprop="articleBody">
 
       
+          <h3 id="一、CSRF防御"><a href="#一、CSRF防御" class="headerlink" title="一、CSRF防御"></a>一、CSRF防御</h3><h4 id="（一）验证码"><a href="#（一）验证码" class="headerlink" title="（一）验证码"></a>（一）验证码</h4><ul>
+<li><p><strong>缺点：验证影响用户体验</strong></p>
+</li>
+<li><p><strong>工具：web-fuzz测试工具可绕过普通验证码</strong></p>
+</li>
+</ul><h4 id="（二）检测Refer"><a href="#（二）检测Refer" class="headerlink" title="（二）检测Refer"></a>（二）检测Refer</h4><ul>
+<li><strong>安全性：Refer抓包可以篡改</strong></li>
+</ul><h4 id="（三）限制session生命周期"><a href="#（三）限制session生命周期" class="headerlink" title="（三）限制session生命周期"></a>（三）限制session生命周期</h4><ul>
+<li><strong>缩短session有效时间</strong></li>
+</ul><h4 id="（四）一次性Token"><a href="#（四）一次性Token" class="headerlink" title="（四）一次性Token"></a>（四）一次性Token</h4><ul>
+<li><strong>随机不可预测生产token</strong></li>
+<li><strong>另外使用Token时应注意Token的保密性，尽量把敏感操作由GET改为POST，以form或AJAX形式提交，避免Token泄露。</strong></li>
+<li><strong>安全性：但是必须保证Token的安全</strong></li>
+</ul>
+          <!--noindex-->
           
+            <div class="post-button">
+              <a class="btn" href="/2018/07/11/Web安全—CSRF防御及绕过/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+    <div>
+    
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xx-C1/xx-C1.github.io/2018/07/10/Web安全—CSRF基础及利用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xx_C1">
+      <meta itemprop="description" content="Cyberspace Security">
+      <meta itemprop="image" content="/images/dxx.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="xxC1's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2018/07/10/Web安全—CSRF基础及利用/" class="post-title-link" itemprop="url">Web安全—CSRF基础及利用</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2018-07-10 21:00:00" itemprop="dateCreated datePublished" datetime="2018-07-10T21:00:00+08:00">2018-07-10</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-01-18 16:57:05" itemprop="dateModified" datetime="2021-01-18T16:57:05+08:00">2021-01-18</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/WEB安全/" itemprop="url" rel="index"><span itemprop="name">WEB安全</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/WEB安全/Browser端安全/" itemprop="url" rel="index"><span itemprop="name">Browser端安全</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <span id="busuanzi_container_page_pv">
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+            </span>
+            阅读量: <span id="busuanzi_value_page_pv"></span>次
+          </span>
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>3.7k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>6 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="一、CSRF理解"><a href="#一、CSRF理解" class="headerlink" title="一、CSRF理解"></a>一、CSRF理解</h3><ul>
+<li><p><strong>CSRF/XSRF跨站点请求伪造(Cross—Site Request Forgery)，也被称为：one click attack/session riding。跟XSS攻击一样，存在巨大的危害性，可以这样来理解：</strong></p>
+</li>
+<li><ul>
+<li>攻击者盗用了你的身份，以你的名义发送恶意请求，对服务器来说这个请求是完全合法的，但是却完成了攻击者所期望的一个操作，比如以你的名义发送邮件、发消息，盗取你的账号，添加系统管理员，甚至于购买商品、虚拟货币转账等。 </li>
+</ul>
+</li>
+</ul>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2018/07/10/Web安全—CSRF基础及利用/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+    <div>
+    
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xx-C1/xx-C1.github.io/2018/07/09/Web安全—XSS触发、绕过、盗取Cookie/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xx_C1">
+      <meta itemprop="description" content="Cyberspace Security">
+      <meta itemprop="image" content="/images/dxx.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="xxC1's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2018/07/09/Web安全—XSS触发、绕过、盗取Cookie/" class="post-title-link" itemprop="url">Web安全—XSS触发、绕过、盗取Cookie</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2018-07-09 21:00:00" itemprop="dateCreated datePublished" datetime="2018-07-09T21:00:00+08:00">2018-07-09</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-01-18 16:15:59" itemprop="dateModified" datetime="2021-01-18T16:15:59+08:00">2021-01-18</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/WEB安全/" itemprop="url" rel="index"><span itemprop="name">WEB安全</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/WEB安全/Browser端安全/" itemprop="url" rel="index"><span itemprop="name">Browser端安全</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <span id="busuanzi_container_page_pv">
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+            </span>
+            阅读量: <span id="busuanzi_value_page_pv"></span>次
+          </span>
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>7.9k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>13 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="一、XSS常见标签触发（无过滤）"><a href="#一、XSS常见标签触发（无过滤）" class="headerlink" title="一、XSS常见标签触发（无过滤）"></a>一、XSS常见标签触发（无过滤）</h3><h4 id="（一）直接触发"><a href="#（一）直接触发" class="headerlink" title="（一）直接触发"></a>（一）直接触发</h4><ul>
+<li><strong>&lt;script&gt;</strong></li>
+</ul><figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="params">&lt;scirpt&gt;</span>alert(<span class="string">"xss"</span>);<span class="params">&lt;/script&gt;</span></span><br></pre></td></tr></table></figure><ul>
+<li><strong>&lt;img&gt;</strong></li>
+</ul><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;img <span class="attribute">src</span>=1 <span class="attribute">onerror</span>=alert("xss");&gt;</span><br><span class="line">&lt;img <span class="attribute">src</span>=1 <span class="attribute">onmouseover</span>=alert('xss')&gt;</span><br><span class="line">&lt;img <span class="attribute">STYLE</span>=<span class="string">"background-image:url(javascript:alert('XSS'))"</span>&gt;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2018/07/09/Web安全—XSS触发、绕过、盗取Cookie/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -422,7 +731,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-01-16 17:40:30" itemprop="dateModified" datetime="2021-01-16T17:40:30+08:00">2021-01-16</time>
+                <time title="修改时间：2021-01-18 15:23:21" itemprop="dateModified" datetime="2021-01-18T15:23:21+08:00">2021-01-18</time>
               </span>
             
           
@@ -463,7 +772,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>6.2k</span>
+              <span>6.5k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -473,7 +782,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span>10 分钟</span>
+              <span>11 分钟</span>
             </span>
           
 
@@ -560,7 +869,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-01-16 16:04:01" itemprop="dateModified" datetime="2021-01-16T16:04:01+08:00">2021-01-16</time>
+                <time title="修改时间：2021-01-18 16:36:55" itemprop="dateModified" datetime="2021-01-18T16:36:55+08:00">2021-01-18</time>
               </span>
             
           
@@ -571,6 +880,13 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/WEB安全/" itemprop="url" rel="index"><span itemprop="name">WEB安全</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/WEB安全/Browser端安全/" itemprop="url" rel="index"><span itemprop="name">Browser端安全</span></a></span>
 
                 
                 
@@ -657,300 +973,11 @@
   
 
     
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xx-C1/xx-C1.github.io/2018/07/06/Web认证授权3—JWT Auth/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="xx_C1">
-      <meta itemprop="description" content="Cyberspace Security">
-      <meta itemprop="image" content="/images/dxx.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="xxC1's blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2018/07/06/Web认证授权3—JWT Auth/" class="post-title-link" itemprop="url">Web认证授权3—JWT Auth及其安全问题</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2018-07-06 21:00:00" itemprop="dateCreated datePublished" datetime="2018-07-06T21:00:00+08:00">2018-07-06</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-01-16 16:06:05" itemprop="dateModified" datetime="2021-01-16T16:06:05+08:00">2021-01-16</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/WEB安全/" itemprop="url" rel="index"><span itemprop="name">WEB安全</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-          <span id="busuanzi_container_page_pv">
-            <span class="post-meta-divider">|</span>
-            <span class="post-meta-item-icon">
-            <i class="fa fa-eye"></i>
-            </span>
-            阅读量: <span id="busuanzi_value_page_pv"></span>次
-          </span>
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">本文字数：</span>
-              
-              <span>5.2k</span>
-            </span>
-          
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              
-              <span>9 分钟</span>
-            </span>
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="一、起源"><a href="#一、起源" class="headerlink" title="一、起源"></a><strong>一、起源</strong></h3><ul>
-<li><p>在前后端分离的应用中，后端为Model层，为前端提供数据访问的API。为了保证数据安全可靠地在用户与服务端之间传输，实现服务端的认证就极为必要。</p>
-</li>
-<li><p><strong>常见的服务端认证方法有：</strong></p>
-<ul>
-<li><p><strong>基于Cookie的认证：session</strong></p>
-<ul>
-<li>每次请求都带上cookie，取出相应字段并与服务端进行对比，以实现身份的认证（具有CORS问题）</li>
-</ul>
-</li>
-<li><p><strong>基于Token的认证：Json Web Toekn</strong></p>
-<ul>
-<li>请求在HTTP的头部（或其他位置）附上token，由服务器check signature来实现</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>JWT不一定完全取代Cookie-Session Auth体制，其也存在缺点。JWT更适合用于认证签名的过程，更适合一次性操作的认证。</p>
-</li>
-</ul>
-          <!--noindex-->
-          
-            <div class="post-button">
-              <a class="btn" href="/2018/07/06/Web认证授权3—JWT Auth/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-    <div>
-    
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </article>
-  
-  
-  
-
-    
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xx-C1/xx-C1.github.io/2018/07/04/Web认证授权2—Token Auth/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="xx_C1">
-      <meta itemprop="description" content="Cyberspace Security">
-      <meta itemprop="image" content="/images/dxx.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="xxC1's blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2018/07/04/Web认证授权2—Token Auth/" class="post-title-link" itemprop="url">Web认证授权2—Token Auth</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2018-07-04 21:00:00" itemprop="dateCreated datePublished" datetime="2018-07-04T21:00:00+08:00">2018-07-04</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-01-16 16:46:37" itemprop="dateModified" datetime="2021-01-16T16:46:37+08:00">2021-01-16</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/WEB安全/" itemprop="url" rel="index"><span itemprop="name">WEB安全</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-          <span id="busuanzi_container_page_pv">
-            <span class="post-meta-divider">|</span>
-            <span class="post-meta-item-icon">
-            <i class="fa fa-eye"></i>
-            </span>
-            阅读量: <span id="busuanzi_value_page_pv"></span>次
-          </span>
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">本文字数：</span>
-              
-              <span>3k</span>
-            </span>
-          
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              
-              <span>5 分钟</span>
-            </span>
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="一、Token"><a href="#一、Token" class="headerlink" title="一、Token"></a>一、Token</h3><ul>
-<li>Token=令牌。<strong>服务端</strong>生成的一串字符串。是<strong>客户端</strong>进行请求的一个标识，用来作为访问资源的凭据。</li>
-<li>类似于<strong>临时的证书签名</strong>, 并且是一种服务端无状态的认证方式，非常适合于 REST API 的场景。所谓无状态就是服务端并不会保存身份认证相关的数据。</li>
-</ul><h3 id="二、Token组成"><a href="#二、Token组成" class="headerlink" title="二、Token组成"></a>二、Token组成</h3><ul>
-<li><strong>UID：</strong>用户唯一的身份标识</li>
-<li><strong>TIME：</strong>时间戳</li>
-<li><strong>Sign：</strong>签名（token的前几位以哈希算法压缩成的一定长度的十六进制字符串）</li>
-<li>固定参数(可选): 将一些常用的固定参数加入到 token 中是为了避免重复查库</li>
-</ul>
-          <!--noindex-->
-          
-            <div class="post-button">
-              <a class="btn" href="/2018/07/04/Web认证授权2—Token Auth/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-    <div>
-    
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </article>
-  
-  
-  
-
-    
   </div>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -998,7 +1025,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-count">32</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1024,7 +1051,7 @@
             <a href="/tags/">
           
         
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -1136,12 +1163,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">102k</span>
+    <span title="站点总字数">119k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:50</span>
+    <span title="站点阅读时长">3:19</span>
 </div>
 
 <!--
