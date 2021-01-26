@@ -55,18 +55,24 @@
   };
 </script>
 
-  <meta name="description" content="Cyberspace Security">
+  <meta name="description" content="一、内容安全策略（一）简介 内容安全策略 (CSP, Content Security Policy) 是一个附加的安全层。用于帮助检测和缓解某些类型的攻击，包括跨站脚本 (XSS) 和数据注入等攻击。 CSP是一种白名单策略，该策略可让网站管理员指定客户端允许加载的各类可信任资源，当有从非白名单允许的JS脚本出现在页面中，浏览器会阻止脚本的执行。 手册：https://developer.moz">
 <meta name="keywords" content="CSP策略">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Web安全—CSP策略">
 <meta property="og:url" content="https://github.com/xx-C1/xx-C1.github.io/2018/07/02/Web安全2—CSP策略/index.html">
 <meta property="og:site_name" content="xxC1&#39;s blog">
-<meta property="og:description" content="Cyberspace Security">
+<meta property="og:description" content="一、内容安全策略（一）简介 内容安全策略 (CSP, Content Security Policy) 是一个附加的安全层。用于帮助检测和缓解某些类型的攻击，包括跨站脚本 (XSS) 和数据注入等攻击。 CSP是一种白名单策略，该策略可让网站管理员指定客户端允许加载的各类可信任资源，当有从非白名单允许的JS脚本出现在页面中，浏览器会阻止脚本的执行。 手册：https://developer.moz">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-01-18T08:36:26.445Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/xx-C1/MDphoto/master/secblog/20180702130528.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xx-C1/MDphoto/master/secblog/20180702130814.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xx-C1/MDphoto/master/secblog/20180702165716.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xx-C1/MDphoto/master/secblog/20180702170114.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/xx-C1/MDphoto/master/secblog/20180702170219.png">
+<meta property="og:updated_time" content="2021-01-26T09:03:16.911Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Web安全—CSP策略">
-<meta name="twitter:description" content="Cyberspace Security">
+<meta name="twitter:description" content="一、内容安全策略（一）简介 内容安全策略 (CSP, Content Security Policy) 是一个附加的安全层。用于帮助检测和缓解某些类型的攻击，包括跨站脚本 (XSS) 和数据注入等攻击。 CSP是一种白名单策略，该策略可让网站管理员指定客户端允许加载的各类可信任资源，当有从非白名单允许的JS脚本出现在页面中，浏览器会阻止脚本的执行。 手册：https://developer.moz">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/xx-C1/MDphoto/master/secblog/20180702130528.png">
   <link rel="canonical" href="https://github.com/xx-C1/xx-C1.github.io/2018/07/02/Web安全2—CSP策略/">
 
 
@@ -294,7 +300,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-01-18 16:36:26" itemprop="dateModified" datetime="2021-01-18T16:36:26+08:00">2021-01-18</time>
+                <time title="修改时间：2021-01-26 17:03:16" itemprop="dateModified" datetime="2021-01-26T17:03:16+08:00">2021-01-26</time>
               </span>
             
           
@@ -343,7 +349,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>0</span>
+              <span>7.6k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -353,7 +359,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span>1 分钟</span>
+              <span>13 分钟</span>
             </span>
           
 
@@ -366,7 +372,184 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <h3 id="一、内容安全策略"><a href="#一、内容安全策略" class="headerlink" title="一、内容安全策略"></a><strong>一、内容安全策略</strong></h3><h4 id="（一）简介"><a href="#（一）简介" class="headerlink" title="（一）简介"></a><strong>（一）简介</strong></h4><ul>
+<li>内容安全策略 (CSP, Content Security Policy) 是一个附加的安全层。用于帮助检测和缓解某些类型的攻击，包括跨站脚本 (XSS) 和数据注入等攻击。 CSP是一种白名单策略，该策略可让网站管理员指定客户端允许加载的各类可信任资源，当有从非白名单允许的JS脚本出现在页面中，浏览器会阻止脚本的执行。</li>
+<li>手册：<a href="https://developer.mozilla.org/zh-CN/docs/Web/Security/CSP" target="_blank" rel="noopener"><strong>https://developer.mozilla.org/zh-CN/docs/Web/Security/CSP</strong></a></li>
+</ul><a id="more"></a>
+<h4 id="（二）开启CSP：启用后不符合CSP的外部资源就会被阻止加载"><a href="#（二）开启CSP：启用后不符合CSP的外部资源就会被阻止加载" class="headerlink" title="（二）开启CSP：启用后不符合CSP的外部资源就会被阻止加载"></a>（二）开启CSP：启用后不符合CSP的外部资源就会被阻止加载</h4><ul>
+<li><strong>HTTP头信息的Content-Security-Policy字段</strong></li>
+</ul>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">header(<span class="string">"Content-Security-Policy: default-src https:; report-uri /csp-violation-report-endpoint/"</span>)<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>网页的&lt;meta&gt;标签</strong></li>
+</ul>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta http-equiv=<span class="string">"Content-Security-Policy"</span> <span class="attribute">content</span>=<span class="string">"script-src 'self'; object-src 'none'; style-src cdn.example.org third-party.org; child-src https:"</span>&gt;</span><br><span class="line"></span><br><span class="line">脚本：只信任当前域名</span><br><span class="line">&lt;object&gt;标签：不信任任何URL，即不加载任何资源</span><br><span class="line">样式表：只信任cdn<span class="selector-class">.example</span><span class="selector-class">.org</span>和third-party.org</span><br><span class="line">框架（frame）：必须使用HTTPS协议加载</span><br><span class="line">其他资源：没有限制</span><br></pre></td></tr></table></figure>
+
+<h3 id="二、CSP限制选项"><a href="#二、CSP限制选项" class="headerlink" title="二、CSP限制选项"></a><strong>二、CSP限制选项</strong></h3><h4 id="（一）资源加载限制"><a href="#（一）资源加载限制" class="headerlink" title="（一）资源加载限制"></a><strong>（一）资源加载限制</strong></h4><p><strong>default-src：用来设置默认值</strong></p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Content-Security-<span class="string">Policy:</span> <span class="keyword">default</span>-src <span class="string">'self'</span> <span class="comment">//限制所有的外部资源，都只能从当前域名加载</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果同时设置某个单项限制（比如font-src）和default-src，前者会覆盖后者，即字体文件会采用font-src的值，其他资源依然采用default-src的值。</li>
+</ul>
+<figure class="highlight csp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">script-src</span>：外部脚本</span><br><span class="line"><span class="keyword">style-src</span>：样式表</span><br><span class="line"><span class="keyword">img-src</span>：图像</span><br><span class="line"><span class="keyword">media-src</span>：媒体文件（音频和视频）</span><br><span class="line"><span class="keyword">font-src</span>：字体文件</span><br><span class="line"><span class="keyword">object-src</span>：插件（比如 Flash）</span><br><span class="line"><span class="keyword">child-src</span>：框架</span><br><span class="line"><span class="keyword">frame-ancestors</span>：嵌入的外部资源（比如frame、iframe、embed和applet）</span><br><span class="line"><span class="keyword">connect-src</span>：HTTP 连接（通过 XHR、WebSockets、EventSource等）</span><br><span class="line">worker-src：worker脚本</span><br><span class="line">manifest-src：manifest 文件</span><br></pre></td></tr></table></figure>
+
+<h4 id="（二）URL限制"><a href="#（二）URL限制" class="headerlink" title="（二）URL限制"></a><strong>（二）URL限制</strong></h4><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">frame-ancestors：限制嵌入框架的网页</span><br><span class="line"><span class="keyword">base</span>-uri：限制&lt;<span class="keyword">base</span><span class="meta">#href&gt;</span></span><br><span class="line">form-action：限制&lt;form<span class="meta">#action&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="（三）其他限制"><a href="#（三）其他限制" class="headerlink" title="（三）其他限制"></a><strong>（三）其他限制</strong></h4><figure class="highlight csp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">block-all-mixed-content：HTTPS 网页不得加载 HTTP 资源（浏览器已经默认开启）</span><br><span class="line">upgrade-insecure-requests：自动将网页上所有加载外部资源的 HTTP 链接换成 HTTPS 协议</span><br><span class="line"><span class="keyword">plugin-types</span>：限制可以使用的插件格式</span><br><span class="line"><span class="keyword">sandbox</span>：浏览器行为的限制，比如不能有弹出窗口等。</span><br></pre></td></tr></table></figure>
+
+<h4 id="report-uri、report-to"><a href="#report-uri、report-to" class="headerlink" title="report-uri、report-to"></a><strong>report-uri、report-to</strong></h4><ul>
+<li>记录注入行为，并报告给指定地址。例如：</li>
+</ul>
+<figure class="highlight csp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Content-Security-Policy</span>: <span class="keyword">default-src</span> <span class="string">'self'</span>; ...; <span class="keyword">report-uri</span> /my_amazing_csp_report_parser;</span><br><span class="line">//浏览器会使用POST方法，发送一个JSON对象。将注入行为报告给/my_amazing_csp_report_parser这个 URL。</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>尽管report-to指令旨在取代已弃用的report-uri指令， report-uri已经从Web标准中删除，但在大多数浏览器中仍不受支持。因此，可以同时指定report-to和report-uri。</li>
+</ul>
+<h3 id="三、选项值"><a href="#三、选项值" class="headerlink" title="三、选项值"></a><strong>三、选项值</strong></h3><ul>
+<li>每个选项可以选择选项值，这些值构成了白名单</li>
+</ul>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">主机名：example.org，<span class="string">https:</span><span class="comment">//example.com:443</span></span><br><span class="line">路径名：example.org<span class="regexp">/resources/</span>js/</span><br><span class="line">通配符：*.example.org，*:<span class="comment">//*.example.com:*（表示任意协议、任意子域名、任意端口）</span></span><br><span class="line">协议名：<span class="string">https:</span>、<span class="string">data:</span></span><br><span class="line">关键字<span class="string">'self'</span>：当前域名，需要加引号</span><br><span class="line">关键字<span class="string">'none'</span>：禁止加载任何外部资源，需要加引号</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>多个值可以并列，并用空格来分隔</p>
+<ul>
+<li>如果同一个限制选项使用多次，只有第一次会生效。</li>
+<li>如果不设置某个限制选项，就是默认允许任何值。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Content-Security-<span class="string">Policy:</span> script-src <span class="string">'self'</span> <span class="string">https:</span><span class="comment">//apis.google.com</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="script-src的特殊值"><a href="#script-src的特殊值" class="headerlink" title="script-src的特殊值"></a><strong>script-src的特殊值</strong></h4><ul>
+<li>除了常规值，script-src还可以设置一些特殊值。</li>
+</ul>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'unsafe-inline'</span>:允许执行页面内嵌的<span class="xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span>标签和事件监听函数 </span></span><br><span class="line"><span class="xml">'unsage-eval':允许将字符串当作代码执行，比如使用eval、setTimeout、setInterval和Function等函数。</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="nonce值和hahs值"><a href="#nonce值和hahs值" class="headerlink" title="nonce值和hahs值"></a><strong>nonce值和hahs值</strong></h4><ul>
+<li><p>除了script-src选项，nonce值和hash值还可以用在style-src选项，控制页面内嵌的样式表。</p>
+</li>
+<li><p><strong>nonce值：</strong>每次HTTP回应给出一个授权token，页面内嵌脚本必须有这个token，才会执行。这个字符串可以在后端实现，每次请求都重新生成，这样就可以无视哪个域是可信的，保证所加载的任何资源都是可信的，并且还能拦截后面插入的 script。</p>
+</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?php</span></span></span><br><span class="line"><span class="php">Header(<span class="string">"Content-Security-Policy: script-src 'nonce-"</span>.$random.<span class="string">" '"</span>);</span></span><br><span class="line"><span class="php"><span class="meta">?&gt;</span></span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">nonce</span>=<span class="string">"&lt;?php echo $random?&gt;"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">服务器发送网页的时候，告诉浏览器一个随机生成的token。</span><br><span class="line">Content-Security-Policy: script-src 'nonce-EDNnf03nceIOfn39fn3e9h3sdfa'</span><br><span class="line"></span><br><span class="line">页面内嵌脚本，必须有这个token才能执行。</span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">nonce</span>=<span class="string">EDNnf03nceIOfn39fn3e9h3sdfa</span>&gt;</span></span><br><span class="line"><span class="actionscript">   <span class="comment">// some code</span></span></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>hash值：</strong>列出允许执行的脚本代码的Hash值，页面内嵌脚本的哈希值只有吻合的情况下，才能执行。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">服务器给出一个允许执行的代码的<span class="built_in">hash</span>值：（注意，计算<span class="built_in">hash</span>值的时候，script标签不算在内。）</span><br><span class="line">Content-Security-Policy: script-src <span class="string">'sha256-qznLcsROx4GACP2dm0UCKCzCG-HiZ1guq6ZZDob_Tng='</span></span><br><span class="line">下面的代码就会允许执行，因为<span class="built_in">hash</span>值相符：</span><br><span class="line">&lt;script&gt;alert(<span class="string">'Hello, world.'</span>);&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="strict-dynamic"><a href="#strict-dynamic" class="headerlink" title="strict-dynamic"></a><strong>strict-dynamic</strong></h4><ul>
+<li>SD 意味着可信 js 生成的 js 代码是可信的。这个 CSP 规则主要是用来适应各种各样的现代前端框架，通过这个规则，可以大幅度避免因为适应框架而变得松散的 CSP 规则。</li>
+</ul>
+<figure class="highlight csp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Content-Security-Policy</span>: <span class="keyword">default-src</span> <span class="string">'self'</span>; <span class="keyword">script-src</span> <span class="string">'strict-dynamic'</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="四、注意"><a href="#四、注意" class="headerlink" title="四、注意"></a><strong>四、注意</strong></h3><ul>
+<li><p><strong>（1）script-src和object-src是必设的，除非设置了default-src。</strong></p>
+</li>
+<li><p>因为攻击者只要能注入脚本，其他限制都可以规避。而object-src必设是因为 Flash 里面可以执行外部脚本。</p>
+<ul>
+<li>script-src和object-src源列表不能包含含有攻击者可控制response的安全相关部分的源地址，或包含不安全的库。否则可以被绕过：</li>
+</ul>
+</li>
+<li><p><strong>（2）script-src不能使用unsafe-inline关键字（除非伴随一个nonce值），也不能允许设置data:URL。否则，可以被绕过。</strong></p>
+</li>
+<li><p><strong>（3）必须特别注意 JSONP 的回调函数。</strong></p>
+</li>
+</ul>
+<h3 id="五、CSP实验"><a href="#五、CSP实验" class="headerlink" title="五、CSP实验"></a>五、CSP实验</h3><h4 id="（一）CSP测试"><a href="#（一）CSP测试" class="headerlink" title="（一）CSP测试"></a>（一）CSP测试</h4><ul>
+<li><strong>localhost.js</strong></li>
+</ul>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">document.write(<span class="string">"&lt;h1&gt;This is a local js.&lt;/h1&gt;"</span>)<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>index.html</strong></li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>内容安全策略 (CSP)<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Content-Security-Policy"</span> <span class="attr">content</span>=<span class="string">"script-src 'self'; object-src 'none'; style-src cdn.bootcss.com; child-src https:"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"//cdn.bootcss.com/jquery/3.0.0/jquery.min.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"/localhost.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"//cdn.bootcss.com/weui/0.4.0/style/weui.min.css"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"https://raw.githubusercontent.com/xx-C1/MDphoto/master/secblog/20180706110443.png"</span> <span class="attr">height</span>=<span class="string">"300"</span> <span class="attr">width</span>=<span class="string">"300"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">src</span>=<span class="string">"http://xx-c1.github.io"</span> <span class="attr">width</span>=<span class="string">"200"</span> <span class="attr">height</span>=<span class="string">"200"</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">src</span>=<span class="string">"https://xx-c1.github.io"</span> <span class="attr">width</span>=<span class="string">"200"</span> <span class="attr">height</span>=<span class="string">"200"</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>利用meta标签对页面开启CSP</li>
+</ul>
+<figure class="highlight csp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta http-equiv="Content-Security-Policy" content="<span class="keyword">script-src</span> <span class="string">'self'</span>; <span class="keyword">object-src</span> <span class="string">'none'</span>; <span class="keyword">style-src</span> cdn.bootcss.com; <span class="keyword">child-src</span> https:"&gt;</span><br><span class="line">脚本：只信任当前域名</span><br><span class="line">插件：不信任任何URL，即不加载任何资源</span><br><span class="line">样式表：只信任cdn.bootcss.com</span><br><span class="line">框架(frame):必须使用HTTPS协议</span><br><span class="line">其他资源：没有限制</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>引用外部和当前域的js</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"//cdn.bootcss.com/jquery/3.0.0/jquery.min.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"/localhost.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>引用外部的样式</li>
+</ul>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;link <span class="attribute">rel</span>=<span class="string">"stylesheet"</span> <span class="attribute">href</span>=<span class="string">"//cdn.bootcss.com/weui/0.4.0/style/weui.min.css"</span>/&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>HTTPS协议和HTTP协议的frame</li>
+</ul>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;iframe <span class="attribute">src</span>=<span class="string">"http://xx-c1.github.io"</span> <span class="attribute">width</span>=<span class="string">"200"</span> <span class="attribute">height</span>=<span class="string">"200"</span>&gt;&lt;/iframe&gt;</span><br><span class="line">&lt;iframe <span class="attribute">src</span>=<span class="string">"https://xx-c1.github.io"</span> <span class="attribute">width</span>=<span class="string">"200"</span> <span class="attribute">height</span>=<span class="string">"200"</span>&gt;&lt;/iframe&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>其他图片资源</li>
+</ul>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img <span class="attribute">src</span>=<span class="string">"https://raw.githubusercontent.com/xx-C1/MDphoto/master/secblog/20180706110443.png"</span> <span class="attribute">height</span>=<span class="string">"300"</span> <span class="attribute">width</span>=<span class="string">"300"</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h4><ul>
+<li><strong>外部资源引用失败，控制台给出了报错信息</strong></li>
+<li><strong>HTTP协议的frame加载失败，控制台给出了报错信息</strong></li>
+<li><strong>其他可以加载的img资源和本地的js脚本都加载成功</strong></li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/secblog/20180702130528.png" alt></p>
+<h4 id="（二）report-uri测试"><a href="#（二）report-uri测试" class="headerlink" title="（二）report-uri测试"></a>（二）report-uri测试</h4><ul>
+<li><p>尽管report-to指令旨在取代已弃用的report-uri指令， report-uri已经从Web标准中删除，但在大多数浏览器中仍不受支持。因此，可以同时指定report-to和report-uri。</p>
+</li>
+<li><p>在支持的浏览器中report-to，report-uri指令将被忽略。</p>
+</li>
+<li><p>HTTP头信息的Content-Security-Policy字段开启CSP</p>
+</li>
+</ul>
+<figure class="highlight csp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">header("Content-Security-Policy: <span class="keyword">default-src</span> <span class="string">'none'</span>; <span class="keyword">style-src</span> cdn.example.com; <span class="keyword">report-uri</span> /csp_report");</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>代码中利用的策略是限制外部非cdn.example.com域名下的样式表，并把报告发送到/csp_report目录。</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>内容安全策略 (CSP)<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"//cdn.bootcss.com/weui/0.4.0/style/weui.min.css"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在代码引用cdn.bootcss.com/weui/0.4.0/style/weui.min.css查看实验结果。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/secblog/20180702130814.png" alt></p>
+<ul>
+<li>由上图可以看到发送出了JSON格式的POST数据。</li>
+</ul>
+<h4 id="（三）script-src特殊值测试"><a href="#（三）script-src特殊值测试" class="headerlink" title="（三）script-src特殊值测试"></a>（三）<strong>script-src特殊值测试</strong></h4><h5 id="unsafe-inline"><a href="#unsafe-inline" class="headerlink" title="unsafe-inline"></a>unsafe-inline</h5><ul>
+<li>当script-src设置为unsafe-inline时允许内联脚本和内联事件处理程序。</li>
+<li>内联脚本和内联事件处理程序就是在html中利用&lt;script&gt;标签加入的JS代码。</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?php</span></span></span><br><span class="line"><span class="php">header(<span class="string">"Content-Security-Policy: script-src 'unsafe-inline';"</span>);</span></span><br><span class="line"><span class="php"><span class="meta">?&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>内容安全策略 (CSP)<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="built_in">document</span>.write(<span class="string">"&lt;h1&gt;允许执行页面内嵌的标签和事件监听函数.&lt;/h1&gt;"</span>);</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"/localhost.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在上面的代码中，引入了一个内联的js脚本和一个外置的js脚本，运行代码结果如下。</li>
+<li>内联的js脚本是可以执行的，但是外置的js脚本被警报了。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/secblog/20180702165716.png" alt></p>
+<h5 id="unsage-eval"><a href="#unsage-eval" class="headerlink" title="unsage-eval"></a>unsage-eval</h5><p>将script-src值设置为unsafe-eval，这里还要开启内置事件的开关unsafe-inline才能执行内置事件。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?php</span></span></span><br><span class="line"><span class="php">header(<span class="string">"Content-Security-Policy: script-src 'unsafe-eval' 'unsafe-inline'"</span>);</span></span><br><span class="line"><span class="php"><span class="meta">?&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>内容安全策略 (CSP)<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">   <span class="built_in">eval</span>(<span class="string">'document.write("&lt;h1&gt;unsafe-eval测试.&lt;/h1&gt;")'</span>);</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/secblog/20180702170114.png" alt></p>
+<ul>
+<li>执行结果是可以看到利用eval函数将字符串当作代码执行了。</li>
+</ul>
+<h5 id="nonce值"><a href="#nonce值" class="headerlink" title="nonce值"></a>nonce值</h5><ul>
+<li>header头设置了script-src ‘nonce-EDNnf03nceIOfn39fn3e9h3sdfa’这里的nonce值对相应的</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?php</span></span></span><br><span class="line"><span class="php">header(<span class="string">"Content-Security-Policy: script-src 'nonce-EDNnf03nceIOfn39fn3e9h3sdfa'"</span>);</span></span><br><span class="line"><span class="php"><span class="meta">?&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span>o</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>内容安全策略 (CSP)<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">nonce</span>=<span class="string">EDNnf03nceIOfn39fn3e9h3sdfa</span>&gt;</span></span><br><span class="line"><span class="javascript">   <span class="built_in">document</span>.write(<span class="string">"&lt;h1&gt;script nonce 测试.&lt;/h1&gt;"</span>);</span></span><br><span class="line"><span class="javascript">   <span class="built_in">document</span>.write(<span class="string">"&lt;h1&gt;nonce=EDNnf03nceIOfn39fn3e9h3sdfa.&lt;/h1&gt;"</span>);</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/secblog/20180702170219.png" alt></p>
+<ul>
+<li>script进行判断，如果script的nonce值与之相同，就可以执行相应的Js脚本。</li>
+</ul>
+
     </div>
     <div>
     
@@ -443,8 +626,8 @@
 
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2018/07/03/Web认证授权1—Cookie:Seesion Auth/" rel="prev" title="Web认证授权1—Cookie/Seesion Auth">
-                  Web认证授权1—Cookie/Seesion Auth <i class="fa fa-chevron-right"></i>
+                <a href="/2018/07/02/WEB安全2—CSP绕过/" rel="prev" title="Web安全—CSP策略">
+                  Web安全—CSP策略 <i class="fa fa-chevron-right"></i>
                 </a>
               
             </div>
@@ -494,6 +677,8 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、内容安全策略"><span class="nav-text">一、内容安全策略</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（一）简介"><span class="nav-text">（一）简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（二）开启CSP：启用后不符合CSP的外部资源就会被阻止加载"><span class="nav-text">（二）开启CSP：启用后不符合CSP的外部资源就会被阻止加载</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、CSP限制选项"><span class="nav-text">二、CSP限制选项</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（一）资源加载限制"><span class="nav-text">（一）资源加载限制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（二）URL限制"><span class="nav-text">（二）URL限制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（三）其他限制"><span class="nav-text">（三）其他限制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#report-uri、report-to"><span class="nav-text">report-uri、report-to</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、选项值"><span class="nav-text">三、选项值</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#script-src的特殊值"><span class="nav-text">script-src的特殊值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nonce值和hahs值"><span class="nav-text">nonce值和hahs值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#strict-dynamic"><span class="nav-text">strict-dynamic</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、注意"><span class="nav-text">四、注意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五、CSP实验"><span class="nav-text">五、CSP实验</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（一）CSP测试"><span class="nav-text">（一）CSP测试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#结果"><span class="nav-text">结果</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（二）report-uri测试"><span class="nav-text">（二）report-uri测试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（三）script-src特殊值测试"><span class="nav-text">（三）script-src特殊值测试</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#unsafe-inline"><span class="nav-text">unsafe-inline</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#unsage-eval"><span class="nav-text">unsage-eval</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#nonce值"><span class="nav-text">nonce值</span></a></li></ol></li></ol></li></ol></div>
+        
       </div>
       <!--/noindex-->
 
@@ -511,7 +696,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-count">33</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -649,12 +834,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">119k</span>
+    <span title="站点总字数">131k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:19</span>
+    <span title="站点阅读时长">3:38</span>
 </div>
 
 <!--
