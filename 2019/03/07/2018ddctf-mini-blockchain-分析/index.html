@@ -55,13 +55,13 @@
   };
 </script>
 
-  <meta name="description" content="去年的题目，现在仍然开着：http://116.85.48.107:5000/b942f830cf97e/分析一遍代码感觉对区块链又加深了理解。下一步自己尝试写一写题意：银行发行了100W的DDB，黑客append两个区块转给自己99W9999。让我们找回钱并且在商店花200W买两个钻石。  一、信息收集">
+  <meta name="description" content="去年的题目，现在仍然开着：http://116.85.48.107:5000/b942f830cf97e/分析一遍代码感觉对区块链又加深了理解。下一步自己尝试写一写题意：银行发行了100W的DDB，黑客append两个区块转给自己99W9999。让我们找回钱并且在商店花200W买两个钻石。  0x01 信息收集">
 <meta name="keywords" content="区块链">
 <meta property="og:type" content="article">
 <meta property="og:title" content="2018DDCTF-mini-blockchain分析">
 <meta property="og:url" content="https://github.com/xx-C1/xx-C1.github.io/2019/03/07/2018ddctf-mini-blockchain-分析/index.html">
 <meta property="og:site_name" content="xxC1&#39;s blog">
-<meta property="og:description" content="去年的题目，现在仍然开着：http://116.85.48.107:5000/b942f830cf97e/分析一遍代码感觉对区块链又加深了理解。下一步自己尝试写一写题意：银行发行了100W的DDB，黑客append两个区块转给自己99W9999。让我们找回钱并且在商店花200W买两个钻石。  一、信息收集">
+<meta property="og:description" content="去年的题目，现在仍然开着：http://116.85.48.107:5000/b942f830cf97e/分析一遍代码感觉对区块链又加深了理解。下一步自己尝试写一写题意：银行发行了100W的DDB，黑客append两个区块转给自己99W9999。让我们找回钱并且在商店花200W买两个钻石。  0x01 信息收集">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/xx-C1/MDphoto/master/secblog/20190317214258.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/xx-C1/MDphoto/master/secblog/20190317214737.png">
@@ -115,10 +115,10 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/xx-C1/MDphoto/master/secblog/20190317223806.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/xx-C1/MDphoto/master/secblog/20190317223836.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/xx-C1/MDphoto/master/secblog/20190317223905.png">
-<meta property="og:updated_time" content="2021-04-10T14:41:33.484Z">
+<meta property="og:updated_time" content="2021-04-11T02:57:54.101Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2018DDCTF-mini-blockchain分析">
-<meta name="twitter:description" content="去年的题目，现在仍然开着：http://116.85.48.107:5000/b942f830cf97e/分析一遍代码感觉对区块链又加深了理解。下一步自己尝试写一写题意：银行发行了100W的DDB，黑客append两个区块转给自己99W9999。让我们找回钱并且在商店花200W买两个钻石。  一、信息收集">
+<meta name="twitter:description" content="去年的题目，现在仍然开着：http://116.85.48.107:5000/b942f830cf97e/分析一遍代码感觉对区块链又加深了理解。下一步自己尝试写一写题意：银行发行了100W的DDB，黑客append两个区块转给自己99W9999。让我们找回钱并且在商店花200W买两个钻石。  0x01 信息收集">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/xx-C1/MDphoto/master/secblog/20190317214258.png">
   <link rel="canonical" href="https://github.com/xx-C1/xx-C1.github.io/2019/03/07/2018ddctf-mini-blockchain-分析/">
 
@@ -347,7 +347,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-04-10 22:41:33" itemprop="dateModified" datetime="2021-04-10T22:41:33+08:00">2021-04-10</time>
+                <time title="修改时间：2021-04-11 10:57:54" itemprop="dateModified" datetime="2021-04-11T10:57:54+08:00">2021-04-11</time>
               </span>
             
           
@@ -412,7 +412,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>去年的题目，现在仍然开着：<a href="http://116.85.48.107:5000/b942f830cf97e/" target="_blank" rel="noopener">http://116.85.48.107:5000/b942f830cf97e/</a><br>分析一遍代码感觉对区块链又加深了理解。下一步自己尝试写一写<br>题意：银行发行了100W的DDB，黑客append两个区块转给自己99W9999。让我们找回钱并且在商店花200W买两个钻石。  </p><h3 id="一、信息收集"><a href="#一、信息收集" class="headerlink" title="一、信息收集"></a>一、信息收集</h3><a id="more"></a>
+        <p>去年的题目，现在仍然开着：<a href="http://116.85.48.107:5000/b942f830cf97e/" target="_blank" rel="noopener">http://116.85.48.107:5000/b942f830cf97e/</a><br>分析一遍代码感觉对区块链又加深了理解。下一步自己尝试写一写<br>题意：银行发行了100W的DDB，黑客append两个区块转给自己99W9999。让我们找回钱并且在商店花200W买两个钻石。  </p><h3 id="0x01-信息收集"><a href="#0x01-信息收集" class="headerlink" title="0x01 信息收集"></a>0x01 信息收集</h3><a id="more"></a>
 <p>把首页杂乱的信息整理</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/secblog/20190317214258.png" alt></p>
 <p>得到信息：</p>
@@ -439,7 +439,7 @@
 <ul>
 <li>黑客把银行地址100w资金转到高度1的区块99w9999，转到银行地址1。并留下一句：HAHA，IM THE BANK NOW!</li>
 </ul>
-<h3 id="二、源码分析"><a href="#二、源码分析" class="headerlink" title="二、源码分析"></a>二、源码分析</h3><p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/secblog/20170317215314.png" alt></p>
+<h3 id="0x02-源码分析"><a href="#0x02-源码分析" class="headerlink" title="0x02 源码分析"></a>0x02 源码分析</h3><p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/secblog/20170317215314.png" alt></p>
 <ul>
 <li>Flask框架，默认url：/b942f830cf97e</li>
 <li>FLAG()函数，返回FLAG</li>
@@ -589,7 +589,7 @@
 <ul>
 <li>得到所有信息函数。在主页调用了，我们看到的主页信息就是调用了该函数。</li>
 </ul>
-<h3 id="三、构造思路"><a href="#三、构造思路" class="headerlink" title="三、构造思路"></a>三、构造思路</h3><p>由于没有别人来挖矿（添加区块）即我们拥有100%算力。可以结合51%算力攻击，我们可以随意添加区块来改变主链方向。同时也可利用双花攻击来达到双次花费。</p>
+<h3 id="0x03-构造思路"><a href="#0x03-构造思路" class="headerlink" title="0x03 构造思路"></a>0x03 构造思路</h3><p>由于没有别人来挖矿（添加区块）即我们拥有100%算力。可以结合51%算力攻击，我们可以随意添加区块来改变主链方向。同时也可利用双花攻击来达到双次花费。</p>
 <ul>
 <li>初始信息：</li>
 </ul>
@@ -613,7 +613,7 @@
 <ul>
 <li>此时主链已经成为：1-2(2)-3(2)-4(2)-5(3)-6(3)已经覆盖shop把钱转到自己钱包，100W又到了shop所有又获得1个钻石。</li>
 </ul>
-<h3 id="四、payload脚本"><a href="#四、payload脚本" class="headerlink" title="四、payload脚本"></a>四、payload脚本</h3><ul>
+<h3 id="0x04-payload脚本"><a href="#0x04-payload脚本" class="headerlink" title="0x04 payload脚本"></a>0x04 payload脚本</h3><ul>
 <li>参考：一叶飘零师傅</li>
 </ul>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/secblog/20190317223548.png" alt></p>
@@ -765,7 +765,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、信息收集"><span class="nav-text">一、信息收集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、源码分析"><span class="nav-text">二、源码分析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#然后审计具体函数："><span class="nav-text">然后审计具体函数：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、构造思路"><span class="nav-text">三、构造思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、payload脚本"><span class="nav-text">四、payload脚本</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01-信息收集"><span class="nav-text">0x01 信息收集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02-源码分析"><span class="nav-text">0x02 源码分析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#然后审计具体函数："><span class="nav-text">然后审计具体函数：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x03-构造思路"><span class="nav-text">0x03 构造思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x04-payload脚本"><span class="nav-text">0x04 payload脚本</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->
@@ -784,7 +784,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">32</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -922,12 +922,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">131k</span>
+    <span title="站点总字数">130k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:38</span>
+    <span title="站点阅读时长">3:37</span>
 </div>
 
 <!--

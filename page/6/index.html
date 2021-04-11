@@ -253,163 +253,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://github.com/xx-C1/xx-C1.github.io/2018/07/06/Web认证授权3—JWT Auth/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="xx_C1">
-      <meta itemprop="description" content="Cyberspace Security">
-      <meta itemprop="image" content="/images/dxx.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="xxC1's blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2018/07/06/Web认证授权3—JWT Auth/" class="post-title-link" itemprop="url">Web认证授权3—JWT Auth及其安全问题</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2018-07-06 21:00:00" itemprop="dateCreated datePublished" datetime="2018-07-06T21:00:00+08:00">2018-07-06</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-01-18 16:34:21" itemprop="dateModified" datetime="2021-01-18T16:34:21+08:00">2021-01-18</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/WEB安全/" itemprop="url" rel="index"><span itemprop="name">WEB安全</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/WEB安全/Browser端安全/" itemprop="url" rel="index"><span itemprop="name">Browser端安全</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-          <span id="busuanzi_container_page_pv">
-            <span class="post-meta-divider">|</span>
-            <span class="post-meta-item-icon">
-            <i class="fa fa-eye"></i>
-            </span>
-            阅读量: <span id="busuanzi_value_page_pv"></span>次
-          </span>
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">本文字数：</span>
-              
-              <span>5.2k</span>
-            </span>
-          
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              
-              <span>9 分钟</span>
-            </span>
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="一、起源"><a href="#一、起源" class="headerlink" title="一、起源"></a><strong>一、起源</strong></h3><ul>
-<li><p>在前后端分离的应用中，后端为Model层，为前端提供数据访问的API。为了保证数据安全可靠地在用户与服务端之间传输，实现服务端的认证就极为必要。</p>
-</li>
-<li><p><strong>常见的服务端认证方法有：</strong></p>
-<ul>
-<li><p><strong>基于Cookie的认证：session</strong></p>
-<ul>
-<li>每次请求都带上cookie，取出相应字段并与服务端进行对比，以实现身份的认证（具有CORS问题）</li>
-</ul>
-</li>
-<li><p><strong>基于Token的认证：Json Web Toekn</strong></p>
-<ul>
-<li>请求在HTTP的头部（或其他位置）附上token，由服务器check signature来实现</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>JWT不一定完全取代Cookie-Session Auth体制，其也存在缺点。JWT更适合用于认证签名的过程，更适合一次性操作的认证。</p>
-</li>
-</ul>
-          <!--noindex-->
-          
-            <div class="post-button">
-              <a class="btn" href="/2018/07/06/Web认证授权3—JWT Auth/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-    <div>
-    
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </article>
-  
-  
-  
-
-    
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://github.com/xx-C1/xx-C1.github.io/2018/07/04/Web认证授权2—Token Auth/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -450,7 +293,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-01-18 16:34:18" itemprop="dateModified" datetime="2021-01-18T16:34:18+08:00">2021-01-18</time>
+                <time title="修改时间：2021-04-11 10:54:59" itemprop="dateModified" datetime="2021-04-11T10:54:59+08:00">2021-04-11</time>
               </span>
             
           
@@ -491,7 +334,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>3k</span>
+              <span>3.1k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -514,10 +357,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="一、Token"><a href="#一、Token" class="headerlink" title="一、Token"></a>一、Token</h3><ul>
+          <h3 id="0x01-Token"><a href="#0x01-Token" class="headerlink" title="0x01 Token"></a>0x01 Token</h3><ul>
 <li>Token=令牌。<strong>服务端</strong>生成的一串字符串。是<strong>客户端</strong>进行请求的一个标识，用来作为访问资源的凭据。</li>
 <li>类似于<strong>临时的证书签名</strong>, 并且是一种服务端无状态的认证方式，非常适合于 REST API 的场景。所谓无状态就是服务端并不会保存身份认证相关的数据。</li>
-</ul><h3 id="二、Token组成"><a href="#二、Token组成" class="headerlink" title="二、Token组成"></a>二、Token组成</h3><ul>
+</ul><h3 id="0x02-Token组成"><a href="#0x02-Token组成" class="headerlink" title="0x02 Token组成"></a>0x02 Token组成</h3><ul>
 <li><strong>UID：</strong>用户唯一的身份标识</li>
 <li><strong>TIME：</strong>时间戳</li>
 <li><strong>Sign：</strong>签名（token的前几位以哈希算法压缩成的一定长度的十六进制字符串）</li>
@@ -596,7 +439,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-01-18 16:36:45" itemprop="dateModified" datetime="2021-01-18T16:36:45+08:00">2021-01-18</time>
+                <time title="修改时间：2021-04-11 10:53:58" itemprop="dateModified" datetime="2021-04-11T10:53:58+08:00">2021-04-11</time>
               </span>
             
           
@@ -738,7 +581,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-01-26 17:12:33" itemprop="dateModified" datetime="2021-01-26T17:12:33+08:00">2021-01-26</time>
+                <time title="修改时间：2021-04-11 10:53:12" itemprop="dateModified" datetime="2021-04-11T10:53:12+08:00">2021-04-11</time>
               </span>
             
           
@@ -890,7 +733,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-01-26 17:03:16" itemprop="dateModified" datetime="2021-01-26T17:03:16+08:00">2021-01-26</time>
+                <time title="修改时间：2021-04-11 10:52:48" itemprop="dateModified" datetime="2021-04-11T10:52:48+08:00">2021-04-11</time>
               </span>
             
           
@@ -954,7 +797,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="一、内容安全策略"><a href="#一、内容安全策略" class="headerlink" title="一、内容安全策略"></a><strong>一、内容安全策略</strong></h3><h4 id="（一）简介"><a href="#（一）简介" class="headerlink" title="（一）简介"></a><strong>（一）简介</strong></h4><ul>
+          <h3 id="0x01-内容安全策略"><a href="#0x01-内容安全策略" class="headerlink" title="0x01 内容安全策略"></a><strong>0x01 内容安全策略</strong></h3><h4 id="1-简介"><a href="#1-简介" class="headerlink" title="1 简介"></a><strong>1 简介</strong></h4><ul>
 <li>内容安全策略 (CSP, Content Security Policy) 是一个附加的安全层。用于帮助检测和缓解某些类型的攻击，包括跨站脚本 (XSS) 和数据注入等攻击。 CSP是一种白名单策略，该策略可让网站管理员指定客户端允许加载的各类可信任资源，当有从非白名单允许的JS脚本出现在页面中，浏览器会阻止脚本的执行。</li>
 <li>手册：<a href="https://developer.mozilla.org/zh-CN/docs/Web/Security/CSP" target="_blank" rel="noopener"><strong>https://developer.mozilla.org/zh-CN/docs/Web/Security/CSP</strong></a></li>
 </ul>
@@ -962,6 +805,151 @@
           
             <div class="post-button">
               <a class="btn" href="/2018/07/02/Web安全2—CSP策略/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+    <div>
+    
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/xx-C1/xx-C1.github.io/2018/07/01/Web安全1—SOP策略/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xx_C1">
+      <meta itemprop="description" content="Cyberspace Security">
+      <meta itemprop="image" content="/images/dxx.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="xxC1's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2018/07/01/Web安全1—SOP策略/" class="post-title-link" itemprop="url">Web安全—SOP策略</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2018-07-01 21:00:00" itemprop="dateCreated datePublished" datetime="2018-07-01T21:00:00+08:00">2018-07-01</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-04-11 10:51:22" itemprop="dateModified" datetime="2021-04-11T10:51:22+08:00">2021-04-11</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/WEB安全/" itemprop="url" rel="index"><span itemprop="name">WEB安全</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/WEB安全/Browser端安全/" itemprop="url" rel="index"><span itemprop="name">Browser端安全</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <span id="busuanzi_container_page_pv">
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+            </span>
+            阅读量: <span id="busuanzi_value_page_pv"></span>次
+          </span>
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>3.7k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>6 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="0x01-同源策略"><a href="#0x01-同源策略" class="headerlink" title="0x01 同源策略"></a><strong>0x01 同源策略</strong></h3><ul>
+<li><p><strong>同源策略是一种约定，是浏览器最核心也最基本的安全功能，主要体现在同源策略会限制来自不同源的文档和脚本对当前源的文档数据的读取或设置某些属性，是用于隔离潜在恶意文件的重要安全机制。</strong></p>
+</li>
+<li><p>同源策略是Netscape提出的一个著名的安全策略，现在所有的可支持javascript的浏览器都会使用这个策略；</p>
+</li>
+<li><p>web构建在同源策略基础之上，浏览器对非同源脚本的限制措施是对同源策略的具体实现。</p>
+</li>
+</ul>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2018/07/01/Web安全1—SOP策略/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1039,7 +1027,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">32</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1177,12 +1165,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">131k</span>
+    <span title="站点总字数">130k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:38</span>
+    <span title="站点阅读时长">3:37</span>
 </div>
 
 <!--

@@ -55,20 +55,20 @@
   };
 </script>
 
-  <meta name="description" content="一、Token Token=令牌。服务端生成的一串字符串。是客户端进行请求的一个标识，用来作为访问资源的凭据。 类似于临时的证书签名, 并且是一种服务端无状态的认证方式，非常适合于 REST API 的场景。所谓无状态就是服务端并不会保存身份认证相关的数据。 二、Token组成 UID：用户唯一的身份标识 TIME：时间戳 Sign：签名（token的前几位以哈希算法压缩成的一定长度的十六进制字符">
+  <meta name="description" content="0x01 Token Token=令牌。服务端生成的一串字符串。是客户端进行请求的一个标识，用来作为访问资源的凭据。 类似于临时的证书签名, 并且是一种服务端无状态的认证方式，非常适合于 REST API 的场景。所谓无状态就是服务端并不会保存身份认证相关的数据。 0x02 Token组成 UID：用户唯一的身份标识 TIME：时间戳 Sign：签名（token的前几位以哈希算法压缩成的一定长度的">
 <meta name="keywords" content="认证授权">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Web认证授权2—Token Auth">
 <meta property="og:url" content="https://github.com/xx-C1/xx-C1.github.io/2018/07/04/Web认证授权2—Token Auth/index.html">
 <meta property="og:site_name" content="xxC1&#39;s blog">
-<meta property="og:description" content="一、Token Token=令牌。服务端生成的一串字符串。是客户端进行请求的一个标识，用来作为访问资源的凭据。 类似于临时的证书签名, 并且是一种服务端无状态的认证方式，非常适合于 REST API 的场景。所谓无状态就是服务端并不会保存身份认证相关的数据。 二、Token组成 UID：用户唯一的身份标识 TIME：时间戳 Sign：签名（token的前几位以哈希算法压缩成的一定长度的十六进制字符">
+<meta property="og:description" content="0x01 Token Token=令牌。服务端生成的一串字符串。是客户端进行请求的一个标识，用来作为访问资源的凭据。 类似于临时的证书签名, 并且是一种服务端无状态的认证方式，非常适合于 REST API 的场景。所谓无状态就是服务端并不会保存身份认证相关的数据。 0x02 Token组成 UID：用户唯一的身份标识 TIME：时间戳 Sign：签名（token的前几位以哈希算法压缩成的一定长度的">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/xx-C1/MDphoto/master/secblog/20180704094659.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/xx-C1/MDphoto/master/secblog/20180704104206.png">
-<meta property="og:updated_time" content="2021-01-18T08:34:18.329Z">
+<meta property="og:updated_time" content="2021-04-11T02:54:59.413Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Web认证授权2—Token Auth">
-<meta name="twitter:description" content="一、Token Token=令牌。服务端生成的一串字符串。是客户端进行请求的一个标识，用来作为访问资源的凭据。 类似于临时的证书签名, 并且是一种服务端无状态的认证方式，非常适合于 REST API 的场景。所谓无状态就是服务端并不会保存身份认证相关的数据。 二、Token组成 UID：用户唯一的身份标识 TIME：时间戳 Sign：签名（token的前几位以哈希算法压缩成的一定长度的十六进制字符">
+<meta name="twitter:description" content="0x01 Token Token=令牌。服务端生成的一串字符串。是客户端进行请求的一个标识，用来作为访问资源的凭据。 类似于临时的证书签名, 并且是一种服务端无状态的认证方式，非常适合于 REST API 的场景。所谓无状态就是服务端并不会保存身份认证相关的数据。 0x02 Token组成 UID：用户唯一的身份标识 TIME：时间戳 Sign：签名（token的前几位以哈希算法压缩成的一定长度的">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/xx-C1/MDphoto/master/secblog/20180704094659.png">
   <link rel="canonical" href="https://github.com/xx-C1/xx-C1.github.io/2018/07/04/Web认证授权2—Token Auth/">
 
@@ -297,7 +297,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-01-18 16:34:18" itemprop="dateModified" datetime="2021-01-18T16:34:18+08:00">2021-01-18</time>
+                <time title="修改时间：2021-04-11 10:54:59" itemprop="dateModified" datetime="2021-04-11T10:54:59+08:00">2021-04-11</time>
               </span>
             
           
@@ -346,7 +346,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>3k</span>
+              <span>3.1k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -369,17 +369,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="一、Token"><a href="#一、Token" class="headerlink" title="一、Token"></a>一、Token</h3><ul>
+        <h3 id="0x01-Token"><a href="#0x01-Token" class="headerlink" title="0x01 Token"></a>0x01 Token</h3><ul>
 <li>Token=令牌。<strong>服务端</strong>生成的一串字符串。是<strong>客户端</strong>进行请求的一个标识，用来作为访问资源的凭据。</li>
 <li>类似于<strong>临时的证书签名</strong>, 并且是一种服务端无状态的认证方式，非常适合于 REST API 的场景。所谓无状态就是服务端并不会保存身份认证相关的数据。</li>
-</ul><h3 id="二、Token组成"><a href="#二、Token组成" class="headerlink" title="二、Token组成"></a>二、Token组成</h3><ul>
+</ul><h3 id="0x02-Token组成"><a href="#0x02-Token组成" class="headerlink" title="0x02 Token组成"></a>0x02 Token组成</h3><ul>
 <li><strong>UID：</strong>用户唯一的身份标识</li>
 <li><strong>TIME：</strong>时间戳</li>
 <li><strong>Sign：</strong>签名（token的前几位以哈希算法压缩成的一定长度的十六进制字符串）</li>
 <li>固定参数(可选): 将一些常用的固定参数加入到 token 中是为了避免重复查库</li>
 </ul><a id="more"></a>
 
-<h3 id="三、Token分类"><a href="#三、Token分类" class="headerlink" title="三、Token分类"></a>三、Token分类</h3><ul>
+<h3 id="0x03-Token分类"><a href="#0x03-Token分类" class="headerlink" title="0x03 Token分类"></a>0x03 Token分类</h3><ul>
 <li><strong>refresh token 负责身份认证</strong></li>
 <li><strong>access token 负责请求资源</strong></li>
 </ul>
@@ -391,16 +391,16 @@
 <li>4.token 获取到之后，就能够带上 token 访问 API 了</li>
 </ul>
 <p>​    </p>
-<h4 id="（一）Access-Token"><a href="#（一）Access-Token" class="headerlink" title="（一）Access Token"></a>（一）Access Token</h4><ul>
+<h4 id="1-Access-Token"><a href="#1-Access-Token" class="headerlink" title="1 Access Token"></a>1 Access Token</h4><ul>
 <li>有效期限，过期就要重新获取，可通过refresh token重新获取</li>
 </ul>
-<h4 id="（二）Refresh-Token"><a href="#（二）Refresh-Token" class="headerlink" title="（二）Refresh Token"></a>（二）Refresh Token</h4><ul>
+<h4 id="2-Refresh-Token"><a href="#2-Refresh-Token" class="headerlink" title="2 Refresh Token"></a>2 Refresh Token</h4><ul>
 <li>如果 refesh token 也过期了怎么办？这就需要用户重新登陆授权了</li>
 </ul>
 <ul>
 <li>虽然 refresh token 和 access token 都由 IdP 发出，但是 access token 还要和 SP 进行数据交换，如果公用的话这样就会有身份泄露的可能。并且 IdP 和 SP 可能是完全不同的服务提供的。而在第一小节中之所以没有这样的顾虑是因为 IdP 和 SP 都是 Google</li>
 </ul>
-<h3 id="四、Token-Auth原理"><a href="#四、Token-Auth原理" class="headerlink" title="四、Token Auth原理"></a>四、Token Auth原理</h3><p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/secblog/20180704104206.png" alt></p>
+<h3 id="0x04-Token-Auth原理"><a href="#0x04-Token-Auth原理" class="headerlink" title="0x04 Token Auth原理"></a>0x04 Token Auth原理</h3><p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/secblog/20180704104206.png" alt></p>
 <ul>
 <li><strong>1.客户端使用用户名和密码请求登录</strong></li>
 <li><strong>2.服务端收到请求，验证用户名和密码</strong></li>
@@ -409,7 +409,7 @@
 <li><strong>5.客户端每次想服务端发送请求的时候都需要带上服务端发给的Token</strong></li>
 <li><strong>6.服务端收到请求，然后去验证客户端请求里面带着的Token，如果验证成功，就向客户端返回请求的数据。</strong></li>
 </ul>
-<h3 id="五、Token-Auth的Token选择分类"><a href="#五、Token-Auth的Token选择分类" class="headerlink" title="五、Token Auth的Token选择分类"></a>五、Token Auth的Token选择分类</h3><h4 id="（一）设备的MAC地址作为Token"><a href="#（一）设备的MAC地址作为Token" class="headerlink" title="（一）设备的MAC地址作为Token"></a>（一）设备的MAC地址作为Token</h4><ul>
+<h3 id="0x05-Token-Auth的Token选择分类"><a href="#0x05-Token-Auth的Token选择分类" class="headerlink" title="0x05 Token Auth的Token选择分类"></a>0x05 Token Auth的Token选择分类</h3><h4 id="1-设备的MAC地址作为Token"><a href="#1-设备的MAC地址作为Token" class="headerlink" title="1 设备的MAC地址作为Token"></a>1 设备的MAC地址作为Token</h4><ul>
 <li><p><strong>客户端：</strong>客户端在登录时获取设备的MAC地址，将其作为参数传递到服务端</p>
 </li>
 <li><p><strong>服务端：</strong>服务端接收到该参数后，便用一个变量来接收，同时将其作为token保存在数据库，并将该token设置到session中。客户端每次请求的时候都要统一拦截，将客户端传递的token和服务器端session中的token进行对比，相同则登录成功，不同则拒绝</p>
@@ -425,7 +425,7 @@
 <li><p>服务器端需要保存mac地址</p>
 </li>
 </ul>
-<h4 id="（二）Session-ID作为Token"><a href="#（二）Session-ID作为Token" class="headerlink" title="（二）Session ID作为Token"></a>（二）Session ID作为Token</h4><ul>
+<h4 id="2-Session-ID作为Token"><a href="#2-Session-ID作为Token" class="headerlink" title="2 Session ID作为Token"></a>2 Session ID作为Token</h4><ul>
 <li><strong>客户端：</strong>客户端携带用户名和密码登录</li>
 <li><strong>服务端：</strong>接收到用户名和密码后进行校验，正确就将本地获取的Session ID作为token返回给客户端，客户端以后只需带上请求的数据即可</li>
 <li><strong>优点：</strong><ul>
@@ -437,16 +437,16 @@
 </ul>
 </li>
 </ul>
-<h4 id="（三）MAC和Session-ID同时作为Token"><a href="#（三）MAC和Session-ID同时作为Token" class="headerlink" title="（三）MAC和Session ID同时作为Token"></a>（三）MAC和Session ID同时作为Token</h4><ul>
+<h4 id="3-MAC和Session-ID同时作为Token"><a href="#3-MAC和Session-ID同时作为Token" class="headerlink" title="3 MAC和Session ID同时作为Token"></a>3 MAC和Session ID同时作为Token</h4><ul>
 <li>用于保密性比较高的应用</li>
 </ul>
-<h3 id="六、Token-Auth的特点"><a href="#六、Token-Auth的特点" class="headerlink" title="六、Token Auth的特点"></a>六、Token Auth的特点</h3><ul>
+<h3 id="0x06-Token-Auth的特点"><a href="#0x06-Token-Auth的特点" class="headerlink" title="0x06 Token Auth的特点"></a>0x06 Token Auth的特点</h3><ul>
 <li><strong>token是无状态的，用户进行任何操作时，都需要带上一个token</strong></li>
 <li><strong>token比cookie先进，更能适用于跨平台，移动平台等</strong></li>
 <li><strong>token的存在形式有很多种，header/requestbody/url 都可以</strong></li>
 <li><strong>token只需要存在客户端，服务器在收到数据后，进行解析</strong></li>
 </ul>
-<h4 id="（一）优点"><a href="#（一）优点" class="headerlink" title="（一）优点"></a>（一）优点</h4><ul>
+<h4 id="1-优点"><a href="#1-优点" class="headerlink" title="1 优点"></a>1 优点</h4><ul>
 <li><strong>支持跨域访问：</strong>Cookie是不允许垮域访问的，这一点对Token机制是不存在的，前提是传输的用户认证信息通过HTTP头传输。</li>
 <li><strong>无状态(也称：服务端可扩展行)：</strong>Token机制在服务端不需要存储session信息，因为Token 自身包含了所有登录用户的信息，只需要在客户端的cookie或本地介质存储状态信息。</li>
 <li>*<em>更适用CDN： *</em>可以通过内容分发网络请求服务端的所有资料（如：javascript，HTML,图片等），而服务端只要提供API即可。</li>
@@ -457,12 +457,12 @@
 <li><strong>不需要为登录页面做特殊处理：</strong> 如果使用Protractor做功能测试的时候，不再需要为登录页面做特殊处理。</li>
 <li><strong>基于标准化：</strong>API可以采用标准化的 JSON Web Token (JWT)。这个标准已经存在多个后端库（.NET, Ruby, Java,Python,PHP）和多家公司的支持（如:Firebase,Google, Microsoft）。</li>
 </ul>
-<h4 id="（二）缺点"><a href="#（二）缺点" class="headerlink" title="（二）缺点"></a>（二）缺点</h4><h3 id="七、TokenAuth携带token的方式"><a href="#七、TokenAuth携带token的方式" class="headerlink" title="七、TokenAuth携带token的方式"></a>七、TokenAuth携带token的方式</h3><ul>
+<h4 id="2-缺点"><a href="#2-缺点" class="headerlink" title="2 缺点"></a>2 缺点</h4><h3 id="0x07-TokenAuth携带token的方式"><a href="#0x07-TokenAuth携带token的方式" class="headerlink" title="0x07 TokenAuth携带token的方式"></a>0x07 TokenAuth携带token的方式</h3><ul>
 <li><strong>HTTP Header</strong></li>
 <li><strong>URL参数</strong></li>
 <li><strong>提供的类库</strong></li>
 </ul>
-<h3 id="八、Token的存储"><a href="#八、Token的存储" class="headerlink" title="八、Token的存储"></a>八、Token的存储</h3><ul>
+<h3 id="0x08-Token的存储"><a href="#0x08-Token的存储" class="headerlink" title="0x08 Token的存储"></a>0x08 Token的存储</h3><ul>
 <li><p><strong>数据库</strong></p>
 <ul>
 <li>查询时间长</li>
@@ -476,7 +476,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="九、Token的加密"><a href="#九、Token的加密" class="headerlink" title="九、Token的加密"></a>九、Token的加密</h3><ul>
+<h3 id="0x09-Token的加密"><a href="#0x09-Token的加密" class="headerlink" title="0x09 Token的加密"></a>0x09 Token的加密</h3><ul>
 <li><p><strong>对称加密</strong>：在存储的时候把token进行对称加密存储，用到的时候再解密</p>
 </li>
 <li><p><strong>非对称加密/签名算法</strong>：签名方式（请求URL、时间戳、Token三者合并）通过签名算法签名</p>
@@ -484,7 +484,7 @@
 <li><p><strong>网络层面上Token使用明文传输的话是非常危险的，所以一定要使用HTTPS协议</strong></p>
 </li>
 </ul>
-<h3 id="十、Token-Auth应用"><a href="#十、Token-Auth应用" class="headerlink" title="十、Token Auth应用"></a>十、Token Auth应用</h3><h4 id="（一）Web认证（且防止CSRF）"><a href="#（一）Web认证（且防止CSRF）" class="headerlink" title="（一）Web认证（且防止CSRF）"></a><strong>（一）Web认证（且防止CSRF）</strong></h4><h4 id="（二）APP认证"><a href="#（二）APP认证" class="headerlink" title="（二）APP认证"></a><strong>（二）APP认证</strong></h4><ul>
+<h3 id="0x10-Token-Auth应用"><a href="#0x10-Token-Auth应用" class="headerlink" title="0x10 Token Auth应用"></a>0x10 Token Auth应用</h3><h4 id="1-Web认证（且防止CSRF）"><a href="#1-Web认证（且防止CSRF）" class="headerlink" title="1 Web认证（且防止CSRF）"></a><strong>1 Web认证（且防止CSRF）</strong></h4><h4 id="2-APP认证"><a href="#2-APP认证" class="headerlink" title="2 APP认证"></a><strong>2 APP认证</strong></h4><ul>
 <li><p>1.用户在登录APP时，APP端发送加密的用户名和密码到服务器</p>
 </li>
 <li><p>2.服务器验证用户名和密码，如果验证成功，就会生成相应位数的字符产作为token存储到服务器中，并且将该token返回给APP端。</p>
@@ -624,7 +624,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、Token"><span class="nav-text">一、Token</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、Token组成"><span class="nav-text">二、Token组成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、Token分类"><span class="nav-text">三、Token分类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一次获取Token的流程"><span class="nav-text">第一次获取Token的流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（一）Access-Token"><span class="nav-text">（一）Access Token</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（二）Refresh-Token"><span class="nav-text">（二）Refresh Token</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、Token-Auth原理"><span class="nav-text">四、Token Auth原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五、Token-Auth的Token选择分类"><span class="nav-text">五、Token Auth的Token选择分类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（一）设备的MAC地址作为Token"><span class="nav-text">（一）设备的MAC地址作为Token</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（二）Session-ID作为Token"><span class="nav-text">（二）Session ID作为Token</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（三）MAC和Session-ID同时作为Token"><span class="nav-text">（三）MAC和Session ID同时作为Token</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#六、Token-Auth的特点"><span class="nav-text">六、Token Auth的特点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（一）优点"><span class="nav-text">（一）优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（二）缺点"><span class="nav-text">（二）缺点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#七、TokenAuth携带token的方式"><span class="nav-text">七、TokenAuth携带token的方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#八、Token的存储"><span class="nav-text">八、Token的存储</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#九、Token的加密"><span class="nav-text">九、Token的加密</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#十、Token-Auth应用"><span class="nav-text">十、Token Auth应用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（一）Web认证（且防止CSRF）"><span class="nav-text">（一）Web认证（且防止CSRF）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（二）APP认证"><span class="nav-text">（二）APP认证</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01-Token"><span class="nav-text">0x01 Token</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02-Token组成"><span class="nav-text">0x02 Token组成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x03-Token分类"><span class="nav-text">0x03 Token分类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一次获取Token的流程"><span class="nav-text">第一次获取Token的流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Access-Token"><span class="nav-text">1 Access Token</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Refresh-Token"><span class="nav-text">2 Refresh Token</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x04-Token-Auth原理"><span class="nav-text">0x04 Token Auth原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x05-Token-Auth的Token选择分类"><span class="nav-text">0x05 Token Auth的Token选择分类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-设备的MAC地址作为Token"><span class="nav-text">1 设备的MAC地址作为Token</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Session-ID作为Token"><span class="nav-text">2 Session ID作为Token</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-MAC和Session-ID同时作为Token"><span class="nav-text">3 MAC和Session ID同时作为Token</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x06-Token-Auth的特点"><span class="nav-text">0x06 Token Auth的特点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-优点"><span class="nav-text">1 优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-缺点"><span class="nav-text">2 缺点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x07-TokenAuth携带token的方式"><span class="nav-text">0x07 TokenAuth携带token的方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x08-Token的存储"><span class="nav-text">0x08 Token的存储</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x09-Token的加密"><span class="nav-text">0x09 Token的加密</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x10-Token-Auth应用"><span class="nav-text">0x10 Token Auth应用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Web认证（且防止CSRF）"><span class="nav-text">1 Web认证（且防止CSRF）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-APP认证"><span class="nav-text">2 APP认证</span></a></li></ol></li></ol></div>
         
       </div>
       <!--/noindex-->
@@ -643,7 +643,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">32</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -781,12 +781,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">131k</span>
+    <span title="站点总字数">130k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:38</span>
+    <span title="站点阅读时长">3:37</span>
 </div>
 
 <!--

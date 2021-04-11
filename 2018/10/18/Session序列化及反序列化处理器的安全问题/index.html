@@ -55,18 +55,18 @@
   };
 </script>
 
-  <meta name="description" content="一、漏洞原理PHP 内置了多种处理器用于存取 $_SESSION 数据时会对数据进行序列化和反序列化。处理器对应的存储格式: php 1键名 ＋ 竖线 ＋ 经过 serialize() 函数反序列处理的值 php_binary 1键名的长度对应的 ASCII 字符 ＋ 键名 ＋ 经过 serialize() 函数反序列处理的值">
+  <meta name="description" content="0x01 漏洞原理PHP 内置了多种处理器用于存取 $_SESSION 数据时会对数据进行序列化和反序列化。处理器对应的存储格式: php 1键名 ＋ 竖线 ＋ 经过 serialize() 函数反序列处理的值 php_binary 1键名的长度对应的 ASCII 字符 ＋ 键名 ＋ 经过 serialize() 函数反序列处理的值">
 <meta name="keywords" content="反序列化">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Session序列化及反序列化处理器的安全问题">
 <meta property="og:url" content="https://github.com/xx-C1/xx-C1.github.io/2018/10/18/Session序列化及反序列化处理器的安全问题/index.html">
 <meta property="og:site_name" content="xxC1&#39;s blog">
-<meta property="og:description" content="一、漏洞原理PHP 内置了多种处理器用于存取 $_SESSION 数据时会对数据进行序列化和反序列化。处理器对应的存储格式: php 1键名 ＋ 竖线 ＋ 经过 serialize() 函数反序列处理的值 php_binary 1键名的长度对应的 ASCII 字符 ＋ 键名 ＋ 经过 serialize() 函数反序列处理的值">
+<meta property="og:description" content="0x01 漏洞原理PHP 内置了多种处理器用于存取 $_SESSION 数据时会对数据进行序列化和反序列化。处理器对应的存储格式: php 1键名 ＋ 竖线 ＋ 经过 serialize() 函数反序列处理的值 php_binary 1键名的长度对应的 ASCII 字符 ＋ 键名 ＋ 经过 serialize() 函数反序列处理的值">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-09T11:19:34.000Z">
+<meta property="og:updated_time" content="2021-04-11T02:25:05.960Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Session序列化及反序列化处理器的安全问题">
-<meta name="twitter:description" content="一、漏洞原理PHP 内置了多种处理器用于存取 $_SESSION 数据时会对数据进行序列化和反序列化。处理器对应的存储格式: php 1键名 ＋ 竖线 ＋ 经过 serialize() 函数反序列处理的值 php_binary 1键名的长度对应的 ASCII 字符 ＋ 键名 ＋ 经过 serialize() 函数反序列处理的值">
+<meta name="twitter:description" content="0x01 漏洞原理PHP 内置了多种处理器用于存取 $_SESSION 数据时会对数据进行序列化和反序列化。处理器对应的存储格式: php 1键名 ＋ 竖线 ＋ 经过 serialize() 函数反序列处理的值 php_binary 1键名的长度对应的 ASCII 字符 ＋ 键名 ＋ 经过 serialize() 函数反序列处理的值">
   <link rel="canonical" href="https://github.com/xx-C1/xx-C1.github.io/2018/10/18/Session序列化及反序列化处理器的安全问题/">
 
 
@@ -294,7 +294,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-09 19:19:34" itemprop="dateModified" datetime="2019-10-09T19:19:34+08:00">2019-10-09</time>
+                <time title="修改时间：2021-04-11 10:25:05" itemprop="dateModified" datetime="2021-04-11T10:25:05+08:00">2021-04-11</time>
               </span>
             
           
@@ -359,7 +359,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="一、漏洞原理"><a href="#一、漏洞原理" class="headerlink" title="一、漏洞原理"></a><strong>一、漏洞原理</strong></h2><p>PHP 内置了多种处理器用于存取 $_SESSION 数据时会对数据进行序列化和反序列化。</p><h3 id="处理器"><a href="#处理器" class="headerlink" title="处理器"></a>处理器</h3><p>对应的存储格式:</p><ul>
+        <h3 id="0x01-漏洞原理"><a href="#0x01-漏洞原理" class="headerlink" title="0x01 漏洞原理"></a><strong>0x01 漏洞原理</strong></h3><p>PHP 内置了多种处理器用于存取 $_SESSION 数据时会对数据进行序列化和反序列化。</p><h4 id="处理器"><a href="#处理器" class="headerlink" title="处理器"></a>处理器</h4><p>对应的存储格式:</p><ul>
 <li>php</li>
 </ul><figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">键名 ＋ 竖线 ＋ 经过 serialize<span class="comment">()</span> 函数反序列处理的值</span><br></pre></td></tr></table></figure><ul>
 <li>php_binary</li>
@@ -390,7 +390,7 @@
 <figure class="highlight golo"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">// <span class="keyword">var</span>\_dump($\_SESSION); <span class="keyword">array</span>(<span class="number">1</span>) &#123; \[<span class="string">"a:1:&#123;s:4:"</span>ryat<span class="string">";s:20:"</span><span class="string">"\]=&gt; object(stdClass)#1 (0) &#123; &#125; &#125;</span></span><br></pre></td></tr></table></figure>
 
 <p>可以看到，通过注入 | 字符伪造了对象的序列化数据，成功实例化了 stdClass 对象：）</p>
-<h2 id="二、实际利用"><a href="#二、实际利用" class="headerlink" title="二、实际利用"></a><strong>二、实际利用</strong></h2><h3 id="i）当-session-auto-start＝On-时："><a href="#i）当-session-auto-start＝On-时：" class="headerlink" title="i）当 session.auto_start＝On 时："></a>i）当 session.auto_start＝On 时：</h3><p>当配置选项 session.auto_start＝On，会自动注册 Session 会话，因为该过程是发生在脚本代码执行前，所以在脚本中设定的包括序列化处理器在内的 session 相关配选项的设置是不起作用的，因此一些需要在脚本中设置序列化处理器配置的程序会在 session.auto_start＝On 时，销毁自动生成的 Session 会话，然后设置需要的序列化处理器，再调用 session_start() 函数注册会话，这时如果脚本中设置的序列化处理器与 php.ini 中设置的不同，就会出现安全问题，如下面的代码：</p>
+<h2 id="0x02-实际利用"><a href="#0x02-实际利用" class="headerlink" title="0x02 实际利用"></a><strong>0x02 实际利用</strong></h2><h4 id="i）当-session-auto-start＝On-时："><a href="#i）当-session-auto-start＝On-时：" class="headerlink" title="i）当 session.auto_start＝On 时："></a>i）当 session.auto_start＝On 时：</h4><p>当配置选项 session.auto_start＝On，会自动注册 Session 会话，因为该过程是发生在脚本代码执行前，所以在脚本中设定的包括序列化处理器在内的 session 相关配选项的设置是不起作用的，因此一些需要在脚本中设置序列化处理器配置的程序会在 session.auto_start＝On 时，销毁自动生成的 Session 会话，然后设置需要的序列化处理器，再调用 session_start() 函数注册会话，这时如果脚本中设置的序列化处理器与 php.ini 中设置的不同，就会出现安全问题，如下面的代码：</p>
 <figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">//foo.php if (ini<span class="symbol">\_</span>get('session.auto<span class="symbol">\_</span>start')) &#123; session<span class="symbol">\_</span>destroy(); &#125; ini<span class="symbol">\_</span>set('session.serialize<span class="symbol">\_</span>handler', 'php<span class="symbol">\_</span>serialize'); session<span class="symbol">\_</span>start(); $<span class="symbol">\_</span>SESSION<span class="symbol">\[</span>'ryat'<span class="symbol">\]</span> = $_GET<span class="symbol">\[</span>'ryat'<span class="symbol">\]</span>;</span><br></pre></td></tr></table></figure>
 
 <p>当第一次访问该脚本，并提交数据如下：</p>
@@ -401,30 +401,33 @@
 
 <p>当第二次访问该脚本时，PHP 会按照 php.ini 里设置的序列化处理器反序列化存储的数据，这时如果 php.ini 里设置的是 php 处理器的话，将会反序列化伪造的数据，成功实例化了 stdClass 对象：）</p>
 <p>这里需要注意的是，因为 PHP 自动注册 Session 会话是在脚本执行前，所以通过该方式只能注入 PHP 的内置类。</p>
-<h3 id="ii）当-session-auto-start＝Off-时："><a href="#ii）当-session-auto-start＝Off-时：" class="headerlink" title="ii）当 session.auto_start＝Off 时："></a>ii）当 session.auto_start＝Off 时：</h3><p>当配置选项 session.auto_start＝Off，两个脚本注册 Session 会话时使用的序列化处理器不同，就会出现安全问题，如下面的代码：</p>
+<h4 id="ii）当-session-auto-start＝Off-时："><a href="#ii）当-session-auto-start＝Off-时：" class="headerlink" title="ii）当 session.auto_start＝Off 时："></a>ii）当 session.auto_start＝Off 时：</h4><p>当配置选项 session.auto_start＝Off，两个脚本注册 Session 会话时使用的序列化处理器不同，就会出现安全问题，如下面的代码：</p>
 <figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">//foo1.php ini<span class="tag">\<span class="name">_</span></span>set('session.serialize<span class="tag">\<span class="name">_</span></span>handler', 'php<span class="tag">\<span class="name">_</span></span>serialize'); session<span class="tag">\<span class="name">_</span></span>start(); <span class="formula">$<span class="tag">\<span class="name">_</span></span>SESSION<span class="tag">\<span class="name">[</span></span>'ryat'<span class="tag">\<span class="name">]</span> = </span>$</span><span class="tag">\<span class="name">_</span></span>GET<span class="tag">\<span class="name">[</span></span>'ryat'<span class="tag">\<span class="name">]</span></span>; //foo2.php ini<span class="tag">\<span class="name">_</span></span>set('session.serialize<span class="tag">\<span class="name">_</span></span>handler', 'php'); //or session.serialize<span class="tag">\<span class="name">_</span></span>handler set to php in php.ini session<span class="tag">\<span class="name">_</span></span>start(); class ryat &#123; var <span class="formula">$hi; function <span class="tag">\<span class="name">_</span></span><span class="tag">\<span class="name">_</span></span>wakeup() &#123; echo 'hi'; &#125; function <span class="tag">\<span class="name">_</span></span><span class="tag">\<span class="name">_</span></span>destruct() &#123; echo $</span>this-&gt;hi; &#125; &#125;</span><br></pre></td></tr></table></figure>
 
 <p>当访问 foo1.php 时，提交数据如下：</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">foo1.php?ryat=|O:<span class="number">4</span>:<span class="string">"ryat"</span>:<span class="number">1</span>:&#123;<span class="string">s:</span><span class="number">2</span>:<span class="string">"hi"</span>;<span class="string">s:</span><span class="number">4</span>:<span class="string">"ryat"</span>;&#125;</span><br></pre></td></tr></table></figure>
 
 <p>脚本会按照 php_serialize 处理器的序列化格式存储数据，访问 foo2.php 时，则会按照 php 处理器的反序列化格式读取数据，这时将会反序列化伪造的数据，成功实例化了 ryat 对象，并将会执行类中的 __wakeup 方法和 __destruct 方法：）</p>
-<h2 id="三、更深理解"><a href="#三、更深理解" class="headerlink" title="三、更深理解"></a>三、更深理解</h2><h3 id="漏洞关键在于："><a href="#漏洞关键在于：" class="headerlink" title="漏洞关键在于："></a>漏洞关键在于：</h3><ul>
+<h3 id="0x03-更深理解"><a href="#0x03-更深理解" class="headerlink" title="0x03 更深理解"></a>0x03 更深理解</h3><h4 id="漏洞关键在于："><a href="#漏洞关键在于：" class="headerlink" title="漏洞关键在于："></a>漏洞关键在于：</h4><ul>
 <li><p>1.脚本中设置的序列化处理器与php.ini设置的不同</p>
 </li>
 <li><p>2.两个脚本注册session使用的序列化处理器不同</p>
 </li>
 </ul>
 <p>（存储时序列化的和读取时反序列化的）处理器不同就会产生安全问问题。</p>
-<h3 id="原因："><a href="#原因：" class="headerlink" title="原因："></a>原因：</h3><p>未正确处理\\’|\\’。</p>
+<h4 id="原因："><a href="#原因：" class="headerlink" title="原因："></a>原因：</h4><p>未正确处理\\’|\\’。</p>
 <p>比如：以php_serilize方式存入的时候，构造出”|” 伪造的序列化值存入。但之后解析又是用的php处理器的话，那么将会反序列化伪造的数据（\\’|\\’之前当作键名，\\’|\\’之后当作键值）</p>
 <p>（L.N.: php5.6.13版本以前是第一个变量解析错误注销第一个变量，然后解析第二个变量，但是5.6.13以后如果第一个变量错误，直接销毁整个session）。</p>
 <p>通过什么方式将数据注入到session中呢？</p>
-<p>1.开发者本身将用户可控的数据传进了session（比如joomla等）</p>
-<p>2.通过配置不当可造成session被控。</p>
+<ul>
+<li><p>1.开发者本身将用户可控的数据传进了session（比如joomla等）</p>
+</li>
+<li><p>2.通过配置不当可造成session被控。</p>
+</li>
+</ul>
 <p>当session.upload_progress.enabled打开时，php会记录上传文件的进度，在上传时会将其信息保存在$_SESSION中。</p>
-<p>构造表单：</p>
-<p>POST一个名为PHP_SESSION_UPLOAD_PROGRESS的值，便可以将上传的文件名写入session。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>test XXE<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"http://web.jarvisoj.com:32784/index.php"</span> <span class="attr">method</span>=<span class="string">"POST"</span> <span class="attr">enctype</span>=<span class="string">"multipart/form-data"</span>&gt;</span><span class="comment">&lt;!--不对字符编码--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"PHP\_SESSION\_UPLOAD_PROGRESS"</span> <span class="attr">value</span>=<span class="string">"123"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"file"</span> <span class="attr">name</span>=<span class="string">"file"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"go"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>构造表单：POST一个名为PHP_SESSION_UPLOAD_PROGRESS的值，便可以将上传的文件名写入session。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>test XXE<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"http://web.jarvisoj.com:32784/index.php"</span> <span class="attr">method</span>=<span class="string">"POST"</span> <span class="attr">enctype</span>=<span class="string">"multipart/form-data"</span>&gt;</span><span class="comment">&lt;!--不对字符编码--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"PHP\_SESSION\_UPLOAD_PROGRESS"</span> <span class="attr">value</span>=<span class="string">"123"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"file"</span> <span class="attr">name</span>=<span class="string">"file"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"go"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>后面的难点在于构造出pop链达到自己想要的结果。</p>
 <p>参考：wooyun：ryat一篇文章</p>
@@ -505,8 +508,8 @@
 
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2018/10/18/jarvisoj-webwp-3/" rel="prev" title="jarvisoj-web-WP">
-                  jarvisoj-web-WP <i class="fa fa-chevron-right"></i>
+                <a href="/2018/11/09/第七届山东省网络安全技能大赛-决赛Write-Up/" rel="prev" title="第七届山东省网络安全技能大赛-决赛Write-Up">
+                  第七届山东省网络安全技能大赛-决赛Write-Up <i class="fa fa-chevron-right"></i>
                 </a>
               
             </div>
@@ -556,7 +559,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、漏洞原理"><span class="nav-text">一、漏洞原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#处理器"><span class="nav-text">处理器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、实际利用"><span class="nav-text">二、实际利用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#i）当-session-auto-start＝On-时："><span class="nav-text">i）当 session.auto_start＝On 时：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ii）当-session-auto-start＝Off-时："><span class="nav-text">ii）当 session.auto_start＝Off 时：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、更深理解"><span class="nav-text">三、更深理解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#漏洞关键在于："><span class="nav-text">漏洞关键在于：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原因："><span class="nav-text">原因：</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01-漏洞原理"><span class="nav-text">0x01 漏洞原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#处理器"><span class="nav-text">处理器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-实际利用"><span class="nav-text">0x02 实际利用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#i）当-session-auto-start＝On-时："><span class="nav-text">i）当 session.auto_start＝On 时：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ii）当-session-auto-start＝Off-时："><span class="nav-text">ii）当 session.auto_start＝Off 时：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x03-更深理解"><span class="nav-text">0x03 更深理解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#漏洞关键在于："><span class="nav-text">漏洞关键在于：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#原因："><span class="nav-text">原因：</span></a></li></ol></li></ol></div>
         
       </div>
       <!--/noindex-->
@@ -575,7 +578,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">32</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -713,12 +716,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">131k</span>
+    <span title="站点总字数">130k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:38</span>
+    <span title="站点阅读时长">3:37</span>
 </div>
 
 <!--

