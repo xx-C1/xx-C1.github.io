@@ -155,7 +155,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544251197657.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544251049478.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544253035293.png">
-<meta property="og:updated_time" content="2019-10-09T10:52:00.000Z">
+<meta property="og:updated_time" content="2021-04-10T15:07:49.155Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="BugKu-MISC-WP史诗全集">
 <meta name="twitter:description" content="一、信息收集与社工1.签到微信扫面二维码回复：flag得flag。2.猜提示是某人姓名全拼音，运用谷歌识图搜到是liuyifei。二、编码分析1.多种方法解决用NotePad++打开发现是python的b64img模块把图片转换成文本的文本。直接在线还原base64编码的图片的二维码，扫面得flag2.普通的二维码">
@@ -387,7 +387,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-09 18:52:00" itemprop="dateModified" datetime="2019-10-09T18:52:00+08:00">2019-10-09</time>
+                <time title="修改时间：2021-04-10 23:07:49" itemprop="dateModified" datetime="2021-04-10T23:07:49+08:00">2021-04-10</time>
               </span>
             
           
@@ -429,7 +429,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>12k</span>
+              <span>13k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -439,7 +439,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span>20 分钟</span>
+              <span>21 分钟</span>
             </span>
           
 
@@ -452,11 +452,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="一、信息收集与社工"><a href="#一、信息收集与社工" class="headerlink" title="一、信息收集与社工"></a><strong>一、信息收集与社工</strong></h2><p><strong>1.签到</strong></p><p>微信扫面二维码回复：<code>flag</code>得flag。</p><p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543824528660.png" alt></p><p><strong>2.猜</strong></p><p>提示是某人姓名全拼音，运用谷歌识图搜到是liuyifei。</p><p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543828399284.png" alt></p><h2 id="二、编码分析"><a href="#二、编码分析" class="headerlink" title="二、编码分析"></a><strong>二、编码分析</strong></h2><p><strong>1.多种方法解决</strong></p><p>用NotePad++打开发现是python的b64img模块把图片转换成文本的文本。直接在线还原base64编码的图片的二维码，扫面得flag</p><p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543837028259.png" alt></p><p><strong>2.普通的二维码</strong></p><a id="more"></a>
-
-
-
-
+        <h3 id="一、信息收集与社工"><a href="#一、信息收集与社工" class="headerlink" title="一、信息收集与社工"></a><strong>一、信息收集与社工</strong></h3><h4 id="1-签到"><a href="#1-签到" class="headerlink" title="1.签到"></a><strong>1.签到</strong></h4><p>微信扫面二维码回复：<code>flag</code>得flag。</p><p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543824528660.png" alt></p><h4 id="2-猜"><a href="#2-猜" class="headerlink" title="2.猜"></a><strong>2.猜</strong></h4><p>提示是某人姓名全拼音，运用谷歌识图搜到是liuyifei。</p><p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543828399284.png" alt></p><h3 id="二、编码分析"><a href="#二、编码分析" class="headerlink" title="二、编码分析"></a><strong>二、编码分析</strong></h3><h4 id="1-多种方法解决"><a href="#1-多种方法解决" class="headerlink" title="1.多种方法解决"></a><strong>1.多种方法解决</strong></h4><p>用NotePad++打开发现是python的b64img模块把图片转换成文本的文本。直接在线还原base64编码的图片的二维码，扫面得flag</p><p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543837028259.png" alt></p><h4 id="2-普通的二维码"><a href="#2-普通的二维码" class="headerlink" title="2.普通的二维码"></a><strong>2.普通的二维码</strong></h4><a id="more"></a>
 
 
 
@@ -465,18 +461,18 @@
 <p>扫码说：flag就在这里。各种分析方法发现都没用。最后在文本最后发现一串数字</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544171590468.png" alt></p>
 <p>没有8，应该是八进制然后把八进制转换成字符应该是flag，每三个数字一组写个脚本。</p>
-<p>c = ‘146154141147173110141166145137171060125137120171137163143162151160164137117164143137124157137124145156137101163143151151041175’<br>flag = ‘’<br>for i in xrange(0,126,3):<br>    flag += chr(int(c[i:i+3],8))<br>    print flag</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">c = '<span class="number">14615414114717</span><span class="number">31101411661451</span><span class="number">37171060125137</span><span class="number">12017113716314</span><span class="number">31621511601641</span><span class="number">37117164143137</span><span class="number">12415713712414</span><span class="number">51561371011631</span><span class="number">43151151041175</span>'  </span><br><span class="line">flag = ''  </span><br><span class="line">for i in xrange(<span class="number">0</span>,<span class="number">126</span>,<span class="number">3</span>):  </span><br><span class="line">    flag += chr(int(c\[i:i+<span class="number">3</span>\],<span class="number">8</span>))  </span><br><span class="line">    print flag</span><br></pre></td></tr></table></figure>
+
 <p>运行脚本得到flag</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544173317039.png" alt></p>
-<p><strong>3.convert</strong></p>
-<p>写个脚本把二进制转换成字符存到一个新文件</p>
-<p>import libnum<br>​<br>file = open(‘1.txt’,’r’)<br>​<br>f = file.read()<br>c = f.replace(‘\r\n’,’’)<br>m = libnum.b2s(c)<br>print m<br>​<br>getflag = open(‘flag’,’wb’)<br>getflag.write(m)<br>file.close<br>getflag.close<br>print ‘ok！！！’</p>
+<h4 id="3-convert"><a href="#3-convert" class="headerlink" title="3.convert"></a><strong>3.convert</strong></h4><p>写个脚本把二进制转换成字符存到一个新文件</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import libnum  </span><br><span class="line"></span><br><span class="line"><span class="keyword">file</span> = <span class="keyword">open</span>(<span class="string">'1.txt'</span>,<span class="string">'r'</span>)  </span><br><span class="line"><span class="keyword">f</span> = <span class="keyword">file</span>.<span class="keyword">read</span>()  </span><br><span class="line"><span class="keyword">c</span> = <span class="keyword">f</span>.replace(<span class="string">'\\r\\n'</span>,<span class="string">''</span>)  </span><br><span class="line"><span class="keyword">m</span> = libnum.b2s(<span class="keyword">c</span>)  </span><br><span class="line"><span class="keyword">print</span> <span class="keyword">m</span>  </span><br><span class="line"></span><br><span class="line">getflag = <span class="keyword">open</span>(<span class="string">'flag'</span>,<span class="string">'wb'</span>)  </span><br><span class="line">getflag.<span class="keyword">write</span>(<span class="keyword">m</span>)  </span><br><span class="line"><span class="keyword">file</span>.<span class="keyword">close</span>  </span><br><span class="line">getflag.<span class="keyword">close</span>  </span><br><span class="line"><span class="keyword">print</span> <span class="string">'ok！！！'</span></span><br></pre></td></tr></table></figure>
+
 <p>在linux里面直接检查到文件格式为rar</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544250350762.png" alt></p>
 <p>解压图片查看exif找到base64字符，python解码base64即可得flag</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544250436728.png" alt></p>
-<p><strong>4.就五层你能解开吗</strong></p>
-<p>感觉这个题目多为密码题，就放这里吧…</p>
+<h4 id="4-就五层你能解开吗"><a href="#4-就五层你能解开吗" class="headerlink" title="4.就五层你能解开吗"></a><strong>4.就五层你能解开吗</strong></h4><p>感觉这个题目多为密码题，就放这里吧…</p>
 <p>给出了提示：第一层为CRC32碰撞</p>
 <p>打开压缩包可以看见CRC32校验码分别为：<code>0x7c2df918、0xa58a1926、0x4dad5967</code>分别爆破</p>
 <p>把有意义的连接起来得到解压密码：<code>_CRC32_i5_n0t_s4f3</code></p>
@@ -484,39 +480,34 @@
 <p>看网上有人说猜测开头字母可能是什么然后猜是the，对应开头秘钥为<code>YEWCQGEWCYBNHDHPXOYUBJJPQIRAPSOUIYEOMTSV</code>解密找到秘密</p>
 <p>第三层SHA1碰撞</p>
 <p>上python脚本</p>
-<p>#encoding:utf-8<br>import string<br>import hashlib<br>​<br>keys = string.ascii_letters + string.digits + string.punctuation<br>​<br>def sha1(s):<br>•    sha1_hash = hashlib.sha1()<br>•    sha1_hash.update(s)<br>•    return sha1_hash.hexdigest()<br>​<br>for i in keys:<br>•   for j in keys:<br>•       for p in keys:<br>•           for q in keys:<br>•               password = i + ‘7’ + j + ‘5-‘ + p + ‘4’ + q + ‘3?’<br>•               sha = sha1(password.encode(‘utf-8’))<br>•               if sha[0:7] == ‘619c20c’ and sha[8] == ‘a’ and sha[16] == ‘9’:<br>•                   print(password)</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">encoding:utf<span class="number">-8</span>  </span><br><span class="line"></span><br><span class="line">import <span class="keyword">string</span>  </span><br><span class="line">import hashlib  </span><br><span class="line"></span><br><span class="line"><span class="built_in">keys</span> = <span class="keyword">string</span>.ascii_letters + <span class="keyword">string</span>.digits + <span class="keyword">string</span>.punctuation  </span><br><span class="line"></span><br><span class="line">def sha1(s):  </span><br><span class="line">    sha1_hash = hashlib.sha1()  </span><br><span class="line">    sha1_hash.update(s)  </span><br><span class="line">    <span class="literal">return</span> sha1_hash.hexdigest()  </span><br><span class="line">  </span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">keys</span>:  </span><br><span class="line">   <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">keys</span>:  </span><br><span class="line">       <span class="keyword">for</span> p <span class="keyword">in</span> <span class="built_in">keys</span>:  </span><br><span class="line">           <span class="keyword">for</span> q <span class="keyword">in</span> <span class="built_in">keys</span>:  </span><br><span class="line">               password = i + <span class="string">'7'</span> + j + <span class="string">'5-'</span> + p + <span class="string">'4'</span> + q + <span class="string">'3?'</span>   </span><br><span class="line">               sha = sha1(password.encode(<span class="string">'utf-8'</span>))  </span><br><span class="line">               <span class="keyword">if</span> sha\[<span class="number">0</span>:<span class="number">7</span>\] == <span class="string">'619c20c'</span> <span class="keyword">and</span> sha\[<span class="number">8</span>\] == <span class="string">'a'</span> <span class="keyword">and</span> sha\[<span class="number">16</span>\] == <span class="string">'9'</span>:  </span><br><span class="line">                   print(password)</span><br></pre></td></tr></table></figure>
+
 <p>得到解压密码</p>
 <p>第四层md5相同文件不同</p>
 <p>百度就能找到<code>HelloWorld-colliding.exe</code>和<code>GoodbyeWorld-colliding.exe</code>两个文件不同但是md5值相同。得到解压密码：<code>Goodbye World :-(</code></p>
 <p>第五层RSA解密</p>
 <p>得到两个文件<code>.enc</code>和<code>.pem</code></p>
 <p>解法一：直接用RSA-Tool快速解题</p>
-<p>解法二：</p>
-<p>用Openssl提取N和E，发现都很大。应该是维纳攻击（低解密指数攻击）</p>
+<p>解法二：用Openssl提取N和E，发现都很大。应该是维纳攻击（低解密指数攻击）</p>
 <p>然后用Wienerattack攻击的脚本跑一下得到d=<code>8264667972294275017293339772371783322168822149471976834221082393409363691895</code></p>
 <p>然后用python的rsatool生成私钥。这里有个问题，脚本比较老用的gmpy。而我不知道为何始终没有解决安装老的gmpy库，最后是把脚本里面的gmpy全部改成gmpy2就好了。</p>
 <p>用Openssl和私钥解密得到flag</p>
 <p><code>openssl rsautl -decrypt -in flag.enc -inkey key.pem -out flag.txt</code></p>
-<h2 id="三、取证隐写"><a href="#三、取证隐写" class="headerlink" title="三、取证隐写"></a><strong>三、取证隐写</strong></h2><h3 id="一-、图片隐写"><a href="#一-、图片隐写" class="headerlink" title="(一)、图片隐写"></a>(一)、图片隐写</h3><p><strong>1.这是一张单纯的图片</strong></p>
-<p>用NotePad++打开发现最后附加了一段Unicode编码。解码得flag</p>
+<h3 id="三、取证隐写"><a href="#三、取证隐写" class="headerlink" title="三、取证隐写"></a><strong>三、取证隐写</strong></h3><h4 id="一-、图片隐写"><a href="#一-、图片隐写" class="headerlink" title="(一)、图片隐写"></a>(一)、图片隐写</h4><h4 id="1-这是一张单纯的图片"><a href="#1-这是一张单纯的图片" class="headerlink" title="1.这是一张单纯的图片"></a><strong>1.这是一张单纯的图片</strong></h4><p>用NotePad++打开发现最后附加了一段Unicode编码。解码得flag</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543824474222.png" alt></p>
-<p><strong>2.隐写</strong></p>
-<p>PNG图片，NotePad++打开后发现有一段IHDR字样。</p>
+<h4 id="2-隐写"><a href="#2-隐写" class="headerlink" title="2.隐写"></a><strong>2.隐写</strong></h4><p>PNG图片，NotePad++打开后发现有一段IHDR字样。</p>
 <p>猜测是利用Window忽略CRC检验码然后修改高度和宽度后仍然可以显示来隐藏信息。</p>
 <p>然后我们放到Kali linux下面，果然无法显示（Linux会检验CRC检验码）</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543825089090.png" alt></p>
 <p>然后用01Editor打开修改IHDR后面的后八位（前四位为长，后四位为宽）把后四位的A4改为F4，即改为正方形，保存显示flag。</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543825123269.png" alt></p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543824985594.png" alt></p>
-<p><strong>3.啊嗒</strong></p>
-<p>省赛题目，前面写过wp就不写了。答题思路就是binwalk分析分离压缩包，通过exif信息找到压缩包密码解压即可。</p>
+<h4 id="3-啊嗒"><a href="#3-啊嗒" class="headerlink" title="3.啊嗒"></a><strong>3.啊嗒</strong></h4><p>省赛题目，前面写过wp就不写了。答题思路就是binwalk分析分离压缩包，通过exif信息找到压缩包密码解压即可。</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543827532301.png" alt></p>
-<p><strong>4.又一张图片，还单纯吗</strong></p>
-<p>binwalk分析有很多夹杂的信息，用Foremost提取一下，直接提取出flag图像。</p>
+<h4 id="4-又一张图片，还单纯吗"><a href="#4-又一张图片，还单纯吗" class="headerlink" title="4.又一张图片，还单纯吗"></a><strong>4.又一张图片，还单纯吗</strong></h4><p>binwalk分析有很多夹杂的信息，用Foremost提取一下，直接提取出flag图像。</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543828038905.png" alt></p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543828054055.png" alt></p>
-<p><strong>5.隐写2</strong></p>
-<p>首先用NotePad++打开文件，最后发现flag.rar</p>
+<h4 id="5-隐写2"><a href="#5-隐写2" class="headerlink" title="5.隐写2"></a><strong>5.隐写2</strong></h4><p>首先用NotePad++打开文件，最后发现flag.rar</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543829330373.png" alt></p>
 <p>binwalk分析，foremost分离。</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543829428485.png" alt></p>
@@ -526,22 +517,18 @@
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543829653277.png" alt></p>
 <p>解压得到一张图片，然后用Notepad++打开，最后找到flag</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543829751414.png" alt></p>
-<p><strong>6.闪的好快</strong></p>
-<p>gif图片，很多张二维码不停跳，用StegSolve的Frame Brower打开一个个扫拼接得到flag。</p>
+<h4 id="6-闪的好快"><a href="#6-闪的好快" class="headerlink" title="6.闪的好快"></a><strong>6.闪的好快</strong></h4><p>gif图片，很多张二维码不停跳，用StegSolve的Frame Brower打开一个个扫拼接得到flag。</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543837917506.png" alt></p>
 <p>最后扫描完拼接得:SYC{F1aSh_so_f4sT}</p>
-<p><strong>7.隐写3</strong></p>
-<p>下载压缩得到PNG图片，用010Editor打开发现IHDR。观察图片感觉明显窄很多。修改高度得到flag。（原理同2.隐写）</p>
+<h4 id="7-隐写3"><a href="#7-隐写3" class="headerlink" title="7.隐写3"></a><strong>7.隐写3</strong></h4><p>下载压缩得到PNG图片，用010Editor打开发现IHDR。观察图片感觉明显窄很多。修改高度得到flag。（原理同2.隐写）</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543840471578.png" alt></p>
-<p><strong>8.细心的大象</strong></p>
-<p>图片的文件exif有信息，但是不是flag。然后在kali linux下binwalk分析发现有RAR压缩包，foremost分离</p>
+<h4 id="8-细心的大象"><a href="#8-细心的大象" class="headerlink" title="8.细心的大象"></a><strong>8.细心的大象</strong></h4><p>图片的文件exif有信息，但是不是flag。然后在kali linux下binwalk分析发现有RAR压缩包，foremost分离</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543844199597.png" alt></p>
 <p>发现一个加密的压缩包，这个时候就用到exif里面的备注了。当时直接当密码不行。需要base64解密才可以。解密后得到一张图片</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543844435915.png" alt></p>
 <p>貌似很熟悉的样子。上面题目刚做了。然而这次修改高度貌似显示不了，用StegSolve查看得到flag</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543844560293.png" alt></p>
-<p><strong>9.爆照</strong></p>
-<p>Notepad++打开发现文件尾部有一段.gif的信息</p>
+<h4 id="9-爆照"><a href="#9-爆照" class="headerlink" title="9.爆照"></a><strong>9.爆照</strong></h4><p>Notepad++打开发现文件尾部有一段.gif的信息</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543844648957.png" alt></p>
 <p>binwalk分析，foremost分离得到压缩包</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543844742404.png" alt></p>
@@ -554,8 +541,7 @@
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543845600846.png" alt></p>
 <p>得到base64，解密得<code>silisili</code></p>
 <p>最后按照顺序连接得到flag</p>
-<p><strong>10.猫片</strong></p>
-<p>png图片。下载后常规分析：搜索、查看exif、二进制分析、CRC校验都无果。</p>
+<h4 id="10-猫片"><a href="#10-猫片" class="headerlink" title="10.猫片"></a><strong>10.猫片</strong></h4><p>png图片。下载后常规分析：搜索、查看exif、二进制分析、CRC校验都无果。</p>
 <p>提示：LSB、BRG（有错误，估计打错了，应该是BGR）、NTFS</p>
 <p>用StegSolve打开LSB最低位通道查看，发现BGR里面数据是PNG图片的数据</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543918781149.png" alt></p>
@@ -573,16 +559,13 @@
 <p>用NSE打开扫描发现确实</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543919709886.png" alt></p>
 <p>是个pyc文件，关于pyc文件我之前写过。就是编译后的py文件，在线反编译一下得到源代码</p>
-<p>import base64<br>​<br>def encode():<br>    flag = ‘<strong><strong>*****</strong></strong>‘<br>    ciphertext = []<br>    for i in range(len(flag)):<br>        s = chr(i ^ ord(flag[i]))<br>        if i % 2 == 0:<br>            s = ord(s) + 10<br>        else:<br>            s = ord(s) - 10<br>        ciphertext.append(str(s))  </p>
-<p>​  </p>
-<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> ciphertext\[::-<span class="number">1</span>\]</span><br></pre></td></tr></table></figure>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">import base64  </span><br><span class="line"></span><br><span class="line">def encode():  </span><br><span class="line">    flag = <span class="string">'*************'</span>  </span><br><span class="line">    ciphertext = \[\]  </span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">i</span> in range(len(flag)):  </span><br><span class="line">        s = chr(<span class="built_in">i</span> ^ ord(flag\[<span class="built_in">i</span>\]))  </span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">i</span> <span class="comment">% 2 == 0:  </span></span><br><span class="line">            s = ord(s) + <span class="number">10</span>  </span><br><span class="line">        <span class="keyword">else</span>:  </span><br><span class="line">            s = ord(s) - <span class="number">10</span>  </span><br><span class="line">        ciphertext.append(str(s))  </span><br><span class="line"><span class="keyword">return</span> ciphertext\[::<span class="number">-1</span>\] </span><br><span class="line"></span><br><span class="line">ciphertext = \[<span class="string">'96'</span>,<span class="string">'65'</span>,<span class="string">'93'</span>,<span class="string">'123'</span>,<span class="string">'91'</span>,<span class="string">'97'</span>,<span class="string">'22'</span>,<span class="string">'93'</span>,<span class="string">'70'</span>,<span class="string">'102'</span>,<span class="string">'94'</span>,<span class="string">'132'</span>,<span class="string">'46'</span>,<span class="string">'112'</span>,<span class="string">'64'</span>,<span class="string">'97'</span>,<span class="string">'88'</span>,<span class="string">'80'</span>,<span class="string">'82'</span>,<span class="string">'137'</span>,<span class="string">'90'</span>,<span class="string">'109'</span>,<span class="string">'99'</span>,<span class="string">'112'</span>\]</span><br></pre></td></tr></table></figure>
 
-<p>ciphertext = [‘96’,’65’,’93’,’123’,’91’,’97’,’22’,’93’,’70’,’102’,’94’,’132’,’46’,’112’,’64’,’97’,’88’,’80’,’82’,’137’,’90’,’109’,’99’,’112’]</p>
 <p>写一个解密脚本解密得到flag</p>
-<p># -<em>- codeing: UTF-8 -</em>-<br>​<br>import base64<br>​<br>def decode():<br>    ciphertext = [‘96’,’65’,’93’,’123’,’91’,’97’,’22’,’93’,’70’,’102’,’94’,’132’,’46’,’112’,’64’,’97’,’88’,’80’,’82’,’137’,’90’,’109’,’99’,’112’]<br>    flag = ‘’<br>    ciphertext.reverse() #因为加密用到了append()函数<br>    for i in range(len(ciphertext)):<br>        if i % 2 == 0:<br>            s = int(ciphertext[i]) - 10<br>        else:<br>            s = int(ciphertext[i]) + 10<br>        s = chr(i ^ s)<br>        flag += s<br>    return flag<br>​<br>def main():<br>    flag = decode()<br>    print flag<br>​<br>if __name__ == ‘__main__‘:<br>    main()</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- codeing: UTF-8 -*-  </span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> base64  </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">decode</span><span class="params">()</span>:</span>  </span><br><span class="line">    ciphertext = \[<span class="string">'96'</span>,<span class="string">'65'</span>,<span class="string">'93'</span>,<span class="string">'123'</span>,<span class="string">'91'</span>,<span class="string">'97'</span>,<span class="string">'22'</span>,<span class="string">'93'</span>,<span class="string">'70'</span>,<span class="string">'102'</span>,<span class="string">'94'</span>,<span class="string">'132'</span>,<span class="string">'46'</span>,<span class="string">'112'</span>,<span class="string">'64'</span>,<span class="string">'97'</span>,<span class="string">'88'</span>,<span class="string">'80'</span>,<span class="string">'82'</span>,<span class="string">'137'</span>,<span class="string">'90'</span>,<span class="string">'109'</span>,<span class="string">'99'</span>,<span class="string">'112'</span>\]  </span><br><span class="line">    flag = <span class="string">''</span>  </span><br><span class="line">    ciphertext.reverse() <span class="comment">#因为加密用到了append()函数  </span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(ciphertext)):  </span><br><span class="line">        <span class="keyword">if</span> i % <span class="number">2</span> == <span class="number">0</span>:  </span><br><span class="line">            s = int(ciphertext\[i\]) - <span class="number">10</span>  </span><br><span class="line">        <span class="keyword">else</span>:  </span><br><span class="line">            s = int(ciphertext\[i\]) + <span class="number">10</span>  </span><br><span class="line">        s = chr(i ^ s)  </span><br><span class="line">        flag += s  </span><br><span class="line">    <span class="keyword">return</span> flag  </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span>  </span><br><span class="line">    flag = decode()  </span><br><span class="line">    <span class="keyword">print</span> flag  </span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> \_\_name\_\_ == <span class="string">'\_\_main\_\_'</span>:  </span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543929282913.png" alt></p>
-<p><strong>11.多彩</strong></p>
-<p>下载后图片名字是：lipstick。翻译是口红的意思…</p>
+<h4 id="11-多彩"><a href="#11-多彩" class="headerlink" title="11.多彩"></a><strong>11.多彩</strong></h4><p>下载后图片名字是：lipstick。翻译是口红的意思…</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544148859969.png" alt></p>
 <p>结合图片颜色应该是不同的口红色号吧</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544148908160.png" alt></p>
@@ -602,30 +585,26 @@
 <p>抄个脚本吧..（眼力好也可以手撕）（发现抄的脚本看不懂也运行不了，手撕）</p>
 <p>最后得到色号：<code>1,27 ,59 ,11 ,23 ,7 ,57,1 ,1 ,76 ,222 ,1,1,50 ,214 ,6 ,77 ,50,53,214 ,6</code></p>
 <p>写脚本转换成二进制再转换成和字符</p>
-<p>import libnum<br>​<br>color = [1,27 ,59 ,11 ,23 ,7 ,57,1 ,1 ,76 ,222 ,1,1,50 ,214 ,6 ,77 ,50,53,214 ,6]<br>flag = ‘’<br>for i in color:<br>    flag +=str(bin(i)[2:])<br>print libnum.b2s(flag)</p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> libnum  </span><br><span class="line"></span><br><span class="line">color = <span class="string">\[1,27</span> ,<span class="number">59</span> ,<span class="number">11</span> ,<span class="number">23</span> ,<span class="number">7</span> ,<span class="number">57</span>,<span class="number">1</span> ,<span class="number">1</span> ,<span class="number">76</span> ,<span class="number">222</span> ,<span class="number">1</span>,<span class="number">1</span>,<span class="number">50</span> ,<span class="number">214</span> ,<span class="number">6</span> ,<span class="number">77</span> ,<span class="number">50</span>,<span class="number">53</span>,<span class="number">214</span> ,<span class="number">6</span><span class="string">\]</span>  </span><br><span class="line">flag = <span class="string">''</span>  </span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> color:  </span><br><span class="line">    flag +=str(bin(i)<span class="string">\[2:\])</span>  </span><br><span class="line"><span class="built_in">print</span> libnum.b2s(flag)</span><br></pre></td></tr></table></figure>
+
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544152285541.png" alt></p>
 <p>解压得到flag</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544152331729.png" alt></p>
-<p><strong>12.乌云邀请码</strong></p>
-<p>Stegsolve，LSB，BGR分析直接得到flag</p>
+<h4 id="12-乌云邀请码"><a href="#12-乌云邀请码" class="headerlink" title="12.乌云邀请码"></a><strong>12.乌云邀请码</strong></h4><p>Stegsolve，LSB，BGR分析直接得到flag</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544173874404.png" alt></p>
-<p><strong>13.图穷匕见</strong></p>
-<p>用010Editor打开，根据题目意思应该是在这张图的后面还有数据。</p>
+<h4 id="13-图穷匕见"><a href="#13-图穷匕见" class="headerlink" title="13.图穷匕见"></a><strong>13.图穷匕见</strong></h4><p>用010Editor打开，根据题目意思应该是在这张图的后面还有数据。</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544178148300.png" alt></p>
 <p>FF D9是jpg文件头，提取后面的数据。然后用Notepad++的Converter功能吧16进制转为字符。发现是一堆点。加上提示：问会画图吗？猜测应该是合成二维码。</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544178550141.png" alt></p>
 <p>用python的Image库生成反向图片</p>
-<p><strong>14.color</strong></p>
-<p>省赛题目，当时也是没做出来。前面wp也写了。思路就是用SteSolve打开发现隐藏Hint：makemetall。修改高度得到黑白块，联想二进制和ascii码的可打印字符正好是7位（坑点：七张图片要竖着组合01）。</p>
-<p><strong>15.2B</strong></p>
-<p>binwalk分析发现存在zip文件，foremost分离出来</p>
+<h4 id="14-color"><a href="#14-color" class="headerlink" title="14.color"></a><strong>14.color</strong></h4><p>省赛题目，当时也是没做出来。前面wp也写了。思路就是用SteSolve打开发现隐藏Hint：makemetall。修改高度得到黑白块，联想二进制和ascii码的可打印字符正好是7位（坑点：七张图片要竖着组合01）。</p>
+<h4 id="15-2B"><a href="#15-2B" class="headerlink" title="15.2B"></a><strong>15.2B</strong></h4><p>binwalk分析发现存在zip文件，foremost分离出来</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544265666547.png" alt></p>
 <p>压缩包加密了，用01Editor打开搜索50 4B 01 02，发现是伪加密。</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544265914548.png" alt></p>
 <p>修改后解压得到另一张看似一模一样的png图片名字叫B2。猜测双图还是盲水印？答案是盲水印。脚本有两个，一个可以另一个不可以。不知道为啥。。</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544266932590.png" alt></p>
-<p><strong>16.妹子的陌陌</strong></p>
-<p>binwalk分析发现存在压缩包，foremost分离出压缩包</p>
+<h4 id="16-妹子的陌陌"><a href="#16-妹子的陌陌" class="headerlink" title="16.妹子的陌陌"></a><strong>16.妹子的陌陌</strong></h4><p>binwalk分析发现存在压缩包，foremost分离出压缩包</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544353069193.png" alt></p>
 <p>压缩包有密码，经过尝试给的信息，竟然是：<code>喜欢我吗.</code>有点脑洞….</p>
 <p>然后摩斯电码解密得到一个网址</p>
@@ -633,35 +612,32 @@
 <p>进去加上后面的提示，应该是吧有=的看似想base64的用AES解密，而且给出了秘钥。</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544353776703.png" alt></p>
 <p>然后进去网站发现二维码，取反色扫描得到flag。</p>
-<h3 id="二-、流量分析"><a href="#二-、流量分析" class="headerlink" title="(二)、流量分析"></a><strong>(二)、流量分析</strong></h3><p><strong>1.talnet</strong></p>
-<p>直接搜索分组字节流，找到flag。也可以过滤talnet协议定位，追踪流找到flag</p>
+<h3 id="二-、流量分析"><a href="#二-、流量分析" class="headerlink" title="(二)、流量分析"></a><strong>(二)、流量分析</strong></h3><h4 id="1-talnet"><a href="#1-talnet" class="headerlink" title="1.talnet"></a><strong>1.talnet</strong></h4><p>直接搜索分组字节流，找到flag。也可以过滤talnet协议定位，追踪流找到flag</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543826122662.png" alt></p>
-<h3 id="三-、压缩包分析"><a href="#三-、压缩包分析" class="headerlink" title="(三)、压缩包分析"></a>(三)、压缩包分析</h3><p><strong>1.眼见非实</strong></p>
-<p>Notepad++打开后发现是PK文件头，最后有一段.docx。</p>
+<h4 id="三-、压缩包分析"><a href="#三-、压缩包分析" class="headerlink" title="(三)、压缩包分析"></a>(三)、压缩包分析</h4><h4 id="1-眼见非实"><a href="#1-眼见非实" class="headerlink" title="1.眼见非实"></a><strong>1.眼见非实</strong></h4><p>Notepad++打开后发现是PK文件头，最后有一段.docx。</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543826892182.png" alt></p>
 <p>修改后缀为zip，解压得到.docx文档，但是打不开。</p>
 <p>再用Notepad++打开发现PK头，修改后缀为zip。解压得到文件夹，搜索找到xml文件里面有flag</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543827177315.png" alt></p>
-<p><strong>2.神秘文件</strong></p>
-<p>省赛题目。加密压缩包和压缩包外有相同文件，用ARCHPR明文攻击即可。注意一点要用WinRar。然后解压得到.doc。查看文本发现PK开头，改后缀为zip。找到flag.txt然后base64解码。详解看上面WP</p>
-<p><strong>3.好多压缩包</strong></p>
-<p>这么多<strong>小压缩包</strong>肯定先想到CRC32碰撞攻击。</p>
+<h4 id="2-神秘文件"><a href="#2-神秘文件" class="headerlink" title="2.神秘文件"></a><strong>2.神秘文件</strong></h4><p>省赛题目。加密压缩包和压缩包外有相同文件，用ARCHPR明文攻击即可。注意一点要用WinRar。然后解压得到.doc。查看文本发现PK开头，改后缀为zip。找到flag.txt然后base64解码。详解看上面WP</p>
+<h4 id="3-好多压缩包"><a href="#3-好多压缩包" class="headerlink" title="3.好多压缩包"></a><strong>3.好多压缩包</strong></h4><p>这么多<strong>小压缩包</strong>肯定先想到CRC32碰撞攻击。</p>
 <p>原理：</p>
 <p>CRC32:CRC本身是“[冗余校验码](<a href="http://baike.baidu.com/item/CRC32)”的意思，CRC32则表示会产生一个32bit（8位十六进制数）的校验值。" target="_blank" rel="noopener">http://baike.baidu.com/item/CRC32)”的意思，CRC32则表示会产生一个32bit（8位十六进制数）的校验值。</a><br>CRC32校验码出现在很多文件中比如 png 文件，同样 zip 中也有 CRC32 校验码。值得注意的是 zip 中的 CRC32 是未加密文件的校验值。这也就导致了基于 CRC32 的攻击手法<br>在产生CRC32时，源数据块的每一位都参与了运算，因此即使数据块中只有一位发生改变也会得到不同的CRC32值，利用这个原理我们可以直接爆破出加密文件的内容<br>限于CPU能力，CRC碰撞只能用于压缩文件较小的情况</p>
 <p>破解脚本：</p>
-<p># coding:utf-8<br>import zipfile<br>import string<br>import binascii<br>import base64<br>​<br>​<br>def CrackCrc(crc):<br>    for i in dic:<br>        for j in dic:<br>            for p in dic:<br>                for q in dic:<br>                    s = i + j + p + q<br>                    if crc == (binascii.crc32(s) &amp; 0xffffffff):<br>                        # print s<br>                        f.write(s)<br>                        return<br>​<br>​<br>def CrackZip():<br>    for I in range(68):<br>        file = ‘out’ + str(I) + ‘.zip’<br>        f = zipfile.ZipFile(file, ‘r’)<br>        GetCrc = f.getinfo(‘data.txt’)<br>        crc = GetCrc.CRC<br>        CrackCrc(crc)<br>​<br>​<br>dic = string.ascii_letters + string.digits + ‘+/=’<br>​<br>f = open(‘out.txt’, ‘w’)<br>CrackZip()<br>f.close()</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding:utf-8  </span></span><br><span class="line"><span class="keyword">import</span> zipfile  </span><br><span class="line"><span class="keyword">import</span> string  </span><br><span class="line"><span class="keyword">import</span> binascii  </span><br><span class="line"><span class="keyword">import</span> base64  </span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">CrackCrc</span><span class="params">(crc)</span>:</span>  </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> dic:  </span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> dic:  </span><br><span class="line">            <span class="keyword">for</span> p <span class="keyword">in</span> dic:  </span><br><span class="line">                <span class="keyword">for</span> q <span class="keyword">in</span> dic:  </span><br><span class="line">                    s = i + j + p + q  </span><br><span class="line">                    <span class="keyword">if</span> crc == (binascii.crc32(s) &amp; <span class="number">0xffffffff</span>):  </span><br><span class="line">                                            <span class="comment"># print s  </span></span><br><span class="line"></span><br><span class="line">                        f.write(s)  </span><br><span class="line">                        <span class="keyword">return</span>  </span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">CrackZip</span><span class="params">()</span>:</span>  </span><br><span class="line">    <span class="keyword">for</span> I <span class="keyword">in</span> range(<span class="number">68</span>):  </span><br><span class="line">        file = <span class="string">'out'</span> + str(I) + <span class="string">'.zip'</span>  </span><br><span class="line">        f = zipfile.ZipFile(file, <span class="string">'r'</span>)  </span><br><span class="line">        GetCrc = f.getinfo(<span class="string">'data.txt'</span>)  </span><br><span class="line">        crc = GetCrc.CRC  </span><br><span class="line">        CrackCrc(crc)  </span><br><span class="line"> </span><br><span class="line">  </span><br><span class="line">dic = string.ascii_letters + string.digits + <span class="string">'+/='</span>  </span><br><span class="line">  </span><br><span class="line">f = open(<span class="string">'out.txt'</span>, <span class="string">'w'</span>)  </span><br><span class="line">CrackZip()  </span><br><span class="line">f.close()</span><br></pre></td></tr></table></figure>
+
 <p>爆破完成得到base64</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544261982600.png" alt></p>
 <p>用python脚本解密写进jm.txt里面</p>
-<p>#coding:utf-8<br>import base64<br>​<br>file = open(‘out.txt’,’r’)<br>c = file.read()<br>m = base64.b64decode(c)<br>file = open(‘jm.txt’,’w’)<br>file.write(m)<br>print ok</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#codin<span class="variable">g:utf</span>-<span class="number">8</span>  </span><br><span class="line"></span><br><span class="line">import base64  </span><br><span class="line"></span><br><span class="line"><span class="keyword">file</span> = <span class="keyword">open</span>(<span class="string">'out.txt'</span>,<span class="string">'r'</span>)  </span><br><span class="line"><span class="keyword">c</span> = <span class="keyword">file</span>.<span class="keyword">read</span>()  </span><br><span class="line"><span class="keyword">m</span> = base64.b64decode(<span class="keyword">c</span>)  </span><br><span class="line"><span class="keyword">file</span> = <span class="keyword">open</span>(<span class="string">'jm.txt'</span>,<span class="string">'w'</span>)  </span><br><span class="line"><span class="keyword">file</span>.<span class="keyword">write</span>(<span class="keyword">m</span>)  </span><br><span class="line"><span class="keyword">print</span> ok</span><br></pre></td></tr></table></figure>
+
 <p>用01Editor打开发现Hint：修理文件得flag。而我们在十六进制中发现<code>C4 3D 7B 00 40 07 00</code>查阅得知这是rar文件结尾。</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544261947068.png" alt></p>
 <p>新建一个文件，打上rar文件开头十六进制，然后复制前面的数据后保存得到压缩包</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544262304352.png" alt></p>
 <p>注释里面得到flag</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544263080027.png" alt></p>
-<p><strong>4.一个普通的压缩包</strong></p>
-<p>用Winrar打开发现说文件secret.png头被破坏</p>
+<h4 id="4-一个普通的压缩包"><a href="#4-一个普通的压缩包" class="headerlink" title="4.一个普通的压缩包"></a><strong>4.一个普通的压缩包</strong></h4><p>用Winrar打开发现说文件secret.png头被破坏</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544263430582.png" alt></p>
 <p>使用Winrar自动修复功能，对比两个压缩包明显发现大小不一样。但是修复的完全可以解压未修复的假flag.txt猜测第一个压缩包里面藏着secret.png但是文件头被损坏。用binwalk也分析不出来</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544264401647.png" alt></p>
@@ -671,15 +647,13 @@
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544264826861.png" alt></p>
 <p>应该把第二帧提取出来在一个通道可以找到另一半。保存第二帧找到另一半拼接而且还得补全左上角，扫描得到flag</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544265332045.png" alt></p>
-<h3 id="四-、内存取证"><a href="#四-、内存取证" class="headerlink" title="(四)、内存取证"></a>(四)、内存取证</h3><p><strong>1.Linux</strong></p>
-<p>提示Linux，下载文件是一个不知名的文件。根据提示放到linux下file命令看看</p>
+<h4 id="四-、内存取证"><a href="#四-、内存取证" class="headerlink" title="(四)、内存取证"></a>(四)、内存取证</h4><h4 id="1-Linux"><a href="#1-Linux" class="headerlink" title="1.Linux"></a><strong>1.Linux</strong></h4><p>提示Linux，下载文件是一个不知名的文件。根据提示放到linux下file命令看看</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543839881560.png" alt></p>
 <p>是一个映像文件，我们尝试挂载</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543840137206.png" alt></p>
 <p>找到目录即可找到flag文件</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543840168267.png" alt></p>
-<p><strong>2.linux2</strong></p>
-<p><strong>法一：</strong></p>
+<h4 id="2-linux2"><a href="#2-linux2" class="headerlink" title="2.linux2"></a><strong>2.linux2</strong></h4><p><strong>法一：</strong></p>
 <p>Notepad++直接搜索key得到flag。但是我觉得这个题肯定不是这么做，这是个非预期做法。</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543842696247.png" alt></p>
 <p><strong>法二：</strong></p>
@@ -690,79 +664,67 @@
 <p>最后貌似懂了出题人想考什么：应该是考linux的strings命令</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543843090208.png" alt></p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543843073019.png" alt></p>
-<h3 id="五-、音频隐写"><a href="#五-、音频隐写" class="headerlink" title="(五)、音频隐写"></a>(五)、音频隐写</h3><p><strong>1.旋转跳跃</strong></p>
-<p>MP3文件，听一下（真好听）。关于MP3的除了曲线就是MP3隐写了。用工具MP3Stego分析得到flag</p>
+<h4 id="五-、音频隐写"><a href="#五-、音频隐写" class="headerlink" title="(五)、音频隐写"></a>(五)、音频隐写</h4><h4 id="1-旋转跳跃"><a href="#1-旋转跳跃" class="headerlink" title="1.旋转跳跃"></a><strong>1.旋转跳跃</strong></h4><p>MP3文件，听一下（真好听）。关于MP3的除了曲线就是MP3隐写了。用工具MP3Stego分析得到flag</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544170752898.png" alt></p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544170769529.png" alt></p>
-<p><strong>2.听首音乐</strong></p>
-<p>用Audacity打开后发现</p>
+<h4 id="2-听首音乐"><a href="#2-听首音乐" class="headerlink" title="2.听首音乐"></a><strong>2.听首音乐</strong></h4><p>用Audacity打开后发现</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544247374917.png" alt></p>
 <p>放大</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544247395610.png" alt></p>
 <p>这就很容易猜想了。三种状态：<code>点、短横、空格</code>正好对应摩斯电码的三种符号：<code>.-/</code></p>
 <p>手撕电码解密得flag</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544247504314.png" alt></p>
-<p><strong>3.PEN_AND_APPLE</strong></p>
-<p>NTFS流隐写，一种以前木马的隐藏方式</p>
+<h4 id="3-PEN-AND-APPLE"><a href="#3-PEN-AND-APPLE" class="headerlink" title="3.PEN_AND_APPLE"></a><strong>3.PEN_AND_APPLE</strong></h4><p>NTFS流隐写，一种以前木马的隐藏方式</p>
 <p>隐藏方法：<code>type flag.png&gt;pen_and_apple.mp4</code></p>
 <p>查看方法：<code>dir /r</code></p>
-<h2 id="四、Other"><a href="#四、Other" class="headerlink" title="四、Other"></a><strong>四、Other</strong></h2><p><strong>1.宽带信息泄露</strong></p>
-<p>给出一个.bin二进制文件，但是不知道什么生成的。根据题目提示用RouterPassView打开，搜索username找到flag。</p>
+<h3 id="四、Other"><a href="#四、Other" class="headerlink" title="四、Other"></a><strong>四、Other</strong></h3><h4 id="1-宽带信息泄露"><a href="#1-宽带信息泄露" class="headerlink" title="1.宽带信息泄露"></a><strong>1.宽带信息泄露</strong></h4><p>给出一个.bin二进制文件，但是不知道什么生成的。根据题目提示用RouterPassView打开，搜索username找到flag。</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543829157825.png" alt></p>
-<p><strong>2.come_game</strong></p>
-<p>提示通关就有flag。下载后发现是一个exe的小游戏，既然放在MISC应该不会用到Re。随便玩一玩发现很难通关，不可能通关玩。</p>
+<h4 id="2-come-game"><a href="#2-come-game" class="headerlink" title="2.come_game"></a><strong>2.come_game</strong></h4><p>提示通关就有flag。下载后发现是一个exe的小游戏，既然放在MISC应该不会用到Re。随便玩一玩发现很难通关，不可能通关玩。</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543839511645.png" alt></p>
 <p>退出后生成了一个save1文件，猜测应该是存盘。这样的话我们把存的关数修改不就可以通关了吗？用010Eeditor打开修改数字2，一个个修改。最后到5的时候打开游戏就是通关了。</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543839576931.png" alt></p>
-<p><strong>3.做个游戏</strong></p>
-<p>提示坚持六十秒，同上个题目差不多。不可能达到他的要求。jar文件我们尝反编译查看源码找到flag。</p>
+<h4 id="3-做个游戏"><a href="#3-做个游戏" class="headerlink" title="3.做个游戏"></a><strong>3.做个游戏</strong></h4><p>提示坚持六十秒，同上个题目差不多。不可能达到他的要求。jar文件我们尝反编译查看源码找到flag。</p>
 <p>符强大的java在线反编译网址：<code>http://www.javadecompilers.com/</code></p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543841153496.png" alt></p>
-<p><strong>4.想蹭网先解开密码</strong></p>
-<p>给了个.cap流量包，用wireshark打开。提示WIFI密码，WIFI连接认证的重点在WPA的四次握手包，也就是eapol协议的包，过滤一下</p>
+<h4 id="4-想蹭网先解开密码"><a href="#4-想蹭网先解开密码" class="headerlink" title="4.想蹭网先解开密码"></a><strong>4.想蹭网先解开密码</strong></h4><p>给了个.cap流量包，用wireshark打开。提示WIFI密码，WIFI连接认证的重点在WPA的四次握手包，也就是eapol协议的包，过滤一下</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543841548020.png" alt></p>
 <p>正好四个包。接下来根据提示写个字典。</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543841689953.png" alt></p>
 <p>通过kali里面的aircrack-ng破解就可以得到key了，key就是flag了。</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543841797798.png" alt></p>
-<p><strong>6.账号被盗了</strong></p>
-<p>不抓包直接getflag提示you are not admin！ 抓包把flase改成true。得到连接，访问下载exe文件。</p>
+<h4 id="6-账号被盗了"><a href="#6-账号被盗了" class="headerlink" title="6.账号被盗了"></a><strong>6.账号被盗了</strong></h4><p>不抓包直接getflag提示you are not admin！ 抓包把flase改成true。得到连接，访问下载exe文件。</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543843368759.png" alt></p>
 <p>打开后是一个刷枪的工具</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543843710210.png" alt></p>
 <p>尝试提交，抓流量包发现明显有base64编码。</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1543843815043.png" alt></p>
 <p>解码是163邮箱。获取账号密码登录后得到flag。</p>
-<p><strong>7.好多数值</strong></p>
-<p>一看就是很多RGB值让我们绘制图片，先分析绘制图像的长宽。用python分析一下数据的长度。</p>
+<h4 id="7-好多数值"><a href="#7-好多数值" class="headerlink" title="7.好多数值"></a><strong>7.好多数值</strong></h4><p>一看就是很多RGB值让我们绘制图片，先分析绘制图像的长宽。用python分析一下数据的长度。</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544251197657.png" alt></p>
 <p>开方开不尽，所以不是正方形。分解质数得到503*61*2。python脚本跑测试一下是122*503。得到flag</p>
 <p>脚本：</p>
-<p>from PIL import Image<br>import re<br>​<br>x = 503 #x坐标  通过对txt里的行数进行整数分解<br>y = 122 #y坐标  x*y = 行数<br>​<br>im = Image.new(“RGB”,(x,y))#创建图片<br>file = open(‘1 (1).txt’) #打开rbg值文件<br>​<br>#通过一个个rgb点生成图片<br>for i in range(0,x):<br>•    for j in range(0,y):<br>•        line = file.readline().replace(‘(‘,’’).replace(‘)’,’’)#获取一行<br>•        rgb = line.split(“,”)#分离rgb<br>•        im.putpixel((i, j), (int(rgb[0]), int(rgb[1]), int(rgb[2])))#rgb转化为像素<br>im.show()</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">from</span> PIL import Image  </span><br><span class="line">import re  </span><br><span class="line"></span><br><span class="line">x = <span class="number">503</span> <span class="comment">#x坐标  通过对txt里的行数进行整数分解  </span></span><br><span class="line">y = <span class="number">122</span> <span class="comment">#y坐标  x*y = 行数  </span></span><br><span class="line"> </span><br><span class="line">im = Image.<span class="built_in">new</span>(<span class="string">"RGB"</span>,(x,y))<span class="comment">#创建图片  </span></span><br><span class="line"><span class="built_in">file</span> = <span class="built_in">open</span>(<span class="string">'1 (1).txt'</span>) <span class="comment">#打开rbg值文件  </span></span><br><span class="line"></span><br><span class="line"><span class="comment">#通过一个个rgb点生成图片  </span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,x):  </span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">0</span>,y):  </span><br><span class="line">        <span class="built_in">line</span> = <span class="built_in">file</span>.readline().<span class="built_in">replace</span>(<span class="string">'('</span>,<span class="string">''</span>).<span class="built_in">replace</span>(<span class="string">')'</span>,<span class="string">''</span>)<span class="comment">#获取一行  </span></span><br><span class="line">        rgb = <span class="built_in">line</span>.<span class="built_in">split</span>(<span class="string">","</span>)<span class="comment">#分离rgb  </span></span><br><span class="line">        im.putpixel((i, j), (int(rgb\[<span class="number">0</span>\]), int(rgb\[<span class="number">1</span>\]), int(rgb\[<span class="number">2</span>\])))<span class="comment">#rgb转化为像素  </span></span><br><span class="line">        </span><br><span class="line">im.show()</span><br></pre></td></tr></table></figure>
+
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544251049478.png" alt></p>
-<p><strong>8.很普通的数独</strong></p>
-<p>并不知道什么是数独。但是这25张图片加上里面的白黑相间很容易想到是个5*5的二维码。</p>
+<h4 id="8-很普通的数独"><a href="#8-很普通的数独" class="headerlink" title="8.很普通的数独"></a><strong>8.很普通的数独</strong></h4><p>并不知道什么是数独。但是这25张图片加上里面的白黑相间很容易想到是个5*5的二维码。</p>
 <p><img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/1544253035293.png" alt></p>
 <p>关键是如何把他们拼接成二维码？….</p>
 <p>看了大佬的wp是用Python的PIL库来处理。把数字涂黑然后拼接生成二维码。大致思路是计算一张图中的 81 个格子的位置，然后看每一个格子中心的一堆像素（比如设置了 6 x 6）中是否有黑色像素。如果没有说明是白格子，跳过；如果有说明是有数字的格子，涂黑。</p>
 <p>贴个大佬脚本：</p>
-<p>from PIL import Image<br>​<br>def work(s):<br>    im = Image.open(“{}.png”.format(s))<br>    width = im.size[0]<br>    height = im.size[1]<br>    newim = Image.new(“RGB”, (width, height), (255,255,255))<br>    print(im.size)<br>    print(newim.size)<br>    sx = sy = 2<br>    for i in range(width):<br>        for j in range(height - sy):<br>            try:<br>                p = im.getpixel((i, j))<br>                newim.putpixel((i,j), p)<br>            except:<br>                pass#print(i, j)<br>    xx = yy = 14<br>    blockx = 23<br>    blocky = 22<br>    r = 3<br>    rr = 12<br>    for i in range(9):<br>        stx = int(xx + i * blockx)<br>        for j in range(9):<br>            sty = int(yy + j * blocky)<br>            flag = False<br>            for x in range(stx - r, stx + r):<br>                for y in range(sty - r, sty + r):<br>                    p = newim.getpixel((x, y))<br>                    if p == (0,0,0):<br>                        flag = True<br>                        break<br>                if flag:<br>                    break<br>            if flag:<br>                for x in range(stx - rr, stx + rr):<br>                    for y in range(sty - rr, sty + rr):<br>                        try:<br>                            newim.putpixel((x,y), (0,0,0))<br>                        except:<br>                            pass<br>    newim.save(“{}-1.png”.format(s))<br>​<br>for i in range(1, 26):<br>    work(i)</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">from PIL import Image  </span><br><span class="line"></span><br><span class="line">def work(s):  </span><br><span class="line">    im = Image.open(<span class="string">"&#123;&#125;.png"</span>.format(s))  </span><br><span class="line">    <span class="built_in">width</span> = im.size\[<span class="number">0</span>\]  </span><br><span class="line">    <span class="built_in">height</span> = im.size\[<span class="number">1</span>\]  </span><br><span class="line">    newim = Image.<span class="built_in">new</span>(<span class="string">"RGB"</span>, (<span class="built_in">width</span>, <span class="built_in">height</span>), (<span class="number">255</span>,<span class="number">255</span>,<span class="number">255</span>))  </span><br><span class="line">    <span class="built_in">print</span>(im.size)  </span><br><span class="line">    <span class="built_in">print</span>(newim.size)  </span><br><span class="line">    sx = sy = <span class="number">2</span>  </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">width</span>):  </span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">height</span> - sy):  </span><br><span class="line">            try:  </span><br><span class="line">                p = im.getpixel((i, j))  </span><br><span class="line">                newim.putpixel((i,j), p)  </span><br><span class="line">            except:  </span><br><span class="line">                pass#<span class="built_in">print</span>(i, j)  </span><br><span class="line">    xx = yy = <span class="number">14</span>  </span><br><span class="line">    blockx = <span class="number">23</span>  </span><br><span class="line">    blocky = <span class="number">22</span>  </span><br><span class="line">    r = <span class="number">3</span>  </span><br><span class="line">    rr = <span class="number">12</span>  </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">9</span>):  </span><br><span class="line">        stx = int(xx + i * blockx)  </span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">9</span>):  </span><br><span class="line">            sty = int(yy + j * blocky)  </span><br><span class="line">            flag = False  </span><br><span class="line">            <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(stx - r, stx + r):  </span><br><span class="line">                <span class="keyword">for</span> y <span class="keyword">in</span> <span class="built_in">range</span>(sty - r, sty + r):  </span><br><span class="line">                    p = newim.getpixel((x, y))  </span><br><span class="line">                    <span class="keyword">if</span> p == (<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>):  </span><br><span class="line">                        flag = True  </span><br><span class="line">                        <span class="built_in">break</span>  </span><br><span class="line">                <span class="keyword">if</span> flag:  </span><br><span class="line">                    <span class="built_in">break</span>  </span><br><span class="line">            <span class="keyword">if</span> flag:  </span><br><span class="line">                <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(stx - rr, stx + rr):  </span><br><span class="line">                    <span class="keyword">for</span> y <span class="keyword">in</span> <span class="built_in">range</span>(sty - rr, sty + rr):  </span><br><span class="line">                        try:  </span><br><span class="line">                            newim.putpixel((x,y), (<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>))  </span><br><span class="line">                        except:  </span><br><span class="line">                            pass  </span><br><span class="line">    newim.<span class="built_in">save</span>(<span class="string">"&#123;&#125;-1.png"</span>.format(s))  </span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">26</span>):  </span><br><span class="line">    work(i)</span><br></pre></td></tr></table></figure>
+
 <p>拼接后扫码得到多重base64</p>
 <p>Vm0xd1NtUXlWa1pPVldoVFlUSlNjRlJVVGtOamJGWnlWMjFHVlUxV1ZqTldNakZIWVcxS1IxTnNhRmhoTVZweVdWUkdXbVZHWkhOWGJGcHBWa1paZWxaclpEUmhNVXBYVW14V2FHVnFRVGs9</p>
 <p>多解码几次得到flag</p>
-<p><strong>9.QAQ</strong></p>
-<p>用01Eidtor打开发现有encode、.txt、base64、key、encrypt等字样猜测可能是pyc文件（py文件编译后）放到kali里面用命令查看一下确实是个pyc文件</p>
+<h4 id="9-QAQ"><a href="#9-QAQ" class="headerlink" title="9.QAQ"></a><strong>9.QAQ</strong></h4><p>用01Eidtor打开发现有encode、.txt、base64、key、encrypt等字样猜测可能是pyc文件（py文件编译后）放到kali里面用命令查看一下确实是个pyc文件</p>
 <p>在线反编译一下得到源码。</p>
-<p>#/usr/bin/env python<br># encoding: utf-8<br>​<br>def encryt(key, plain):<br>    cipher = ‘’<br>    for i in range(len(plain)):<br>        cipher += chr(ord(key[i % len(key)]) ^ ord(plain[i]))  </p>
-<pre><code>return cipher  </code></pre><p>def getPlainText():<br>    plain = ‘’<br>    with open(‘plain.txt’) as f:<br>        while True:<br>            line = f.readline()<br>            if line:<br>                plain += line<br>            else:<br>                break  </p>
-<pre><code>return plain  </code></pre><p>def main():<br>    key = ‘LordCasser’<br>    plain = getPlainText()<br>    cipher = encryt(key, plain)<br>    with open(‘cipher.txt’, ‘w’) as f:<br>        f.write(cipher.encode(‘base_64’))  </p>
-<p>if __name__ == ‘__main__‘:<br>    main()</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">/usr/bin/env python  </span><br><span class="line">encoding: utf<span class="number">-8</span>  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">encryt</span><span class="params">(key, plain)</span>:</span>  </span><br><span class="line">    cipher = <span class="string">''</span>  </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(plain)):  </span><br><span class="line">        cipher += chr(ord(key\[i % len(key)\]) ^ ord(plain\[i\]))  </span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> cipher  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getPlainText</span><span class="params">()</span>:</span>  </span><br><span class="line">    plain = <span class="string">''</span>  </span><br><span class="line">    <span class="keyword">with</span> open(<span class="string">'plain.txt'</span>) <span class="keyword">as</span> f:  </span><br><span class="line">        <span class="keyword">while</span> <span class="literal">True</span>:  </span><br><span class="line">            line = f.readline()  </span><br><span class="line">            <span class="keyword">if</span> line:  </span><br><span class="line">                plain += line  </span><br><span class="line">            <span class="keyword">else</span>:  </span><br><span class="line">                <span class="keyword">break</span>  </span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> plain  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span>  </span><br><span class="line">    key = <span class="string">'LordCasser'</span>  </span><br><span class="line">    plain = getPlainText()  </span><br><span class="line">    cipher = encryt(key, plain)  </span><br><span class="line">    <span class="keyword">with</span> open(<span class="string">'cipher.txt'</span>, <span class="string">'w'</span>) <span class="keyword">as</span> f:  </span><br><span class="line">        f.write(cipher.encode(<span class="string">'base_64'</span>))  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> \_\_name\_\_ == <span class="string">'\_\_main\_\_'</span>:  </span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+
 <p>然后还给了一个文件。三段数据，应该是用到脚本里面。</p>
 <p>然后审计代码尝试写解密python脚本</p>
 <p>过几天抽时间写吧，先放一下</p>
 <p>解密后…</p>
-<p><strong>10.apple</strong></p>
-<p>未完代更新</p>
+<h4 id="10-apple"><a href="#10-apple" class="headerlink" title="10.apple"></a><strong>10.apple</strong></h4><p>未完代更新</p>
 
     </div>
     <div>
@@ -891,7 +853,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、信息收集与社工"><span class="nav-text">一、信息收集与社工</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、编码分析"><span class="nav-text">二、编码分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、取证隐写"><span class="nav-text">三、取证隐写</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一-、图片隐写"><span class="nav-text">(一)、图片隐写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二-、流量分析"><span class="nav-text">(二)、流量分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三-、压缩包分析"><span class="nav-text">(三)、压缩包分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四-、内存取证"><span class="nav-text">(四)、内存取证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五-、音频隐写"><span class="nav-text">(五)、音频隐写</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、Other"><span class="nav-text">四、Other</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、信息收集与社工"><span class="nav-text">一、信息收集与社工</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-签到"><span class="nav-text">1.签到</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-猜"><span class="nav-text">2.猜</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、编码分析"><span class="nav-text">二、编码分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-多种方法解决"><span class="nav-text">1.多种方法解决</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-普通的二维码"><span class="nav-text">2.普通的二维码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-convert"><span class="nav-text">3.convert</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-就五层你能解开吗"><span class="nav-text">4.就五层你能解开吗</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、取证隐写"><span class="nav-text">三、取证隐写</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一-、图片隐写"><span class="nav-text">(一)、图片隐写</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-这是一张单纯的图片"><span class="nav-text">1.这是一张单纯的图片</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-隐写"><span class="nav-text">2.隐写</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-啊嗒"><span class="nav-text">3.啊嗒</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-又一张图片，还单纯吗"><span class="nav-text">4.又一张图片，还单纯吗</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-隐写2"><span class="nav-text">5.隐写2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-闪的好快"><span class="nav-text">6.闪的好快</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-隐写3"><span class="nav-text">7.隐写3</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-细心的大象"><span class="nav-text">8.细心的大象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-爆照"><span class="nav-text">9.爆照</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-猫片"><span class="nav-text">10.猫片</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11-多彩"><span class="nav-text">11.多彩</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-乌云邀请码"><span class="nav-text">12.乌云邀请码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-图穷匕见"><span class="nav-text">13.图穷匕见</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#14-color"><span class="nav-text">14.color</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#15-2B"><span class="nav-text">15.2B</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#16-妹子的陌陌"><span class="nav-text">16.妹子的陌陌</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二-、流量分析"><span class="nav-text">(二)、流量分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-talnet"><span class="nav-text">1.talnet</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三-、压缩包分析"><span class="nav-text">(三)、压缩包分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-眼见非实"><span class="nav-text">1.眼见非实</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-神秘文件"><span class="nav-text">2.神秘文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-好多压缩包"><span class="nav-text">3.好多压缩包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-一个普通的压缩包"><span class="nav-text">4.一个普通的压缩包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四-、内存取证"><span class="nav-text">(四)、内存取证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Linux"><span class="nav-text">1.Linux</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-linux2"><span class="nav-text">2.linux2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#五-、音频隐写"><span class="nav-text">(五)、音频隐写</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-旋转跳跃"><span class="nav-text">1.旋转跳跃</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-听首音乐"><span class="nav-text">2.听首音乐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-PEN-AND-APPLE"><span class="nav-text">3.PEN_AND_APPLE</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、Other"><span class="nav-text">四、Other</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-宽带信息泄露"><span class="nav-text">1.宽带信息泄露</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-come-game"><span class="nav-text">2.come_game</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-做个游戏"><span class="nav-text">3.做个游戏</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-想蹭网先解开密码"><span class="nav-text">4.想蹭网先解开密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-账号被盗了"><span class="nav-text">6.账号被盗了</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-好多数值"><span class="nav-text">7.好多数值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-很普通的数独"><span class="nav-text">8.很普通的数独</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-QAQ"><span class="nav-text">9.QAQ</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-apple"><span class="nav-text">10.apple</span></a></li></ol></li></ol></div>
         
       </div>
       <!--/noindex-->

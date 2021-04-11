@@ -64,7 +64,7 @@
 <meta property="og:description" content="# -*- coding: utf-8 -*- &amp;apos;&amp;apos;&amp;apos; 一个区块的结构 {     &amp;quot;index&amp;quot;:0,          //索引     &amp;quot;timestamp&amp;quot;:&amp;quot;&amp;quot;,     //时间戳     &amp;quot;proof&amp;quot;:&amp;quot;&amp;quot;,         //工作量证明     &amp;q">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/xx-C1/MDphoto/master/qklgongzuoliangzhengm.png">
-<meta property="og:updated_time" content="2019-10-09T10:52:50.000Z">
+<meta property="og:updated_time" content="2021-04-10T03:16:49.445Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="区块链-工作量证明Python实现">
 <meta name="twitter:description" content="# -*- coding: utf-8 -*- &amp;apos;&amp;apos;&amp;apos; 一个区块的结构 {     &amp;quot;index&amp;quot;:0,          //索引     &amp;quot;timestamp&amp;quot;:&amp;quot;&amp;quot;,     //时间戳     &amp;quot;proof&amp;quot;:&amp;quot;&amp;quot;,         //工作量证明     &amp;q">
@@ -296,7 +296,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-09 18:52:50" itemprop="dateModified" datetime="2019-10-09T18:52:50+08:00">2019-10-09</time>
+                <time title="修改时间：2021-04-10 11:16:49" itemprop="dateModified" datetime="2021-04-10T11:16:49+08:00">2021-04-10</time>
               </span>
             
           
@@ -376,10 +376,33 @@
     &quot;prehash&quot;:&quot;&quot;,       //前一块区块的hash值
 }
 &apos;&apos;&apos;
+
 import hashlib
 import json
-import time</code></pre><a id="more"></a><p>​<br>​    class BlockChain:<br>​<br>​        #初始化区块链方法<br>​        def <strong>init</strong>(self):<br>​            self.chain = []                             #区块链<br>​            self.current_transactions = []              #交易<br>​<br>​            self.new_block(proof = 100, pre_hash= 1)    #产生创世区块<br>​<br>​        #创建区块方法，默认前一块hash为None（创世区块）<br>​        def new_block(self, proof, pre_hash = None):<br>​<br>            block = {<br>                ‘index’:len(self.chain) + 1,                        #所创建区块的索引为当前区块链长度+1<br>                ‘timestamp’: time.time(),                           #产生时间戳<br>                ‘transactions’:self.current_transactions,           #交易信息为当前保存的交易信息列表<br>                ‘proof’:proof,                                      #工作量证明<br>                ‘pre_hash’:pre_hash or self.hash(self.chain[-1])    #前一块哈希值，[-1]代表数组最后一个元素<br>            }</p>
-<pre><code>        self.current_transactions = []                          #交易已经打包成区块，当前交易赋空
+import time
+
+
+class BlockChain:
+
+    #初始化区块链方法
+    def __init__(self):
+        self.chain = []                             #区块链
+        self.current_transactions = []              #交易
+
+        self.new_block(proof = 100, pre_hash= 1)    #产生创世区块
+
+    #创建区块方法，默认前一块hash为None（创世区块）
+    def new_block(self, proof, pre_hash = None):
+
+        block = {
+            &apos;index&apos;:len(self.chain) + 1,                        #所创建区块的索引为当前区块链长度+1
+            &apos;timestamp&apos;: time.time(),                           #产生时间戳
+            &apos;transactions&apos;:self.current_transactions,           #交易信息为当前保存的交易信息列表
+            &apos;proof&apos;:proof,                                      #工作量证明
+            &apos;pre_hash&apos;:pre_hash or self.hash(self.chain[-1])    #前一块哈希值，[-1]代表数组最后一个元素
+        }
+
+        self.current_transactions = []                          #交易已经打包成区块，当前交易赋空
         self.chain.append(block)                                #在区块链后面添加区块
 
         return block
@@ -432,7 +455,8 @@ import time</code></pre><a id="more"></a><p>​<br>​    class BlockChain:<br>�
     #测试工作量证明代码
 if __name__ == &quot;__main__&quot;:
     testPow = BlockChain()
-    testPow.proof_of_work(100)</code></pre><p>测试结果： <img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/qklgongzuoliangzhengm.png" alt="qkl"></p>
+    testPow.proof_of_work(100)</code></pre><a id="more"></a><p>​            </p>
+<p>测试结果： <img src="https://raw.githubusercontent.com/xx-C1/MDphoto/master/qklgongzuoliangzhengm.png" alt="qkl"></p>
 
     </div>
     <div>
@@ -510,8 +534,8 @@ if __name__ == &quot;__main__&quot;:
 
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2019/09/03/苟若恒，何必三更眠五更起。/" rel="prev" title="苟若恒，何必三更眠五更起。">
-                  苟若恒，何必三更眠五更起。 <i class="fa fa-chevron-right"></i>
+                <a href="/2019/09/03/苟若恒，何必三更眠五更起。/" rel="prev" title="WEB安全梳理">
+                  WEB安全梳理 <i class="fa fa-chevron-right"></i>
                 </a>
               
             </div>
